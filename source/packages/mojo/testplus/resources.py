@@ -29,11 +29,11 @@ from mojo.xmods.landscaping.coupling.scopecoupling import ScopeCoupling
 
 from mojo.xmods.exceptions import SemanticError
 
-from testplus.registration.resourceregistry import resource_registry
+from mojo.testplus.registration.resourceregistry import resource_registry
 
-from testplus.registration.integrationsource import IntegrationSource
-from testplus.registration.resourcesource import ResourceSource
-from testplus.registration.scopesource import ScopeSource
+from mojo.testplus.registration.integrationsource import IntegrationSource
+from mojo.testplus.registration.resourcesource import ResourceSource
+from mojo.testplus.registration.scopesource import ScopeSource
 
 _IntegrationSubscriberType = TypeVar("_IntegrationSubscriberType", bound=Callable[..., object])
 

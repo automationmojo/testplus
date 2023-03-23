@@ -18,7 +18,7 @@ import click
 
 from mojo.xmods.xlogging.levels import LOG_LEVEL_NAMES
 
-from testplus.cli.cmdtree.testing.constants import (
+from mojo.testplus.cli.cmdtree.testing.constants import (
     HELP_ROOT,
     HELP_EXCLUDES,
     HELP_INCLUDES,
@@ -126,7 +126,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
 
     from mojo.xmods.xlogging.foundations import logging_initialize
 
-    from testplus.markers import MetaFilter, parse_marker_expression
+    from mojo.testplus.markers import MetaFilter, parse_marker_expression
 
     if branch is not None:
         optionoverrides.override_build_branch(branch)
@@ -282,12 +282,14 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     logging_initialize()
     logger = logging.getLogger()
 
-    from testplus.extensionpoints import TestplusExtensionPoints
-    akep = TestplusExtensionPoints()
+    from mojo.xmods.wellknown.singletons import SuperFactorySinglton
+    from mojo.testplus.extensionpoints import TestPlusExtensionPoints
 
     # At this point in the code, we either lookup an existing test job or we create a test job
     # from the includes, excludes or test_module
-    TestJobType = akep.get_testplus_default_job_type()
+    sfactory = SuperFactorySinglton()
+    TestJobType = sfactory.get_override_types_by_order(TestPlusExtensionPoints.get_testplus_default_job_type)
+
     result_code = 0
     with TestJobType(logger, test_root, includes=includes, excludes=excludes, metafilters=metafilters) as tjob:
         result_code = tjob.execute()

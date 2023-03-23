@@ -10,7 +10,7 @@ __license__ = "MIT"
 
 from typing import Callable, Type
 
-from testplus.registration.sourcebase import SourceBase
+from mojo.testplus.registration.sourcebase import SourceBase
 
 class UnknownSource(SourceBase):
     """

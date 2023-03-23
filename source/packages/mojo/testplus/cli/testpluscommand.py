@@ -20,7 +20,7 @@ __license__ = "MIT"
 
 import click
 
-from testplus.cli.cmdtree.testing import group_akit_testing
+from mojo.testplus.cli.cmdtree.testing import group_akit_testing
 
 @click.group("akit")
 @click.option('-v', '--verbose', count=True)

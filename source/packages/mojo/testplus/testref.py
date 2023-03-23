@@ -24,7 +24,7 @@ import collections
 import inspect
 import sys
 
-from testplus.markers import MetaFilter
+from mojo.testplus.markers import MetaFilter
 
 class TestRef:
     """

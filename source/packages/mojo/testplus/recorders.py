@@ -36,12 +36,12 @@ from mojo.runtime.paths import (
     get_summary_static_resource_src_dir
 )
 
-from testplus.jsos import CHAR_RECORD_SEPERATOR
-from testplus.results import ResultCode, ResultNode, ResultType
+from mojo.testplus.jsos import CHAR_RECORD_SEPERATOR
+from mojo.testplus.results import ResultCode, ResultNode, ResultType
 
 
 
-from testplus.utilities import catalog_tree
+from mojo.testplus.utilities import catalog_tree
 
 CHAR_RECORD_SEPERATOR
 

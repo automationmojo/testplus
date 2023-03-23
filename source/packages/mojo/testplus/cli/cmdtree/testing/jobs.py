@@ -96,12 +96,13 @@ def command_testplus_testing_jobs_run(root, job, output, start, branch, build, f
         logging_initialize()
         logger = logging.getLogger()
 
-        from testplus.extensionpoints import testplusExtensionPoints
-        akep = testplusExtensionPoints()
+        from mojo.xmods.wellknown.singletons import SuperFactorySinglton
+        from mojo.testplus.extensionpoints import TestPlusExtensionPoints
 
         # At this point in the code, we either lookup an existing test job or we create a test job
         # from the includes, excludes or test_module
-        TestJobType = akep.get_testplus_default_job_type()
+        sfactory = SuperFactorySinglton()
+        TestJobType = sfactory.get_override_types_by_order(TestPlusExtensionPoints.get_testplus_default_job_type)
 
         if job is not None:
             job_parts = job.split("@")

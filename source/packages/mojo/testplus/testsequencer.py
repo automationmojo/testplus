@@ -33,17 +33,17 @@ from akit.xconfiguration import DiagnosticLabel, RuntimeConfigPaths
 
 from mojo.runtime.paths import get_path_for_diagnostics, get_path_for_output
 
-from testplus.exceptions import SkitTestError
-from testplus.jsos import CHAR_RECORD_SEPERATOR
-from testplus.results import ResultCode, ResultContainer, ResultNode, ResultType
-from testplus.recorders import ResultRecorder
+from mojo.testplus.exceptions import SkitTestError
+from mojo.testplus.jsos import CHAR_RECORD_SEPERATOR
+from mojo.testplus.results import ResultCode, ResultContainer, ResultNode, ResultType
+from mojo.testplus.recorders import ResultRecorder
 
-from testplus.constraints import Constraints
-from testplus.testcollector import TestCollector
-from testplus.registration.resourceregistry import resource_registry
-from testplus.testgroup import TestGroup
-from testplus.testref import TestRef
-from testplus.markers import MetaFilter
+from mojo.testplus.constraints import Constraints
+from mojo.testplus.testcollector import TestCollector
+from mojo.testplus.registration.resourceregistry import resource_registry
+from mojo.testplus.testgroup import TestGroup
+from mojo.testplus.testref import TestRef
+from mojo.testplus.markers import MetaFilter
 
 from mojo.xmods.xdebugger import WELLKNOWN_BREAKPOINTS, debugger_wellknown_breakpoint_code_append
 

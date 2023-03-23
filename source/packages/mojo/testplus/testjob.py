@@ -16,24 +16,21 @@ __email__ = "myron.walker@gmail.com"
 __status__ = "Development" # Prototype, Development or Production
 __license__ = "MIT"
 
-from typing import List, Optional
+from typing import List, Optional, Protocol
 
 import os
 import traceback
 
 from mojo.xmods.xcollections.context import ContextUser
+from mojo.xmods.wellknown.singletons import LandscapeSingleton
+from mojo.xmods.xformatting import CommandOutputFormat
+from mojo.xmods.xdebugger import WELLKNOWN_BREAKPOINTS, debugger_wellknown_breakpoint_entry
 
 from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
 
+from mojo.testplus.recorders import JsonResultRecorder
+from mojo.testplus.testsequencer import TestSequencer
 
-from testplus.recorders import JsonResultRecorder
-
-from mojo.xmods.wellknown.singletons import LandscapeSingleton
-from mojo.xmods.xformatting import CommandOutputFormat
-
-from testplus.testsequencer import TestSequencer
-
-from mojo.xmods.xdebugger import WELLKNOWN_BREAKPOINTS, debugger_wellknown_breakpoint_entry
 
 class TestJob(ContextUser):
     """

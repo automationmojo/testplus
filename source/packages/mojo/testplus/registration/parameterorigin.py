@@ -12,8 +12,8 @@ from typing import Any, Callable, Dict, Optional, Type, Union
 
 import inspect
 
-from testplus.registration.sourcebase import SourceBase
-from testplus.resourcelifespan import ResourceLifespan
+from mojo.testplus.registration.sourcebase import SourceBase
+from mojo.testplus.resourcelifespan import ResourceLifespan
 
 class ParameterOrigin:
 

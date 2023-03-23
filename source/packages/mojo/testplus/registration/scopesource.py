@@ -12,7 +12,7 @@ from typing import Callable, Union
 
 from mojo.xmods.landscaping.coupling.scopecoupling import ScopeCoupling
 
-from testplus.registration.sourcebase import SourceBase
+from mojo.testplus.registration.sourcebase import SourceBase
 
 class ScopeSource(SourceBase):
 

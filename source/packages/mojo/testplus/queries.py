@@ -19,7 +19,7 @@ import traceback
 from mojo.xmods.ximport import import_by_name
 from mojo.xmods.exceptions import SemanticError
 
-from testplus.testref import TestRef
+from mojo.testplus.testref import TestRef
 
 logger = logging.getLogger()
 

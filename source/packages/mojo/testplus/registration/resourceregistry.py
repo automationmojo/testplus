@@ -12,14 +12,14 @@ from typing import Dict
 
 from mojo.xmods.exceptions import SemanticError
 
-from testplus.registration.integrationsource import IntegrationSource
-from testplus.registration.parameterorigin import ParameterOrigin
-from testplus.registration.resourcescope import ResourceScope
-from testplus.registration.resourcesource import ResourceSource
-from testplus.registration.scopesource import ScopeSource
-from testplus.registration.parameterorigin import ParameterOrigin
+from mojo.testplus.registration.integrationsource import IntegrationSource
+from mojo.testplus.registration.parameterorigin import ParameterOrigin
+from mojo.testplus.registration.resourcescope import ResourceScope
+from mojo.testplus.registration.resourcesource import ResourceSource
+from mojo.testplus.registration.scopesource import ScopeSource
+from mojo.testplus.registration.parameterorigin import ParameterOrigin
 
-from testplus.testref import TestRef
+from mojo.testplus.testref import TestRef
 
 
 class ResourceRegistry:

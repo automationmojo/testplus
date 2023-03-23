@@ -18,9 +18,9 @@ from mojo.xmods.exceptions import SemanticError
 from mojo.xmods.landscaping.coupling.integrationcoupling import IntegrationCoupling
 from mojo.xmods.landscaping.coupling.scopecoupling import ScopeCoupling
 
-from testplus.registration.parameterorigin import ParameterOrigin
+from mojo.testplus.registration.parameterorigin import ParameterOrigin
 
-from testplus.testref import TestRef
+from mojo.testplus.testref import TestRef
 
 RESOURCE_KEY_FORMAT = "{}@{}:{}"
 

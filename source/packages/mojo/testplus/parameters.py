@@ -14,11 +14,11 @@ import inspect
 from mojo.xmods.exceptions import SemanticError
 from mojo.xmods.landscaping.coupling.integrationcoupling import IntegrationCoupling
 
-from testplus.registration.resourceregistry import resource_registry
+from mojo.testplus.registration.resourceregistry import resource_registry
 
-from testplus.registration.integrationsource import IntegrationSource
-from testplus.resourcelifespan import ResourceLifespan
-from testplus.registration.parameterorigin import ParameterOrigin
+from mojo.testplus.registration.integrationsource import IntegrationSource
+from mojo.testplus.resourcelifespan import ResourceLifespan
+from mojo.testplus.registration.parameterorigin import ParameterOrigin
 
 def param(source, *, identifier: Optional[None], constraints: Optional[Dict]=None):
     def decorator(subscriber: Callable) -> Callable:

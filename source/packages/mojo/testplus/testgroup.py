@@ -23,8 +23,8 @@ import sys
 
 from mojo.xmods.exceptions import SemanticError
 
-from testplus.registration.resourceregistry import resource_registry
-from testplus.testref import TestRef
+from mojo.testplus.registration.resourceregistry import resource_registry
+from mojo.testplus.testref import TestRef
 
 logger = logging.getLogger()
 

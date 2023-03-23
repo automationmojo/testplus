@@ -27,15 +27,15 @@ from mojo.xmods.exceptions import SemanticError
 
 from mojo.xmods.landscaping.coupling.integrationcoupling import IntegrationCoupling
 
-from testplus.exceptions import UnknownParameterError
-from testplus.expressions import parse_test_include_expression
-from testplus.utilities import find_included_modules_under_root
-from testplus.queries import collect_test_references
+from mojo.testplus.exceptions import UnknownParameterError
+from mojo.testplus.expressions import parse_test_include_expression
+from mojo.testplus.utilities import find_included_modules_under_root
+from mojo.testplus.queries import collect_test_references
 
-from testplus.testgroup import TestGroup
-from testplus.testref import TestRef
-from testplus.registration.resourceregistry import resource_registry
-from testplus.markers import MetaFilter
+from mojo.testplus.testgroup import TestGroup
+from mojo.testplus.testref import TestRef
+from mojo.testplus.registration.resourceregistry import resource_registry
+from mojo.testplus.markers import MetaFilter
 
 logger = logging.getLogger()
 

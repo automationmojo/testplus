@@ -1,2 +1,4 @@
-# python-package-template
-This is a template repository that can be used to quickly create a python package project.
+# Automation Mojo - Testplus 
+This is preliminary release of the 'testplus' automation framework in a separate package from
+the AutomationKit.  This release is not ready for public consumption.
+

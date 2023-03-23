@@ -12,7 +12,7 @@ from typing import Callable
 
 from mojo.xmods.landscaping.coupling.integrationcoupling import IntegrationCoupling
 
-from testplus.registration.sourcebase import SourceBase
+from mojo.testplus.registration.sourcebase import SourceBase
 
 class IntegrationSource(SourceBase):
 

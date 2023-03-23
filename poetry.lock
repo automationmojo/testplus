@@ -435,19 +435,19 @@ files = [
 
 [[package]]
 name = "mojo-runtime"
-version = "0.0.14"
+version = "0.0.15"
 description = "Automation Mojo Runtime Module (mojo-runtime)"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_runtime-0.0.14-py3-none-any.whl", hash = "sha256:c398c298db0d60f0610c8f4ecb741dd6ce7a2bf220522f63aaa8c2468a727e52"},
-    {file = "mojo_runtime-0.0.14.tar.gz", hash = "sha256:0dbf1ec29ca1c3a0322d8f4e95c71e89689d4a096148ff1cb088b1049eebc3bf"},
+    {file = "mojo_runtime-0.0.15-py3-none-any.whl", hash = "sha256:3889915b5bdaff9f5a483b2a249b75652c25c1bed57ed9deddeb096ee8a1ab20"},
+    {file = "mojo_runtime-0.0.15.tar.gz", hash = "sha256:01b235352b2c3309f736dde0dbc3416d3b57fefa72a9fbe06251ca56c7b41471"},
 ]
 
 [package.dependencies]
 coverage = ">=7.0.4,<8.0.0"
-mojo-xmodules = ">=0.0.16,<0.0.17"
+mojo-xmodules = ">=0.0.17,<0.0.18"
 
 [[package]]
 name = "mojo-waiting"
@@ -463,14 +463,14 @@ files = [
 
 [[package]]
 name = "mojo-xmodules"
-version = "0.0.16"
+version = "0.0.17"
 description = "Automation Mojo X-Modules"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_xmodules-0.0.16-py3-none-any.whl", hash = "sha256:ea2cfefcabd07da80716f5a1912020b86e1c304bde43e1ec1c731ff168194fcd"},
-    {file = "mojo_xmodules-0.0.16.tar.gz", hash = "sha256:9f173b1341c1b1f13042617bcda699c8982ad3d393f658014b6f97027f4fff45"},
+    {file = "mojo_xmodules-0.0.17-py3-none-any.whl", hash = "sha256:b7e1c6cbc80f4ba94f289e85a95f22b45ba7878794bccb1e7aaab63ab4d094ce"},
+    {file = "mojo_xmodules-0.0.17.tar.gz", hash = "sha256:95392d2bb59a8b71a870ec30f32a5c85217c1258e08ae9bcf1c505e94aa0e090"},
 ]
 
 [package.dependencies]
@@ -841,4 +841,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "10997939c4e9b43c2a4b4e4d079fa915ecb6dc2ffc6ec47ba9c5a7d08d228fc8"
+content-hash = "9a95862b1e15497485b3c880d2e306047ac86b185d47ba4399f5de8406486423"
