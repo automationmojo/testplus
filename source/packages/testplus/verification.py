@@ -15,9 +15,9 @@ import re
 
 from pprint import pformat
 
-from akit.xformatting import indent_lines
+from mojo.xmods.xformatting import indent_lines
 
-from akit.exceptions import AKitAssertionError, TracebackFormatPolicy
+from mojo.xmods.exceptions import AKitAssertionError, TracebackFormatPolicy
 
 __traceback_format_policy__ = TracebackFormatPolicy.Hide
 
