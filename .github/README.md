@@ -1,10 +1,4 @@
-# Python Package Template
+# TestPlus
 
-This is a template repository that can be used to start off a python package project.
+This is the repository for the testplus framework.
 
-# Features of this Template
-
-* Machine Setup
-* Virtual Environment Setup (Poetry)
-* PyPi Publishing
-* Sphinx Documentation
