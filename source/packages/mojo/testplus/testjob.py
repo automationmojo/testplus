@@ -21,7 +21,7 @@ from typing import List, Optional, Protocol
 import os
 import traceback
 
-from mojo.xmods.xcollections.context import ContextUser
+from mojo.xmods.xcollections.context import ContextUser, ContextPaths
 from mojo.xmods.wellknown.singletons import LandscapeSingleton
 from mojo.xmods.xformatting import CommandOutputFormat
 from mojo.xmods.xdebugger import WELLKNOWN_BREAKPOINTS, debugger_wellknown_breakpoint_entry
@@ -82,7 +82,6 @@ class TestJob(ContextUser):
 
         self._test_module = test_module
         self._parser = parser
-        self._runid = None
         self._starttime = None
 
         self._test_results_dir = None
@@ -99,6 +98,7 @@ class TestJob(ContextUser):
         self._build_url = MOJO_RUNTIME_VARIABLES.MJR_BUILD_URL
 
         self._job_initiator = MOJO_RUNTIME_VARIABLES.MJR_JOB_INITIATOR
+        self._job_id = MOJO_RUNTIME_VARIABLES.MJR_JOB_ID
         self._job_label = MOJO_RUNTIME_VARIABLES.MJR_JOB_LABEL
         self._job_name = MOJO_RUNTIME_VARIABLES.MJR_JOB_NAME
         self._job_owner = MOJO_RUNTIME_VARIABLES.MJR_JOB_OWNER
@@ -125,11 +125,12 @@ class TestJob(ContextUser):
             Called at the beginning of a test job in order to setup the recording of test results.
         """
 
+        
+
         env = self.context.lookup("/environment")
 
         self._test_results_dir = env["output_directory"]
         self._starttime = env["starttime"]
-        self._runid = env["runid"]
 
         self._result_filename = os.path.join(self._test_results_dir, "testrun_results.jsos")
         self._summary_filename = os.path.join(self._test_results_dir, "testrun_summary.json")
@@ -150,9 +151,8 @@ class TestJob(ContextUser):
             # order in the automation code and that we provide the ability for configuration
             # issues to be discovered as early as possible.
 
-            env = self.context.lookup("/environment")
-            debugger = env["debugger"]
-            breakpoints = env["breakpoints"]
+            debugger = self.context.lookup(ContextPaths.DEBUG_DEBUGGER, None)
+            breakpoints = self.context.lookup(ContextPaths.DEBUG_BREAKPOINTS, None)
 
             # STEP 1: We discover the tests first so we can build a listing of the
             # Integration and Scope couplings.  We don't want to execute any test code, setup,
@@ -242,7 +242,7 @@ class TestJob(ContextUser):
                 tseq.generate_testrun_sequence_document(self._testrun_sequence_filename)
 
                 title = self.title
-                runid = self._runid
+                runid = self._job_id
                 start = str(self._starttime)
                 sum_file = self._summary_filename
                 res_file = self._result_filename

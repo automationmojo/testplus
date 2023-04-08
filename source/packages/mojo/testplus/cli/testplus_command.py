@@ -2,9 +2,9 @@
 
 #!/usr/bin/env python3
 """
-.. module:: akitcommand
+.. module:: testplus_command
     :platform: Darwin, Linux, Unix, Windows
-    :synopsis: The script entrypoint for the 'akit' command.
+    :synopsis: The script entrypoint for the 'testplus' command.
 
 .. moduleauthor:: Myron Walker <myron.walker@gmail.com>
 """
@@ -20,11 +20,11 @@ __license__ = "MIT"
 
 import click
 
-from mojo.testplus.cli.cmdtree.testing import group_akit_testing
+from mojo.testplus.cli.cmdtree.testing import group_testplus_testing
 
-@click.group("akit")
+@click.group("testplus")
 @click.option('-v', '--verbose', count=True)
-def akit_root_command(verbose):
+def testplus_root_command(verbose):
 
     from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
 
@@ -40,9 +40,12 @@ def akit_root_command(verbose):
         elif verbose > 2:
             MOJO_RUNTIME_VARIABLES.MJR_LOG_LEVEL_CONSOLE = "NOTSET"
 
+    from mojo.testplus.initialize import initialize_testplus_runtime
+    initialize_testplus_runtime()
+
     return
 
-akit_root_command.add_command(group_akit_testing)
+testplus_root_command.add_command(group_testplus_testing)
 
 if __name__ == '__main__':
-    akit_root_command()
+    testplus_root_command()

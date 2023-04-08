@@ -35,6 +35,7 @@ def command_testplus_testing_query(root, includes, excludes, debug):
 
     # IMPORTANT: We need to load the context first because it will trigger the loading
     # of the default user configuration
+
     from mojo.xmods.xcollections.context import Context
     from mojo.xmods.xpython import extend_path
 
@@ -68,13 +69,20 @@ def command_testplus_testing_query(root, includes, excludes, debug):
     # We use console activation because all our input output is going through the terminal
     import mojo.runtime.activation.console
 
-    from mojo.xmods.xlogging.foundations import logging_initialize
+    from mojo.testplus.initialize import initialize_testplus_results
+    initialize_testplus_results()
+
     from mojo.xmods.wellknown.singletons import SuperFactorySinglton
     from mojo.testplus.extensionpoints import TestPlusExtensionPoints
 
     # Initialize logging
+    from mojo.xmods.xlogging.foundations import logging_initialize
     logging_initialize()
+
     logger = logging.getLogger()
+
+    tpmod = sys.modules["mojo.testplus"]
+    tpmod.logger = logger
 
     sfactory = SuperFactorySinglton()
     TestJobType = sfactory.get_override_types_by_order(TestPlusExtensionPoints.get_testplus_default_job_type)

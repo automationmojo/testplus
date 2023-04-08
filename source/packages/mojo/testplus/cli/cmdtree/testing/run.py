@@ -86,8 +86,6 @@ from mojo.testplus.cli.cmdtree.testing.constants import (
 @click.option("--logfile-level", default=None, required=False, type=click.Choice(LOG_LEVEL_NAMES, case_sensitive=False), help=HELP_FILE_LOG_LEVEL)
 @click.option("--debugger", default=None, required=False, type=click.Choice(['pdb', 'debugpy']), help=HELP_DEBUGGER)
 @click.option("--breakpoint", "breakpoints", default=None, required=False, multiple=True, type=click.Choice(['test-discovery', 'testrun-start']), help=HELP_BREAKPOINT)
-@click.option("--time-travel", is_flag=True, default=False, required=False, help=HELP_TIMETRAVEL)
-@click.option("--time-portal", "timeportals", default=None, required=False, multiple=True, help=HELP_TIMEPORTAL)
 @click.option("--prerun-diagnostic", is_flag=True, default=False, required=False, help=HELP_PRERUN_DIAGNOSTIC)
 @click.option("--postrun-diagnostic", is_flag=True, default=False, required=False, help=HELP_POSTRUN_DIAGNOSTIC)
 @click.option("--include-marker-exp", required=False, multiple=True, help=HELP_INCLUDE_MARKER_EXP)
@@ -107,6 +105,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
 
     # IMPORTANT: We need to load the context first because it will trigger the loading
     # of the default user configuration
+
     from mojo.xmods.xcollections.context import Context, ContextPaths
     from mojo.xmods.xpython import extend_path
 
@@ -124,7 +123,8 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     # handle exceptions in the context of testrunner_main function
     import mojo.runtime.activation.testrun
 
-    from mojo.xmods.xlogging.foundations import logging_initialize
+    from mojo.testplus.initialize import initialize_testplus_results
+    initialize_testplus_results()
 
     from mojo.testplus.markers import MetaFilter, parse_marker_expression
 
@@ -231,12 +231,6 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     if debugger is not None:
         optionoverrides.override_debug_debugger('debugpy')
 
-    if time_travel is not None:
-        optionoverrides.override_timetravel(time_travel)
-
-    if timeportals is not None:
-        optionoverrides.override_timeportals(timeportals)
-
     if prerun_diagnostic:
         ctx.insert("/configuration/diagnostics/prerun-diagnostic", {})
     
@@ -279,8 +273,13 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
         metafilters.append(mfilter)
 
     # Initialize logging
+    from mojo.xmods.xlogging.foundations import logging_initialize
     logging_initialize()
+
     logger = logging.getLogger()
+
+    tpmod = sys.modules["mojo.testplus"]
+    tpmod.logger = logger
 
     from mojo.xmods.wellknown.singletons import SuperFactorySinglton
     from mojo.testplus.extensionpoints import TestPlusExtensionPoints

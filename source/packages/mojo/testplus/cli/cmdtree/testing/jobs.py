@@ -67,6 +67,7 @@ def command_testplus_testing_jobs_run(root, job, output, start, branch, build, f
 
     # IMPORTANT: We need to load the context first because it will trigger the loading
     # of the default user configuration
+
     from mojo.xmods.xcollections.context import Context
 
     from mojo.xmods.ximport import import_by_name
@@ -90,11 +91,18 @@ def command_testplus_testing_jobs_run(root, job, output, start, branch, build, f
         # handle exceptions in the context of testrunner_main function
         import mojo.runtime.activation.testrun
 
-        from mojo.xmods.xlogging.foundations import logging_initialize
+        from mojo.testplus.initialize import initialize_testplus_results
+        initialize_testplus_results()
 
         # Initialize logging
+        from mojo.xmods.xlogging.foundations import logging_initialize
         logging_initialize()
+
         logger = logging.getLogger()
+
+        tpmod = sys.modules["mojo.testplus"]
+        tpmod.logger = logger
+
 
         from mojo.xmods.wellknown.singletons import SuperFactorySinglton
         from mojo.testplus.extensionpoints import TestPlusExtensionPoints

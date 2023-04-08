@@ -26,13 +26,13 @@ import sys
 import uuid
 
 from mojo.xmods.xcollections.context import ContextUser
-from mojo.xmods.exceptions import SemanticError, format_exception
+from mojo.xmods.exceptions import SemanticError
 from mojo.xmods.ximport import import_file
-
-from akit.xconfiguration import DiagnosticLabel, RuntimeConfigPaths
+from mojo.xmods.xtraceback import format_exception
 
 from mojo.runtime.paths import get_path_for_diagnostics, get_path_for_output
 
+from mojo.testplus.diagnostics import DiagnosticLabel, RuntimeConfigPaths
 from mojo.testplus.exceptions import SkitTestError
 from mojo.testplus.jsos import CHAR_RECORD_SEPERATOR
 from mojo.testplus.results import ResultCode, ResultContainer, ResultNode, ResultType
@@ -62,9 +62,9 @@ TEMPLATE_TESTRUN_SEQUENCE_MODULE = '''"""
 
 __traceback_format_policy__ = "Brief"
 
-from akit.xlogging.foundations import getAutomatonKitLogger
+import logging
 
-logger = getAutomatonKitLogger()
+logger = logging.getLogger()
 
 {}
 
@@ -766,8 +766,6 @@ class TestSequencer(ContextUser):
         ]
 
         debugger_wellknown_breakpoint_code_append(WELLKNOWN_BREAKPOINTS.TESTRUN_START, method_lines, current_indent)
-
-        current_indent += timemachine_timeportal_code_append(WELLKNOWN_PORTALS.TESTRUN_START, method_lines, current_indent)
 
         method_lines.append('')
         method_lines.append('{}with sequencer.enter_session_scope_context() as ssc:'.format(current_indent))

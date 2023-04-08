@@ -2,7 +2,7 @@
 .. module:: entrypoints
     :platform: Darwin, Linux, Unix, Windows
     :synopsis: A set of standaridized entry point functions that provide standardized test environment
-               startup and test run commencement utilizing the :class:`akit.testing.unittest.testsequencer.TestSequencer`
+               startup and test run commencement utilizing the :class:`mojo.testplus.testsequencer.TestSequencer`
                object.
 
 .. moduleauthor:: Myron Walker <myron.walker@gmail.com>
@@ -37,8 +37,6 @@ from mojo.testplus.utilities import find_testmodule_root, find_testmodule_fullna
 from mojo.testplus.testjob import DefaultTestJob
 from mojo.testplus.registration.resourceregistry import ResourceRegistry
 
-logger = logging.getLogger()
-
 def generic_test_entrypoint():
     """
         This is the generic test entry point for test modules.  It provides a standardized set of
@@ -48,7 +46,12 @@ def generic_test_entrypoint():
        The `generic_test_entrypoint` is a useful tool to place at the bottom of test files to allow
        them to easily be run for debugging purposes.
     """
+    from mojo.testplus.initialize import initialize_testplus_runtime, initialize_testplus_results
+    initialize_testplus_runtime()
+
     import mojo.runtime.activation.testrun
+
+    initialize_testplus_results()
 
     # We must exit with a result code, initialize it to 0 here
     result_code = 0
@@ -72,6 +75,12 @@ def generic_test_entrypoint():
     if not os.path.exists(test_results_dir):
         os.makedirs(test_results_dir)
     env["output_directory"] = test_results_dir
+
+    from mojo.xmods.xlogging.foundations import logging_initialize
+    logging_initialize()
+
+    tpmod = sys.modules["mojo.testplus"]
+    tpmod.logger = logging.getLogger()
 
     testroot = find_testmodule_root(test_module)
     module_fullname = find_testmodule_fullname(test_module, testroot=testroot)
@@ -111,6 +120,7 @@ def generic_test_entrypoint():
     args = base_parser.parse_args()
 
     logging_initialize()
+    logger = logging.getLogger()
 
     includes = args.includes
     excludes = args.excludes

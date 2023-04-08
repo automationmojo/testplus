@@ -12,6 +12,18 @@
             "console": "integratedTerminal",
             "justMyCode": false,
             "envFile": "${workspaceFolder}/.env"
-        }
+        },
+        {
+            "name": "Python: Internal Tests",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/source/packages/mojo/testplus/cli/testplus_command.py",
+            "args": [
+                "--root=${workspaceFolder}/source/testroots/unittest",
+                "--include=internal"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
     ]
 }

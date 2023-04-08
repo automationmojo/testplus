@@ -17,7 +17,7 @@ from pprint import pformat
 
 from mojo.xmods.xformatting import indent_lines
 
-from mojo.xmods.exceptions import AKitAssertionError, TracebackFormatPolicy
+from mojo.xmods.xtraceback import TracebackFormatPolicy
 
 __traceback_format_policy__ = TracebackFormatPolicy.Hide
 
@@ -27,14 +27,14 @@ PREFIX_API = "'{}' API result"
 def assert_dict_response_has_keys(to_inspect: dict, expected_keys: List[str], api: Optional[str] = None):
     """
         Verifies that the specified return result from the specified API has the specified expected keys.  If the
-        verification fails then an :class:`AKitAssertionError` is created and return, otherwise None is returned. It
+        verification fails then an :class:`AssertionError` is created and return, otherwise None is returned. It
         is the resposibility of the calling test to raise the returned error.
 
         :param to_inspect: The dictionary being inspected
         :param expected_keys: The list of expected keys
         :param api: The optional name of the API that returned the result being inspected.
         
-        :returns: None or an :class:`AKitAssertionError` for the caller to raise.
+        :returns: None or an :class:`AssertionError` for the caller to raise.
     """
 
     template = "    '{}' key not found."
@@ -52,21 +52,21 @@ def assert_dict_response_has_keys(to_inspect: dict, expected_keys: List[str], ap
             err_msg_lines.append(nxtce)
 
         errmsg = os.linesep.join(err_msg_lines)
-        raise AKitAssertionError(errmsg)
+        raise AssertionError(errmsg)
 
     return
 
 def assert_dict_response_has_paths(to_inspect: dict, expected_paths: List[str], api: Optional[str] = None):
     """
         Verifies that the specified return result from the specified API has the specified expected paths.  If the
-        verification fails then an :class:`AKitAssertionError` is created and return, otherwise None is returned. It
+        verification fails then an :class:`AssertionError` is created and return, otherwise None is returned. It
         is the resposibility of the calling test to raise the returned error.
 
         :param to_inspect: The dictionary being inspected
         :param expected_keys: The list of expected keys
         :param api: The name of the API that returned the result being inspected.
         
-        :returns: None or an :class:`AKitAssertionError` for the caller to raise.
+        :returns: None or an :class:`AssertionError` for the caller to raise.
     """
 
     template = "    '{}' path not found."
@@ -84,7 +84,7 @@ def assert_dict_response_has_paths(to_inspect: dict, expected_paths: List[str], 
             err_msg_lines.append(nxtce)
 
         errmsg = os.linesep.join(err_msg_lines)
-        raise AKitAssertionError(errmsg)
+        raise AssertionError(errmsg)
 
     return
 
@@ -92,14 +92,14 @@ def assert_dict_response_has_paths(to_inspect: dict, expected_paths: List[str], 
 def assert_equal(found: Any, expected: Any, api: Optional[str] = None):
     """
         Verifies that the specified return result from the specified API has the specified expected value.
-        If the verification fails then an :class:`AKitAssertionError` is created and returned, otherwise None
+        If the verification fails then an :class:`AssertionError` is created and returned, otherwise None
         is returned. It is the resposibility of the calling test to raise the returned error.
 
         :param found: The value to be compared
         :param expected: The expected value
         :param api: The name of the API that returned the result being inspected.
         
-        :returns: None or an :class:`AKitAssertionError` for the caller to raise.
+        :returns: None or an :class:`AssertionError` for the caller to raise.
     """
 
     if found != expected:
@@ -128,21 +128,21 @@ def assert_equal(found: Any, expected: Any, api: Optional[str] = None):
             err_msg_lines.extend(found_format_lines)
 
         errmsg = os.linesep.join(err_msg_lines)
-        raise AKitAssertionError(errmsg)
+        raise AssertionError(errmsg)
 
     return
 
 def assert_expression(found: str, expr: Union[str, re.Pattern], api: Optional[str] = None):
     """
         Verifies that the specified return result from the specified API has the specified expected value.
-        If the verification fails then an :class:`AKitAssertionError` is created and returned, otherwise None
+        If the verification fails then an :class:`AssertionError` is created and returned, otherwise None
         is returned. It is the resposibility of the calling test to raise the returned error.
 
         :param found: The value to be compared
         :param expr: An expression to match with the found value.
         :param api: The name of the API that returned the result being inspected.
         
-        :returns: None or an :class:`AKitAssertionError` for the caller to raise.
+        :returns: None or an :class:`AssertionError` for the caller to raise.
     """
 
     if not isinstance(expr, re.Pattern):
@@ -160,14 +160,14 @@ def assert_expression(found: str, expr: Union[str, re.Pattern], api: Optional[st
         ]
 
         errmsg = os.linesep.join(err_msg_lines)
-        raise AKitAssertionError(errmsg)
+        raise AssertionError(errmsg)
 
     return
 
 def assert_greater(found: Any, boundary: Any, api: Optional[str] = None):
     """
         Verifies that the specified return result from the specified API has a value greater than the
-        boundary specified. If the verification fails then an :class:`AKitAssertionError` is created
+        boundary specified. If the verification fails then an :class:`AssertionError` is created
         and returned, otherwise None is returned. It is the resposibility of the calling test to raise
         the returned error.
 
@@ -175,7 +175,7 @@ def assert_greater(found: Any, boundary: Any, api: Optional[str] = None):
         :param boundry: The boundary value being compared against
         :param api: The name of the API that returned the result being inspected.
         
-        :returns: None or an :class:`AKitAssertionError` for the caller to raise.
+        :returns: None or an :class:`AssertionError` for the caller to raise.
     """
 
     if not found > boundary:
@@ -203,14 +203,14 @@ def assert_greater(found: Any, boundary: Any, api: Optional[str] = None):
             err_msg_lines.extend(found_format_lines)
 
         errmsg = os.linesep.join(err_msg_lines)
-        raise AKitAssertionError(errmsg)
+        raise AssertionError(errmsg)
 
     return
 
 def assert_lessthan(found: Any, boundary: Any, api: Optional[str] = None):
     """
         Verifies that the specified return result from the specified API has a value less than the
-        boundary specified. If the verification fails then an :class:`AKitAssertionError` is created
+        boundary specified. If the verification fails then an :class:`AssertionError` is created
         and returned, otherwise None is returned. It is the resposibility of the calling test to raise
         the returned error.
 
@@ -218,7 +218,7 @@ def assert_lessthan(found: Any, boundary: Any, api: Optional[str] = None):
         :param boundry: The boundary value being compared against
         :param api: The name of the API that returned the result being inspected.
         
-        :returns: None or an :class:`AKitAssertionError` for the caller to raise.
+        :returns: None or an :class:`AssertionError` for the caller to raise.
     """
 
     if not found < boundary:
@@ -246,7 +246,7 @@ def assert_lessthan(found: Any, boundary: Any, api: Optional[str] = None):
             err_msg_lines.extend(found_format_lines)
 
         errmsg = os.linesep.join(err_msg_lines)
-        raise AKitAssertionError(errmsg)
+        raise AssertionError(errmsg)
 
     return
 
@@ -254,14 +254,14 @@ def assert_lessthan(found: Any, boundary: Any, api: Optional[str] = None):
 def assert_list_length(to_inspect: List, expected_len: int, api: Optional[str] = None):
     """
         Verifies that the specified return result from the specified API has the specified expected number of items.
-        If the verification fails then an :class:`AKitAssertionError` is created and returned, otherwise None
+        If the verification fails then an :class:`AssertionError` is created and returned, otherwise None
         is returned. It is the resposibility of the calling test to raise the returned error.
 
         :param to_inspect: The list being inspected
         :param expected_len: The expected length of the list
         :param api: The name of the API that returned the result being inspected.
         
-        :returns: None or an :class:`AKitAssertionError` for the caller to raise.
+        :returns: None or an :class:`AssertionError` for the caller to raise.
     """
 
     found_len = len(to_inspect)
@@ -280,21 +280,21 @@ def assert_list_length(to_inspect: List, expected_len: int, api: Optional[str] =
         err_msg_lines.append("")
 
         errmsg = os.linesep.join(err_msg_lines)
-        raise AKitAssertionError(errmsg)
+        raise AssertionError(errmsg)
 
     return
 
 def assert_list_length_greater(to_inspect: List, boundary_len: int, api: Optional[str] = None):
     """
         Verifies that the specified return result from the specified API has more items than the specified expected
-        number of items.  If the verification fails then an :class:`AKitAssertionError` is created and returned,
+        number of items.  If the verification fails then an :class:`AssertionError` is created and returned,
         otherwise None is returned. It is the resposibility of the calling test to raise the returned error.
 
         :param to_inspect: The list being inspected
         :param boundary_len: The boundary that the list length should exceed.
         :param api: The name of the API that returned the result being inspected.
         
-        :returns: None or an :class:`AKitAssertionError` for the caller to raise.
+        :returns: None or an :class:`AssertionError` for the caller to raise.
     """
 
     found_len = len(to_inspect)
@@ -313,21 +313,21 @@ def assert_list_length_greater(to_inspect: List, boundary_len: int, api: Optiona
         err_msg_lines.append("")
 
         errmsg = os.linesep.join(err_msg_lines)
-        raise AKitAssertionError(errmsg)
+        raise AssertionError(errmsg)
 
     return
 
 def assert_list_length_less(to_inspect: List, boundary_len: int, api: Optional[str] = None):
     """
         Verifies that the specified return result from the specified API has less items than the specified expected
-        number of items.  If the verification fails then an :class:`AKitAssertionError` is created and returned,
+        number of items.  If the verification fails then an :class:`AssertionError` is created and returned,
         otherwise None is returned. It is the resposibility of the calling test to raise the returned error.
 
         :param to_inspect: The list being inspected
         :param boundary_len: The boundary the list length should not exceed
         :param api: The name of the API that returned the result being inspected.
         
-        :returns: None or an :class:`AKitAssertionError` for the caller to raise.
+        :returns: None or an :class:`AssertionError` for the caller to raise.
     """
     
     found_len = len(to_inspect)
@@ -346,7 +346,7 @@ def assert_list_length_less(to_inspect: List, boundary_len: int, api: Optional[s
         err_msg_lines.append("")
 
         errmsg = os.linesep.join(err_msg_lines)
-        raise AKitAssertionError(errmsg)
+        raise AssertionError(errmsg)
 
     return
 
@@ -354,14 +354,14 @@ def assert_list_length_less(to_inspect: List, boundary_len: int, api: Optional[s
 def assert_type(found: Any, exp_type: Type, api: Optional[str] = None):
     """
         Verifies that the specified return result from the specified API has the specified expected value type.
-        If the verification fails then an :class:`AKitAssertionError` is created and returned, otherwise None
+        If the verification fails then an :class:`AssertionError` is created and returned, otherwise None
         is returned. It is the resposibility of the calling test to raise the returned error.
 
         :param found: The value to check the type of
         :param exp_type: The expected value type
         :param api: The name of the API that returned the result being inspected.
         
-        :returns: None or an :class:`AKitAssertionError` for the caller to raise.
+        :returns: None or an :class:`AssertionError` for the caller to raise.
     """
 
     found_type = type(found)
@@ -375,7 +375,7 @@ def assert_type(found: Any, exp_type: Type, api: Optional[str] = None):
         ]
 
         errmsg = os.linesep.join(err_msg_lines)
-        raise AKitAssertionError(errmsg)
+        raise AssertionError(errmsg)
 
     return
 
