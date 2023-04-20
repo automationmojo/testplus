@@ -3,7 +3,7 @@ import os
 
 from mojo.xmods.xcollections.context import Context, ContextPaths
 
-from mojo.runtime.initialize import initialize_runtime
+from mojo.runtime.initialize import initialize_runtime, MOJO_RUNTIME_STATE
 from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
 
 TESTPLUS_DIR = os.path.dirname(__file__)
@@ -11,7 +11,8 @@ TEMPLATES_DIR = os.path.join(TESTPLUS_DIR, "templates")
 STATIC_DIR = os.path.join(TEMPLATES_DIR, "static")
 
 def initialize_testplus_runtime():
-    initialize_runtime(name="testplus", logger_name="TP")
+    if not MOJO_RUNTIME_STATE.INITIALIZED:
+        initialize_runtime(name="testplus", logger_name="TP")
     return
 
 def initialize_testplus_results():
