@@ -75,7 +75,7 @@ from mojo.testplus.cli.cmdtree.testing.constants import (
 @click.option("--landscape-name", "landscape_names", multiple=True, default=None, required=False, help=HELP_LANDSCAPE_NAMES)
 @click.option("--landscape-path", "landscape_path", default=None, required=False, help=HELP_LANDSCAPE_PATH)
 @click.option("--runtime", "runtime_files", multiple=True, default=None, required=False, help=HELP_RUNTIME)
-@click.option("--runtime-name", "runtime_names", default=None, required=False, help=HELP_RUNTIME_NAMES)
+@click.option("--runtime-name", "runtime_names", multiple=True, default=None, required=False, help=HELP_RUNTIME_NAMES)
 @click.option("--runtime-path", "runtime_path", default=None, required=False, help=HELP_RUNTIME_PATH)
 @click.option("--topology", "topology_files", multiple=True, default=None, required=False, help=HELP_TOPOLOGY)
 @click.option("--topology-name", "topology_names", multiple=True, default=None, required=False, help=HELP_TOPOLOGY_NAMES)
@@ -116,7 +116,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     import mojo.runtime.activation.testrun
 
     from mojo.testplus.initialize import initialize_runtime, initialize_testplus_results
-    initialize_runtime()
+    initialize_runtime(name="mjr", logger_name="MJR")
 
     ctx = Context()
     env = ctx.lookup("/environment")

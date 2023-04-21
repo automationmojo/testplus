@@ -19,8 +19,10 @@
             "request": "launch",
             "program": "${workspaceFolder}/source/packages/mojo/testplus/cli/testplus_command.py",
             "args": [
-                "--root=${workspaceFolder}/source/testroots/unittest",
-                "--include=internal"
+                "testing",
+                "run",
+                "--root=${workspaceFolder}/source/testroots",
+                "--includes=mojo.tests"
             ],
             "console": "integratedTerminal",
             "justMyCode": false
