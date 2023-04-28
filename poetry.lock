@@ -590,14 +590,14 @@ files = [
 
 [[package]]
 name = "mojo-runtime"
-version = "0.0.22"
+version = "0.0.23"
 description = "Automation Mojo Runtime Module (mojo-runtime)"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_runtime-0.0.22-py3-none-any.whl", hash = "sha256:2060d17ab4de9d5c8dab9a20106aee70771e05779f65a8dfd6ea69eb7fa6e15e"},
-    {file = "mojo_runtime-0.0.22.tar.gz", hash = "sha256:ca8e0a2b6c959c2cd0f395b4c94e2f60c2b2b69eeccbde7773defbecd43dde3a"},
+    {file = "mojo_runtime-0.0.23-py3-none-any.whl", hash = "sha256:b8b1f2d21d8bb85de5f0b557e638f39ce2a5d49c0abc75b8d2de82e856033f3d"},
+    {file = "mojo_runtime-0.0.23.tar.gz", hash = "sha256:04af46e7cf5123be014ac712a7e98c5cdf72bd242b17e844316871806a8b9c31"},
 ]
 
 [package.dependencies]
