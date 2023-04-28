@@ -18,10 +18,11 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/source/packages/mojo/testplus/cli/testplus_command.py",
+            "envFile": "${workspaceFolder}/.env",
             "args": [
                 "testing",
                 "run",
-                "--root=${workspaceFolder}/source/testroots",
+                "--root=${workspaceFolder}/source/testroots/mojo",
                 "--includes=mojo.tests"
             ],
             "console": "integratedTerminal",
