@@ -1,9 +1,9 @@
 [tool.poetry]
 name = "mojo-testplus"
 description = "Automation Mojo TestPlus Test Framework"
-version = "0.0.6"
+version = "0.0.7"
 authors = []
-readme = "README.md"
+readme = "README.rst"
 license = "LICENSE.txt"
 classifiers = [
     "Programming Language :: Python :: 3",
