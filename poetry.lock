@@ -64,14 +64,14 @@ typecheck = ["mypy"]
 
 [[package]]
 name = "certifi"
-version = "2022.12.7"
+version = "2023.5.7"
 description = "Python package for providing Mozilla's CA Bundle."
 category = "dev"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "certifi-2022.12.7-py3-none-any.whl", hash = "sha256:4ad3232f5e926d6718ec31cfc1fcadfde020920e278684144551c91769c7bc18"},
-    {file = "certifi-2022.12.7.tar.gz", hash = "sha256:35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3"},
+    {file = "certifi-2023.5.7-py3-none-any.whl", hash = "sha256:c6c2e98f5c7869efca1f8916fed228dd91539f9f1b444c314c06eef02980c716"},
+    {file = "certifi-2023.5.7.tar.gz", hash = "sha256:0f0d56dc5a6ad56fd4ba36484d6cc34451e1c6548c61daad8c320169f91eddc7"},
 ]
 
 [[package]]
@@ -590,14 +590,14 @@ files = [
 
 [[package]]
 name = "mojo-runtime"
-version = "0.0.30"
+version = "0.0.32"
 description = "Automation Mojo Runtime Module (mojo-runtime)"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_runtime-0.0.30-py3-none-any.whl", hash = "sha256:575a92253d508e8a70f29055540580fb35e09afa4ca57a5c95bed09dbb9ea78e"},
-    {file = "mojo_runtime-0.0.30.tar.gz", hash = "sha256:3616f807b4b2526722580b3ec303c62f0d8be9a0fc3f099f77b872d2a194b809"},
+    {file = "mojo_runtime-0.0.32-py3-none-any.whl", hash = "sha256:1079022ac6ea4e8122e301d3730a09a3b205f6156d2fbb5c209a923c32d4cc37"},
+    {file = "mojo_runtime-0.0.32.tar.gz", hash = "sha256:bc058ef0fcbd782f4fd6f8956d830609158cbf6d81c38dee4ee3b2e13e94b77e"},
 ]
 
 [package.dependencies]
@@ -618,14 +618,14 @@ files = [
 
 [[package]]
 name = "mojo-xmodules"
-version = "0.0.31"
+version = "0.0.32"
 description = "Automation Mojo X-Modules"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_xmodules-0.0.31-py3-none-any.whl", hash = "sha256:6725377d6facf06b92d73570fae5e7bc2528c903ab3cc7c0ba5a2fc943d1ce8a"},
-    {file = "mojo_xmodules-0.0.31.tar.gz", hash = "sha256:1ad3dbed56f7affc6a22328c4a1028c3a142fee997d9dc5d393edb3a998ebbdd"},
+    {file = "mojo_xmodules-0.0.32-py3-none-any.whl", hash = "sha256:be62a09f1b497a8e6b5d7061f7c75a1ecae13931aad317a3710411dbcebd38ce"},
+    {file = "mojo_xmodules-0.0.32.tar.gz", hash = "sha256:95c9a8970e3d72a6867c16a77dcabefff9a56ed75ed3149df8d6ff32655d6027"},
 ]
 
 [package.dependencies]
