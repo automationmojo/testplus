@@ -20,7 +20,10 @@ __license__ = "MIT"
 
 import click
 
+from mojo.testplus.cli.cmdtree.publishing import group_testplus_publishing
 from mojo.testplus.cli.cmdtree.testing import group_testplus_testing
+from mojo.testplus.cli.cmdtree.utilities import group_testplus_utilities
+
 
 @click.group("testplus")
 @click.option('-v', '--verbose', count=True)
@@ -45,7 +48,9 @@ def testplus_root_command(verbose):
 
     return
 
+testplus_root_command.add_command(group_testplus_publishing)
 testplus_root_command.add_command(group_testplus_testing)
+testplus_root_command.add_command(group_testplus_utilities)
 
 if __name__ == '__main__':
     testplus_root_command()

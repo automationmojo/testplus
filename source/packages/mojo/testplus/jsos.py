@@ -15,4 +15,18 @@ __email__ = "myron.walker@gmail.com"
 __status__ = "Development" # Prototype, Development or Production
 __license__ = "MIT"
 
+from typing import Any, Dict, List
+
 CHAR_RECORD_SEPERATOR = "\30\n"
+
+def load_jsos_stream_from_file(filename: str) -> List[Dict[str, Any]]:
+
+    items = []
+
+    with open(filename, 'r') as sf:
+        stream_content = sf.read()
+        stream_content.strip(CHAR_RECORD_SEPERATOR)
+    
+        items = stream_content.split(CHAR_RECORD_SEPERATOR)
+
+    return items
