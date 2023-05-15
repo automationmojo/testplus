@@ -17,16 +17,22 @@ __license__ = "MIT"
 
 from typing import Any, Dict, List
 
+import json
+
 CHAR_RECORD_SEPERATOR = "\30\n"
 
 def load_jsos_stream_from_file(filename: str) -> List[Dict[str, Any]]:
 
-    items = []
+    json_items = []
 
     with open(filename, 'r') as sf:
         stream_content = sf.read()
-        stream_content.strip(CHAR_RECORD_SEPERATOR)
+        stream_content = stream_content.strip(CHAR_RECORD_SEPERATOR)
     
-        items = stream_content.split(CHAR_RECORD_SEPERATOR)
+        str_items = stream_content.split(CHAR_RECORD_SEPERATOR)
+        for sitem in str_items:
+            jitem = json.loads(sitem)
+            json_items.append(jitem)
 
-    return items
+    return json_items
+

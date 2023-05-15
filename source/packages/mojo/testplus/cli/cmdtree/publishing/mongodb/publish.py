@@ -39,7 +39,7 @@ def command_publishing_mongodb_publish(connection, results, expiry_days):
     expiry_date = datetime.now() + timedelta(days=expiry_days)
 
     # Make sure the summary document and the tests document exists
-    summary_file = os.path.join(results, "test_summary.json")
+    summary_file = os.path.join(results, "testrun_summary.json")
     testresults_file = os.path.join(results, "testrun_results.jsos")
 
     from mojo.testplus.jsos import load_jsos_stream_from_file

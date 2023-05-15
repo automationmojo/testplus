@@ -28,5 +28,23 @@
             "console": "integratedTerminal",
             "justMyCode": false
         },
+        {
+            "name": "Python: Publish Results",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/source/packages/mojo/testplus/cli/testplus_command.py",
+            "envFile": "${workspaceFolder}/.env",
+            "args": [
+                "publishing",
+                "mongodb",
+                "publish",
+                "--connection",
+                "mongodb+srv://myronwalker:Zsi83KoOjobfX7HQ@automation-mojo-db.q0jpg0g.mongodb.net/?retryWrites=true&w=majority",
+                "--results",
+                "/home/myron/mjr/results/testresults/2023-04-27T2210!45.592403"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
     ]
 }
