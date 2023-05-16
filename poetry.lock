@@ -253,7 +253,7 @@ mojo-xmodules = ">=0.0.34,<0.1.0"
 
 [[package]]
 name = "mojo-networking"
-version = "0.0.5"
+version = "0.0.6"
 description = "Automation Mojo Netorking Package (mojo-networking)"
 category = "main"
 optional = true
@@ -261,11 +261,11 @@ python-versions = ">=3.8,<4.0"
 
 [package.dependencies]
 netifaces = ">=0.11.0,<0.12.0"
-requests = ">=2.29.0,<3.0.0"
+requests = "<=2.29.0"
 
 [[package]]
 name = "mojo-runtime"
-version = "0.0.36"
+version = "0.0.37"
 description = "Automation Mojo Runtime Module (mojo-runtime)"
 category = "main"
 optional = false
@@ -994,12 +994,12 @@ mojo-interop = [
     {file = "mojo_interop-0.0.10.tar.gz", hash = "sha256:e7edf67a768f95e76d0e23b3f986e4ee6874b7367599af42bf4529e402607283"},
 ]
 mojo-networking = [
-    {file = "mojo-networking-0.0.5.tar.gz", hash = "sha256:7530464327a9ccf93bceff060c701d4ee5dc454bdd9e908a5dc6c5961322ee73"},
-    {file = "mojo_networking-0.0.5-py3-none-any.whl", hash = "sha256:c86dcf2b28c98e77edd89c9093a7ffcb69108e7e29cac7e884271fc5b1ee4069"},
+    {file = "mojo-networking-0.0.6.tar.gz", hash = "sha256:304c32b2769b4d1f08d2d17898a783228dcea0c2927a9c19590dcfdccfb7249b"},
+    {file = "mojo_networking-0.0.6-py3-none-any.whl", hash = "sha256:b3c1f05b9abe684727842f65b8f94d0294c91073957ae2c12317f83665449720"},
 ]
 mojo-runtime = [
-    {file = "mojo_runtime-0.0.36-py3-none-any.whl", hash = "sha256:bb2e717e883d66100030b7b47530400d93e22470ea151a656da5802d818d0637"},
-    {file = "mojo_runtime-0.0.36.tar.gz", hash = "sha256:7eaacf19f986330d34f9a013f2b4e7040fc1a55621398c7802cc17c962b3f47d"},
+    {file = "mojo-runtime-0.0.37.tar.gz", hash = "sha256:f8f9a2745808817df935c24a96a03175309429a76afe12855dcae1fc03e53a29"},
+    {file = "mojo_runtime-0.0.37-py3-none-any.whl", hash = "sha256:a817b48c4156c00bf4b68cac55495f45532ed5b28405427946e5d142121f1f5d"},
 ]
 mojo-waiting = [
     {file = "mojo_waiting-1.0.1-py3-none-any.whl", hash = "sha256:8a107b6219e2aaaba75c4294021a49b2dd1ffce48a3935f6fceaa36e7b90e42e"},
