@@ -128,3 +128,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Project Specific
+.cache
+worksapces/**/*.code-workspace
