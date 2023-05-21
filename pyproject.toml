@@ -1,8 +1,10 @@
 [tool.poetry]
 name = "mojo-testplus"
 description = "Automation Mojo TestPlus Test Framework"
-version = "0.0.11"
-authors = []
+version = "0.0.12"
+authors = [
+    "Myron Walker <myron.walker@gmail.com>"
+]
 readme = "README.rst"
 license = "LICENSE.txt"
 classifiers = [
