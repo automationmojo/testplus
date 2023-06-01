@@ -350,6 +350,48 @@ def assert_list_length_less(to_inspect: List, boundary_len: int, api: Optional[s
 
     return
 
+def assert_not_equal(found: Any, not_expected: Any, api: Optional[str] = None):
+    """
+        Verifies that the specified return result from the specified API does not have the specified not
+        expected value. If the verification fails then an :class:`AssertionError` is created and returned,
+        otherwise None is returned. It is the resposibility of the calling test to raise the returned error.
+
+        :param found: The value to be compared
+        :param not_expected: The value that is not expected to be found
+        :param api: The name of the API that returned the result being inspected.
+        
+        :returns: None or an :class:`AssertionError` for the caller to raise.
+    """
+
+    if found == not_expected:
+
+        msg_prefix = PREFIX_STD if api is None else PREFIX_API.format(api)
+
+        err_msg_lines = [
+            "{} verification failed because the found value matched the not_expected value:".format(msg_prefix),
+            "EXPECTED:"
+        ]
+
+        exp_format_lines = pformat(expected, indent=4).strip().splitlines()
+        if len(exp_format_lines) == 1:
+            err_msg_lines.append("NOT EXPECTED: {}".format(exp_format_lines[0]))
+        elif len(exp_format_lines) > 1:
+            err_msg_lines.append("NOT EXPECTED:")
+            exp_format_lines = indent_lines(exp_format_lines, 1)
+            err_msg_lines.extend(exp_format_lines)
+
+        found_format_lines = pformat(found, indent=4).splitlines()
+        if len(found_format_lines) == 1:
+            err_msg_lines.append("FOUND: {}".format(found_format_lines[0]))
+        elif len(found_format_lines) > 1:
+            err_msg_lines.append("FOUND:")
+            found_format_lines = indent_lines(found_format_lines, 1)
+            err_msg_lines.extend(found_format_lines)
+
+        errmsg = os.linesep.join(err_msg_lines)
+        raise AssertionError(errmsg)
+
+    return
 
 def assert_type(found: Any, exp_type: Type, api: Optional[str] = None):
     """
