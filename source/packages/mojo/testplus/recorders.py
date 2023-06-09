@@ -114,10 +114,10 @@ class ResultRecorder:
             ("flavor", flavor)
         ))
 
-        pipeline_info = collections.OrderedDict(
+        pipeline_info = collections.OrderedDict((
             ("id", pipeline_id),
             ("name", pipeline_name)
-        )
+        ))
 
         job_info = collections.OrderedDict((
             ("initiator", job_initiator),
