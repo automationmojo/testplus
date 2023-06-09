@@ -53,7 +53,7 @@ class ResultRecorder:
     def __init__(self, *, title: str, runid: str, start: datetime, summary_filename: str,
                  result_filename: str, apod: Optional[str] = None, branch: Optional[str] = None,
                  build: Optional[str] = None, flavor: Optional[str] = None, build_url: Optional[str] = None,
-                 pipeline_id: Optional[str] = None, pipeline_name: Optional[str] = None,
+                 pipeline_id: Optional[str] = None, pipeline_name: Optional[str] = None, job_id: Optional[str] = None,
                  job_initiator: Optional[str] = None, job_label: Optional[str] = None, job_name: Optional[str] = None,
                  job_owner: Optional[str] = None, job_type: Optional[str] = None):
         """
@@ -71,6 +71,7 @@ class ResultRecorder:
             :param build_url: Optional build url
             :param pipeline_id: Optional identifier such as a uuid which identifies an instance of a pipeline.
             :param pipeline_name: Optional name for the associated pipeline.
+            :param job_id: Optional identifier for a job from the runner perspective
             :param job_initiator: Optional name of the initiator of the job.
             :param job_label: Optional label associated with the job.
             :param job_name: Optional name of the job.
@@ -120,6 +121,7 @@ class ResultRecorder:
         ))
 
         job_info = collections.OrderedDict((
+            ("id", job_id),
             ("initiator", job_initiator),
             ("label", job_label),
             ("name", job_name),
@@ -314,7 +316,7 @@ class JsonResultRecorder(ResultRecorder):
     def __init__(self, *, title: str, runid: str, start: datetime, summary_filename: str,
                  result_filename: str, apod: Optional[str] = None, branch: Optional[str] = None,
                  build: Optional[str] = None, flavor: Optional[str] = None, build_url: Optional[str] = None,
-                 pipeline_id: Optional[str] = None, pipeline_name: Optional[str] = None,
+                 pipeline_id: Optional[str] = None, pipeline_name: Optional[str] = None, job_id: Optional[str] = None,
                  job_initiator: Optional[str] = None, job_label: Optional[str] = None, job_name: Optional[str] = None,
                  job_owner: Optional[str] = None, job_type: Optional[str] = None):
         """
@@ -333,6 +335,7 @@ class JsonResultRecorder(ResultRecorder):
             :param build_url: Optional build url
             :param pipeline_id: Optional identifier such as a uuid which identifies an instance of a pipeline.
             :param pipeline_name: Optional name for the associated pipeline.
+            :param job_id: Optional identifier for a job from the runner perspective
             :param job_initiator: Optional name of the initiator of the job.
             :param job_label: Optional label associated with the job.
             :param job_name: Optional name of the job.
@@ -341,7 +344,7 @@ class JsonResultRecorder(ResultRecorder):
         """
         super(JsonResultRecorder, self).__init__(title=title, runid=runid, start=start, summary_filename=summary_filename,
             result_filename= result_filename, apod=apod, branch=branch, build=build, flavor=flavor, build_url=build_url,
-            pipeline_id=pipeline_id, pipeline_name=pipeline_name, job_initiator=job_initiator, job_label=job_label,
+            pipeline_id=pipeline_id, pipeline_name=pipeline_name, job_id=job_id, job_initiator=job_initiator, job_label=job_label,
             job_name=job_name, job_owner=job_owner, job_type=job_type)
         return
 

@@ -97,6 +97,8 @@ class TestJob(ContextUser):
         self._flavor = MOJO_RUNTIME_VARIABLES.MJR_BUILD_FLAVOR
         self._build_url = MOJO_RUNTIME_VARIABLES.MJR_BUILD_URL
 
+        self._run_id = MOJO_RUNTIME_VARIABLES.MJR_RUN_ID
+
         self._pipeline_id = MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_ID
         self._pipeline_name = MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_NAME
 
@@ -245,7 +247,7 @@ class TestJob(ContextUser):
                 tseq.generate_testrun_sequence_document(self._testrun_sequence_filename)
 
                 title = self.title
-                runid = self._job_id
+                runid = self._run_id
                 start = str(self._starttime)
                 sum_file = self._summary_filename
                 res_file = self._result_filename
@@ -258,6 +260,7 @@ class TestJob(ContextUser):
                 pipeline_id = self._pipeline_id
                 pipeline_name = self._pipeline_name
 
+                job_id = self._job_id
                 job_initiator = self._job_initiator
                 job_label = self._job_label
                 job_name = self._job_name
@@ -274,8 +277,9 @@ class TestJob(ContextUser):
                 # test scopes and instances and start executing setup, teardown and test level code
                 with JsonResultRecorder(title=title, runid=runid, start=start, summary_filename=sum_file,
                     result_filename=res_file, apod=apod, branch=branch, build=build, flavor=flavor,
-                    build_url=build_url, pipeline_id=pipeline_id, pipeline_name=pipeline_name, job_initiator=job_initiator,
-                    job_label=job_label, job_name=job_name, job_owner=job_owner, job_type=job_type) as recorder:
+                    build_url=build_url, pipeline_id=pipeline_id, pipeline_name=pipeline_name, job_id=job_id,
+                    job_initiator=job_initiator, job_label=job_label, job_name=job_name, job_owner=job_owner,
+                    job_type=job_type) as recorder:
                     try:
                         # Traverse the execution graph
                         tseq.execute_tests(runid, recorder)
