@@ -27,6 +27,7 @@ from mojo.testplus.cli.cmdtree.testing.constants import (
     HELP_BRANCH,
     HELP_BUILD,
     HELP_FLAVOR,
+    HELP_JOB_ID,
     HELP_JOB_INITIATOR,
     HELP_JOB_LABEL,
     HELP_JOB_NAME,
@@ -64,6 +65,7 @@ from mojo.testplus.cli.cmdtree.testing.constants import (
 @click.option("--branch", default=None, required=False, help=HELP_BRANCH)
 @click.option("--build", default=None, required=False, help=HELP_BUILD)
 @click.option("--flavor", default=None, required=False, help=HELP_FLAVOR)
+@click.option("--job-id", default=None, required=False, help=HELP_JOB_ID)
 @click.option("--job-initiator", default=None, required=False, help=HELP_JOB_INITIATOR)
 @click.option("--job-label", default=None, required=False, help=HELP_JOB_LABEL)
 @click.option("--job-name", default=None, required=False, help=HELP_JOB_NAME)
@@ -88,7 +90,7 @@ from mojo.testplus.cli.cmdtree.testing.constants import (
 @click.option("--postrun-diagnostic", is_flag=True, default=False, required=False, help=HELP_POSTRUN_DIAGNOSTIC)
 @click.option("--include-marker-exp", required=False, multiple=True, help=HELP_INCLUDE_MARKER_EXP)
 @click.option("--exclude-marker-exp", required=False, multiple=True, help=HELP_EXCLUDE_MARKER_EXP)
-def command_testplus_testing_run(root, includes, excludes, output, start, runid, branch, build, flavor, job_initiator,
+def command_testplus_testing_run(root, includes, excludes, output, start, runid, branch, build, flavor, job_id, job_initiator,
                         job_label, job_name, job_owner, credential_files, credential_names, credential_path,
                         landscape_files, landscape_names, landscape_path, runtime_files, runtime_names, runtime_path,
                         topology_files, topology_names, topology_path, console_level, logfile_level,
@@ -137,6 +139,9 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     if flavor is not None:
         optionoverrides.override_build_flavor(flavor)
     
+    if job_initiator is not None:
+        optionoverrides.override_job_id(job_id)
+
     if job_initiator is not None:
         optionoverrides.override_job_initiator(job_initiator)
     
@@ -216,7 +221,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
         optionoverrides.override_starttime(start)
     
     if runid is not None:
-        optionoverrides.override_runid(runid)
+        optionoverrides.override_run_id(runid)
 
     # Process the commandline args here and then set the variables on the environment
     # as necessary.  We need to do this before we import activate.

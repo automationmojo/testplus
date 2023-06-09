@@ -17,6 +17,7 @@ HELP_START = r"A time stamp to associate with the start of the run. Example: 202
 HELP_BRANCH = "The name of the branch to associate with the test run results."
 HELP_BUILD = "The name of the build to associate with the test run results."
 HELP_FLAVOR = "The name of the flavor to associate with the test run results."
+HELP_JOB_ID = "A unique identifier for the job with respect to the job runner."
 HELP_JOB_INITIATOR = "The name of the initiator of the job."
 HELP_JOB_LABEL = "The label associated with the job."
 HELP_JOB_NAME = "The name of the job."
