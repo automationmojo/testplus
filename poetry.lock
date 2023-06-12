@@ -620,14 +620,14 @@ files = [
 
 [[package]]
 name = "mojo-interop"
-version = "0.0.13"
+version = "0.0.15"
 description = "Automation Mojo Interop Extensions"
 category = "main"
 optional = true
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_interop-0.0.13-py3-none-any.whl", hash = "sha256:cea86872b2090388a4364efc91910a4c13da657c088c6a1996cf63a7b26319cd"},
-    {file = "mojo_interop-0.0.13.tar.gz", hash = "sha256:f86a5134d2c68a537e12029504566b4da56cc8372c83161978289983402ea400"},
+    {file = "mojo_interop-0.0.15-py3-none-any.whl", hash = "sha256:05af044387e3a17d9597d2c7d670732a4b92702f76d6d76fa29ed23fdcc884f4"},
+    {file = "mojo_interop-0.0.15.tar.gz", hash = "sha256:7a2bcc45b38069f3725bf5a7fd4e90c2ba1b8711d23c80f6ee573b484b8c4b2f"},
 ]
 
 [package.dependencies]
