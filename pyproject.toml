@@ -28,6 +28,7 @@ requests = "<=2.29.0"
 mojo-runtime = ">=0.0.39 <0.1.0"
 mojo-interop = {version = ">=0.0.10 < 0.1.0", optional = true}
 pymongo = {extras = ["srv"], version = "^4.0.0", optional = true}
+couchdb = {version = "^1.2", optional = true}
 
 [tool.poetry.extras]
 interop = ["mojo-interop"]

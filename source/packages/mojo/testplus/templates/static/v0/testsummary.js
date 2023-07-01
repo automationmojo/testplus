@@ -531,19 +531,121 @@ function create_configuration_tree_node(name, ndata, path = []) {
     return nodeElement;
 }
 
+function entity_escape(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') ;
+}
+
+function create_errors_table(errorsList) {
+    errorsTable = document.createElement("div");
+    errorsTable.classList.add("e-list");
+
+    for (var eidx in errorsList) {
+        var eitem = errorsList[eidx];
+    
+        var preElement = document.createElement("pre");
+        errorsTable.appendChild(preElement)
+
+        var codeElement = null;
+    
+        var msg = "";
+        for (var lidx in eitem) {
+            var lstr = entity_escape(eitem[lidx]);
+        
+            if (codeElement != null) {
+                if (lstr == "  File") {
+                    codeElement.innerHTML = msg
+                    codeElement = null;
+
+                    preElement = document.createElement("pre")
+                    errorsTable.appendChild(preElement)
+
+                    msg = "";
+                }
+                else {
+                    msg = msg + lstr + "\n";
+                }
+            } else {
+                if (lstr == "    CODE:") {
+                    preElement.innerHTML = msg;
+                    msg = "";
+
+                    preElement = document.createElement("pre");
+                    errorsTable.appendChild(preElement)
+
+                    codeElement = document.createElement("code");
+                    codeElement.classList.add("language-python");
+                    preElement.appendChild(codeElement);
+                } else {
+                    msg = msg + lstr + "\n";
+                }
+
+            }
+        }
+
+        if ( codeElement != null) {
+            codeElement.innerHTML = msg;
+        } else {
+            preElement.innerHTML = msg;
+        }
+
+    }
+
+    return errorsTable
+}
+
 function create_failures_table(failuresList) {
     failuresTable = document.createElement("div");
     failuresTable.classList.add("f-list");
+
     for (var fidx in failuresList) {
         var fitem = failuresList[fidx];
+    
         var preElement = document.createElement("pre");
+        failuresTable.appendChild(preElement)
+
+        var codeElement = null;
+    
         var msg = "";
         for (var lidx in fitem) {
-            var lstr = fitem[lidx];
-            msg = msg + lstr + "\n";
+            var lstr = entity_escape(fitem[lidx]);
+        
+            if (codeElement != null) {
+                if (lstr == "  File") {
+                    codeElement.innerHTML = msg
+                    codeElement = null;
+
+                    preElement = document.createElement("pre")
+                    failuresTable.appendChild(preElement)
+
+                    msg = "";
+                }
+                else {
+                    msg = msg + lstr + "\n";
+                }
+            } else {
+                if (lstr == "    CODE:") {
+                    preElement.innerHTML = msg;
+                    msg = "";
+
+                    preElement = document.createElement("pre");
+                    failuresTable.appendChild(preElement)
+
+                    codeElement = document.createElement("code");
+                    codeElement.classList.add("language-python");
+                    preElement.appendChild(codeElement);
+                } else {
+                    msg = msg + lstr + "\n";
+                }
+
+            }
         }
-        preElement.innerHTML = msg;
-        failuresTable.appendChild(preElement);
+
+        if ( codeElement != null) {
+            codeElement.innerHTML = msg;
+        } else {
+            preElement.innerHTML = msg;
+        }
+
     }
 
     return failuresTable
@@ -647,19 +749,7 @@ function create_result_item_content(ritem) {
         errorsHeader.innerHTML = "ERRORS";
         detailContainer.appendChild(errorsHeader);
 
-        errorsTable = document.createElement("div");
-        errorsTable.classList.add("e-list");
-        for (var eidx in errorList) {
-            var eitem = errorList[eidx];
-            var preElement = document.createElement("pre");
-            var msg = "";
-            for (var lidx in eitem) {
-                var lstr = eitem[lidx];
-                msg = msg + lstr + "\n";
-            }
-            preElement.innerHTML = msg;
-            errorsTable.appendChild(preElement);
-        }
+        var errorsTable = create_errors_table(errorList);
         detailContainer.appendChild(errorsTable);
 
         detailContainer.appendChild(document.createElement("br"));
@@ -1139,4 +1229,6 @@ async function refresh_page() {
 
         refresh_catalog();
     });
+
+    highlightAll();
 }

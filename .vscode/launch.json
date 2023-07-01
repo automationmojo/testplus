@@ -29,17 +29,41 @@
             "justMyCode": false
         },
         {
-            "name": "Python: Publish Results",
+            "name": "Python: Results - Initialize",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/source/packages/mojo/testplus/cli/testplus_command.py",
             "envFile": "${workspaceFolder}/.env",
             "args": [
                 "publishing",
-                "mongodb",
+                "couchdb",
+                "initialize",
+                "--host",
+                "localhost",
+                "--username",
+                "admin",
+                "--password",
+                "password"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            "name": "Python: Results - Publish",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/source/packages/mojo/testplus/cli/testplus_command.py",
+            "envFile": "${workspaceFolder}/.env",
+            "args": [
+                "publishing",
+                "couchdb",
                 "publish",
-                "--connection",
-                "mongodb+srv://myronwalker:Zsi83KoOjobfX7HQ@automation-mojo-db.q0jpg0g.mongodb.net/?retryWrites=true&w=majority",
+                "--host",
+                "localhost",
+                "--username",
+                "admin",
+                "--password",
+                "password",
                 "--results",
                 "/home/myron/mjr/results/testresults/2023-04-27T2210!45.592403"
             ],

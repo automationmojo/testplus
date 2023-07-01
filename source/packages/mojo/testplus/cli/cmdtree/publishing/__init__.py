@@ -10,6 +10,7 @@ __license__ = "MIT"
 
 import click
 
+from mojo.testplus.cli.cmdtree.publishing.couchdb import group_testplus_publishing_couchdb
 from mojo.testplus.cli.cmdtree.publishing.mongodb import group_testplus_publishing_mongodb
 
 PUBLISHING_HELP = "Contains commands groups for publishing test results to different types of data stores."
@@ -18,4 +19,5 @@ PUBLISHING_HELP = "Contains commands groups for publishing test results to diffe
 def group_testplus_publishing():
     return
 
+group_testplus_publishing.add_command(group_testplus_publishing_couchdb)
 group_testplus_publishing.add_command(group_testplus_publishing_mongodb)
