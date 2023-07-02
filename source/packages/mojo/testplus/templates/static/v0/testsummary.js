@@ -124,7 +124,7 @@ async function load_json_stream(url) {
                 if (this.status == 200) {
                     var json_objects = [];
 
-                    var split_responses = this.responseText.split("\30");
+                    var split_responses = this.responseText.split("\x1e");
                     var srlength = split_responses.length;
                     while (srlength > 0) {
                         var ritem = split_responses.pop();

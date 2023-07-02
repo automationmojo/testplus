@@ -65,7 +65,7 @@
                 "--password",
                 "password",
                 "--results",
-                "/home/myron/mjr/results/testresults/2023-04-27T2210!45.592403"
+                "/home/myron/mjr/results/testresults/2023-06-25T2106!48.804103"
             ],
             "console": "integratedTerminal",
             "justMyCode": false
