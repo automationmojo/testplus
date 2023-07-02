@@ -22,6 +22,28 @@ HELP_USERNAME = "The CouchDB username who can create a database."
 HELP_PASSWORD = "The CouchDB password for the specified user."
 HELP_EXPIRY = "A number of days to persist the up uploaded results."
 
+MAP_BY_BRANCH = """
+function (doc) {
+    if (doc.summary.build.branch && doc.summary.build.build)
+    {
+        key = doc.summary.build.branch
+        value = { id: doc._id, summary: doc}
+        emit(key, value);
+    }
+}
+"""
+
+MAP_BY_PIPELINE = """
+function (doc) {
+    if (doc.summary.pipeline.name && doc.summary.pipeline.id)
+    {
+        key = doc.summary.pipeline.id
+        value = { id: doc._id, result: doc}
+        emit(key, value);
+    }
+}
+"""
+
 @click.command("initialize")
 @click.option("--host", required=True, type=str, help=HELP_HOST)
 @click.option("--port", required=True, type=int, default=5984, help=HELP_PORT)
@@ -54,6 +76,22 @@ def command_publishing_couchdb_initialize(host: str, port: int, username: str, p
     dbsvr = couchdb.Server(connection)
 
     if 'testresults' not in dbsvr:
-        dbsvr.create('testresults')
+        database = dbsvr.create('testresults')
+
+        data = {
+                "_id": f"_design/default",
+                "views": {
+                    "by_branch": {
+                        "map": MAP_BY_BRANCH
+                    },
+                    "by_pipeline": {
+                        "map": MAP_BY_PIPELINE
+                    }
+                },
+                "language": "javascript",
+                "options": {"partitioned": False }
+                }
+
+        database.save( data )
 
     return
