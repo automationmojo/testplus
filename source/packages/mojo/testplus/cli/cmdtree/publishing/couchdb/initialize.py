@@ -75,6 +75,12 @@ def command_publishing_couchdb_initialize(host: str, port: int, username: str, p
 
     dbsvr = couchdb.Server(connection)
 
+    if 'releases' not in dbsvr:
+        database = dbsvr.create('releases')
+
+    if 'pipelines' not in dbsvr:
+        database = dbsvr.create('pipelines')
+
     if 'testresults' not in dbsvr:
         database = dbsvr.create('testresults')
 
