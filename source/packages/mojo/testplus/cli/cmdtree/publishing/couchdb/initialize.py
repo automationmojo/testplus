@@ -85,18 +85,18 @@ def command_publishing_couchdb_initialize(host: str, port: int, username: str, p
         database = dbsvr.create('testresults')
 
         data = {
-                "_id": f"_design/default",
-                "views": {
-                    "by_branch": {
-                        "map": MAP_BY_BRANCH
-                    },
-                    "by_pipeline": {
-                        "map": MAP_BY_PIPELINE
-                    }
+            "_id": f"_design/default",
+            "views": {
+                "by_branch": {
+                    "map": MAP_BY_BRANCH
                 },
-                "language": "javascript",
-                "options": {"partitioned": False }
+                "by_pipeline": {
+                    "map": MAP_BY_PIPELINE
                 }
+            },
+            "language": "javascript",
+            "options": {"partitioned": False }
+        }
 
         database.save( data )
 

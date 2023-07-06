@@ -51,7 +51,7 @@ class ResultRecorder:
         for recorders of different formats to use when implementing a test result recorder.
     """
     def __init__(self, *, title: str, runid: str, start: datetime, summary_filename: str,
-                 result_filename: str, apod: Optional[str] = None, branch: Optional[str] = None,
+                 result_filename: str, apod: Optional[str] = None, release: Optional[str] = None, branch: Optional[str] = None,
                  build: Optional[str] = None, flavor: Optional[str] = None, build_url: Optional[str] = None,
                  pipeline_id: Optional[str] = None, pipeline_name: Optional[str] = None, job_id: Optional[str] = None,
                  job_initiator: Optional[str] = None, job_label: Optional[str] = None, job_name: Optional[str] = None,
@@ -65,6 +65,7 @@ class ResultRecorder:
             :param summary_filename: The full path to the summary file where the test run summary should be written to.
             :param result_filename: The full path to the results file where the test run results should be written to.
             :param apod: Optional name of an automation pod that the testrun is running on.
+            :param release: Optional name of a release to associate a testrun with.
             :param branch: Optional name of a code 'branch' to associate with the test results.
             :param build: Optional name of a product 'build' to associate with the test results.
             :param flavor: Optional label that indicates the flavor of build the test run is running against.
@@ -85,6 +86,7 @@ class ResultRecorder:
         self._summary_filename = summary_filename
         self._result_filename = result_filename
         self._apod = apod
+        self._release = release
         self._branch = branch
         self._build = build
         self._flavor = flavor
@@ -110,6 +112,7 @@ class ResultRecorder:
         self._finalized = False
 
         build_info = collections.OrderedDict((
+            ("release", release)
             ("branch", branch),
             ("build", build),
             ("flavor", flavor)
@@ -314,7 +317,7 @@ class JsonResultRecorder(ResultRecorder):
         The :class:`JsonResultRecorder` object records test results in JSON format.
     """
     def __init__(self, *, title: str, runid: str, start: datetime, summary_filename: str,
-                 result_filename: str, apod: Optional[str] = None, branch: Optional[str] = None,
+                 result_filename: str, apod: Optional[str] = None, release: Optional[str] = None, branch: Optional[str] = None,
                  build: Optional[str] = None, flavor: Optional[str] = None, build_url: Optional[str] = None,
                  pipeline_id: Optional[str] = None, pipeline_name: Optional[str] = None, job_id: Optional[str] = None,
                  job_initiator: Optional[str] = None, job_label: Optional[str] = None, job_name: Optional[str] = None,
@@ -329,6 +332,7 @@ class JsonResultRecorder(ResultRecorder):
             :param summary_filename: The full path to the summary file where the test run summary should be written to.
             :param result_filename: The full path to the results file where the test run results should be written to.
             :param apod: Optional name of an automation pod that the testrun is running on.
+            :param release: Optional name of a release to associate a testrun with.
             :param branch: Optional name of a code 'branch' to associate with the test results.
             :param build: Optional name of a product 'build' to associate with the test results.
             :param flavor: Optional label that indicates the flavor of build the test run is running against.

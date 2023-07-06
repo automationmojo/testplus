@@ -664,14 +664,14 @@ requests = "<=2.29.0"
 
 [[package]]
 name = "mojo-runtime"
-version = "0.0.45"
+version = "0.0.46"
 description = "Automation Mojo Runtime Module (mojo-runtime)"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_runtime-0.0.45-py3-none-any.whl", hash = "sha256:7bf532ee751f57c5395ec0f9c4f53761a76b779077cd30b15614819bd4d7ebdd"},
-    {file = "mojo_runtime-0.0.45.tar.gz", hash = "sha256:3a6bfc037090cec688de1bea819f9adcbfe7c91cddba7ed5bdcdf2403029344c"},
+    {file = "mojo_runtime-0.0.46-py3-none-any.whl", hash = "sha256:578e420a27422e4028916efe81224ccb22c195afd6fa1a44bf0e5b242c9e5781"},
+    {file = "mojo_runtime-0.0.46.tar.gz", hash = "sha256:a09fb9ffb21f0633e72ce65c9e2cabef692a3ec1168fd020d2df81548117cd88"},
 ]
 
 [package.dependencies]
@@ -692,14 +692,14 @@ files = [
 
 [[package]]
 name = "mojo-xmodules"
-version = "0.0.48"
+version = "0.0.50"
 description = "Automation Mojo X-Modules"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_xmodules-0.0.48-py3-none-any.whl", hash = "sha256:1398b1db848c5c99fb9f43ebc8160ad6f28298a6d7e376f857f0fc18a17fb55e"},
-    {file = "mojo_xmodules-0.0.48.tar.gz", hash = "sha256:3b1b2dc99f647860e4f990433401ab33106edd287032895a57fe93ad7ba27d7e"},
+    {file = "mojo_xmodules-0.0.50-py3-none-any.whl", hash = "sha256:f2cfb3107cbb93d1e6904593b3fa1cedc9c43f16ec833db6300206645c27816b"},
+    {file = "mojo_xmodules-0.0.50.tar.gz", hash = "sha256:de261ff8c85a81d12813d1579c80a35def373a2f002176ca91be7372e90d1060"},
 ]
 
 [package.dependencies]
@@ -1221,14 +1221,14 @@ test = ["pytest"]
 
 [[package]]
 name = "typing-extensions"
-version = "4.6.3"
+version = "4.7.1"
 description = "Backported and Experimental Type Hints for Python 3.7+"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "typing_extensions-4.6.3-py3-none-any.whl", hash = "sha256:88a4153d8505aabbb4e13aacb7c486c2b4a33ca3b3f807914a9b4c844c471c26"},
-    {file = "typing_extensions-4.6.3.tar.gz", hash = "sha256:d91d5919357fe7f681a9f2b5b4cb2a5f1ef0a1e9f59c4d8ff0d3491e05c0ffd5"},
+    {file = "typing_extensions-4.7.1-py3-none-any.whl", hash = "sha256:440d5dd3af93b060174bf433bccd69b0babc3b15b1a8dca43789fd7f61514b36"},
+    {file = "typing_extensions-4.7.1.tar.gz", hash = "sha256:b75ddc264f0ba5615db7ba217daeb99701ad295353c45f9e95963337ceeeffb2"},
 ]
 
 [[package]]
