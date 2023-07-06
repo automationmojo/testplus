@@ -112,7 +112,7 @@ class ResultRecorder:
         self._finalized = False
 
         build_info = collections.OrderedDict((
-            ("release", release)
+            ("release", release),
             ("branch", branch),
             ("build", build),
             ("flavor", flavor)
@@ -218,6 +218,8 @@ class ResultRecorder:
 
         if self._title:
             lines.append("   Title: {}".format(self._title))
+        if self._release:
+            lines.append("  Release: {}".format(self._release))
         if self._branch:
             lines.append("  Branch: {}".format(self._branch))
         if self._build:
@@ -347,7 +349,7 @@ class JsonResultRecorder(ResultRecorder):
             :param job_type: Optional job type.
         """
         super(JsonResultRecorder, self).__init__(title=title, runid=runid, start=start, summary_filename=summary_filename,
-            result_filename= result_filename, apod=apod, branch=branch, build=build, flavor=flavor, build_url=build_url,
+            result_filename= result_filename, apod=apod, release=release, branch=branch, build=build, flavor=flavor, build_url=build_url,
             pipeline_id=pipeline_id, pipeline_name=pipeline_name, job_id=job_id, job_initiator=job_initiator, job_label=job_label,
             job_name=job_name, job_owner=job_owner, job_type=job_type)
         return

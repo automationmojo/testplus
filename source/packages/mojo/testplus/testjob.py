@@ -92,6 +92,7 @@ class TestJob(ContextUser):
         self._testpacks = None
 
         self._apod = MOJO_RUNTIME_VARIABLES.MJR_AUTOMATION_POD
+        self._release = MOJO_RUNTIME_VARIABLES.MJR_BUILD_RELEASE
         self._branch = MOJO_RUNTIME_VARIABLES.MJR_BUILD_BRANCH
         self._build = MOJO_RUNTIME_VARIABLES.MJR_BUILD_NAME
         self._flavor = MOJO_RUNTIME_VARIABLES.MJR_BUILD_FLAVOR
@@ -252,6 +253,7 @@ class TestJob(ContextUser):
                 sum_file = self._summary_filename
                 res_file = self._result_filename
                 apod = self._apod
+                release = self._release
                 branch = self._branch
                 build = self._build
                 flavor = self._flavor
@@ -276,7 +278,7 @@ class TestJob(ContextUser):
                 # Now we start going through all the test testpacks and tests and start instantiating
                 # test scopes and instances and start executing setup, teardown and test level code
                 with JsonResultRecorder(title=title, runid=runid, start=start, summary_filename=sum_file,
-                    result_filename=res_file, apod=apod, branch=branch, build=build, flavor=flavor,
+                    result_filename=res_file, apod=apod, release=release, branch=branch, build=build, flavor=flavor,
                     build_url=build_url, pipeline_id=pipeline_id, pipeline_name=pipeline_name, job_id=job_id,
                     job_initiator=job_initiator, job_label=job_label, job_name=job_name, job_owner=job_owner,
                     job_type=job_type) as recorder:
