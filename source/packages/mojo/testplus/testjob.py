@@ -102,6 +102,7 @@ class TestJob(ContextUser):
 
         self._pipeline_id = MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_ID
         self._pipeline_name = MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_NAME
+        self._pipeline_instance = MOJO_RUNTIME_VARIABLES.MJR_PIPELINE_INSTANCE
 
         self._job_initiator = MOJO_RUNTIME_VARIABLES.MJR_JOB_INITIATOR
         self._job_id = MOJO_RUNTIME_VARIABLES.MJR_JOB_ID
@@ -261,6 +262,7 @@ class TestJob(ContextUser):
 
                 pipeline_id = self._pipeline_id
                 pipeline_name = self._pipeline_name
+                pipeline_instance = self._pipeline_instance
 
                 job_id = self._job_id
                 job_initiator = self._job_initiator
@@ -279,8 +281,8 @@ class TestJob(ContextUser):
                 # test scopes and instances and start executing setup, teardown and test level code
                 with JsonResultRecorder(title=title, runid=runid, start=start, summary_filename=sum_file,
                     result_filename=res_file, apod=apod, release=release, branch=branch, build=build, flavor=flavor,
-                    build_url=build_url, pipeline_id=pipeline_id, pipeline_name=pipeline_name, job_id=job_id,
-                    job_initiator=job_initiator, job_label=job_label, job_name=job_name, job_owner=job_owner,
+                    build_url=build_url, pipeline_id=pipeline_id, pipeline_name=pipeline_name, pipeline_instance=pipeline_instance,
+                    job_id=job_id, job_initiator=job_initiator, job_label=job_label, job_name=job_name, job_owner=job_owner,
                     job_type=job_type) as recorder:
                     try:
                         # Traverse the execution graph

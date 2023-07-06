@@ -53,9 +53,9 @@ class ResultRecorder:
     def __init__(self, *, title: str, runid: str, start: datetime, summary_filename: str,
                  result_filename: str, apod: Optional[str] = None, release: Optional[str] = None, branch: Optional[str] = None,
                  build: Optional[str] = None, flavor: Optional[str] = None, build_url: Optional[str] = None,
-                 pipeline_id: Optional[str] = None, pipeline_name: Optional[str] = None, job_id: Optional[str] = None,
-                 job_initiator: Optional[str] = None, job_label: Optional[str] = None, job_name: Optional[str] = None,
-                 job_owner: Optional[str] = None, job_type: Optional[str] = None):
+                 pipeline_id: Optional[str] = None, pipeline_name: Optional[str] = None, pipeline_instance: Optional[str] = None,
+                 job_id: Optional[str] = None, job_initiator: Optional[str] = None, job_label: Optional[str] = None,
+                 job_name: Optional[str] = None, job_owner: Optional[str] = None, job_type: Optional[str] = None):
         """
             Initializes an instance of a ResultRecorder with the information about a test run.
 
@@ -70,8 +70,9 @@ class ResultRecorder:
             :param build: Optional name of a product 'build' to associate with the test results.
             :param flavor: Optional label that indicates the flavor of build the test run is running against.
             :param build_url: Optional build url
-            :param pipeline_id: Optional identifier such as a uuid which identifies an instance of a pipeline.
+            :param pipeline_id: Optional identifier such as a uuid which identifies a particular pipeline.
             :param pipeline_name: Optional name for the associated pipeline.
+            :param pipeline_instance: Optional identifier such as a uuid which identifies an instance of a pipeline.
             :param job_id: Optional identifier for a job from the runner perspective
             :param job_initiator: Optional name of the initiator of the job.
             :param job_label: Optional label associated with the job.
@@ -120,7 +121,8 @@ class ResultRecorder:
 
         pipeline_info = collections.OrderedDict((
             ("id", pipeline_id),
-            ("name", pipeline_name)
+            ("name", pipeline_name),
+            ("instance", pipeline_instance)
         ))
 
         job_info = collections.OrderedDict((
@@ -321,9 +323,9 @@ class JsonResultRecorder(ResultRecorder):
     def __init__(self, *, title: str, runid: str, start: datetime, summary_filename: str,
                  result_filename: str, apod: Optional[str] = None, release: Optional[str] = None, branch: Optional[str] = None,
                  build: Optional[str] = None, flavor: Optional[str] = None, build_url: Optional[str] = None,
-                 pipeline_id: Optional[str] = None, pipeline_name: Optional[str] = None, job_id: Optional[str] = None,
-                 job_initiator: Optional[str] = None, job_label: Optional[str] = None, job_name: Optional[str] = None,
-                 job_owner: Optional[str] = None, job_type: Optional[str] = None):
+                 pipeline_id: Optional[str] = None, pipeline_name: Optional[str] = None, pipeline_instance: Optional[str] = None,
+                 job_id: Optional[str] = None, job_initiator: Optional[str] = None, job_label: Optional[str] = None,
+                 job_name: Optional[str] = None, job_owner: Optional[str] = None, job_type: Optional[str] = None):
         """
             Initializes the :class:`JsonResultRecorder` object for recording test results for
             a test run.
@@ -339,8 +341,9 @@ class JsonResultRecorder(ResultRecorder):
             :param build: Optional name of a product 'build' to associate with the test results.
             :param flavor: Optional label that indicates the flavor of build the test run is running against.
             :param build_url: Optional build url
-            :param pipeline_id: Optional identifier such as a uuid which identifies an instance of a pipeline.
+            :param pipeline_id: Optional identifier such as a uuid which identifies a particular pipeline.
             :param pipeline_name: Optional name for the associated pipeline.
+            :param pipeline_instance: Optional identifier such as a uuid which identifies an instance of a pipeline.
             :param job_id: Optional identifier for a job from the runner perspective
             :param job_initiator: Optional name of the initiator of the job.
             :param job_label: Optional label associated with the job.
@@ -350,8 +353,8 @@ class JsonResultRecorder(ResultRecorder):
         """
         super(JsonResultRecorder, self).__init__(title=title, runid=runid, start=start, summary_filename=summary_filename,
             result_filename= result_filename, apod=apod, release=release, branch=branch, build=build, flavor=flavor, build_url=build_url,
-            pipeline_id=pipeline_id, pipeline_name=pipeline_name, job_id=job_id, job_initiator=job_initiator, job_label=job_label,
-            job_name=job_name, job_owner=job_owner, job_type=job_type)
+            pipeline_id=pipeline_id, pipeline_name=pipeline_name, pipeline_instance=pipeline_instance, job_id=job_id,
+            job_initiator=job_initiator, job_label=job_label, job_name=job_name, job_owner=job_owner, job_type=job_type)
         return
 
     def update_summary(self):
