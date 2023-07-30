@@ -28,7 +28,7 @@ import uuid
 from mojo.xmods.xcollections.context import ContextUser
 from mojo.xmods.exceptions import SemanticError
 from mojo.xmods.ximport import import_file
-from mojo.xmods.xtraceback import format_exception
+from mojo.xmods.xtraceback import create_traceback_detail, format_traceback_detail, TracebackDetail
 
 from mojo.runtime.paths import get_path_for_diagnostics, get_path_for_output
 
@@ -93,19 +93,19 @@ class SequencerScopeBase:
         self._recorder = recorder
         return
 
-    def _mark_descendants_as_error(self, cursor, cursor_id, errmsg):
+    def _mark_descendants_as_error(self, cursor, cursor_id, tbdetail):
 
         for chkey in cursor.children:
             child = cursor.children[chkey]
             if not child.finalized:
                 if isinstance(child, TestRef):
-                    self._mark_test_as_error(child, cursor_id, errmsg)
+                    self._mark_test_as_error(child, cursor_id, tbdetail)
                 elif isinstance(child, TestGroup):
                     scope_id = str(uuid.uuid4())
                     scope_name = child.scope_name
                     result = self._sequencer.create_test_result_container(scope_id, scope_name, parent_inst=cursor_id)
                     self._recorder.record(result)
-                    self._mark_descendants_as_error(child, scope_id, errmsg)
+                    self._mark_descendants_as_error(child, scope_id, tbdetail)
 
         return
 
@@ -125,10 +125,10 @@ class SequencerScopeBase:
 
         return
 
-    def _mark_test_as_error(self, testref: TestRef, parent_id: str, errmsg: str):
+    def _mark_test_as_error(self, testref: TestRef, parent_id: str, tbdetail: TracebackDetail):
         test_id = str(uuid.uuid4())
         result = self._sequencer.create_test_result_node(test_id, testref.test_name, testref.monikers, testref.pivots, parent_inst=parent_id)
-        result.add_error(errmsg)
+        result.add_error(tbdetail)
         result.finalize()
         self._recorder.record(result)
         return
@@ -167,15 +167,20 @@ class SequencerModuleScope(SequencerScopeBase):
             if issubclass(ex_type, SkitTestError):
                 self._mark_descendants_skipped(self._scope_node, self._scope_id, ex_inst.reason, ex_inst.bug)
             else:
-                errmsg = ""
-                self._mark_descendants_as_error(self._scope_node,  self._scope_id, errmsg)
+                tb_detail = create_traceback_detail(ex_inst)
+                self._mark_descendants_as_error(self._scope_node,  self._scope_id, tb_detail)
 
-            # If an exceptions was thrown in this context, it means
-            # that the exception occured during the setup for this
-            # module, this means we need to mark all descendant tests
-            # as error'd due to a setup failure.
-            errmsg = "Exception raises setting up scope='{}'".format(self._scope_name)
-            logger.exception(errmsg)
+                # If an exceptions was thrown in this context, it means
+                # that the exception occured during the setup for this
+                # module, this means we need to mark all descendant tests
+                # as error'd due to a setup failure.
+                errmsg_lines = [
+                    "Exception raises setting up scope='{}'".format(self._scope_name)
+                ]
+                errmsg_lines.extend(format_traceback_detail(tb_detail))
+                errmsg = os.linesep.join(errmsg_lines)
+                logger.error(errmsg)
+            
             handled = True
 
         self._scope_node.finalize()
@@ -208,15 +213,20 @@ class SequencerSessionScope(SequencerScopeBase):
             if issubclass(ex_type, SkitTestError):
                 self._mark_descendants_skipped(self._scope_node, self._scope_id, ex_inst.reason, ex_inst.bug)
             else:
-                errmsg = ""
-                self._mark_descendants_as_error(self._scope_node,  self._scope_id, errmsg)
+                tb_detail = create_traceback_detail(ex_inst)
+                self._mark_descendants_as_error(self._scope_node,  self._scope_id, tb_detail)
 
-            # If an exceptions was thrown in this context, it means
-            # that the exception occured during the setup for this
-            # module, this means we need to mark all descendant tests
-            # as error'd due to a setup failure.
-            errmsg = "Exception raises setting up scope='{}'".format(self._scope_name)
-            logger.exception(errmsg)
+                # If an exceptions was thrown in this context, it means
+                # that the exception occured during the setup for this
+                # module, this means we need to mark all descendant tests
+                # as error'd due to a setup failure.
+                errmsg_lines = [
+                    "Exception raises setting up scope='{}'".format(self._scope_name)
+                ]
+                errmsg_lines.extend(format_traceback_detail(tb_detail))
+                errmsg = os.linesep.join(errmsg_lines)
+                logger.error(errmsg)
+
             handled = True
 
         self._scope_node.finalize()
@@ -282,7 +292,7 @@ class SequencerTestScope:
             else:
                 # If an exceptions was thrown in this context, it means
                 # that a test threw an exception.
-                ex_lines = format_exception(ex_inst)
+                tb_detail = create_traceback_detail(ex_inst)
                 
                 if issubclass(ex_type, AssertionError):
                     # The convention for test failures that all tests should throw
@@ -290,17 +300,12 @@ class SequencerTestScope:
                     # This is important because a failure condition implies an expectation
                     # was checked and not met which implies a product code related failure
                     
-                    self._result.add_failure(ex_lines)
+                    self._result.add_failure(tb_detail)
                 else:
-                    self._result.add_error(ex_lines)
+                    self._result.add_error(tb_detail)
 
-                errmsg_lines = [
-                    "Exception raises setting up scope='{}'".format(self._test_name)
-                ]
-                for exln in ex_lines:
-                    errmsg_lines.append(exln.rstrip())
-
-                errmsg = os.linesep.join(errmsg_lines)
+                traceback_lines = format_traceback_detail(tb_detail)
+                errmsg = os.linesep.join(traceback_lines)
                 logger.error(errmsg)
 
             handled = True

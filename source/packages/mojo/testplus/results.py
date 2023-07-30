@@ -24,7 +24,10 @@ import json
 import os
 import time
 
+from dataclasses import asdict as dataclass_as_dict
+
 from mojo.xmods.xdatetime import format_time_with_fractional
+from mojo.xmods.xtraceback import TracebackDetail
 
 class ResultCode(enum.IntEnum):
     """
@@ -132,36 +135,18 @@ class ResultNode:
         """
         return self._result_type
 
-    def add_error(self, err_lines: List[str]):
+    def add_error(self, trace_detail: TracebackDetail):
         """
             Adds error trace lines for a single error to this result node.
         """
-        trim_lines = []
-        for nline in err_lines:
-            nline = nline.rstrip()
-            nlindex = nline.find(os.linesep)
-            if nlindex > -1:
-                trim_lines.append(nline[:nlindex])
-                trim_lines.append(nline[nlindex + 1:])
-            else:
-                trim_lines.append(nline)
-        self._errors.append(trim_lines)
+        self._errors.append(trace_detail)
         return
 
-    def add_failure(self, fail_lines: List[str]):
+    def add_failure(self, trace_detail: TracebackDetail):
         """
             Adds failure trace lines for a single failure to this result node.
         """
-        trim_lines = []
-        for nline in fail_lines:
-            nline = nline.rstrip()
-            nlindex = nline.find(os.linesep)
-            if nlindex > -1:
-                trim_lines.append(nline[:nlindex])
-                trim_lines.append(nline[nlindex + 1:])
-            else:
-                trim_lines.append(nline)
-        self._failures.append(trim_lines)
+        self._failures.append(trace_detail)
         return
 
     def add_warning(self, warn_lines: List[str]):
@@ -170,11 +155,10 @@ class ResultNode:
         """
         trim_lines = []
         for nline in warn_lines:
-            nline = nline.rstrip()
-            nlindex = nline.find(os.linesep)
-            if nlindex > -1:
-                trim_lines.append(nline[:nlindex])
-                trim_lines.append(nline[nlindex + 1:])
+            nline = nline.rstrip().replace("\r\n", "\n")
+            if nline.find("\n") > -1:
+                split_lines = nline.split("\n")
+                trim_lines.extend(split_lines)
             else:
                 trim_lines.append(nline)
         self._warnings.append(trim_lines)
@@ -225,9 +209,12 @@ class ResultNode:
         """
             Converts the result node instance to an :class:`collections.OrderedDict` object.
         """
+        errors = [dataclass_as_dict(e) for e in self._errors]
+        failures = [dataclass_as_dict(f) for f in self._failures]
+
         detail_items = [
-            ("errors", self._errors),
-            ("failures", self._failures),
+            ("errors", errors),
+            ("failures", failures),
             ("warnings", self._warnings)
         ]
 
