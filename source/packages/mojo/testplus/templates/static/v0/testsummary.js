@@ -531,8 +531,30 @@ function create_configuration_tree_node(name, ndata, path = []) {
     return nodeElement;
 }
 
-function entity_escape(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') ;
+function entity_escape(tgtstr) {
+    return tgtstr.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function create_trace_element(trace) {
+    var outerDiv = document.createElement('div');
+    outerDiv.classList.add("code-font");
+    
+    var origin = trace.origin;
+    
+    var nxtpre = document.createElement('pre');
+    nxtpre.innerHTML = "  File " + origin.file + ", line " + origin.lineno + ", in " + origin.scope;
+    outerDiv.appendChild(nxtpre);
+
+    nxtpre = document.createElement('pre');
+    nxtpre.innerHTML = entity_escape(trace.call);
+    outerDiv.appendChild(nxtpre);
+
+    var nxtcode = document.createElement('pre');
+    nxtcode.classList.add("language-python");
+    nxtcode.innerHTML = trace.code.join("\n");
+    outerDiv.appendChild(nxtcode);
+
+    return outerDiv;
 }
 
 function create_errors_table(errorsList) {
@@ -542,52 +564,20 @@ function create_errors_table(errorsList) {
     for (var eidx in errorsList) {
         var eitem = errorsList[eidx];
     
-        var preElement = document.createElement("pre");
-        errorsTable.appendChild(preElement)
-
-        var codeElement = null;
-    
-        var msg = "";
-        for (var lidx in eitem) {
-            var lstr = entity_escape(eitem[lidx]);
+        var itemElement = document.createElement("div");
         
-            if (codeElement != null) {
-                if (lstr == "  File") {
-                    codeElement.innerHTML = msg
-                    codeElement = null;
+        var headerElement = document.createElement("pre");
+        headerElement.innerHTML = eitem.extype + ", " + eitem.exargs.join(",");
+        itemElement.appendChild(headerElement);
 
-                    preElement = document.createElement("pre")
-                    errorsTable.appendChild(preElement)
+        for (var tindex in eitem.traces) {
+            var titem = eitem.traces[tindex];
 
-                    msg = "";
-                }
-                else {
-                    msg = msg + lstr + "\n";
-                }
-            } else {
-                if (lstr == "    CODE:") {
-                    preElement.innerHTML = msg;
-                    msg = "";
-
-                    preElement = document.createElement("pre");
-                    errorsTable.appendChild(preElement)
-
-                    codeElement = document.createElement("code");
-                    codeElement.classList.add("language-python");
-                    preElement.appendChild(codeElement);
-                } else {
-                    msg = msg + lstr + "\n";
-                }
-
-            }
+            var traceElement = create_trace_element(titem);
+            itemElement.appendChild(traceElement);
         }
 
-        if ( codeElement != null) {
-            codeElement.innerHTML = msg;
-        } else {
-            preElement.innerHTML = msg;
-        }
-
+        errorsTable.appendChild(itemElement)
     }
 
     return errorsTable
@@ -600,52 +590,20 @@ function create_failures_table(failuresList) {
     for (var fidx in failuresList) {
         var fitem = failuresList[fidx];
     
-        var preElement = document.createElement("pre");
-        failuresTable.appendChild(preElement)
-
-        var codeElement = null;
-    
-        var msg = "";
-        for (var lidx in fitem) {
-            var lstr = entity_escape(fitem[lidx]);
+        var itemElement = document.createElement("div");
         
-            if (codeElement != null) {
-                if (lstr == "  File") {
-                    codeElement.innerHTML = msg
-                    codeElement = null;
+        var headerElement = document.createElement("pre");
+        headerElement.innerHTML = fitem.extype + ", " + fitem.exargs.join(",");
+        itemElement.appendChild(headerElement);
 
-                    preElement = document.createElement("pre")
-                    failuresTable.appendChild(preElement)
+        for (var tindex in fitem.traces) {
+            var titem = fitem.traces[tindex];
 
-                    msg = "";
-                }
-                else {
-                    msg = msg + lstr + "\n";
-                }
-            } else {
-                if (lstr == "    CODE:") {
-                    preElement.innerHTML = msg;
-                    msg = "";
-
-                    preElement = document.createElement("pre");
-                    failuresTable.appendChild(preElement)
-
-                    codeElement = document.createElement("code");
-                    codeElement.classList.add("language-python");
-                    preElement.appendChild(codeElement);
-                } else {
-                    msg = msg + lstr + "\n";
-                }
-
-            }
+            var traceElement = create_trace_element(titem);
+            itemElement.appendChild(traceElement);
         }
 
-        if ( codeElement != null) {
-            codeElement.innerHTML = msg;
-        } else {
-            preElement.innerHTML = msg;
-        }
-
+        failuresTable.appendChild(itemElement)
     }
 
     return failuresTable

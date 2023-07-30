@@ -58,6 +58,12 @@ summary {
     color: orange;
 }
 
+.code-font {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: small;
+    white-space: pre-wrap;
+}
+
 .summary-banner {
     width: 100%;
     display: flex;
