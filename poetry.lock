@@ -667,19 +667,19 @@ requests = "<=2.29.0"
 
 [[package]]
 name = "mojo-runtime"
-version = "0.0.52"
+version = "0.0.54"
 description = "Automation Mojo Runtime Module (mojo-runtime)"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_runtime-0.0.52-py3-none-any.whl", hash = "sha256:5d46a447bcad7dc98db3cd2badf5958a45d0bde60caa296366241bd9dc733f3b"},
-    {file = "mojo_runtime-0.0.52.tar.gz", hash = "sha256:b21ee54aa3d01fb118f8e5b41683fc4205d3709f4af8a9ba342392069d0362e3"},
+    {file = "mojo_runtime-0.0.54-py3-none-any.whl", hash = "sha256:bba8a3ddadb97bfe8f6c9367d04cd0f4fe7335e11755a2e079fc5c585ad0e2a3"},
+    {file = "mojo_runtime-0.0.54.tar.gz", hash = "sha256:f3196d8074316e2ef9743bb445211a662443e290a7123a957c0c3dade0588dbd"},
 ]
 
 [package.dependencies]
 coverage = ">=7.0.4,<8.0.0"
-mojo-xmodules = ">=0.0.62,<0.1.0"
+mojo-xmodules = ">=0.0.63,<0.1.0"
 
 [[package]]
 name = "mojo-waiting"
@@ -1276,4 +1276,4 @@ mongodb = ["pymongo"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "d37fa7498cd155035b461f7c31933d71f69ce86789427feedca6c289233fa875"
+content-hash = "01614436e2284e9ab40b2f96b75fb494ea09e337e9a3ec066a0ba00e12e8a60b"

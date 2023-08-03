@@ -116,8 +116,10 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     # We perform activation a little later in the testrunner.py file so we can
     # handle exceptions in the context of testrunner_main function
     import mojo.runtime.activation.testrun
+    from mojo.runtime.variables import resolve_configuration_files
 
     from mojo.testplus.initialize import initialize_runtime, initialize_testplus_results
+    
     initialize_runtime(name="mjr", logger_name="MJR")
 
     ctx = Context()
@@ -154,12 +156,20 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     if job_owner is not None:
         optionoverrides.override_job_owner(job_owner)
 
-    if len(credential_files) > 0:
-        optionoverrides.override_config_credential_files(credential_files)
-
     if len(landscape_files) > 0 and len(landscape_names) > 0:
         errmsg = "The '--landscape-file' and '--landscape-name' options should not be used together."
         raise click.BadOptionUsage("landscape-name", errmsg)
+
+    if len(runtime_files) > 0 and len(runtime_names) > 0:
+        errmsg = "The '--runtime-file' and '--runtime-name' options should not be used together."
+        raise click.BadOptionUsage("runtime-name", errmsg)
+
+    if len(topology_files) > 0 and len(topology_names) > 0:
+        errmsg = "The '--topology-file' and '--topology-name' options should not be used together."
+        raise click.BadOptionUsage("option_name", errmsg)
+
+    if len(credential_files) > 0:
+        optionoverrides.override_config_credential_files(credential_files)
 
     if len(landscape_files) > 0:
         optionoverrides.override_config_landscape_files(landscape_files)
@@ -167,33 +177,11 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     if len(landscape_names) > 0:
         optionoverrides.override_config_landscape_names(landscape_names)
 
-    if len(landscape_files) > 0 or len(landscape_names) > 0:
-        landscape_filenames = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_FILES
-        option_name = "landscape" if landscape_files is not None else "landscape-names"
-        if not os.path.exists(landscape_filenames):
-            errmsg = "The specified landscape file does not exist. filename={}".format(landscape_filenames)
-            raise click.BadOptionUsage(option_name, errmsg)
-
-    if len(runtime_files) > 0 and len(runtime_names) > 0:
-        errmsg = "The '--runtime-file' and '--runtime-name' options should not be used together."
-        raise click.BadOptionUsage("runtime-name", errmsg)
-
     if len(runtime_files) > 0:
         optionoverrides.override_config_runtime_files(runtime_files)
     
     if len(runtime_names) > 0:
         optionoverrides.override_config_runtime_names(runtime_names)
-    
-    if len(runtime_files) > 0 or len(runtime_names) > 0:
-        runtime_filename = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_FILES
-        option_name = "runtime" if runtime_files is not None else "runtime-names"
-        if not os.path.exists(runtime_filename):
-            errmsg = "The specified runtime file does not exist. filename={}".format(runtime_filename)
-            raise click.BadOptionUsage(option_name, errmsg)
-
-    if len(topology_files) > 0 and len(topology_names) > 0:
-        errmsg = "The '--topology-file' and '--topology-name' options should not be used together."
-        raise click.BadOptionUsage("option_name", errmsg)
 
     if len(topology_files) > 0:
         optionoverrides.override_config_topology_files(topology_files)
@@ -201,12 +189,31 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     if len(topology_names) > 0:
         optionoverrides.override_config_topology_names(topology_names)
 
+    resolve_configuration_files()
+
+    if len(landscape_files) > 0 or len(landscape_names) > 0:
+        landscape_filenames = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_FILES
+        option_name = "landscape" if landscape_files is not None else "landscape-names"
+        for nxtfilename in landscape_filenames:
+            if not os.path.exists(nxtfilename):
+                errmsg = "The specified landscape file does not exist. filename={}".format(nxtfilename)
+                raise click.BadOptionUsage(option_name, errmsg)
+    
+    if len(runtime_files) > 0 or len(runtime_names) > 0:
+        runtime_filenames = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_FILES
+        option_name = "runtime" if runtime_files is not None else "runtime-names"
+        for nxtfilename in runtime_filenames:
+            if not os.path.exists(nxtfilename):
+                errmsg = "The specified runtime file does not exist. filename={}".format(nxtfilename)
+                raise click.BadOptionUsage(option_name, errmsg)
+
     if len(topology_files) > 0 or len(topology_names) > 0:
-        topology_filename = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_FILES
+        topology_filenames = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_FILES
         option_name = "topology" if topology_files is not None else "topology-names"
-        if not os.path.exists(topology_filename):
-            errmsg = "The specified topology file does not exist. filename={}".format(topology_filename)
-            raise click.BadOptionUsage(option_name, errmsg)
+        for nxtfilename in topology_filenames:
+            if not os.path.exists(nxtfilename):
+                errmsg = "The specified topology file does not exist. filename={}".format(nxtfilename)
+                raise click.BadOptionUsage(option_name, errmsg)
 
     if console_level is not None:
         optionoverrides.override_loglevel_console(console_level)
