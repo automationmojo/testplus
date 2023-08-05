@@ -116,6 +116,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     # We perform activation a little later in the testrunner.py file so we can
     # handle exceptions in the context of testrunner_main function
     import mojo.runtime.activation.testrun
+
     from mojo.runtime.variables import resolve_configuration_files
 
     from mojo.testplus.initialize import initialize_runtime, initialize_testplus_results
@@ -124,11 +125,6 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
 
     ctx = Context()
     env = ctx.lookup("/environment")
-
-    # We need to set the job type before we trigger activation.
-    env["jobtype"] = JobType.TestRun
-
-    initialize_testplus_results()
 
     from mojo.testplus.markers import MetaFilter, parse_marker_expression
 
@@ -284,14 +280,10 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
         mfilter = parse_marker_expression("-" + imexp)
         metafilters.append(mfilter)
 
-    # Initialize logging
-    from mojo.xmods.xlogging.foundations import logging_initialize
-    logging_initialize()
+    # Initialize testplus results and logging
+    initialize_testplus_results()
 
     logger = logging.getLogger()
-
-    tpmod = sys.modules["mojo.testplus"]
-    tpmod.logger = logger
 
     from mojo.xmods.wellknown.singletons import SuperFactorySinglton
     from mojo.testplus.extensionpoints import TestPlusExtensionPoints

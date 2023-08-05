@@ -47,7 +47,7 @@ class TestRef:
         self._test_function = testfunc
         self._monikers = monikers
         self._pivots = pivots
-        self._subscriptions = None
+        self._subscriptions = {}
         self._finalized = False
         return
 

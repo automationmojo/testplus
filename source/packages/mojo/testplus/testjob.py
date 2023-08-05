@@ -361,7 +361,8 @@ class TestJob(ContextUser):
         
         query_results = []
 
-        with TestSequencer(self.title, self._testroot, includes=self.includes, excludes=self.excludes) as tseq:
+        with self._create_sequencer() as tseq:
+            
             count = tseq.discover(test_module=self._test_module)
 
             query_results = tseq.references

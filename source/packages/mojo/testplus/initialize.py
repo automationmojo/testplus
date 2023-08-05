@@ -1,9 +1,10 @@
 
-
+import logging
 import os
 
 from mojo.xmods.xcollections.context import Context, ContextPaths
-
+from mojo.xmods.xlogging.foundations import logging_initialize
+    
 from mojo.runtime.initialize import initialize_runtime, MOJO_RUNTIME_STATE
 from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
 
@@ -33,4 +34,7 @@ def initialize_testplus_results():
     ctx.insert(ContextPaths.DIR_RESULTS_RESOURCE_SRC, MOJO_RUNTIME_VARIABLES.MJR_RESULTS_STATIC_RESOURCE_SRC_DIR)
     ctx.insert(ContextPaths.DIR_RESULTS_RESOURCE_DEST, MOJO_RUNTIME_VARIABLES.MJR_RESULTS_STATIC_RESOURCE_DEST_DIR)
     ctx.insert(ContextPaths.FILE_RESULTS_TEMPLATE, MOJO_RUNTIME_VARIABLES.MJR_RESULTS_STATIC_SUMMARY_TEMPLATE)
+    
+    logging_initialize()
+
     return

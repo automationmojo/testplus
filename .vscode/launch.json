@@ -14,7 +14,22 @@
             "envFile": "${workspaceFolder}/.env"
         },
         {
-            "name": "Python: Internal Tests",
+            "name": "Python: Internal Tests - Query",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/source/packages/mojo/testplus/cli/testplus_command.py",
+            "envFile": "${workspaceFolder}/.env",
+            "args": [
+                "testing",
+                "query",
+                "--root=${workspaceFolder}/source/testroots/mojo",
+                "--includes=mojo.tests"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            "name": "Python: Internal Tests - Run",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/source/packages/mojo/testplus/cli/testplus_command.py",
