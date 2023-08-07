@@ -647,6 +647,7 @@ function create_failures_table(failuresList) {
         var itemElement = document.createElement("div");
         
         var headerElement = document.createElement("pre");
+        headerElement.classList.add("code-font-dk");
         headerElement.innerHTML = fitem.extype + ", " + fitem.exargs.join(",");
         itemElement.appendChild(headerElement);
 
