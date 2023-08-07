@@ -127,9 +127,11 @@ body {
 .summary-banner-image {
     width: 100px;
     height: 100px;
-    background-color: indigo;
     margin: 10px;
-    content: url("test-report-banner-background-image.png");
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("test-report-banner-background-image.png");
 }
 
 .summary-banner-metrics {

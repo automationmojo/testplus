@@ -620,6 +620,7 @@ function create_errors_table(errorsList) {
         var itemElement = document.createElement("div");
         
         var headerElement = document.createElement("pre");
+        headerElement.classList.add("code-font-dk");
         headerElement.innerHTML = eitem.extype + ", " + eitem.exargs.join(",");
         itemElement.appendChild(headerElement);
 
