@@ -9,6 +9,8 @@
     __license__ = "MIT"
 */
 
+const DATETIME_FORMAT = "yyyy-MM-ddTHHmm\Sssssss"
+
 // Summary State
 var g_summary = null;
 
@@ -34,9 +36,9 @@ var g_artifacts_tabs = null;
 // Import Error State
 var g_import_errors = null;
 
-
 // File Catalog State
 var g_catalog = null;
+
 
 /*************************************************************************************
  *************************************************************************************
@@ -46,23 +48,7 @@ var g_catalog = null;
  *************************************************************************************
  *************************************************************************************/
 
-function isDict(value) {
-    rtnval = false;
-    if (value.constructor == Object) {
-        rtnval = true;
-    }
-    return rtnval
-}
-
-function isString(value) {
-    rtnval = false;
-    if (value.constructor == String) {
-        rtnval = true;
-    }
-    return rtnval
-}
-
-async function load_http(url) {
+ async function fetch_http(url) {
     var promise = new Promise((resolve, reject) => {
         var xmlhttp = new XMLHttpRequest();
 
@@ -88,7 +74,7 @@ async function load_http(url) {
     return promise;
 }
 
-async function load_json(url) {
+async function fetch_json(url) {
     var promise = new Promise((resolve, reject) => {
         var xmlhttp = new XMLHttpRequest();
 
@@ -115,7 +101,7 @@ async function load_json(url) {
     return promise;
 }
 
-async function load_json_stream(url) {
+async function fetch_json_stream(url) {
     var promise = new Promise((resolve, reject) => {
         var xmlhttp = new XMLHttpRequest();
 
@@ -152,6 +138,22 @@ async function load_json_stream(url) {
     });
 
     return promise;
+}
+
+function isDict(value) {
+    rtnval = false;
+    if (value.constructor == Object) {
+        rtnval = true;
+    }
+    return rtnval
+}
+
+function isString(value) {
+    rtnval = false;
+    if (value.constructor == String) {
+        rtnval = true;
+    }
+    return rtnval
 }
 
 function split_test_fullname(testname_full) {
@@ -192,7 +194,7 @@ function enable_artifacts_section() {
  *************************************************************************************/
 
 async function load_artifact_folders() {
-    g_artifacts_catalog = await load_json("artifacts/catalog.json");
+    g_artifacts_catalog = await fetch_json("artifacts/catalog.json");
 
     if ((g_artifacts_catalog != null) && (g_artifacts_catalog.folders.length > 0)) {
         enable_artifacts_section();
@@ -202,7 +204,7 @@ async function load_artifact_folders() {
         for (var findex in g_artifacts_catalog.folders) {
             var folder = g_artifacts_catalog.folders[findex];
 
-            artifact_catalog = await load_http("artifacts/" + folder + "/catalog.json").catch(err => {
+            artifact_catalog = await fetch_http("artifacts/" + folder + "/catalog.json").catch(err => {
                 console.log("The '" + folder + "' artifacts folder does not have a 'catalog.json' file.")
             });
 
@@ -214,23 +216,23 @@ async function load_artifact_folders() {
 }
 
 async function load_catalog() {
-    g_catalog = await load_json("catalog.json");
+    g_catalog = await fetch_json("catalog.json");
 }
 
 async function load_configuration() {
     g_startup_configuration = {}
 
-    var landscape = await load_json("landscape-declared.json").catch(err => {
+    var landscape = await fetch_json("landscape-declared.json").catch(err => {
         console.log("Unable to load the landscape declaration file='landscape-declared.json'.")
     });
-    var startup = await load_json("startup-configuration.json").catch(err => {
+    var startup = await fetch_json("startup-configuration.json").catch(err => {
         console.log("Unable to load the landscape declaration file='startup-configuration.json'.")
     });
 
     g_startup_configuration["landscape"] = landscape;
     g_startup_configuration["startup"] = startup;
 
-    var upnp_startup_scan = await load_json("landscape-startup-scan.json").catch(err => {
+    var upnp_startup_scan = await fetch_json("landscape-startup-scan.json").catch(err => {
         console.log("Unable to load the landscape declaration file='landscape-startup-scan.json'.")
     });
 
@@ -238,11 +240,11 @@ async function load_configuration() {
 }
 
 async function load_import_errors() {
-    g_import_errors = await load_json_stream("import_errors.jsos")
+    g_import_errors = await fetch_json_stream("import_errors.jsos")
 }
 
 async function load_results() {
-    var results = await load_json_stream("testrun_results.jsos");
+    var results = await fetch_json_stream("testrun_results.jsos");
 
     var counter_passed = 0;
     var counter_errors = 0;
@@ -332,7 +334,7 @@ async function load_results() {
 }
 
 async function load_summary() {
-    g_summary = await load_json("testrun_summary.json");
+    g_summary = await fetch_json("testrun_summary.json");
 }
 
 /*************************************************************************************
@@ -666,23 +668,45 @@ function create_result_item_content(ritem) {
     var otherDetail = document.createElement("div");
     otherDetail.classList.add("dtl-hdr-row");
 
+    var instLabel = document.createElement("div");
+    instLabel.innerHTML = "InstId";
+    instLabel.classList.add("dtl-label");
+    otherDetail.appendChild(instLabel);
+    var instValue = document.createElement("div");
+    instValue.classList.add("dtl-value");
+    instValue.innerHTML = ritem.instance;
+    otherDetail.appendChild(instValue);
+
+    var startLabel = document.createElement("div");
+    startLabel.innerHTML = "Start";
+    startLabel.classList.add("dtl-label");
+    otherDetail.appendChild(startLabel);
+    var startValue = document.createElement("div");
+    startValue.innerHTML = ritem.start;
+    startValue.classList.add("dtl-value");
+    otherDetail.appendChild(startValue);
+
     var stopLabel = document.createElement("div");
     stopLabel.innerHTML = "Stop";
-    stopLabel.classList.add("dtl-hdr-stop-l");
+    stopLabel.classList.add("dtl-label");
     otherDetail.appendChild(stopLabel);
     var stopValue = document.createElement("div");
     stopValue.innerHTML = ritem.stop;
-    stopValue.classList.add("dtl-hdr-stop-v");
+    stopValue.classList.add("dtl-value");
     otherDetail.appendChild(stopValue);
 
-    var instLabel = document.createElement("div");
-    instLabel.innerHTML = "InstId";
-    instLabel.classList.add("dtl-hdr-inst-l");
-    otherDetail.appendChild(instLabel);
-    var instValue = document.createElement("div");
-    instValue.classList.add("dtl-hdr-inst-v");
-    instValue.innerHTML = ritem.instance;
-    otherDetail.appendChild(instValue);
+    var startTimeStamp = Date.parse(ritem.stop, DATETIME_FORMAT);
+    var stopTimeStamp = Date.parse(ritem.stop, DATETIME_FORMAT);
+    var elaspedTime = stopTimeStamp - startTimeStamp;
+
+    var elapsedLabel = document.createElement("div");
+    elapsedLabel.innerHTML = "Elapsed";
+    elapsedLabel.classList.add("dtl-label");
+    otherDetail.appendChild(elapsedLabel);
+    var elapsedValue = document.createElement("div");
+    elapsedValue.innerHTML = elaspedTime;
+    elapsedValue.classList.add("dtl-value");
+    otherDetail.appendChild(elapsedValue);
 
     detailContainer.appendChild(otherDetail);
     detailContainer.appendChild(document.createElement("br"));
@@ -1015,11 +1039,17 @@ function refresh_catalog() {
 function refresh_configuration() {
     var configurationBodyElement = document.getElementById("test-configuration-body");
 
-    var landscapeNodeElement = create_configuration_tree_node("landscape", g_startup_configuration["landscape"]);
-    configurationBodyElement.appendChild(landscapeNodeElement);
+    try {
+        var landscapeNodeElement = create_configuration_tree_node("landscape", g_startup_configuration["landscape"]);
+        configurationBodyElement.appendChild(landscapeNodeElement);
+    } catch(e) {
+    }
 
-    var startupNodeElement = create_configuration_tree_node("startup", g_startup_configuration["startup"]);
-    configurationBodyElement.appendChild(startupNodeElement);
+    try {
+        var startupNodeElement = create_configuration_tree_node("startup", g_startup_configuration["startup"]);
+        configurationBodyElement.appendChild(startupNodeElement);
+    } catch(e) {
+    }
 }
 
 function refresh_import_errors() {
@@ -1150,6 +1180,7 @@ function refresh_summary() {
  *************************************************************************************/
 
 async function refresh_page() {
+    
     load_summary().then(() => {
         refresh_summary();
     });

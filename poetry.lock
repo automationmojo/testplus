@@ -635,19 +635,19 @@ files = [
 
 [[package]]
 name = "mojo-interop"
-version = "0.0.21"
+version = "0.0.22"
 description = "Automation Mojo Interop Extensions"
 category = "main"
 optional = true
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_interop-0.0.21-py3-none-any.whl", hash = "sha256:60922673d415a060a78ccf3ae2bf961b025928e31324cd78956fa47c1555c7cd"},
-    {file = "mojo_interop-0.0.21.tar.gz", hash = "sha256:fbd7197cc82537d2aa8f855b95258ee3e2ad03900e09ed6a435c0cbe479a7995"},
+    {file = "mojo_interop-0.0.22-py3-none-any.whl", hash = "sha256:43f140f65b748f64be0abba8e18d51821dfafadc407e0698f69787f6e4029ab6"},
+    {file = "mojo_interop-0.0.22.tar.gz", hash = "sha256:395c1086a36ac8b50273a8c284f8a68f5ac9ab77f95a0e390378c1297f5b25c3"},
 ]
 
 [package.dependencies]
 mojo-networking = ">=0.0.4,<0.1.0"
-mojo-xmodules = ">=0.0.62,<0.1.0"
+mojo-xmodules = ">=0.0.66,<0.1.0"
 
 [[package]]
 name = "mojo-networking"
@@ -667,48 +667,48 @@ requests = "<=2.29.0"
 
 [[package]]
 name = "mojo-runtime"
-version = "0.0.56"
+version = "0.0.58"
 description = "Automation Mojo Runtime Module (mojo-runtime)"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_runtime-0.0.56-py3-none-any.whl", hash = "sha256:0009e37dff97419c501437c6ad7149113ad697d370c4b02333a5be5e96770fcf"},
-    {file = "mojo_runtime-0.0.56.tar.gz", hash = "sha256:1d129af93f55ac19fed726c4d8d4224ee26ca631d7c24b0683bd40a3c6af6f21"},
+    {file = "mojo_runtime-0.0.58-py3-none-any.whl", hash = "sha256:8aea52135da096921072947d1afd45a52fc7b7f5a4e4cb1c9998bcc2db455ed6"},
+    {file = "mojo_runtime-0.0.58.tar.gz", hash = "sha256:48a8e2a85484820285cacfdcb799c2e6051114e1dba29dbf9dd8d993252d1c1c"},
 ]
 
 [package.dependencies]
 coverage = ">=7.0.4,<8.0.0"
-mojo-xmodules = ">=0.0.63,<0.1.0"
+mojo-xmodules = ">=0.0.67,<0.1.0"
 
 [[package]]
 name = "mojo-waiting"
-version = "1.0.2"
+version = "1.0.3"
 description = "Automation Mojo Waiting Module"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_waiting-1.0.2-py3-none-any.whl", hash = "sha256:5cbce14a28dc2f57c12c5976e0ab115296d356f03eec8ebb95fc16ad0a7de41b"},
-    {file = "mojo_waiting-1.0.2.tar.gz", hash = "sha256:b7953fdfa5c0a36aa2a2b25897625fc5b4525ee2f7aa1121334f17a6e4bd74da"},
+    {file = "mojo_waiting-1.0.3-py3-none-any.whl", hash = "sha256:f703de45de1254af05b68d845cfdc67a67ae7621770e59ebdc15a8f9e39eb92b"},
+    {file = "mojo_waiting-1.0.3.tar.gz", hash = "sha256:9e4d6d0f2b1b5bd2c176081db510682a4231017689df30207f89072e4d4b1c6d"},
 ]
 
 [[package]]
 name = "mojo-xmodules"
-version = "0.0.65"
+version = "0.0.67"
 description = "Automation Mojo X-Modules"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_xmodules-0.0.65-py3-none-any.whl", hash = "sha256:043e3c50c4410244cecf864e2bc544e6e2765faf0994dc69c65ac7c391ff7932"},
-    {file = "mojo_xmodules-0.0.65.tar.gz", hash = "sha256:12d9454d3bfbd21f088da7023575c7958556e958f9d5810bfa6f769f25920ad9"},
+    {file = "mojo_xmodules-0.0.67-py3-none-any.whl", hash = "sha256:94a0ad3b11e166a9c721a87cb8c44a2dadf36d1397692544a63ed9cc3a1cd85f"},
+    {file = "mojo_xmodules-0.0.67.tar.gz", hash = "sha256:78ddb218dacf05c221495b60d10b5f5e5105206f3be70f56ea5053008390103a"},
 ]
 
 [package.dependencies]
 click = ">=8.1.5,<9.0.0"
 debugpy = ">=1.6.6,<2.0.0"
-mojo-waiting = ">=1.0.0,<2.0.0"
+mojo-waiting = ">=1.0.3,<2.0.0"
 paramiko = ">=3.1.0,<4.0.0"
 
 [[package]]
@@ -826,14 +826,14 @@ files = [
 
 [[package]]
 name = "pygments"
-version = "2.15.1"
+version = "2.16.1"
 description = "Pygments is a syntax highlighting package written in Python."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "Pygments-2.15.1-py3-none-any.whl", hash = "sha256:db2db3deb4b4179f399a09054b023b6a586b76499d36965813c71aa8ed7b5fd1"},
-    {file = "Pygments-2.15.1.tar.gz", hash = "sha256:8ace4d3c1dd481894b2005f560ead0f9f19ee64fe983366be1a21e171d12775c"},
+    {file = "Pygments-2.16.1-py3-none-any.whl", hash = "sha256:13fc09fa63bc8d8671a6d247e1eb303c4b343eaee81d861f3404db2935653692"},
+    {file = "Pygments-2.16.1.tar.gz", hash = "sha256:1daff0494820c69bc8941e407aa20f577374ee88364ee10a98fdbe0aece96e29"},
 ]
 
 [package.extras]

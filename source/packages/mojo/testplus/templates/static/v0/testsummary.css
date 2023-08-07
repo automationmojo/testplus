@@ -22,22 +22,16 @@ summary {
     cursor: pointer;
 }
 
-.section-header {
-    background: #ececec;
+body {
+    width: calc(100vw - 40px);
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
 }
 
-.section-body {
-    background: white;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.section-footer {
-    background: white;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
+/* =======================================================================
+                                  COLOR CLASSES
+   =======================================================================*/
 .color-error {
     color: maroon;
 }
@@ -58,32 +52,97 @@ summary {
     color: orange;
 }
 
+
+/* =======================================================================
+                                  FONT CLASSES
+   =======================================================================*/
+
 .code-font {
     font-family: 'Courier New', Courier, monospace;
     font-size: small;
     white-space: pre-wrap;
 }
 
-.summary-banner {
-    width: 100%;
+.flex-filler {
+    flex-grow: 1;
+}
+
+.body-title {
+    text-align: center;
+}
+
+.section-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-body {
+    
+}
+
+.section-footer {
+    margin-top: 20px;
+}
+
+.summary-card {
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px lightgrey;
+    background-color: #21224b;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.summary-banner-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.summary-banner-image {
+    width: 100px;
+    height: 100px;
+    background-color: indigo;
+    margin: 10px;
+    content: url("test-report-banner-background-image.png");
+}
+
+.summary-banner-metrics {
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px lightgrey;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.summary-metrics {
+    display: flex;
+    flex-direction: row;
+    padding-left: 50px;
+    padding-right: 50px;
+    justify-content: flex-end;
+}
+
+.summary-metrics-row {
     display: flex;
     flex-flow: row nowrap;
-}
-
-.summary-banner-left {
-    flex-grow: 0;
-    height: 119px;
-}
-
-.summary-banner-middle {
     flex-grow: 1;
-    height: 119px;
-    flex-flow: column
+    text-align: left;
+    justify-content: flex-start;
+    height: 30px;
 }
 
-.summary-banner-right {
-    flex-grow: 0;
-    height: 119px;
+.summary-column {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px
 }
 
 .summary-label {
@@ -105,21 +164,53 @@ summary {
 .summary-row {
     display: flex;
     flex-flow: row nowrap;
+    flex-grow: 1;
     text-align: left;
+    justify-content: flex-start;
 }
 
-.summary-table {
-    table-layout: fixed;
-    padding-left: 50px;
-    padding-right: 50px;
+.summary-value-pair {
+    display: flex;
+    flex-flow: row nowrap;
+    text-align: left;
+    justify-content: flex-start;
 }
 
 .summary-title {
     text-align: center;
 }
 
-.body-title {
-    text-align: center;
+.test-configuration-card {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px lightgrey;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.test-results-card {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px lightgrey;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.imp-error-card {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px lightgrey;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .imp-error-headers {
@@ -143,23 +234,6 @@ summary {
     padding-right: 10px;
 }
 
-.ierr-item-row {
-    display: block;
-    width: 100%;
-}
-
-.ierr-item-hdr {
-    width: 100%;
-    display: flex;
-    flex-flow: row nowrap;
-}
-
-.ierr-item-hdr-filename {
-    width: 100%;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
 .imp-error-table {
     display: block;
     flex-grow: 1;
@@ -168,6 +242,17 @@ summary {
     border-width: 1.5px;
     padding-top: 5px;
     padding-left: 5px;
+}
+
+.files-and-folders-card {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px lightgrey;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .landscape-table {
@@ -186,6 +271,7 @@ summary {
     display: flex;
     flex-flow: row nowrap;
     flex-grow: 1;
+    justify-content: flex-end;
     border: black;
     border-style: solid;
     border-width: 1.5px;
@@ -281,7 +367,7 @@ summary {
 }
 
 .pitem-hdr-row {
-    width: 98%;
+    width: calc(100% - 20px);
     display: inline-flex;
     flex-flow: row nowrap;
 }
@@ -356,13 +442,15 @@ summary {
 }
 
 .ritem-hdr-row {
-    width: 98%;
+    width: calc(100% - 20px);
     display: inline-flex;
     flex-flow: row nowrap;
+    justify-content: flex-end;
 }
 
 .ritem-hdr-start {
-    width: 190px;
+    display: inline-flex;
+    width: 205px;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -520,22 +608,12 @@ summary {
     flex-flow: row nowrap;
 }
 
-.dtl-hdr-stop-l {
+.dtl-label {
     font-weight: bolder;
     padding-left: 20px;
 }
 
-.dtl-hdr-stop-v {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.dtl-hdr-inst-l {
-    font-weight: bolder;
-    padding-left: 20px;
-}
-
-.dtl-hdr-inst-v {
+.dtl-value {
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -588,10 +666,6 @@ summary {
     flex-flow: row;
 }
 
-.ff-icon {
-
-}
-
 .ff-name {
     padding-left: 20px;
 }
@@ -634,4 +708,22 @@ summary {
     width: 24px;
     height: 119px;
     background: #333238;
+}
+
+
+.ierr-item-row {
+    display: block;
+    width: 100%;
+}
+
+.ierr-item-hdr {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.ierr-item-hdr-filename {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
 }
