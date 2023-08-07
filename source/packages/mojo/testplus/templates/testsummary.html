@@ -15,22 +15,24 @@
         <link rel="stylesheet" href="/static/v0/prism.css" ></link>
         <link rel="stylesheet" href="/static/v0/testsummary.css" ></link>
 
+        <script type="text/javascript" src="/static/v0/prism.js" ></script>
         <script type="text/javascript" src="/static/v0/testsummary.js" ></script>
 
         <script type="text/javascript">
 
-            refresh_page().then(function() {
+            function on_page_load() {
+                refresh_page().then(function() {
                 console.log("Page loaded");
-            }, function(err) {
-                console.log("ERROR:\n" + err);
-                console.log(err.stack)
-            });
+                }, function(err) {
+                    console.log("ERROR:\n" + err);
+                    console.log(err.stack)
+                });
+            }
 
         </script>
 
     </head>
-    <body>
-        <script type="text/javascript" src="/static/v0/prism.js" ></script>
+    <body onload="on_page_load()">
         <div class='section-header'>
             <div class="summary-card">
                 <div class="summary-banner-image"></div>

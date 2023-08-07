@@ -60,8 +60,22 @@ body {
 .code-font {
     font-family: 'Courier New', Courier, monospace;
     font-size: small;
+    font-weight: 500;
     white-space: pre-wrap;
 }
+
+.margin-sm {
+    margin-left: 10px;
+}
+
+.margin-med {
+    margin-left: 20px;
+}
+
+.margin-lg {
+    margin-left: 30px;
+}
+
 
 .flex-filler {
     flex-grow: 1;
@@ -597,23 +611,28 @@ body {
     border-width: 1px;
 }
 
-.dtl-body {
-    background: whitesmoke;
-    margin-left: 20px;
-    margin-right: 20px;
+.test-dtl-body {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px lightgrey;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
-.dtl-hdr-row {
+.test-dtl-hdr-row {
     display: flex;
     flex-flow: row nowrap;
 }
 
-.dtl-label {
+.test-dtl-label {
     font-weight: bolder;
     padding-left: 20px;
 }
 
-.dtl-value {
+.test-dtl-value {
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -632,6 +651,7 @@ body {
     text-align: center;
     background: maroon;
     color: white;
+    margin-top: 5px;
 }
 
 .e-list {
@@ -644,6 +664,7 @@ body {
     text-align: center;
     background: red;
     color: white;
+    margin-top: 5px;
 }
 
 .f-list {

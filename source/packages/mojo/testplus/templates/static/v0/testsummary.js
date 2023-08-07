@@ -581,22 +581,32 @@ function entity_escape(tgtstr) {
 
 function create_trace_element(trace) {
     var outerDiv = document.createElement('div');
-    outerDiv.classList.add("code-font");
     
     var origin = trace.origin;
     
     var nxtpre = document.createElement('pre');
+    nxtpre.classList.add("code-font");
+    nxtpre.classList.add("margin-med");
     nxtpre.innerHTML = "  File " + origin.file + ", line " + origin.lineno + ", in " + origin.scope;
     outerDiv.appendChild(nxtpre);
 
     nxtpre = document.createElement('pre');
+    nxtpre.classList.add("margin-sm");
     nxtpre.innerHTML = entity_escape(trace.call);
     outerDiv.appendChild(nxtpre);
 
-    var nxtcode = document.createElement('pre');
-    nxtcode.classList.add("language-python");
-    nxtcode.innerHTML = trace.code.join("\n");
-    outerDiv.appendChild(nxtcode);
+    if ((trace.code != undefined) && (trace.code.length > 0)) {
+        var nxtpre = document.createElement('pre');
+        nxtpre.classList.add("margin-lg");
+        nxtpre.classList.add("code-font");
+
+        var nxtcode = document.createElement('code');
+        nxtcode.classList.add("language-python");
+        nxtcode.innerHTML = "\n" + trace.code.join("\n");
+        nxtpre.appendChild(nxtcode);
+    }
+
+    outerDiv.appendChild(nxtpre);
 
     return outerDiv;
 }
@@ -704,52 +714,50 @@ function create_result_item_content(ritem) {
     summaryContainerRow.appendChild(summaryP);
 
     var detailContainer = document.createElement("div");
-    detailContainer.classList.add("dtl-body");
-    detailContainer.appendChild(document.createElement("br"));
+    detailContainer.classList.add("test-dtl-body");
 
     var otherDetail = document.createElement("div");
-    otherDetail.classList.add("dtl-hdr-row");
+    otherDetail.classList.add("test-dtl-hdr-row");
 
     var instLabel = document.createElement("div");
     instLabel.innerHTML = "InstId";
-    instLabel.classList.add("dtl-label");
+    instLabel.classList.add("test-dtl-label");
     otherDetail.appendChild(instLabel);
     var instValue = document.createElement("div");
-    instValue.classList.add("dtl-value");
+    instValue.classList.add("test-dtl-value");
     instValue.innerHTML = ritem.instance;
     otherDetail.appendChild(instValue);
 
     var startLabel = document.createElement("div");
     startLabel.innerHTML = "Start";
-    startLabel.classList.add("dtl-label");
+    startLabel.classList.add("test-dtl-label");
     otherDetail.appendChild(startLabel);
     var startValue = document.createElement("div");
     startValue.innerHTML = ritem.start;
-    startValue.classList.add("dtl-value");
+    startValue.classList.add("test-dtl-value");
     otherDetail.appendChild(startValue);
 
     var stopLabel = document.createElement("div");
     stopLabel.innerHTML = "Stop";
-    stopLabel.classList.add("dtl-label");
+    stopLabel.classList.add("test-dtl-label");
     otherDetail.appendChild(stopLabel);
     var stopValue = document.createElement("div");
     stopValue.innerHTML = ritem.stop;
-    stopValue.classList.add("dtl-value");
+    stopValue.classList.add("test-dtl-value");
     otherDetail.appendChild(stopValue);
 
     var elapsedTime = get_time_difference(ritem.start, ritem.stop);
 
     var elapsedLabel = document.createElement("div");
     elapsedLabel.innerHTML = "Elapsed";
-    elapsedLabel.classList.add("dtl-label");
+    elapsedLabel.classList.add("test-dtl-label");
     otherDetail.appendChild(elapsedLabel);
     var elapsedValue = document.createElement("div");
     elapsedValue.innerHTML = elapsedTime;
-    elapsedValue.classList.add("dtl-value");
+    elapsedValue.classList.add("test-dtl-value");
     otherDetail.appendChild(elapsedValue);
 
     detailContainer.appendChild(otherDetail);
-    detailContainer.appendChild(document.createElement("br"));
 
     if (detail.hasOwnProperty("documentation")) {
         var docsHeader = document.createElement("h3");
@@ -765,10 +773,10 @@ function create_result_item_content(ritem) {
 
     if (detail.errors.length > 0) {
         var errorList = detail.errors;
-        var errorsHeader = document.createElement("h3");
+        var errorsHeader = document.createElement("div");
         errorsHeader.classList.add("e-list-hdr");
 
-        errorsHeader.innerHTML = "ERRORS";
+        errorsHeader.innerHTML = "<h3>ERRORS</h3>";
         detailContainer.appendChild(errorsHeader);
 
         var errorsTable = create_errors_table(errorList);
@@ -779,10 +787,10 @@ function create_result_item_content(ritem) {
 
     if (detail.failures.length > 0) {
         var failuresList = detail.failures;
-        var failuresHeader = document.createElement("h3");
+        var failuresHeader = document.createElement("div");
         failuresHeader.classList.add("f-list-hdr");
 
-        failuresHeader.innerHTML = "FAILURES";
+        failuresHeader.innerHTML = "<h3>FAILURES</h3>";
         detailContainer.appendChild(failuresHeader);
 
         var failuresTable = create_failures_table(failuresList);
@@ -957,7 +965,7 @@ function render_import_error_item_content(container, imp_err_item) {
     summary_item.appendChild(filename_item);
 
     var detail_body = document.createElement('div');
-    detail_body.classList.add("dtl-body");
+    detail_body.classList.add("test-dtl-body");
 
     var stack_trace_hdr = document.createElement('h3');
     stack_trace_hdr.classList.add('f-list-hdr');
@@ -1259,5 +1267,7 @@ async function refresh_page() {
         refresh_catalog();
     });
 
-    highlightAll();
+    window.Prism = window.Prism || {};
+    window.Prism.manual = true;
+    Prism.highlightAll();
 }
