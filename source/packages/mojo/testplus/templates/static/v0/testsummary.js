@@ -585,20 +585,19 @@ function create_trace_element(trace) {
     var origin = trace.origin;
     
     var nxtpre = document.createElement('pre');
-    nxtpre.classList.add("code-font");
-    nxtpre.classList.add("margin-med");
+    nxtpre.classList.add("code-font-lt");
     nxtpre.innerHTML = "  File " + origin.file + ", line " + origin.lineno + ", in " + origin.scope;
     outerDiv.appendChild(nxtpre);
 
     nxtpre = document.createElement('pre');
-    nxtpre.classList.add("margin-sm");
+    nxtpre.classList.add("margin-lg");
+    nxtpre.classList.add("code-font-dk");
     nxtpre.innerHTML = entity_escape(trace.call);
     outerDiv.appendChild(nxtpre);
 
     if ((trace.code != undefined) && (trace.code.length > 0)) {
         var nxtpre = document.createElement('pre');
         nxtpre.classList.add("margin-lg");
-        nxtpre.classList.add("code-font");
 
         var nxtcode = document.createElement('code');
         nxtcode.classList.add("language-python");

@@ -57,11 +57,18 @@ body {
                                   FONT CLASSES
    =======================================================================*/
 
-.code-font {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: small;
+.code-font-lt {
+    font-family: monospace;
     font-weight: 500;
     white-space: pre-wrap;
+    color: gray;
+}
+
+.code-font-dk {
+    font-family: monospace;
+    font-weight: 500;
+    white-space: pre-wrap;
+    color: black;
 }
 
 .margin-sm {
