@@ -1251,6 +1251,10 @@ async function refresh_page() {
             resultsContainer.innerHTML = "";
             resultsContainer.appendChild(result_content);
         }
+
+        window.Prism = window.Prism || {};
+        window.Prism.manual = true;
+        Prism.highlightAll();
     });
 
     load_import_errors().then(() => {
@@ -1267,7 +1271,4 @@ async function refresh_page() {
         refresh_catalog();
     });
 
-    window.Prism = window.Prism || {};
-    window.Prism.manual = true;
-    Prism.highlightAll();
 }
