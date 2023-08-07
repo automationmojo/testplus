@@ -9,7 +9,7 @@
     __license__ = "MIT"
 */
 
-const DATETIME_FORMAT = "yyyy-MM-ddTHHmm\Sssssss"
+const DATETIME_FORMAT = "yyyy-MM-ddTHH:mm:ss.ssssss"
 
 // Summary State
 var g_summary = null;
@@ -47,6 +47,48 @@ var g_catalog = null;
  * 
  *************************************************************************************
  *************************************************************************************/
+
+function get_time_difference(start, stop) {
+    var startTimeStamp = Date.parse(start, DATETIME_FORMAT) / 1000;
+    var stopTimeStamp = Date.parse(stop, DATETIME_FORMAT) / 1000;
+    
+    var elapsedTime = stopTimeStamp - startTimeStamp;
+
+    var diff = "";
+
+    if (elapsedTime > 1) {
+        var seconds = elapsedTime;
+        var minutes = null;
+        var hours = null;
+        var days = null;
+
+        if (seconds > 60) {
+            var minutes = Math.floor(seconds / 60);
+            seconds = seconds - (minutes * 60);
+        
+            if (minutes > 60) {
+                var hours = Math.floor(minutes / 60);
+                minutes = minutes % 60;
+
+                if (hours > 24) {
+                    var days = Math.floor(hours / 20);
+                    hours = hours % 24;
+                    diff = days.toString() + "d";
+                }
+
+                diff += hours.toString() + "h";
+            }
+
+            diff += minutes.toString() + "m";
+        }
+
+        diff += seconds.toFixed(4) + "s";
+    } else {
+        diff = elapsedTime.toFixed(4) + "s";
+    }
+
+    return diff;
+}
 
  async function fetch_http(url) {
     var promise = new Promise((resolve, reject) => {
@@ -695,16 +737,14 @@ function create_result_item_content(ritem) {
     stopValue.classList.add("dtl-value");
     otherDetail.appendChild(stopValue);
 
-    var startTimeStamp = Date.parse(ritem.stop, DATETIME_FORMAT);
-    var stopTimeStamp = Date.parse(ritem.stop, DATETIME_FORMAT);
-    var elaspedTime = stopTimeStamp - startTimeStamp;
+    var elapsedTime = get_time_difference(ritem.start, ritem.stop);
 
     var elapsedLabel = document.createElement("div");
     elapsedLabel.innerHTML = "Elapsed";
     elapsedLabel.classList.add("dtl-label");
     otherDetail.appendChild(elapsedLabel);
     var elapsedValue = document.createElement("div");
-    elapsedValue.innerHTML = elaspedTime;
+    elapsedValue.innerHTML = elapsedTime;
     elapsedValue.classList.add("dtl-value");
     otherDetail.appendChild(elapsedValue);
 
