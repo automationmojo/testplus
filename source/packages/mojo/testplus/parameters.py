@@ -11,7 +11,7 @@ from typing import Callable, Dict, Optional
 
 import inspect
 
-from mojo.xmods.exceptions import SemanticError
+from mojo.errors.exceptions import SemanticError
 from mojo.xmods.landscaping.coupling.integrationcoupling import IntegrationCoupling
 
 from mojo.testplus.registration.resourceregistry import resource_registry

@@ -17,7 +17,7 @@ import sys
 import traceback
 
 from mojo.xmods.ximport import import_by_name
-from mojo.xmods.exceptions import SemanticError
+from mojo.errors.exceptions import SemanticError
 
 from mojo.testplus.testref import TestRef
 

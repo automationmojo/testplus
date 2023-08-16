@@ -22,7 +22,7 @@ import fnmatch
 import json
 import os
 
-from mojo.xmods.exceptions import ConfigurationError
+from mojo.errors.exceptions import ConfigurationError
 from mojo.xmods.fspath import collect_python_modules
 
 def catalog_tree(rootdir: str, ignore_dirs=[]):

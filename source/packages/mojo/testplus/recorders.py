@@ -28,7 +28,7 @@ import shutil
 
 from datetime import datetime
 
-from mojo.xmods.exceptions import NotOverloadedError
+from mojo.errors.exceptions import NotOverloadedError
 
 from mojo.runtime.paths import (
     get_summary_html_template_source,

@@ -14,7 +14,7 @@ from typing import (
 
 import collections
 
-from mojo.xmods.exceptions import SemanticError
+from mojo.errors.exceptions import SemanticError
 from mojo.xmods.landscaping.coupling.integrationcoupling import IntegrationCoupling
 from mojo.xmods.landscaping.coupling.scopecoupling import ScopeCoupling
 

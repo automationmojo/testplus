@@ -12,7 +12,7 @@ from typing import Any, Callable, Dict, List
 import inspect
 
 
-from mojo.xmods.exceptions import SemanticError
+from mojo.errors.exceptions import SemanticError
 
 
 def mark_categories(*, categories: List[str]):

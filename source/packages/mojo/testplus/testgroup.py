@@ -21,7 +21,7 @@ from typing import Dict, List, Optional
 import logging
 import sys
 
-from mojo.xmods.exceptions import SemanticError
+from mojo.errors.exceptions import SemanticError
 
 from mojo.testplus.registration.resourceregistry import resource_registry
 from mojo.testplus.testref import TestRef

@@ -9,7 +9,7 @@ __license__ = "MIT"
 
 import os
 
-from mojo.xmods.exceptions import SemanticError
+from mojo.errors.exceptions import SemanticError
 
 class TestRootType:
     TESTPLUS = "testplus"

@@ -27,7 +27,7 @@ NoneType = type(None)
 from mojo.xmods.landscaping.coupling.integrationcoupling import IntegrationCoupling
 from mojo.xmods.landscaping.coupling.scopecoupling import ScopeCoupling
 
-from mojo.xmods.exceptions import SemanticError
+from mojo.errors.exceptions import SemanticError
 
 from mojo.testplus.registration.resourceregistry import resource_registry
 

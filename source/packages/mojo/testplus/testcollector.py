@@ -23,7 +23,7 @@ from types import ModuleType
 import logging
 import os
 
-from mojo.xmods.exceptions import SemanticError
+from mojo.errors.exceptions import SemanticError
 
 from mojo.xmods.landscaping.coupling.integrationcoupling import IntegrationCoupling
 

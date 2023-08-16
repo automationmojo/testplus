@@ -10,7 +10,7 @@ __license__ = "MIT"
 
 from typing import Dict
 
-from mojo.xmods.exceptions import SemanticError
+from mojo.errors.exceptions import SemanticError
 
 from mojo.testplus.registration.integrationsource import IntegrationSource
 from mojo.testplus.registration.parameterorigin import ParameterOrigin
