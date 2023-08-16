@@ -679,19 +679,20 @@ requests = "<=2.29.0"
 
 [[package]]
 name = "mojo-runtime"
-version = "0.0.58"
+version = "0.0.62"
 description = "Automation Mojo Runtime Module (mojo-runtime)"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_runtime-0.0.58-py3-none-any.whl", hash = "sha256:8aea52135da096921072947d1afd45a52fc7b7f5a4e4cb1c9998bcc2db455ed6"},
-    {file = "mojo_runtime-0.0.58.tar.gz", hash = "sha256:48a8e2a85484820285cacfdcb799c2e6051114e1dba29dbf9dd8d993252d1c1c"},
+    {file = "mojo_runtime-0.0.62-py3-none-any.whl", hash = "sha256:b488beb6e628dc34be2785c9212ca2175cbe5bccfffbf0a28e7af1d9373bc183"},
+    {file = "mojo_runtime-0.0.62.tar.gz", hash = "sha256:241e7853220be5b0b753294dac88d037f2c7726551fbbfeb9face834ca78fdf0"},
 ]
 
 [package.dependencies]
 coverage = ">=7.0.4,<8.0.0"
-mojo-xmodules = ">=0.0.67,<0.1.0"
+mojo-errors = ">=0.0.1,<0.1.0"
+mojo-xmodules = ">=0.0.70,<0.1.0"
 
 [[package]]
 name = "mojo-waiting"
@@ -707,19 +708,20 @@ files = [
 
 [[package]]
 name = "mojo-xmodules"
-version = "0.0.67"
+version = "0.0.70"
 description = "Automation Mojo X-Modules"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_xmodules-0.0.67-py3-none-any.whl", hash = "sha256:94a0ad3b11e166a9c721a87cb8c44a2dadf36d1397692544a63ed9cc3a1cd85f"},
-    {file = "mojo_xmodules-0.0.67.tar.gz", hash = "sha256:78ddb218dacf05c221495b60d10b5f5e5105206f3be70f56ea5053008390103a"},
+    {file = "mojo_xmodules-0.0.70-py3-none-any.whl", hash = "sha256:997438296f63ee0498b5b63455eabfd80447f8031d72dbd137431d8cd4499d97"},
+    {file = "mojo_xmodules-0.0.70.tar.gz", hash = "sha256:cea0d5682de1cfd618666dc91c9e261ff14744c75b02ba93fa5453609da9da1c"},
 ]
 
 [package.dependencies]
 click = ">=8.1.5,<9.0.0"
 debugpy = ">=1.6.6,<2.0.0"
+mojo-errors = ">=0.0.1,<1.0.0"
 mojo-waiting = ">=1.0.3,<2.0.0"
 paramiko = ">=3.1.0,<4.0.0"
 
@@ -1288,4 +1290,4 @@ mongodb = ["pymongo"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "546fa3bf632c803df9e138f109cb3a84f3f7839503d3024ee6873eeaac5630ea"
+content-hash = "c5d43c8042ab9749ad68302e6a97e2f69720f5c01e43579dd62ea3c279c7d5a0"

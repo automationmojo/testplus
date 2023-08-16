@@ -28,7 +28,7 @@ import uuid
 from mojo.xmods.xcollections.context import ContextUser
 from mojo.errors.exceptions import SemanticError
 from mojo.xmods.ximport import import_file
-from mojo.xmods.xtraceback import create_traceback_detail, format_traceback_detail, TracebackDetail
+from mojo.errors.xtraceback import create_traceback_detail, format_traceback_detail, TracebackDetail
 
 from mojo.runtime.paths import get_path_for_diagnostics, get_path_for_output
 

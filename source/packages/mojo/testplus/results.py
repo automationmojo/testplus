@@ -27,7 +27,7 @@ import time
 from dataclasses import asdict as dataclass_as_dict
 
 from mojo.xmods.xdatetime import format_time_with_fractional
-from mojo.xmods.xtraceback import TracebackDetail
+from mojo.errors.xtraceback import TracebackDetail
 
 class ResultCode(enum.IntEnum):
     """
