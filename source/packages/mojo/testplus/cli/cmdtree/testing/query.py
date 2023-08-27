@@ -42,7 +42,7 @@ def command_testplus_testing_query(root, includes, excludes,
     # IMPORTANT: We need to load the context first because it will trigger the loading
     # of the default user configuration
 
-    from mojo.collections.context import ContextPaths
+    from mojo.collections.contextpaths import ContextPaths
     from mojo.collections.wellknown import ContextSingleton
 
     from mojo.xmods.xpython import extend_path
@@ -54,7 +54,6 @@ def command_testplus_testing_query(root, includes, excludes,
     # We perform activation a little later in the testrunner.py file so we can
     # handle exceptions in the context of testrunner_main function
     import mojo.runtime.activation.console
-    from mojo.runtime.variables import resolve_configuration_files
 
     from mojo.testplus.initialize import initialize_runtime, initialize_testplus_results
     

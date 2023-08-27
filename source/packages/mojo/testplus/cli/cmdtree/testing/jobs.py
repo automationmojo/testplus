@@ -68,7 +68,7 @@ def command_testplus_testing_jobs_run(root, job, output, start, branch, build, f
     # IMPORTANT: We need to load the context first because it will trigger the loading
     # of the default user configuration
 
-    from mojo.collections.context import ContextPaths
+    from mojo.collections.contextpaths import ContextPaths
     from mojo.collections.wellknown import ContextSingleton
 
     from mojo.xmods.ximport import import_by_name

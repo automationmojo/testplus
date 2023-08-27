@@ -106,20 +106,18 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     # IMPORTANT: We need to load the context first because it will trigger the loading
     # of the default user configuration
 
-    from mojo.collections.context import ContextPaths
+    from mojo.collections.contextpaths import ContextPaths
     from mojo.collections.wellknown import ContextSingleton
 
     from mojo.xmods.xpython import extend_path
 
     from mojo.runtime.variables import JobType, MOJO_RUNTIME_VARIABLES
     
-    from mojo.runtime import optionoverrides
+    from mojo.runtime.optionoverrides import MOJO_RUNTIME_OPTION_OVERRIDES
 
     # We perform activation a little later in the testrunner.py file so we can
     # handle exceptions in the context of testrunner_main function
     import mojo.runtime.activation.testrun
-
-    from mojo.runtime.variables import resolve_configuration_files
 
     from mojo.testplus.initialize import initialize_runtime, initialize_testplus_results
     
@@ -131,28 +129,28 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     from mojo.testplus.markers import MetaFilter, parse_marker_expression
 
     if branch is not None:
-        optionoverrides.override_build_branch(branch)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_build_branch(branch)
 
     if build is not None:
-        optionoverrides.override_build_name(build)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_build_name(build)
     
     if flavor is not None:
-        optionoverrides.override_build_flavor(flavor)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_build_flavor(flavor)
     
     if job_initiator is not None:
-        optionoverrides.override_job_id(job_id)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_job_id(job_id)
 
     if job_initiator is not None:
-        optionoverrides.override_job_initiator(job_initiator)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_job_initiator(job_initiator)
     
     if job_label is not None:
-        optionoverrides.override_job_label(job_label)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_job_label(job_label)
     
     if job_name is not None:
-        optionoverrides.override_job_name(job_name)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_job_name(job_name)
 
     if job_owner is not None:
-        optionoverrides.override_job_owner(job_owner)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_job_owner(job_owner)
 
     if len(landscape_files) > 0 and len(landscape_names) > 0:
         errmsg = "The '--landscape-file' and '--landscape-name' options should not be used together."
@@ -167,27 +165,28 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
         raise click.BadOptionUsage("option_name", errmsg)
 
     if len(credential_files) > 0:
-        optionoverrides.override_config_credential_files(credential_files)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_config_credentials_files(credential_files)
 
     if len(landscape_files) > 0:
-        optionoverrides.override_config_landscape_files(landscape_files)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_config_landscape_files(landscape_files)
 
     if len(landscape_names) > 0:
-        optionoverrides.override_config_landscape_names(landscape_names)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_config_landscape_names(landscape_names)
 
     if len(runtime_files) > 0:
-        optionoverrides.override_config_runtime_files(runtime_files)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_config_runtime_files(runtime_files)
     
     if len(runtime_names) > 0:
-        optionoverrides.override_config_runtime_names(runtime_names)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_config_runtime_names(runtime_names)
 
     if len(topology_files) > 0:
-        optionoverrides.override_config_topology_files(topology_files)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_config_topology_files(topology_files)
     
     if len(topology_names) > 0:
-        optionoverrides.override_config_topology_names(topology_names)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_config_topology_names(topology_names)
 
-    resolve_configuration_files()
+    from mojo.config.configurationmaps import resolve_configuration_maps
+    resolve_configuration_maps()
 
     if len(landscape_files) > 0 or len(landscape_names) > 0:
         landscape_filenames = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_FILES
@@ -214,38 +213,38 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
                 raise click.BadOptionUsage(option_name, errmsg)
 
     if console_level is not None:
-        optionoverrides.override_loglevel_console(console_level)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_loglevel_console(console_level)
 
     if logfile_level is not None:
-        optionoverrides.override_loglevel_file(logfile_level)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_loglevel_file(logfile_level)
 
     if output is not None:
-        optionoverrides.override_output_directory(output)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_output_directory(output)
 
     if start is not None:
-        optionoverrides.override_starttime(start)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_starttime(start)
     
     if runid is not None:
-        optionoverrides.override_run_id(runid)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_run_id(runid)
 
     # Process the commandline args here and then set the variables on the environment
     # as necessary.  We need to do this before we import activate.
     if breakpoints is not None:
-        optionoverrides.override_debug_breakpoints(breakpoints)
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_debug_breakpoints(breakpoints)
 
         # If a breakpoint was passed bug the debugger was not, use 'debugpy' for the
         # default debugger.
         if debugger is None:
-            optionoverrides.override_debug_debugger('debugpy')
+            MOJO_RUNTIME_OPTION_OVERRIDES.override_debug_debugger('debugpy')
 
     if debugger is not None:
-        optionoverrides.override_debug_debugger('debugpy')
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_debug_debugger('debugpy')
 
     if prerun_diagnostic:
-        ctx.insert("/configuration/diagnostics/prerun-diagnostic", {})
+        ctx.insert(ContextPaths.DIAGNOSTICS_PRERUN, {})
     
     if postrun_diagnostic:
-        ctx.insert("/configuration/diagnostics/postrun-diagnostic", {})
+        ctx.insert(ContextPaths.DIAGNOSTICS_POSTRUN, {})
 
     if root is None:
         if MOJO_RUNTIME_VARIABLES.MJR_TESTROOT is not None:
@@ -262,7 +261,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
             errmsg += " expanded=%s" % test_root
         raise click.BadParameter(errmsg)
 
-    optionoverrides.override_testroot(root)
+    MOJO_RUNTIME_OPTION_OVERRIDES.override_testroot(root)
 
     # Make sure we extend PATH to include the test roots parent folder so imports will
     # work properly.
