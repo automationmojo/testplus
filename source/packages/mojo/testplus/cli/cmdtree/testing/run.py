@@ -34,16 +34,16 @@ from mojo.testplus.cli.cmdtree.testing.constants import (
     HELP_JOB_OWNER,
     HELP_CREDENTIAL,
     HELP_CREDENTIAL_NAMES,
-    HELP_CREDENTIAL_PATH,
+    HELP_CREDENTIAL_SOURCES,
     HELP_LANDSCAPE,
     HELP_LANDSCAPE_NAMES,
-    HELP_LANDSCAPE_PATH,
+    HELP_LANDSCAPE_SOURCES,
     HELP_RUNTIME,
     HELP_RUNTIME_NAMES,
-    HELP_RUNTIME_PATH,
+    HELP_RUNTIME_SOURCES,
     HELP_TOPOLOGY,
     HELP_TOPOLOGY_NAMES,
-    HELP_TOPOLOGY_PATH,
+    HELP_TOPOLOGY_SOURCES,
     HELP_RUNID,
     HELP_CONSOLE_LOG_LEVEL,
     HELP_FILE_LOG_LEVEL,
@@ -72,16 +72,16 @@ from mojo.testplus.cli.cmdtree.testing.constants import (
 @click.option("--job-owner", default=None, required=False, help=HELP_JOB_OWNER)
 @click.option("--credential", "credential_files", multiple=True, default=None, required=False, help=HELP_CREDENTIAL)
 @click.option("--credential-name", "credential_names", multiple=True, default=None, required=False, help=HELP_CREDENTIAL_NAMES)
-@click.option("--credential-path", "credential_path", default=None, required=False, help=HELP_CREDENTIAL_PATH)
+@click.option("--credential-source", "credential_sources", default=None, required=False, help=HELP_CREDENTIAL_SOURCES)
 @click.option("--landscape", "landscape_files", multiple=True, default=None, required=False, help=HELP_LANDSCAPE)
 @click.option("--landscape-name", "landscape_names", multiple=True, default=None, required=False, help=HELP_LANDSCAPE_NAMES)
-@click.option("--landscape-path", "landscape_path", default=None, required=False, help=HELP_LANDSCAPE_PATH)
+@click.option("--landscape-source", "landscape_sources", default=None, required=False, help=HELP_LANDSCAPE_SOURCES)
 @click.option("--runtime", "runtime_files", multiple=True, default=None, required=False, help=HELP_RUNTIME)
 @click.option("--runtime-name", "runtime_names", multiple=True, default=None, required=False, help=HELP_RUNTIME_NAMES)
-@click.option("--runtime-path", "runtime_path", default=None, required=False, help=HELP_RUNTIME_PATH)
+@click.option("--runtime-source", "runtime_sources", default=None, required=False, help=HELP_RUNTIME_SOURCES)
 @click.option("--topology", "topology_files", multiple=True, default=None, required=False, help=HELP_TOPOLOGY)
 @click.option("--topology-name", "topology_names", multiple=True, default=None, required=False, help=HELP_TOPOLOGY_NAMES)
-@click.option("--topology-path", "topology_path", default=None, required=False, help=HELP_TOPOLOGY_PATH)
+@click.option("--topology-source", "topology_sources", default=None, required=False, help=HELP_TOPOLOGY_SOURCES)
 @click.option("--console-level", default=None, required=False, type=click.Choice(LOG_LEVEL_NAMES, case_sensitive=False), help=HELP_CONSOLE_LOG_LEVEL)
 @click.option("--logfile-level", default=None, required=False, type=click.Choice(LOG_LEVEL_NAMES, case_sensitive=False), help=HELP_FILE_LOG_LEVEL)
 @click.option("--debugger", default=None, required=False, type=click.Choice(['pdb', 'debugpy']), help=HELP_DEBUGGER)
@@ -91,9 +91,9 @@ from mojo.testplus.cli.cmdtree.testing.constants import (
 @click.option("--include-marker-exp", required=False, multiple=True, help=HELP_INCLUDE_MARKER_EXP)
 @click.option("--exclude-marker-exp", required=False, multiple=True, help=HELP_EXCLUDE_MARKER_EXP)
 def command_testplus_testing_run(root, includes, excludes, output, start, runid, branch, build, flavor, job_id, job_initiator,
-                        job_label, job_name, job_owner, credential_files, credential_names, credential_path,
-                        landscape_files, landscape_names, landscape_path, runtime_files, runtime_names, runtime_path,
-                        topology_files, topology_names, topology_path, console_level, logfile_level,
+                        job_label, job_name, job_owner, credential_files, credential_names, credential_sources,
+                        landscape_files, landscape_names, landscape_sources, runtime_files, runtime_names, runtime_sources,
+                        topology_files, topology_names, topology_sources, console_level, logfile_level,
                         debugger, breakpoints, prerun_diagnostic, postrun_diagnostic, include_marker_exp,
                         exclude_marker_exp):
 
@@ -109,7 +109,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     from mojo.collections.contextpaths import ContextPaths
     from mojo.collections.wellknown import ContextSingleton
 
-    from mojo.xmods.xpython import extend_path
+    from mojo.xmods.xpython import extend_source
 
     from mojo.runtime.variables import JobType, MOJO_RUNTIME_VARIABLES
     
@@ -152,26 +152,26 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     if job_owner is not None:
         MOJO_RUNTIME_OPTION_OVERRIDES.override_job_owner(job_owner)
 
-    if len(landscape_files) > 0 and len(landscape_names) > 0:
-        errmsg = "The '--landscape-file' and '--landscape-name' options should not be used together."
-        raise click.BadOptionUsage("landscape-name", errmsg)
-
-    if len(runtime_files) > 0 and len(runtime_names) > 0:
-        errmsg = "The '--runtime-file' and '--runtime-name' options should not be used together."
-        raise click.BadOptionUsage("runtime-name", errmsg)
-
-    if len(topology_files) > 0 and len(topology_names) > 0:
-        errmsg = "The '--topology-file' and '--topology-name' options should not be used together."
-        raise click.BadOptionUsage("option_name", errmsg)
 
     if len(credential_files) > 0:
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_credentials_files(credential_files)
+
+    if len(credential_names) > 0:
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_config_credentials_names(credential_names)
+    
+    if len(credential_sources) > 0:
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_config_credentials_sources(credential_sources)
+
 
     if len(landscape_files) > 0:
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_landscape_files(landscape_files)
 
     if len(landscape_names) > 0:
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_landscape_names(landscape_names)
+    
+    if len(landscape_sources) > 0:
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_config_landscape_sources(landscape_sources)
+
 
     if len(runtime_files) > 0:
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_runtime_files(runtime_files)
@@ -179,38 +179,22 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     if len(runtime_names) > 0:
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_runtime_names(runtime_names)
 
+    if len(runtime_sources) > 0:
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_config_runtime_sources(runtime_sources)
+
+
     if len(topology_files) > 0:
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_topology_files(topology_files)
     
     if len(topology_names) > 0:
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_topology_names(topology_names)
 
+    if len(topology_sources) > 0:
+        MOJO_RUNTIME_OPTION_OVERRIDES.override_config_topology_sources(topology_sources)
+
+
     from mojo.config.configurationmaps import resolve_configuration_maps
     resolve_configuration_maps()
-
-    if len(landscape_files) > 0 or len(landscape_names) > 0:
-        landscape_filenames = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_LANDSCAPE_FILES
-        option_name = "landscape" if landscape_files is not None else "landscape-names"
-        for nxtfilename in landscape_filenames:
-            if not os.path.exists(nxtfilename):
-                errmsg = "The specified landscape file does not exist. filename={}".format(nxtfilename)
-                raise click.BadOptionUsage(option_name, errmsg)
-    
-    if len(runtime_files) > 0 or len(runtime_names) > 0:
-        runtime_filenames = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_RUNTIME_FILES
-        option_name = "runtime" if runtime_files is not None else "runtime-names"
-        for nxtfilename in runtime_filenames:
-            if not os.path.exists(nxtfilename):
-                errmsg = "The specified runtime file does not exist. filename={}".format(nxtfilename)
-                raise click.BadOptionUsage(option_name, errmsg)
-
-    if len(topology_files) > 0 or len(topology_names) > 0:
-        topology_filenames = MOJO_RUNTIME_VARIABLES.MJR_CONFIG_TOPOLOGY_FILES
-        option_name = "topology" if topology_files is not None else "topology-names"
-        for nxtfilename in topology_filenames:
-            if not os.path.exists(nxtfilename):
-                errmsg = "The specified topology file does not exist. filename={}".format(nxtfilename)
-                raise click.BadOptionUsage(option_name, errmsg)
 
     if console_level is not None:
         MOJO_RUNTIME_OPTION_OVERRIDES.override_loglevel_console(console_level)
@@ -266,7 +250,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     # Make sure we extend PATH to include the test roots parent folder so imports will
     # work properly.
     test_root_parent = os.path.dirname(test_root)
-    extend_path(test_root_parent)
+    extend_source(test_root_parent)
 
     metafilters: List[MetaFilter] = []
     for imexp in include_marker_exp:

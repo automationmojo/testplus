@@ -9,6 +9,9 @@ __license__ = "MIT"
 
 import os
 
+from mojo.config.normalize import SEPARATOR
+
+
 HELP_ROOT = "The root directory to use when scanning for tests."
 HELP_EXCLUDES = "Add a test inclusion expression."
 HELP_INCLUDES = "Add a test exclusion expression."
@@ -24,16 +27,16 @@ HELP_JOB_NAME = "The name of the job."
 HELP_JOB_OWNER = "The ownerid and possibly appended ';(display name)' of the test run result owner."
 HELP_CREDENTIAL = "The full path of the credentials file to use for the testrun."
 HELP_CREDENTIAL_NAMES = "The base name of the credential files to search for in the credential path."
-HELP_CREDENTIAL_PATH = f"A '{os.pathsep}' seperated list of paths to search for credential files."
+HELP_CREDENTIAL_SOURCES = f"A '{SEPARATOR}' seperated list of source uris to search for credential documents."
 HELP_LANDSCAPE = "The full path of the landscape file to use for the testrun."
 HELP_LANDSCAPE_NAMES = "The base name of the landscape files to search for in the landscape path."
-HELP_LANDSCAPE_PATH = f"A '{os.pathsep}' seperated list of paths to search for landscape files."
+HELP_LANDSCAPE_SOURCES = f"A '{SEPARATOR}' seperated list of source uris to search for landscape documents."
 HELP_RUNTIME = "The full path of the runtime file to use for the testrun."
 HELP_RUNTIME_NAMES = "The base name of the runtime files to search for in the runtime path."
-HELP_RUNTIME_PATH = f"A '{os.pathsep}' seperated list of paths to search for runtime files."
+HELP_RUNTIME_SOURCES = f"A '{SEPARATOR}' seperated list of source uris to search for runtime documents."
 HELP_TOPOLOGY = "The full path of the topology file to use for the testrun."
 HELP_TOPOLOGY_NAMES = "The base name of the topology files to search for in the topology path."
-HELP_TOPOLOGY_PATH = f"A '{os.pathsep}' seperated list of paths to search for topology files."
+HELP_TOPOLOGY_SOURCES = f"A '{SEPARATOR}' seperated list of source uris to search for topology documents."
 HELP_RUNID = "A uuid to use for the run id for the testrun."
 HELP_CONSOLE_LOG_LEVEL = "The logging level for console output."
 HELP_FILE_LOG_LEVEL = "The logging level for logfile output."
