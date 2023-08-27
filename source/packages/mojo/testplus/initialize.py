@@ -2,7 +2,9 @@
 import logging
 import os
 
-from mojo.xmods.xcollections.context import Context, ContextPaths
+from mojo.collections.context import ContextPaths
+from mojo.collections.wellknown import ContextSingleton
+
 from mojo.xmods.xlogging.foundations import logging_initialize
     
 from mojo.runtime.initialize import initialize_runtime, MOJO_RUNTIME_STATE
@@ -30,7 +32,7 @@ def initialize_testplus_results():
     if MOJO_RUNTIME_VARIABLES.MJR_RESULTS_STATIC_SUMMARY_TEMPLATE is None:
         MOJO_RUNTIME_VARIABLES.MJR_RESULTS_STATIC_SUMMARY_TEMPLATE = TestPlusVariables.TESTPLUS_SUMMARY_TEMPLATE
 
-    ctx = Context()
+    ctx = ContextSingleton()
     ctx.insert(ContextPaths.DIR_RESULTS_RESOURCE_SRC, MOJO_RUNTIME_VARIABLES.MJR_RESULTS_STATIC_RESOURCE_SRC_DIR)
     ctx.insert(ContextPaths.DIR_RESULTS_RESOURCE_DEST, MOJO_RUNTIME_VARIABLES.MJR_RESULTS_STATIC_RESOURCE_DEST_DIR)
     ctx.insert(ContextPaths.FILE_RESULTS_TEMPLATE, MOJO_RUNTIME_VARIABLES.MJR_RESULTS_STATIC_SUMMARY_TEMPLATE)

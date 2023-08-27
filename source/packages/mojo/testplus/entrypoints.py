@@ -25,7 +25,7 @@ import os
 import sys
 
 
-from mojo.xmods.xcollections.context import Context
+from mojo.collections.wellknown import ContextSingleton
 from mojo.xmods.xlogging.levels import LOG_LEVEL_NAMES
 
 from mojo.xmods.ximport import import_by_name
@@ -65,7 +65,7 @@ def generic_test_entrypoint():
 
     test_module = sys.modules["__main__"]
 
-    ctx = Context()
+    ctx = ContextSingleton()
     env = ctx.lookup("/environment")
 
     # Set the jobtype

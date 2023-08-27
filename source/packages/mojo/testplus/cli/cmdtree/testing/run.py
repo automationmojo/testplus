@@ -106,7 +106,9 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     # IMPORTANT: We need to load the context first because it will trigger the loading
     # of the default user configuration
 
-    from mojo.xmods.xcollections.context import Context, ContextPaths
+    from mojo.collections.context import ContextPaths
+    from mojo.collections.wellknown import ContextSingleton
+
     from mojo.xmods.xpython import extend_path
 
     from mojo.runtime.variables import JobType, MOJO_RUNTIME_VARIABLES
@@ -123,7 +125,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     
     initialize_runtime(name="mjr", logger_name="MJR")
 
-    ctx = Context()
+    ctx = ContextSingleton()
     env = ctx.lookup("/environment")
 
     from mojo.testplus.markers import MetaFilter, parse_marker_expression

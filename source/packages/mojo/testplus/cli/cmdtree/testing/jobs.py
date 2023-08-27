@@ -68,14 +68,15 @@ def command_testplus_testing_jobs_run(root, job, output, start, branch, build, f
     # IMPORTANT: We need to load the context first because it will trigger the loading
     # of the default user configuration
 
-    from mojo.xmods.xcollections.context import Context
+    from mojo.collections.context import ContextPaths
+    from mojo.collections.wellknown import ContextSingleton
 
     from mojo.xmods.ximport import import_by_name
     from mojo.xmods.xpython import extend_path
 
     try:
-        ctx = Context()
-        ctx.insert("/environment/jobtype", 'testrun')
+        ctx = ContextSingleton()
+        ctx.insert(ContextPaths.JOB_TYPE, 'testrun')
 
         test_root = os.path.abspath(os.path.expandvars(os.path.expanduser(root)))
         if not os.path.isdir(test_root):
