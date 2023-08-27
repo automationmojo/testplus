@@ -49,7 +49,7 @@ def command_testplus_testing_query(root, includes, excludes,
 
     from mojo.runtime.variables import JobType, MOJO_RUNTIME_VARIABLES
 
-    from mojo.runtime import optionoverrides
+    from mojo.runtime.optionoverrides import MOJO_RUNTIME_OPTION_OVERRIDES
 
     # We perform activation a little later in the testrunner.py file so we can
     # handle exceptions in the context of testrunner_main function
@@ -82,7 +82,7 @@ def command_testplus_testing_query(root, includes, excludes,
             errmsg += " expanded=%s" % test_root
         raise click.BadParameter(errmsg)
 
-    optionoverrides.override_testroot(root)
+    MOJO_RUNTIME_OPTION_OVERRIDES.override_testroot(root)
 
     # Make sure we extend PATH to include the test roots parent folder so imports will
     # work properly.

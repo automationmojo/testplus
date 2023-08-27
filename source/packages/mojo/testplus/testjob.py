@@ -21,7 +21,9 @@ from typing import List, Optional, Protocol
 import os
 import traceback
 
-from mojo.xmods.xcollections.context import ContextUser, ContextPaths
+from mojo.collections.contextuser import ContextUser
+from mojo.collections.contextpaths import ContextPaths
+
 from mojo.xmods.wellknown.singletons import LandscapeSingleton
 from mojo.xmods.xformatting import CommandOutputFormat
 from mojo.xmods.xdebugger import WELLKNOWN_BREAKPOINTS, debugger_wellknown_breakpoint_entry
