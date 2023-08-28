@@ -627,26 +627,26 @@ files = [
 
 [[package]]
 name = "mojo-collections"
-version = "0.0.10"
+version = "0.0.11"
 description = "Mojo Collections Package"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_collections-0.0.10-py3-none-any.whl", hash = "sha256:c973f9670a50ce818fe8e6993c16b01936dcb33e3893285dfca0b0a6b4c5bf6c"},
-    {file = "mojo_collections-0.0.10.tar.gz", hash = "sha256:c288d75f28416f65d6880d2fd980469308562285ad75051921ee32ea588945b5"},
+    {file = "mojo_collections-0.0.11-py3-none-any.whl", hash = "sha256:e41bd5493f6194d33c5cefbc0ad9562e3cfff9938becf9a8ef5469812d5e0074"},
+    {file = "mojo_collections-0.0.11.tar.gz", hash = "sha256:366e3ab6f3ab6fa5249a6e8cd6880f4e9d65ff7106cfc96e2bdcfd2770f61c91"},
 ]
 
 [[package]]
 name = "mojo-config"
-version = "0.0.18"
+version = "0.0.20"
 description = "Automation Mojo Configuration Package"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_config-0.0.18-py3-none-any.whl", hash = "sha256:7844c5fc1389fafc5d48a1ebbdf016b9cf56def6dc0e46d60c6ae70fd4a730c3"},
-    {file = "mojo_config-0.0.18.tar.gz", hash = "sha256:e44a5b0c18f8f835c0c21d68b495498c1ea1a745f7fe96c6193e7e9cd03fb111"},
+    {file = "mojo_config-0.0.20-py3-none-any.whl", hash = "sha256:8888eb63092e1a4cbbbdb5f499ef4e6d643170f50cf720f2f137c63c1c9c4724"},
+    {file = "mojo_config-0.0.20.tar.gz", hash = "sha256:07831a8634c3da1a1382cef9a46a7c1a50caee012098d0f974538f992b1dc2d6"},
 ]
 
 [package.dependencies]
@@ -672,14 +672,14 @@ files = [
 
 [[package]]
 name = "mojo-interop"
-version = "0.0.25"
+version = "0.0.26"
 description = "Automation Mojo Interop Extensions"
 category = "main"
 optional = true
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_interop-0.0.25-py3-none-any.whl", hash = "sha256:645b3ad71641920d8e07e7c6955e7556bf24ee8f9ef1935aa030a624c24e4a16"},
-    {file = "mojo_interop-0.0.25.tar.gz", hash = "sha256:8e1670127a27bb6af61f342ea98f039b2292a2d8ec4177a8ed3a420d20bf5b7d"},
+    {file = "mojo_interop-0.0.26-py3-none-any.whl", hash = "sha256:6b4f092d73acab56992aabb9ad92074f78f4c0bfdd1c1fe2c15271edadd0a3a5"},
+    {file = "mojo_interop-0.0.26.tar.gz", hash = "sha256:7ca28402029d21f2f13047e8e9a05c5e2be8f192a3973470ccbda40893e92c7e"},
 ]
 
 [package.dependencies]
@@ -705,20 +705,20 @@ requests = "<=2.29.0"
 
 [[package]]
 name = "mojo-runtime"
-version = "0.0.69"
+version = "0.0.70"
 description = "Automation Mojo Runtime Module (mojo-runtime)"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_runtime-0.0.69-py3-none-any.whl", hash = "sha256:c494aef31be7c727b6169f01cb6cc242ca4db7bec12402ade031e0b80db4c3ea"},
-    {file = "mojo_runtime-0.0.69.tar.gz", hash = "sha256:894dfdfbd93f967aac0c42becf139c7328afa76815ff58892760adff370f1ad4"},
+    {file = "mojo_runtime-0.0.70-py3-none-any.whl", hash = "sha256:c85edae7de1ed6140820150457b7b8508a57d297c2627aa201ce240ce7ab0a2b"},
+    {file = "mojo_runtime-0.0.70.tar.gz", hash = "sha256:64078782fdf39335cdcdd869da97442dbaa8b531e04074b333c3504819ace4e6"},
 ]
 
 [package.dependencies]
 coverage = ">=7.0.4,<8.0.0"
-mojo-collections = ">=0.0.10,<0.1.0"
-mojo-config = ">=0.0.18,<0.1.0"
+mojo-collections = ">=0.0.11,<0.1.0"
+mojo-config = ">=0.0.20,<0.1.0"
 mojo-errors = ">=0.0.1,<0.1.0"
 mojo-xmodules = ">=0.0.77,<0.1.0"
 
@@ -736,14 +736,14 @@ files = [
 
 [[package]]
 name = "mojo-xmodules"
-version = "0.0.77"
+version = "0.0.78"
 description = "Automation Mojo X-Modules"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_xmodules-0.0.77-py3-none-any.whl", hash = "sha256:dced8c2e40f346ad683b2bd30b56a6bf4585b56fd485b0e358712ec28ef13a2d"},
-    {file = "mojo_xmodules-0.0.77.tar.gz", hash = "sha256:5f2ae244de2dca1a9f31b1054681db53992180cf683f713cabd3fe83b7171a94"},
+    {file = "mojo_xmodules-0.0.78-py3-none-any.whl", hash = "sha256:93cd752e9da0351f57cae21839ce1ccb240be387987903527edd4fe93532b590"},
+    {file = "mojo_xmodules-0.0.78.tar.gz", hash = "sha256:541daa847c84b0579dfe539f78d62b8c9a950bb1239f2842f0e4b6a1932616fb"},
 ]
 
 [package.dependencies]

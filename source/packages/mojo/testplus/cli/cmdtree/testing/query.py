@@ -55,9 +55,10 @@ def command_testplus_testing_query(root, includes, excludes,
     # handle exceptions in the context of testrunner_main function
     import mojo.runtime.activation.console
 
-    from mojo.testplus.initialize import initialize_runtime, initialize_testplus_results
+    from mojo.testplus.initialize import initialize_testplus_runtime, initialize_testplus_results
     
-    initialize_runtime(name="mjr", logger_name="MJR")
+    # This is a NO-OP if someone else already intialized the runtime with different names
+    initialize_testplus_runtime()
 
     ctx = ContextSingleton()
     env = ctx.lookup("/environment")

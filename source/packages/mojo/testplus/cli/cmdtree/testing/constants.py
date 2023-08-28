@@ -11,6 +11,13 @@ import os
 
 from mojo.config.normalize import SEPARATOR
 
+CONFIGURATION_CHOICES = [
+    "all",
+    "credentials",
+    "landscape",
+    "topology",
+    "runtime"
+]
 
 HELP_ROOT = "The root directory to use when scanning for tests."
 HELP_EXCLUDES = "Add a test inclusion expression."
@@ -25,6 +32,7 @@ HELP_JOB_INITIATOR = "The name of the initiator of the job."
 HELP_JOB_LABEL = "The label associated with the job."
 HELP_JOB_NAME = "The name of the job."
 HELP_JOB_OWNER = "The ownerid and possibly appended ';(display name)' of the test run result owner."
+HELP_DEFAULT_CONFIGS = "Indicates that one or more default configurations should be used."
 HELP_CREDENTIAL = "The full path of the credentials file to use for the testrun."
 HELP_CREDENTIAL_NAMES = "The base name of the credential files to search for in the credential path."
 HELP_CREDENTIAL_SOURCES = f"A '{SEPARATOR}' seperated list of source uris to search for credential documents."

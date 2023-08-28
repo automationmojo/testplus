@@ -35,6 +35,7 @@ from mojo.testplus.cli.cmdtree.testing.constants import (
     HELP_CREDENTIAL,
     HELP_CREDENTIAL_NAMES,
     HELP_CREDENTIAL_SOURCES,
+    HELP_DEFAULT_CONFIGS,
     HELP_LANDSCAPE,
     HELP_LANDSCAPE_NAMES,
     HELP_LANDSCAPE_SOURCES,
@@ -52,7 +53,8 @@ from mojo.testplus.cli.cmdtree.testing.constants import (
     HELP_PRERUN_DIAGNOSTIC,
     HELP_POSTRUN_DIAGNOSTIC,
     HELP_INCLUDE_MARKER_EXP,
-    HELP_EXCLUDE_MARKER_EXP
+    HELP_EXCLUDE_MARKER_EXP,
+    CONFIGURATION_CHOICES
 )
 
 @click.command("run", help="Command used to run collections of tests.")
@@ -70,6 +72,7 @@ from mojo.testplus.cli.cmdtree.testing.constants import (
 @click.option("--job-label", default=None, required=False, help=HELP_JOB_LABEL)
 @click.option("--job-name", default=None, required=False, help=HELP_JOB_NAME)
 @click.option("--job-owner", default=None, required=False, help=HELP_JOB_OWNER)
+@click.option("--default-configs", "default_configs", multiple=True, default=None, required=False, type=click.Choice(CONFIGURATION_CHOICES), help=HELP_DEFAULT_CONFIGS)
 @click.option("--credential", "credential_files", multiple=True, default=None, required=False, help=HELP_CREDENTIAL)
 @click.option("--credential-name", "credential_names", multiple=True, default=None, required=False, help=HELP_CREDENTIAL_NAMES)
 @click.option("--credential-source", "credential_sources", multiple=True, default=None, required=False, help=HELP_CREDENTIAL_SOURCES)
@@ -91,7 +94,7 @@ from mojo.testplus.cli.cmdtree.testing.constants import (
 @click.option("--include-marker-exp", required=False, multiple=True, help=HELP_INCLUDE_MARKER_EXP)
 @click.option("--exclude-marker-exp", required=False, multiple=True, help=HELP_EXCLUDE_MARKER_EXP)
 def command_testplus_testing_run(root, includes, excludes, output, start, runid, branch, build, flavor, job_id, job_initiator,
-                        job_label, job_name, job_owner, credential_files, credential_names, credential_sources,
+                        job_label, job_name, job_owner, default_configs, credential_files, credential_names, credential_sources,
                         landscape_files, landscape_names, landscape_sources, runtime_files, runtime_names, runtime_sources,
                         topology_files, topology_names, topology_sources, console_level, logfile_level,
                         debugger, breakpoints, prerun_diagnostic, postrun_diagnostic, include_marker_exp,
@@ -119,12 +122,31 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     # handle exceptions in the context of testrunner_main function
     import mojo.runtime.activation.testrun
 
-    from mojo.testplus.initialize import initialize_runtime, initialize_testplus_results
+    from mojo.testplus.initialize import initialize_testplus_runtime, initialize_testplus_results
     
-    initialize_runtime(name="mjr", logger_name="MJR")
+    # This is a NO-OP if someone else already intialized the runtime with different names
+    initialize_testplus_runtime()
+
+    use_credentials = False
+    use_landscape = False
+    use_runtime = False
+    use_topology = False
+    if "all" in default_configs:
+        use_credentials = True
+        use_landscape = True
+        use_runtime = True
+        use_topology = True
+    else:
+        if "credentials" in default_configs:
+            use_credentials = True
+        if "landscape" in default_configs:
+            use_landscape = True
+        if "runtime" in default_configs:
+            use_runtime = True
+        if "topology" in default_configs:
+            use_topology = True
 
     ctx = ContextSingleton()
-    env = ctx.lookup("/environment")
 
     from mojo.testplus.markers import MetaFilter, parse_marker_expression
 
@@ -195,7 +217,8 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
 
 
     from mojo.config.configurationmaps import resolve_configuration_maps
-    resolve_configuration_maps()
+    resolve_configuration_maps(use_credentials=use_credentials, use_landscape=use_landscape,
+                               use_runtime=use_runtime, use_topology=use_topology)
 
 
     if console_level is not None:
