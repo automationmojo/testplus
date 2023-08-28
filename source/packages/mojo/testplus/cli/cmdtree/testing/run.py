@@ -109,7 +109,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     from mojo.collections.contextpaths import ContextPaths
     from mojo.collections.wellknown import ContextSingleton
 
-    from mojo.xmods.xpython import extend_source
+    from mojo.xmods.xpython import extend_path
 
     from mojo.runtime.variables import JobType, MOJO_RUNTIME_VARIABLES
     
@@ -137,6 +137,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     if flavor is not None:
         MOJO_RUNTIME_OPTION_OVERRIDES.override_build_flavor(flavor)
     
+
     if job_initiator is not None:
         MOJO_RUNTIME_OPTION_OVERRIDES.override_job_id(job_id)
 
@@ -196,6 +197,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     from mojo.config.configurationmaps import resolve_configuration_maps
     resolve_configuration_maps()
 
+
     if console_level is not None:
         MOJO_RUNTIME_OPTION_OVERRIDES.override_loglevel_console(console_level)
 
@@ -210,6 +212,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     
     if runid is not None:
         MOJO_RUNTIME_OPTION_OVERRIDES.override_run_id(runid)
+
 
     # Process the commandline args here and then set the variables on the environment
     # as necessary.  We need to do this before we import activate.
@@ -250,7 +253,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     # Make sure we extend PATH to include the test roots parent folder so imports will
     # work properly.
     test_root_parent = os.path.dirname(test_root)
-    extend_source(test_root_parent)
+    extend_path(test_root_parent)
 
     metafilters: List[MetaFilter] = []
     for imexp in include_marker_exp:

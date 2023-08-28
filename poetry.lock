@@ -639,14 +639,14 @@ files = [
 
 [[package]]
 name = "mojo-config"
-version = "0.0.15"
+version = "0.0.18"
 description = "Automation Mojo Configuration Package"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_config-0.0.15-py3-none-any.whl", hash = "sha256:ccffc20909aca565d74bea3cbb91612a2498c7c8e85d3b762d2863d40373d478"},
-    {file = "mojo_config-0.0.15.tar.gz", hash = "sha256:71c09de0afbd410523cdf2940c9719458a7cd5d13ecc87f7a0953c34306a4afe"},
+    {file = "mojo_config-0.0.18-py3-none-any.whl", hash = "sha256:7844c5fc1389fafc5d48a1ebbdf016b9cf56def6dc0e46d60c6ae70fd4a730c3"},
+    {file = "mojo_config-0.0.18.tar.gz", hash = "sha256:e44a5b0c18f8f835c0c21d68b495498c1ea1a745f7fe96c6193e7e9cd03fb111"},
 ]
 
 [package.dependencies]
@@ -705,22 +705,22 @@ requests = "<=2.29.0"
 
 [[package]]
 name = "mojo-runtime"
-version = "0.0.68"
+version = "0.0.69"
 description = "Automation Mojo Runtime Module (mojo-runtime)"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_runtime-0.0.68-py3-none-any.whl", hash = "sha256:a02492465f68674cbef1cb29f8cd8578f34358f6b35bd71fc1ff44e419f45054"},
-    {file = "mojo_runtime-0.0.68.tar.gz", hash = "sha256:a765ed7e31b92aaf0363f438cd41e5b75ff9571e409c6c1d97d0aac7805e3c85"},
+    {file = "mojo_runtime-0.0.69-py3-none-any.whl", hash = "sha256:c494aef31be7c727b6169f01cb6cc242ca4db7bec12402ade031e0b80db4c3ea"},
+    {file = "mojo_runtime-0.0.69.tar.gz", hash = "sha256:894dfdfbd93f967aac0c42becf139c7328afa76815ff58892760adff370f1ad4"},
 ]
 
 [package.dependencies]
 coverage = ">=7.0.4,<8.0.0"
 mojo-collections = ">=0.0.10,<0.1.0"
-mojo-config = ">=0.0.15,<0.1.0"
+mojo-config = ">=0.0.18,<0.1.0"
 mojo-errors = ">=0.0.1,<0.1.0"
-mojo-xmodules = ">=0.0.75,<0.1.0"
+mojo-xmodules = ">=0.0.77,<0.1.0"
 
 [[package]]
 name = "mojo-waiting"
@@ -736,21 +736,21 @@ files = [
 
 [[package]]
 name = "mojo-xmodules"
-version = "0.0.76"
+version = "0.0.77"
 description = "Automation Mojo X-Modules"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_xmodules-0.0.76-py3-none-any.whl", hash = "sha256:35c2f6f28a7a4f2d8e237253e4379d640f76cc3779fb2a0774cca9878fff535c"},
-    {file = "mojo_xmodules-0.0.76.tar.gz", hash = "sha256:eaa10c3d02fb8ca3ca2610c15ae8cc2f56fcdca7bdd21b4299ca74149bd99242"},
+    {file = "mojo_xmodules-0.0.77-py3-none-any.whl", hash = "sha256:dced8c2e40f346ad683b2bd30b56a6bf4585b56fd485b0e358712ec28ef13a2d"},
+    {file = "mojo_xmodules-0.0.77.tar.gz", hash = "sha256:5f2ae244de2dca1a9f31b1054681db53992180cf683f713cabd3fe83b7171a94"},
 ]
 
 [package.dependencies]
 click = ">=8.1.5,<9.0.0"
 debugpy = ">=1.6.6,<2.0.0"
 mojo-collections = ">=0.0.10,<0.1.0"
-mojo-config = ">=0.0.15,<0.1.0"
+mojo-config = ">=0.0.18,<0.1.0"
 mojo-errors = ">=0.0.1,<1.0.0"
 mojo-waiting = ">=1.0.3,<2.0.0"
 paramiko = ">=3.1.0,<4.0.0"
@@ -1327,4 +1327,4 @@ mongodb = ["pymongo"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "1ad1b428e308a6583a5e1a2ca622780899764b594fed9e1c3feb8383d5aad480"
+content-hash = "b42f819b430dfc75288837e2d1f614a15383c53f9a771322bcc88df73db9f001"
