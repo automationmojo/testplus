@@ -639,19 +639,19 @@ files = [
 
 [[package]]
 name = "mojo-config"
-version = "0.0.20"
+version = "0.0.22"
 description = "Automation Mojo Configuration Package"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_config-0.0.20-py3-none-any.whl", hash = "sha256:8888eb63092e1a4cbbbdb5f499ef4e6d643170f50cf720f2f137c63c1c9c4724"},
-    {file = "mojo_config-0.0.20.tar.gz", hash = "sha256:07831a8634c3da1a1382cef9a46a7c1a50caee012098d0f974538f992b1dc2d6"},
+    {file = "mojo_config-0.0.22-py3-none-any.whl", hash = "sha256:bee900ce6f855e2545613686dab55621d36f436a5bbcb3515d6111cf1a25b735"},
+    {file = "mojo_config-0.0.22.tar.gz", hash = "sha256:eedadb5b0c5a0fda478a666166d790509928ad7af4e458925535e4d83a3acc6e"},
 ]
 
 [package.dependencies]
 cryptography = ">=41.0.3,<42.0.0"
-mojo-collections = ">=0.0.5,<0.1.0"
+mojo-collections = ">=0.0.11,<0.1.0"
 mojo-errors = ">=0.0.1,<0.0.2"
 
 [package.extras]
@@ -672,14 +672,14 @@ files = [
 
 [[package]]
 name = "mojo-interop"
-version = "0.0.29"
+version = "0.0.31"
 description = "Automation Mojo Interop Extensions"
 category = "main"
 optional = true
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_interop-0.0.29-py3-none-any.whl", hash = "sha256:9c921a89a31dc5aba432e59acb9f0042e3cd50c686d5d40d92b2eaa1ff6e89f9"},
-    {file = "mojo_interop-0.0.29.tar.gz", hash = "sha256:e5417a75971959e9f7697e3ffda3ba1ecc7f9daf22144b2573e6eeb4ae53c7d7"},
+    {file = "mojo_interop-0.0.31-py3-none-any.whl", hash = "sha256:7ba5e7d364de8a9c498f6e7783d953994f9850130b252ad9b74922b2c56d1fe4"},
+    {file = "mojo_interop-0.0.31.tar.gz", hash = "sha256:213902fe1307c44b4076075acb3882203c5ba89b27879748abe08bad0ba275e8"},
 ]
 
 [package.dependencies]
@@ -1337,4 +1337,4 @@ mongodb = ["pymongo"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "cc97e9eba2aa9973ee56ee45e05c19b08ea319b726327304c70d305f865a3459"
+content-hash = "7204799ff0573142fd1e449439df405ada4655881c3a852d5dce37405da9d0f1"
