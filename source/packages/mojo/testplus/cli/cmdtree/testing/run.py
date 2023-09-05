@@ -127,10 +127,13 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     # This is a NO-OP if someone else already intialized the runtime with different names
     initialize_testplus_runtime()
 
-    use_credentials = False
-    use_landscape = False
-    use_runtime = False
-    use_topology = False
+    # We need to default these to 'None' so they do not effect the runtime behavior unless
+    # this command explicitly sets them later.
+    use_credentials = None
+    use_landscape = None
+    use_runtime = None
+    use_topology = None
+
     if "all" in default_configs:
         use_credentials = True
         use_landscape = True
@@ -177,9 +180,11 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
 
 
     if len(credential_files) > 0:
+        use_credentials = True
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_credentials_files(credential_files)
 
     if len(credential_names) > 0:
+        use_credentials = True
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_credentials_names(credential_names)
     
     if len(credential_sources) > 0:
@@ -187,9 +192,11 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
 
 
     if len(landscape_files) > 0:
+        use_landscape = True
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_landscape_files(landscape_files)
 
     if len(landscape_names) > 0:
+        Use_landscape = True
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_landscape_names(landscape_names)
     
     if len(landscape_sources) > 0:
@@ -197,9 +204,11 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
 
 
     if len(runtime_files) > 0:
+        use_runtime = True
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_runtime_files(runtime_files)
     
     if len(runtime_names) > 0:
+        use_runtime = True
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_runtime_names(runtime_names)
 
     if len(runtime_sources) > 0:
@@ -207,9 +216,11 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
 
 
     if len(topology_files) > 0:
+        use_topology = True
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_topology_files(topology_files)
     
     if len(topology_names) > 0:
+        use_topology = True
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_topology_names(topology_names)
 
     if len(topology_sources) > 0:
