@@ -114,18 +114,24 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
 
     from mojo.xmods.xpython import extend_path
 
-    from mojo.runtime.variables import JobType, MOJO_RUNTIME_VARIABLES
+    from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES, resolve_runtime_variables
     
     from mojo.runtime.optionoverrides import MOJO_RUNTIME_OPTION_OVERRIDES
 
+    # STEP 1 - Initialize the Runtime (Performed by the root command)
+
+    # STEP 2 - Resolve the configuration variables
+    resolve_runtime_variables()
+
+    # STEP 3 - Activate the runtime for the given activation class
+    
     # We perform activation a little later in the testrunner.py file so we can
     # handle exceptions in the context of testrunner_main function
     import mojo.runtime.activation.testrun
 
-    from mojo.testplus.initialize import initialize_testplus_runtime, initialize_testplus_results
-    
-    # This is a NO-OP if someone else already intialized the runtime with different names
-    initialize_testplus_runtime()
+    ctx = ContextSingleton()
+
+    # STEP 4 - Apply any Option Overrides
 
     # We need to default these to 'None' so they do not effect the runtime behavior unless
     # this command explicitly sets them later.
@@ -148,8 +154,6 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
             use_runtime = True
         if "topology" in default_configs:
             use_topology = True
-
-    ctx = ContextSingleton()
 
     from mojo.testplus.markers import MetaFilter, parse_marker_expression
 
@@ -226,12 +230,6 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     if len(topology_sources) > 0:
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_topology_sources(topology_sources)
 
-
-    from mojo.config.configurationmaps import resolve_configuration_maps
-    resolve_configuration_maps(use_credentials=use_credentials, use_landscape=use_landscape,
-                               use_runtime=use_runtime, use_topology=use_topology)
-
-
     if console_level is not None:
         MOJO_RUNTIME_OPTION_OVERRIDES.override_loglevel_console(console_level)
 
@@ -302,10 +300,23 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
         mfilter = parse_marker_expression("-" + imexp)
         metafilters.append(mfilter)
 
+    # STEP 5 - Resolve the Configuration Maps
+
+    from mojo.config.configurationmaps import resolve_configuration_maps
+    resolve_configuration_maps(use_credentials=use_credentials, use_landscape=use_landscape,
+                               use_runtime=use_runtime, use_topology=use_topology)
+
+    # STEP 6 - Initialize the Results Output
+
     # Initialize testplus results and logging
+    from mojo.testplus.initialize import initialize_testplus_results
+
     initialize_testplus_results()
 
     logger = logging.getLogger()
+
+
+    # STEP 7 - Create and kick off the job
 
     from mojo.xmods.wellknown.singletons import SuperFactorySinglton
     from mojo.testplus.extensionpoints import TestPlusExtensionPoints
@@ -320,5 +331,6 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
         result_code = tjob.execute()
 
     sys.exit(result_code)
+
 
     return

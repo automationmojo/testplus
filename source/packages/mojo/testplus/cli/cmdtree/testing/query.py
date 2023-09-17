@@ -47,23 +47,23 @@ def command_testplus_testing_query(root, includes, excludes,
 
     from mojo.xmods.xpython import extend_path
 
-    from mojo.runtime.variables import JobType, MOJO_RUNTIME_VARIABLES
+    from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES, resolve_runtime_variables
 
-    from mojo.runtime.optionoverrides import MOJO_RUNTIME_OPTION_OVERRIDES
+    # STEP 2 - Resolve the configuration variables
+    resolve_runtime_variables()
+
+    # STEP 3 - Activate the runtime for the given activation class
 
     # We perform activation a little later in the testrunner.py file so we can
     # handle exceptions in the context of testrunner_main function
     import mojo.runtime.activation.console
 
-    from mojo.testplus.initialize import initialize_testplus_runtime, initialize_testplus_results
-    
-    # This is a NO-OP if someone else already intialized the runtime with different names
-    initialize_testplus_runtime()
-
     ctx = ContextSingleton()
     env = ctx.lookup("/environment")
 
-    initialize_testplus_results()
+    # STEP 4 - Apply any Option Overrides
+
+    from mojo.runtime.optionoverrides import MOJO_RUNTIME_OPTION_OVERRIDES
 
     from mojo.testplus.markers import MetaFilter, parse_marker_expression
 
@@ -85,6 +85,10 @@ def command_testplus_testing_query(root, includes, excludes,
 
     MOJO_RUNTIME_OPTION_OVERRIDES.override_testroot(root)
 
+    from mojo.testplus.initialize import initialize_testplus_results
+
+    initialize_testplus_results()
+
     # Make sure we extend PATH to include the test roots parent folder so imports will
     # work properly.
     test_root_parent = os.path.dirname(test_root)
@@ -102,6 +106,12 @@ def command_testplus_testing_query(root, includes, excludes,
         imexp = imexp.strip("'")
         mfilter = parse_marker_expression("-" + imexp)
         metafilters.append(mfilter)
+
+    # STEP 6 - Resolve the Configuration Maps
+
+    from mojo.config.configurationmaps import resolve_configuration_maps
+    resolve_configuration_maps(use_credentials=False, use_landscape=False,
+                               use_runtime=False, use_topology=False)
 
     # Initialize testplus results and logging
     initialize_testplus_results()
