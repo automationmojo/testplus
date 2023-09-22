@@ -90,7 +90,8 @@ def command_testplus_testing_jobs_run(root, job, output, start, branch, build, f
 
         # We perform activation a little later in the testrunner.py file so we can
         # handle exceptions in the context of testrunner_main function
-        import mojo.runtime.activation.testrun
+        from mojo.runtime.activation import activate_runtime, ActivationProfile
+        activate_runtime(profile=ActivationProfile.Console)
 
         from mojo.testplus.initialize import initialize_testplus_results
         initialize_testplus_results()
@@ -103,7 +104,6 @@ def command_testplus_testing_jobs_run(root, job, output, start, branch, build, f
 
         tpmod = sys.modules["mojo.testplus"]
         tpmod.logger = logger
-
 
         from mojo.xmods.wellknown.singletons import SuperFactorySinglton
         from mojo.testplus.extensionpoints import TestPlusExtensionPoints

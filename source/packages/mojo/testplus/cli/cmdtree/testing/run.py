@@ -114,6 +114,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
 
     from mojo.xmods.xpython import extend_path
 
+    from mojo.runtime.activation import activate_runtime, ActivationProfile
     from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES, resolve_runtime_variables
     
     from mojo.runtime.optionoverrides import MOJO_RUNTIME_OPTION_OVERRIDES
@@ -124,11 +125,8 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     resolve_runtime_variables()
 
     # STEP 3 - Activate the runtime for the given activation class
+    activate_runtime(profile=ActivationProfile.TestRun)
     
-    # We perform activation a little later in the testrunner.py file so we can
-    # handle exceptions in the context of testrunner_main function
-    import mojo.runtime.activation.testrun
-
     ctx = ContextSingleton()
 
     # STEP 4 - Apply any Option Overrides

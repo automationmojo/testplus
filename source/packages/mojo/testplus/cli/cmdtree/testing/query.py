@@ -47,6 +47,7 @@ def command_testplus_testing_query(root, includes, excludes,
 
     from mojo.xmods.xpython import extend_path
 
+    from mojo.runtime.activation import activate_runtime, ActivationProfile
     from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES, resolve_runtime_variables
 
     # STEP 2 - Resolve the configuration variables
@@ -56,7 +57,7 @@ def command_testplus_testing_query(root, includes, excludes,
 
     # We perform activation a little later in the testrunner.py file so we can
     # handle exceptions in the context of testrunner_main function
-    import mojo.runtime.activation.console
+    activate_runtime(profile=ActivationProfile.Console)
 
     ctx = ContextSingleton()
     env = ctx.lookup("/environment")
@@ -112,9 +113,6 @@ def command_testplus_testing_query(root, includes, excludes,
     from mojo.config.configurationmaps import resolve_configuration_maps
     resolve_configuration_maps(use_credentials=False, use_landscape=False,
                                use_runtime=False, use_topology=False)
-
-    # Initialize testplus results and logging
-    initialize_testplus_results()
 
     logger = logging.getLogger()
 

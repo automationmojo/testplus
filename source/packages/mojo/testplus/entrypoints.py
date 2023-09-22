@@ -49,7 +49,9 @@ def generic_test_entrypoint():
     from mojo.testplus.initialize import initialize_testplus_runtime, initialize_testplus_results
     initialize_testplus_runtime()
 
-    import mojo.runtime.activation.testrun
+    from mojo.runtime.activation import activate_runtime, ActivationProfile
+
+    activate_runtime(ActivationProfile.TestRun)
 
     initialize_testplus_results()
 
