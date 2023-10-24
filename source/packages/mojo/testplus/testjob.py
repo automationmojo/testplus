@@ -29,8 +29,20 @@ from mojo.xmods.xformatting import CommandOutputFormat
 from mojo.xmods.xdebugger import WELLKNOWN_BREAKPOINTS, debugger_wellknown_breakpoint_entry
 
 from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
+from mojo.runtime.paths import (
+    get_summary_html_template_source,
+    get_summary_static_resource_dest_dir,
+    get_summary_static_resource_src_dir
+)
 
-from mojo.testplus.recorders import JsonResultRecorder
+from mojo.results.model.buildinfo import BuildInfo
+from mojo.results.model.forwardinginfo import ForwardingInfo
+from mojo.results.model.jobinfo import JobInfo
+from mojo.results.model.pipelineinfo import PipelineInfo
+from mojo.results.model.renderinfo import RenderInfo
+
+from mojo.results.recorders.jsonresultrecorder import JsonResultRecorder
+
 from mojo.testplus.testsequencer import TestSequencer
 
 
@@ -89,6 +101,7 @@ class TestJob(ContextUser):
         self._test_results_dir = None
         self._result_filename = None
         self._summary_filename = None
+        self._summary_template = None
         self._import_errors_filename = None
 
         self._testpacks = None
@@ -143,6 +156,7 @@ class TestJob(ContextUser):
 
         self._result_filename = os.path.join(self._test_results_dir, "testrun_results.jsos")
         self._summary_filename = os.path.join(self._test_results_dir, "testrun_summary.json")
+        self._summary_template = get_summary_html_template_source()
         self._import_errors_filename = os.path.join(self._test_results_dir, "import_errors.jsos")
         self._testrun_sequence_filename = os.path.join(self._test_results_dir, "testrun_sequence.py")
         
@@ -253,26 +267,25 @@ class TestJob(ContextUser):
                 title = self.title
                 runid = self._run_id
                 start = str(self._starttime)
-                sum_file = self._summary_filename
-                res_file = self._result_filename
                 apod = self._apod
-                release = self._release
-                branch = self._branch
-                build = self._build
-                flavor = self._flavor
-                build_url = self._build_url
 
-                pipeline_id = self._pipeline_id
-                pipeline_name = self._pipeline_name
-                pipeline_instance = self._pipeline_instance
+                static_resource_source = get_summary_static_resource_src_dir()
+                static_resource_destination = get_summary_static_resource_dest_dir()
+                
+                render_info = RenderInfo(title=title, summary_filename=self._summary_filename, summary_template=self._summary_template,
+                                         result_filename=self._result_filename, static_resource_source=static_resource_source,
+                                         static_resource_destination=static_resource_destination)
 
-                job_id = self._job_id
-                job_initiator = self._job_initiator
-                job_label = self._job_label
-                job_name = self._job_name
-                job_owner = self._job_owner
-                job_type = self._job_type
+                build_info = BuildInfo(branch=self._branch, build=self._build, flavor=self._flavor,
+                                       release=self._release, url=self._build_url)
 
+                pipeline_info = None
+                if self._pipeline_id is not None:
+                    pipeline_info = PipelineInfo(id=self._pipeline_id, name=self._pipeline_name, instance=self._pipeline_instance)
+
+                job_info = JobInfo(id=self._job_id, name=self._job_name, type=self._job_type, owner=self._job_owner, label=self._job_label,
+                                   initiator=self._job_initiator)
+                
                 self._logger.section("Running Tests")
 
                 # STEP 11: The startup phase is over, up to this point we have mostly been executing
@@ -281,11 +294,8 @@ class TestJob(ContextUser):
                 #
                 # Now we start going through all the test testpacks and tests and start instantiating
                 # test scopes and instances and start executing setup, teardown and test level code
-                with JsonResultRecorder(title=title, runid=runid, start=start, summary_filename=sum_file,
-                    result_filename=res_file, apod=apod, release=release, branch=branch, build=build, flavor=flavor,
-                    build_url=build_url, pipeline_id=pipeline_id, pipeline_name=pipeline_name, pipeline_instance=pipeline_instance,
-                    job_id=job_id, job_initiator=job_initiator, job_label=job_label, job_name=job_name, job_owner=job_owner,
-                    job_type=job_type) as recorder:
+                with JsonResultRecorder(runid=runid, start=start, render_info=render_info, apod=apod,
+                                        build_info=build_info, pipeline_info=pipeline_info, job_info=job_info) as recorder:
                     try:
                         # Traverse the execution graph
                         tseq.execute_tests(runid, recorder)

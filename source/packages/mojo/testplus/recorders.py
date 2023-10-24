@@ -39,11 +39,7 @@ from mojo.runtime.paths import (
 from mojo.testplus.jsos import CHAR_RECORD_SEPERATOR
 from mojo.testplus.results import ResultCode, ResultNode, ResultType
 
-
-
 from mojo.testplus.utilities import catalog_tree
-
-CHAR_RECORD_SEPERATOR
 
 class ResultRecorder:
     """
