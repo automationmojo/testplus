@@ -36,9 +36,14 @@ from mojo.runtime.paths import get_path_for_diagnostics, get_path_for_output
 
 from mojo.testplus.diagnostics import DiagnosticLabel, RuntimeConfigPaths
 from mojo.testplus.exceptions import SkitTestError
-from mojo.testplus.jsos import CHAR_RECORD_SEPERATOR
-from mojo.testplus.results import ResultCode, ResultContainer, ResultNode, ResultType
-from mojo.testplus.recorders import ResultRecorder
+
+from mojo.xmods.jsos import CHAR_RECORD_SEPERATOR
+
+from mojo.results.model.resulttype import ResultType
+from mojo.results.model.resultcontainer import ResultContainer
+from mojo.results.model.resultnode import ResultNode
+
+from mojo.results.recorders.resultrecorder import ResultRecorder
 
 from mojo.testplus.constraints import Constraints
 from mojo.testplus.testcollector import TestCollector
