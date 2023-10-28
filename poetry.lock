@@ -679,19 +679,20 @@ files = [
 
 [[package]]
 name = "mojo-interop"
-version = "0.0.36"
+version = "0.0.46"
 description = "Automation Mojo Interop Extensions"
 category = "main"
 optional = true
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_interop-0.0.36-py3-none-any.whl", hash = "sha256:5699b6916ba3efaf5cbae01af3d3f4852c7f44c3490b3b6f77df337772d4667e"},
-    {file = "mojo_interop-0.0.36.tar.gz", hash = "sha256:46a599d7f41d9eb690e60d3fb32386c1d060e7f8e2e1741efedff316e2b5251f"},
+    {file = "mojo_interop-0.0.46-py3-none-any.whl", hash = "sha256:52886460712e3d8bf445354f65f47e617c2bc18a87778597d1e2238ede57da89"},
+    {file = "mojo_interop-0.0.46.tar.gz", hash = "sha256:a6291116ce310aa757d9b11ad93b3809cc77e6e14444e4ce3f8d0f06ae353311"},
 ]
 
 [package.dependencies]
 mojo-errors = ">=0.0.1,<0.1.0"
 mojo-networking = ">=0.0.4,<0.1.0"
+mojo-results = ">=0.0.8,<0.1.0"
 mojo-xmodules = ">=0.0.87,<0.1.0"
 rpyc = ">=5.3.1,<6.0.0"
 
@@ -713,14 +714,14 @@ requests = "<=2.29.0"
 
 [[package]]
 name = "mojo-results"
-version = "0.0.4"
+version = "0.0.8"
 description = "The Automation Mojo Results Package"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_results-0.0.4-py3-none-any.whl", hash = "sha256:97c0d0e3a366aef0324e1a78b61ee181ac65f8e7066a794993acd1429104ec85"},
-    {file = "mojo_results-0.0.4.tar.gz", hash = "sha256:c8901fb8c8efd5dc3c2f0f4e778e0ea3c99fcf1b530a6bec0302c05952cbee81"},
+    {file = "mojo_results-0.0.8-py3-none-any.whl", hash = "sha256:c005273e737a4188b72e1c3501953b9d980b7183638dd781f7dc4bfdc2a4dc8a"},
+    {file = "mojo_results-0.0.8.tar.gz", hash = "sha256:81e35ff38fd8ec128714c632c269ec4651b59f5da17379c0c74116ca033af82d"},
 ]
 
 [package.dependencies]
