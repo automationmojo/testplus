@@ -13,11 +13,11 @@ class UnknownParameterError(RuntimeError):
         reference to a well-known parameter that cannot be resolved.
     """
 
-class SkitTestError(RuntimeError):
+class SkipTestError(RuntimeError):
     """
         This error is raised when the test indicates that it should be skipped
         due to some reason that occures during the test.
     """
 
 def skip_test(reason: str):
-    raise SkitTestError(reason)
+    raise SkipTestError(reason)

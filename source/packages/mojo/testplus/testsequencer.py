@@ -35,7 +35,7 @@ from mojo.xmods.ximport import import_file
 from mojo.runtime.paths import get_path_for_diagnostics, get_path_for_output
 
 from mojo.testplus.diagnostics import DiagnosticLabel, RuntimeConfigPaths
-from mojo.testplus.exceptions import SkitTestError
+from mojo.testplus.exceptions import SkipTestError
 
 from mojo.xmods.jsos import CHAR_RECORD_SEPERATOR
 
@@ -171,7 +171,7 @@ class SequencerModuleScope(SequencerScopeBase):
 
         if ex_type is not None:
 
-            if issubclass(ex_type, SkitTestError):
+            if issubclass(ex_type, SkipTestError):
                 self._mark_descendants_skipped(self._scope_node, self._scope_id, ex_inst.reason, ex_inst.bug)
             else:
                 tb_detail = create_traceback_detail(ex_inst)
@@ -217,7 +217,7 @@ class SequencerSessionScope(SequencerScopeBase):
 
         if ex_type is not None:
 
-            if issubclass(ex_type, SkitTestError):
+            if issubclass(ex_type, SkipTestError):
                 self._mark_descendants_skipped(self._scope_node, self._scope_id, ex_inst.reason, ex_inst.bug)
             else:
                 tb_detail = create_traceback_detail(ex_inst)
@@ -294,7 +294,7 @@ class SequencerTestScope:
 
         if ex_type is not None:
 
-            if issubclass(ex_type, SkitTestError):
+            if issubclass(ex_type, SkipTestError):
                 self._result.mark_skip(ex_inst.reason, ex_inst.bug)
             else:
                 # If an exceptions was thrown in this context, it means
