@@ -48,6 +48,7 @@ PYTHON_VERSION=""
 source $ENV_FILE
 source $(grep --color=never -E "^[\s]*[A-Za-z_]+[A-Za-z_0-9]*=" "$REPOSITORY_CONFIG_FILE")
 
+
 # The PYTHON_VERSION can be pinned in the development environment config
 if [ -z "$PYTHON_VERSION" ]
 then
