@@ -102,5 +102,15 @@
             "console": "integratedTerminal",
             "justMyCode": false
         },
+        {
+            "name": "Python: Tasker Deploy",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/source/examples/taskerserverdeploy.py",
+            "envFile": "${workspaceFolder}/.env",
+            "args": [],
+            "console": "integratedTerminal",
+            "justMyCode": false
+        }
     ]
 }
