@@ -41,7 +41,6 @@ from mojo.testplus.exceptions import SkipTestError
 
 from mojo.xmods.jsos import CHAR_RECORD_SEPERATOR
 
-from mojo.xmods.injection.injectablegroup import InjectableGroup
 from mojo.xmods.injection.resourceregistry import resource_registry
 from mojo.xmods.injection.parameterorigin import ParameterOrigin
 
@@ -697,7 +696,7 @@ class TestSequencer(ContextUser):
 
         if cursor.scope_name == scope_name:
             found = cursor
-        elif isinstance(cursor, InjectableGroup):
+        elif isinstance(cursor, TestGroup):
             for child in cursor.children.values():
                 found = self.find_treenode_for_scope(scope_name, cursor=child)
                 if found is not None:

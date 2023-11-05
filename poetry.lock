@@ -773,14 +773,14 @@ files = [
 
 [[package]]
 name = "mojo-xmodules"
-version = "0.0.110"
+version = "0.0.112"
 description = "Automation Mojo X-Modules"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_xmodules-0.0.110-py3-none-any.whl", hash = "sha256:0e3e237bf9d65f0e23d3175e14e25b3c11da31081b074058a660fecb67306521"},
-    {file = "mojo_xmodules-0.0.110.tar.gz", hash = "sha256:0564ee2d2fb56effc417a4a14437565ad825b6ee4ae4045043ebb49292835af8"},
+    {file = "mojo_xmodules-0.0.112-py3-none-any.whl", hash = "sha256:6d65b64538e7c1ce74468d63d5551c370b3315f0320b65b2451f5fc8b9675387"},
+    {file = "mojo_xmodules-0.0.112.tar.gz", hash = "sha256:36ffdfb2dcfbb2e29f0bc1cb578fb34f731ba4fadab4f25a2ba69ffb8f951f54"},
 ]
 
 [package.dependencies]
@@ -1506,4 +1506,4 @@ mongodb = ["pymongo"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "c6acb202512edf0ab251bdee6ed035d366565bb0ff47b7fe3b7a4e2a4b24377c"
+content-hash = "f62ee499e8f1098d9137adf6ac065d946d8ac8bfa8053f4fd74a39f4ff588b98"
