@@ -110,11 +110,11 @@ def find_included_modules_under_root(root: str, package: Union[str, None], modul
     excluded_files = []
 
     while len(included_file_candidates) > 0:
-        candidate_file = included_file_candidates.pop()
+        candidate_file: str = included_file_candidates.pop()
 
         keep_file = True
         for expfx in excluded_path_prefixes:
-            if candidate_file.beginswith(expfx):
+            if candidate_file.startswith(expfx):
                 keep_file = False
                 break
 

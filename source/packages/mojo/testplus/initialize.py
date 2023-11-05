@@ -1,5 +1,4 @@
 
-import logging
 import os
 
 from mojo.collections.contextpaths import ContextPaths

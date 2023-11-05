@@ -7,8 +7,6 @@ __email__ = "myron.walker@gmail.com"
 __status__ = "Development" # Prototype, Development or Production
 __license__ = "MIT"
 
-from typing import Union
-
 import inspect
 import logging
 import os
@@ -17,7 +15,6 @@ import sys
 import traceback
 
 from mojo.xmods.ximport import import_by_name
-from mojo.errors.exceptions import SemanticError
 
 from mojo.testplus.testref import TestRef
 
@@ -69,10 +66,10 @@ def collect_test_references(root, included_files, filter_package, filter_module,
                         # if the function_name matches the filter expression
                         if fnmatch.fnmatch(function_name, filter_testname):
                             tref = TestRef(function_obj)
-                            test_references[tref.test_name] = tref
+                            test_references[tref.name] = tref
                     else:
                         tref = TestRef(function_obj)
-                        test_references[tref.test_name] = tref
+                        test_references[tref.name] = tref
 
         except ImportError:
             errmsg = traceback.format_exc()

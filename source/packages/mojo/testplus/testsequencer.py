@@ -16,7 +16,7 @@ __email__ = "myron.walker@gmail.com"
 __status__ = "Development" # Prototype, Development or Production
 __license__ = "MIT"
 
-from typing import Any, List, OrderedDict, Sequence, Tuple
+from typing import Any, List, OrderedDict, Sequence, Tuple, Union
 
 import collections
 import json
@@ -24,6 +24,8 @@ import logging
 import os
 import sys
 import uuid
+
+from io import TextIOWrapper
 
 from mojo.collections.contextuser import ContextUser
 
@@ -39,6 +41,13 @@ from mojo.testplus.exceptions import SkipTestError
 
 from mojo.xmods.jsos import CHAR_RECORD_SEPERATOR
 
+from mojo.xmods.injection.injectablegroup import InjectableGroup
+from mojo.xmods.injection.resourceregistry import resource_registry
+from mojo.xmods.injection.parameterorigin import ParameterOrigin
+
+from mojo.xmods.markers import MetaFilter
+from mojo.xmods.landscaping.coupling.integrationcoupling import IntegrationCoupling
+
 from mojo.results.model.resulttype import ResultType
 from mojo.results.model.resultcontainer import ResultContainer
 from mojo.results.model.resultnode import ResultNode
@@ -47,10 +56,9 @@ from mojo.results.recorders.resultrecorder import ResultRecorder
 
 from mojo.testplus.constraints import Constraints
 from mojo.testplus.testcollector import TestCollector
-from mojo.testplus.registration.resourceregistry import resource_registry
 from mojo.testplus.testgroup import TestGroup
 from mojo.testplus.testref import TestRef
-from mojo.testplus.markers import MetaFilter
+
 
 from mojo.xmods.xdebugger import WELLKNOWN_BREAKPOINTS, debugger_wellknown_breakpoint_code_append
 
@@ -134,7 +142,7 @@ class SequencerScopeBase:
 
     def _mark_test_as_error(self, testref: TestRef, parent_id: str, tbdetail: TracebackDetail):
         test_id = str(uuid.uuid4())
-        result = self._sequencer.create_test_result_node(test_id, testref.test_name, testref.monikers, testref.pivots, parent_inst=parent_id)
+        result = self._sequencer.create_test_result_node(test_id, testref.name, testref.monikers, testref.pivots, parent_inst=parent_id)
         result.add_error(tbdetail)
         result.finalize()
         self._recorder.record(result)
@@ -142,7 +150,7 @@ class SequencerScopeBase:
 
     def _mark_test_as_skip(self, testref: TestRef, parent_id: str, reason: str, bug: str):
         test_id = str(uuid.uuid4())
-        result = self._sequencer.create_test_result_node(test_id, testref.test_name, testref.monikers, testref.pivots, parent_inst=parent_id)
+        result = self._sequencer.create_test_result_node(test_id, testref.name, testref.monikers, testref.pivots, parent_inst=parent_id)
         result.mark_skip(reason, bug)
         result.finalize()
         self._recorder.record(result)
@@ -339,7 +347,7 @@ class SequencerTestScope:
         return
 
 class SequencerTestSetupScope:
-    def __init__(self, sequencer, recorder, test_name, **kwargs):
+    def __init__(self, sequencer: "TestSequencer", recorder: ResultRecorder, test_name: str, **kwargs):
         super().__init__()
 
         self._sequencer = sequencer
@@ -458,6 +466,8 @@ class TestSequencer(ContextUser):
 
         self._landscape = landscape
 
+        integ_type: IntegrationCoupling
+
         for _, integ_type in self._integrations.items():
             integ_type.attach_to_framework(landscape)
 
@@ -492,6 +502,8 @@ class TestSequencer(ContextUser):
         with open(startup_full, 'w') as suf:
             json.dump(startup_dict, suf, indent=True)
 
+        integ_type: IntegrationCoupling
+
         for _, integ_type in self._integrations.items():
             integ_type.attach_to_environment(landscape)
 
@@ -502,6 +514,8 @@ class TestSequencer(ContextUser):
             Goes through all the integrations and provides them with an opportunity to
             collect shared resources that are required for testing.
         """
+
+        integ_type: IntegrationCoupling
 
         for _, integ_type in self._integrations.items():
             integ_type.collect_resources()
@@ -623,6 +637,8 @@ class TestSequencer(ContextUser):
             Re-orders the integrations based on any declared precedences.
         """
 
+        integ_type: IntegrationCoupling
+
         for _, integ_type in self._integrations.items():
             integ_type.establish_integration_order()
 
@@ -635,12 +651,14 @@ class TestSequencer(ContextUser):
             they are integrating into the automation run.
         """
 
+        integ_type: IntegrationCoupling
+
         for _, integ_type in self._integrations.items():
             integ_type.establish_presence()
 
         return
 
-    def execute_tests(self, runid: str, recorder):
+    def execute_tests(self, runid: str, recorder: ResultRecorder):
         """
             Called in order to execute the tests contained in the :class:`TestPacks` being run.
         """
@@ -679,7 +697,7 @@ class TestSequencer(ContextUser):
 
         if cursor.scope_name == scope_name:
             found = cursor
-        elif isinstance(cursor, TestGroup):
+        elif isinstance(cursor, InjectableGroup):
             for child in cursor.children.values():
                 found = self.find_treenode_for_scope(scope_name, cursor=child)
                 if found is not None:
@@ -695,7 +713,6 @@ class TestSequencer(ContextUser):
         temp_outputfile = outputfilename + ".tmp"
 
         with open(temp_outputfile, 'w') as sdf:
-            current_node = self._testtree
 
             sdf.write(TEMPLATE_TESTRUN_SEQUENCE_MODULE)
 
@@ -737,7 +754,7 @@ class TestSequencer(ContextUser):
 
         return
 
-    def scope_id_create(self, scope_name):
+    def scope_id_create(self, scope_name: str):
 
         parent_id = None
         if len(self._scope_stack) > 0:
@@ -748,7 +765,7 @@ class TestSequencer(ContextUser):
 
         return parent_id, scope_id
 
-    def scope_id_pop(self, scope_name):
+    def scope_id_pop(self, scope_name: str):
 
         top_entry_name, _ = self._scope_stack.pop()
         if top_entry_name != scope_name:
@@ -757,11 +774,12 @@ class TestSequencer(ContextUser):
 
         return
 
-    def scope_id_push(self, scope_name, scope_id):
+    def scope_id_push(self, scope_name: str, scope_id: str):
         self._scope_stack.append((scope_name, scope_id))
         return
 
-    def _generate_session_method(self, outf, root_node, factory_imports, constraint_imports, indent_space):
+    def _generate_session_method(self, outf: TextIOWrapper, root_node: TestGroup, factory_imports: set,
+                                 constraint_imports: set, indent_space: str):
         """
             Generates the :function:`session` entry point function or the test run
             sequence document.
@@ -770,7 +788,7 @@ class TestSequencer(ContextUser):
 
         current_indent = indent_space
 
-        method_lines = [
+        method_lines: List[str] = [
             'def session(sequencer):',
             '{}"""'.format(current_indent),
             '{}This is the entry point for the test run sequence document.'.format(indent_space),
@@ -804,12 +822,20 @@ class TestSequencer(ContextUser):
 
         child_name_list = [cnk for cnk in root_node.children.keys()]
         child_name_list.sort()
+
         for child_name in child_name_list:
-            child_node = root_node.children[child_name]
+
+            # This code is assuming that all the children of the root node are of type
+            # `TestGroup` which might not be a valid assumption to make all the time.
+            # TODO: Add support for root level TestRef nodes.
+            child_node: Union[TestRef, TestGroup] = root_node.children[child_name]
+
             scope_module = child_name
             if child_node.package:
                 scope_module = child_node.package + "." + child_name
+            
             scope_name = scope_module.replace(".", "_")
+            
             call_line = '{}scope_{}({})'.format(current_indent, scope_name, ", ".join(child_call_args))
             method_lines.append(call_line)
             scopes_called.append((scope_module, scope_name, child_node, child_call_args))
@@ -823,7 +849,8 @@ class TestSequencer(ContextUser):
 
         return scopes_called
 
-    def _generate_scope_method(self, outf, scope_module, scope_name, scope_node, scope_call_args, factory_imports, constraint_imports, indent_space):
+    def _generate_scope_method(self, outf: TextIOWrapper, scope_module: str, scope_name: str, scope_node: TestGroup,
+                               scope_call_args: List[str], factory_imports: set, constraint_imports: set, indent_space: str):
         scopes_called = []
 
         current_indent = "    "
@@ -867,16 +894,18 @@ class TestSequencer(ContextUser):
 
         child_name_list = [cnk for cnk in scope_node.children.keys()]
         child_name_list.sort()
+
         for child_name in child_name_list:
-            child_node = scope_node.children[child_name]
+            child_node: Union[TestRef, TestGroup] = scope_node.children[child_name]
+
             if isinstance(child_node, TestRef):
                 pre_test_scope_indent = current_indent
 
                 # Generate a test run scope for this test
-                test_scope_name = child_node.test_name
+                test_scope_name = child_node.name
                 test_scope = resource_registry.lookup_resource_scope(test_scope_name)
 
-                test_parameters = child_node.test_function_parameters
+                test_parameters = child_node.function_parameters
 
                 test_local_args = []
 
@@ -893,7 +922,7 @@ class TestSequencer(ContextUser):
                 method_lines.append("{}# ================ Test Scope: {} ================".format(current_indent, test_scope_name))
                 method_lines.append('')
                 # Import the test function and assign the test name
-                method_lines.append("{}from {} import {}".format(current_indent, child_node.test_module_name, child_node.test_base_name))
+                method_lines.append("{}from {} import {}".format(current_indent, child_node.module_name, child_node.base_name))
                 method_lines.append('{}test_scope_name = "{}"'.format(current_indent, test_scope_name))
                 method_lines.append('')
 
@@ -904,6 +933,9 @@ class TestSequencer(ContextUser):
                     parameterized_args_names = []
 
                     # Import any factory functions that are used in test local factory methods
+                    param_name: str
+                    param_obj: ParameterOrigin
+
                     for param_name, param_obj in test_local_args:
                         fmodname = param_obj.source_module_name
                         ffuncname = param_obj.source_function_name
@@ -916,6 +948,7 @@ class TestSequencer(ContextUser):
                         ffuncname = param_obj.source_function_name
                         ffuncsig = param_obj.source_signature
                         ffuncargs = [pn for pn in ffuncsig.parameters]
+
                         if 'constraints' in ffuncargs:
                             constraints = {}
                             if param_obj.constraints is not None:
@@ -923,6 +956,7 @@ class TestSequencer(ContextUser):
                                 if issubclass(type(constraints), Constraints):
                                     constraint_imports.add(constraints.get_import_statement())
                             method_lines.append('{}constraints={}'.format(current_indent, repr(constraints)))
+
                         ffuncargs_str = " ,".join(ffuncargs)
                         method_lines.append("{}for {} in {}({}):".format(current_indent, param_name, ffuncname, ffuncargs_str))
                         parameterized_args_names.append(param_name)
@@ -943,7 +977,7 @@ class TestSequencer(ContextUser):
                 test_args = []
                 for param_name in test_parameters:
                     test_args.append(param_name)
-                call_line = '{}{}({})'.format(current_indent, child_node.test_base_name, ", ".join(test_args))
+                call_line = '{}{}({})'.format(current_indent, child_node.base_name, ", ".join(test_args))
                 method_lines.append(call_line)
                 method_lines.append('')
 
@@ -952,8 +986,10 @@ class TestSequencer(ContextUser):
 
             else:
                 scope_module = child_name
+
                 if child_node.package:
                     scope_module = child_node.package + "." + child_name
+                
                 scope_name = scope_module.replace(".", "_")
                 call_line = '{}scope_{}({})'.format(current_indent, scope_name, ", ".join(child_call_args))
                 method_lines.append(call_line)
@@ -973,6 +1009,11 @@ class TestSequencer(ContextUser):
             Method that writes out the import errors to the active results directory.
         """
         with open(outputfilename, 'w') as ief:
+
+            modname: str
+            filename: str
+            errmsg: str
+            
             for modname, filename, errmsg in self._import_errors.values():
                 ief.write(CHAR_RECORD_SEPERATOR)
                 ieitem = {

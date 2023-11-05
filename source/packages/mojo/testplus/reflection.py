@@ -36,7 +36,7 @@ def lookup_test_root_type(test_root):
         errmsg = "The test root module must have a 'ROOT_TYPE' variable specifying (testplus, unittest).".format(test_root_module)
         raise SemanticError(errmsg) from None
 
-    if not ((ROOT_TYPE == TestRootType.TESTPLUS) or (ROOT_TYPE == TestRootType.UNITTEST)):
+    if not ((ROOT_TYPE == TestRootType.TESTPLUS)):
         errmsg = "Unknow test root type {}".format(ROOT_TYPE)
         raise SemanticError(errmsg) from None
 

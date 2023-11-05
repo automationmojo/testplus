@@ -7,7 +7,6 @@ __email__ = "myron.walker@gmail.com"
 __status__ = "Development" # Prototype, Development or Production
 __license__ = "MIT"
 
-from distutils.sysconfig import PREFIX
 from typing import Any, List, Optional, Union, Type
 
 import os

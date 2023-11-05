@@ -25,6 +25,8 @@ import os
 
 from mojo.errors.exceptions import SemanticError
 
+from mojo.xmods.injection.resourceregistry import resource_registry
+from mojo.xmods.markers import MetaFilter
 from mojo.xmods.landscaping.coupling.integrationcoupling import IntegrationCoupling
 
 from mojo.testplus.exceptions import UnknownParameterError
@@ -34,8 +36,6 @@ from mojo.testplus.queries import collect_test_references
 
 from mojo.testplus.testgroup import TestGroup
 from mojo.testplus.testref import TestRef
-from mojo.testplus.registration.resourceregistry import resource_registry
-from mojo.testplus.markers import MetaFilter
 
 logger = logging.getLogger()
 

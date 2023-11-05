@@ -689,21 +689,21 @@ files = [
 
 [[package]]
 name = "mojo-interop"
-version = "0.0.51"
+version = "0.0.52"
 description = "Automation Mojo Interop Extensions"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_interop-0.0.51-py3-none-any.whl", hash = "sha256:d9848cee313f9d17ca4671951c31da1635a07383f820b084d9f6ff2e68803f1b"},
-    {file = "mojo_interop-0.0.51.tar.gz", hash = "sha256:f8209ed0269f4c32194ef732e720c5a9b8dcb98b4ebb5c43f80a0402cfce3b29"},
+    {file = "mojo_interop-0.0.52-py3-none-any.whl", hash = "sha256:ac1861cf3cf742a7a8eef1b26de55235e6dc3474a54e4d45bb67938467078111"},
+    {file = "mojo_interop-0.0.52.tar.gz", hash = "sha256:8cff0cb85a7ffdb0c7e780c6e0499674cb83f0bf4d94c581f6d2033bbe956ef8"},
 ]
 
 [package.dependencies]
 mojo-errors = ">=0.0.1,<0.1.0"
 mojo-networking = ">=0.0.4,<0.1.0"
-mojo-results = ">=0.0.12,<0.1.0"
-mojo-xmodules = ">=0.0.87,<0.1.0"
+mojo-results = ">=0.0.13,<0.1.0"
+mojo-xmodules = ">=0.0.106,<0.1.0"
 pexpect = ">=4.8.0,<5.0.0"
 psutil = ">=5.9.6,<6.0.0"
 rpyc = ">=5.3.1,<6.0.0"
@@ -773,14 +773,14 @@ files = [
 
 [[package]]
 name = "mojo-xmodules"
-version = "0.0.106"
+version = "0.0.110"
 description = "Automation Mojo X-Modules"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_xmodules-0.0.106-py3-none-any.whl", hash = "sha256:6baf23968f7a373b9134982e073d289df8fe85a9c947978e197b2147eb85811b"},
-    {file = "mojo_xmodules-0.0.106.tar.gz", hash = "sha256:b96164097634ab05c42009ddbb035ecf6d1c8bb457fc133278d8e6be11f0a619"},
+    {file = "mojo_xmodules-0.0.110-py3-none-any.whl", hash = "sha256:0e3e237bf9d65f0e23d3175e14e25b3c11da31081b074058a660fecb67306521"},
+    {file = "mojo_xmodules-0.0.110.tar.gz", hash = "sha256:0564ee2d2fb56effc417a4a14437565ad825b6ee4ae4045043ebb49292835af8"},
 ]
 
 [package.dependencies]
@@ -1506,4 +1506,4 @@ mongodb = ["pymongo"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "f6c10afdb8901bd8da1f70f032cf0706a6efbec08657049201fad21acec8da7d"
+content-hash = "85ee6bd6009e14bbc5170b7e38f42d4fce124a7d5d73247fbcb98890e02276ef"

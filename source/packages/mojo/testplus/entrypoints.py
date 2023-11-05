@@ -31,11 +31,11 @@ from mojo.xmods.xlogging.levels import LOG_LEVEL_NAMES
 from mojo.xmods.ximport import import_by_name
 
 from mojo.runtime.paths import get_path_for_testresults
-from mojo.xmods.xlogging.foundations import logging_initialize
+from mojo.xmods.injection.resourceregistry import ResourceRegistry
 
 from mojo.testplus.utilities import find_testmodule_root, find_testmodule_fullname
 from mojo.testplus.testjob import DefaultTestJob
-from mojo.testplus.registration.resourceregistry import ResourceRegistry
+
 
 def generic_test_entrypoint():
     """

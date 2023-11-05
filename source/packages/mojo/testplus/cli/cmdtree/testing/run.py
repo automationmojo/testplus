@@ -153,7 +153,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
         if "topology" in default_configs:
             use_topology = True
 
-    from mojo.testplus.markers import MetaFilter, parse_marker_expression
+    from mojo.xmods.markers import MetaFilter, parse_marker_expression
 
     if branch is not None:
         MOJO_RUNTIME_OPTION_OVERRIDES.override_build_branch(branch)

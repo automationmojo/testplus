@@ -12,7 +12,7 @@ import logging
 
 from .exceptions import skip_test
 
-from .markers import (
+from mojo.xmods.markers import (
     mark_categories,
     mark_keywords,
     mark_priority,
@@ -21,13 +21,12 @@ from .markers import (
     mark_descendent_priority
 )
 
-from .parameters import (
+from mojo.xmods.injection.parameters import (
     originate_parameter,
     param
 )
 
-
-from .resources import (
+from mojo.xmods.injection.resources import (
     integration,
     resource,
     scope
