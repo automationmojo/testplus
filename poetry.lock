@@ -689,21 +689,21 @@ files = [
 
 [[package]]
 name = "mojo-interop"
-version = "0.0.56"
+version = "0.0.58"
 description = "Automation Mojo Interop Extensions"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_interop-0.0.56-py3-none-any.whl", hash = "sha256:e47c2f32c3b383316f644bdb6aec72df3a3e6cab9f0a294184297f35cb4bdee5"},
-    {file = "mojo_interop-0.0.56.tar.gz", hash = "sha256:c55def6a03f733c8bec0b67ddac60a6c455eef3961bc21bd8d00b02fe11a50cc"},
+    {file = "mojo_interop-0.0.58-py3-none-any.whl", hash = "sha256:19a8eee43e887e2b4e6b76289e7afbab0fd29c4b5bc3aa6182321860b0b608bb"},
+    {file = "mojo_interop-0.0.58.tar.gz", hash = "sha256:c3b17d5b01b48588bcc60d99a3f3b2e9f3495a195c8e98c4ea8b28e19cd725e2"},
 ]
 
 [package.dependencies]
 mojo-errors = ">=0.0.1,<0.1.0"
 mojo-networking = ">=0.0.4,<0.1.0"
 mojo-results = ">=0.0.13,<0.1.0"
-mojo-xmodules = ">=0.0.115,<0.1.0"
+mojo-xmodules = ">=0.0.116,<0.1.0"
 pexpect = ">=4.8.0,<5.0.0"
 psutil = ">=5.9.6,<6.0.0"
 rpyc = ">=5.3.1,<6.0.0"
@@ -773,14 +773,14 @@ files = [
 
 [[package]]
 name = "mojo-xmodules"
-version = "0.0.116"
+version = "0.0.117"
 description = "Automation Mojo X-Modules"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_xmodules-0.0.116-py3-none-any.whl", hash = "sha256:f08924075f184fe39f9fee6b4bb337df2c60ff68c1f885e24dd43a076511bf4b"},
-    {file = "mojo_xmodules-0.0.116.tar.gz", hash = "sha256:511d5be497ee756a07e194aa3d19a309c007fbdd5873ce6d8f10dcc258c923b6"},
+    {file = "mojo_xmodules-0.0.117-py3-none-any.whl", hash = "sha256:0b194cd0d9b01d8592b900de1e62d83c9ec66b20b8a42a216b5b4199090b82fc"},
+    {file = "mojo_xmodules-0.0.117.tar.gz", hash = "sha256:bb2ce871e998a2588e1453cb59eab4a5ec0ce3776bf702ac54ba69bf0fb3865c"},
 ]
 
 [package.dependencies]
@@ -1506,4 +1506,4 @@ mongodb = ["pymongo"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "79a5a1f3fa0b22e9b21619f7cc405116fc8840371f280f8e9774f33f907f5412"
+content-hash = "1ced46a02e6fd249e67883574efc762743b4fa81c7c74dbe7fae394465b04825"

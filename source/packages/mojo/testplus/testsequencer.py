@@ -264,6 +264,10 @@ class SequencerTestScope:
         self._context_identifier = "{}:{}".format(self._test_name, ",".join(self._monikers))
         return
 
+    @property
+    def scope_id(self):
+        return self._scope_id
+
     def _get_monikers_and_pivots(self) -> Tuple[List[str], OrderedDict[str, Any]]:
         """
             Creates a full context identifier based on the full testname and the identifiers of any
