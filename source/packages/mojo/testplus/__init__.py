@@ -72,3 +72,11 @@ __all__ = [
     scope,
     skip_test
 ]
+
+try:
+    from mojo.interop.protocols.tasker.taskingresult import assert_tasking_results
+
+    __all__.append(assert_tasking_results)
+
+except ImportError:
+    pass
