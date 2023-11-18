@@ -3,23 +3,39 @@
 from typing import Generator, List
 
 import os
-import time
+import tempfile
+import zipfile
 
 from mojo import testplus
+
 
 from mojo.xmods.landscaping.landscape import Landscape
 from mojo.xmods.landscaping.includefilters import IncludeDeviceByDeviceType
 
-from mojo.interop.protocols.tasker.examples.helloworldtasking import HelloWorldTasking
+from mojo.results.model.taskingresult import TaskingResult
 
 from mojo.interop.clients.linux.linuxclient import LinuxClient
-from mojo.interop.protocols.tasker.taskingresult import TaskingResult, TaskingResultPromise
+
+from mojo.interop.protocols.tasker.taskernode import TaskerClientNode
+from mojo.interop.protocols.tasker.taskingresultpromise import TaskingResultPromise
 from mojo.interop.protocols.tasker.taskercontroller import ClientTaskerController
+
+from mojo.interop.protocols.tasker.examples.helloworldtasking import HelloWorldTasking
+
+
+from mojo.runtime.paths import get_path_for_output
 
 
 @testplus.resource()
 def tasker_network_controller(lscape: Landscape, constraints={}) -> Generator[LinuxClient, None, None]:
     
+    lcl_output_dir = get_path_for_output()
+
+    lcl_taskings_dir = os.path.join(lcl_output_dir, "taskings")
+    lcl_output_basename = os.path.basename(lcl_output_dir)
+
+    rmt_tasking_dir = os.path.join("~/mjr/results/testresults", lcl_output_basename, "taskings")
+
     includes = [IncludeDeviceByDeviceType("network/client-linux")]
 
     client_list = lscape.get_devices(include_filters=includes)
@@ -27,8 +43,36 @@ def tasker_network_controller(lscape: Landscape, constraints={}) -> Generator[Li
     tcontroller = ClientTaskerController()
 
     tcontroller.start_tasker_network(client_list)
+    tcontroller.reinitialize_logging_on_nodes(taskings_log_directory=rmt_tasking_dir)
 
     yield tcontroller
+
+    zip_contexts = []
+
+    tasker_nodes = tcontroller.tasker_nodes
+
+    tnode: TaskerClientNode
+
+    for nidx, tnode in enumerate(tasker_nodes):
+        zfile = f"tasking-results-{nidx}.zip"
+        zip_contexts.append((tnode, zfile))
+    
+    for tnode, zfile in zip_contexts:
+        lcl_archive_file = tempfile.mktemp(suffix=".zip", prefix="taskings-archive-")
+        
+        archive_basename = os.path.basename(lcl_archive_file)
+        rmt_archive_file = tnode.archive_folder(folder_to_archive=rmt_tasking_dir, dest_folder="~/archives", archive_name=archive_basename)
+
+        client: LinuxClient = tnode.client
+
+        client.ssh.file_pull(rmt_archive_file, lcl_archive_file)
+
+        if not os.path.exists(lcl_taskings_dir):
+            os.makedirs(lcl_taskings_dir)
+
+        with zipfile.ZipFile(lcl_archive_file, 'r') as zipf:
+            zipf.extractall(lcl_taskings_dir)
+
 
 
 @testplus.param(tasker_network_controller, identifier="tcontroller")

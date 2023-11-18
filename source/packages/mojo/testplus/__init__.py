@@ -74,7 +74,7 @@ __all__ = [
 ]
 
 try:
-    from mojo.interop.protocols.tasker.taskingresult import assert_tasking_results
+    from mojo.results.model.taskingresult import assert_tasking_results
 
     __all__.append(assert_tasking_results)
 

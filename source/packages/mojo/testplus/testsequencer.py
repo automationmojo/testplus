@@ -248,6 +248,72 @@ class SequencerSessionScope(SequencerScopeBase):
         logger.info("SESSION EXIT: {}".format(self._scope_id))
         return handled
 
+
+class SequencerTaskGroupScope:
+
+    def __init__(self, sequencer: "TestSequencer", recorder: ResultRecorder, group_name: str):
+        self._sequencer = sequencer
+        self._recorder = recorder
+        self._group_name = group_name
+
+        self._parent_scope_id = None
+        self._scope_id = None
+        return
+
+    @property
+    def scope_id(self):
+        return self._scope_id
+
+    def __enter__(self):
+        self._parent_scope_id, self._scope_id = self._sequencer.scope_id_create(self._group_name)
+        logger.info("TASK GROUP ENTER: {}, {}".format(self._group_name, self._scope_id))
+        self._result = self._sequencer.create_test_result_node(self._scope_id, self._test_name, self._monikers, self._pivots, parent_inst=self._parent_scope_id)
+        self._test_scope_enter()
+        return self
+
+    def __exit__(self, ex_type, ex_inst, ex_tb):
+        handled = True
+
+        if ex_type is not None:
+
+            if issubclass(ex_type, SkipTestError):
+                self._result.mark_skip(ex_inst.reason, ex_inst.bug)
+            else:
+                # If an exceptions was thrown in this context, it means
+                # that a test threw an exception.
+                tb_detail = create_traceback_detail(ex_inst)
+                
+                if issubclass(ex_type, AssertionError):
+                    # The convention for test failures that all tests should throw
+                    # an AssertionError derived exception for failure conditions.
+                    # This is important because a failure condition implies an expectation
+                    # was checked and not met which implies a product code related failure
+                    
+                    self._result.add_failure(tb_detail)
+                else:
+                    self._result.add_error(tb_detail)
+
+                traceback_lines = format_traceback_detail(tb_detail)
+                errmsg = os.linesep.join(traceback_lines)
+                logger.error(errmsg)
+
+            handled = True
+        else:
+            self._result.mark_passed()
+
+        # Call test scope exit before we finalize our results
+        self._test_scope_exit()
+
+        self._result.finalize()
+        self._recorder.record(self._result)
+
+        self._scope_node.finalize()
+        self._sequencer.scope_id_pop(self._context_identifier)
+
+        logger.info("TEST SCOPE EXIT: {}, {}".format(self._context_identifier, self._scope_id))
+
+        return handled
+
 class SequencerTestScope:
     def __init__(self, sequencer: "TestSequencer", recorder: ResultRecorder, test_name: str, parameterized: OrderedDict[str, Any]={}):
         super().__init__()
@@ -548,6 +614,13 @@ class TestSequencer(ContextUser):
                 environment_dict[key] = "(hidden)"
         
         return environment_dict
+
+    def create_task_result_container(self, scope_id: str, name: str, monikers: List[str], parent_inst: str) -> ResultNode:
+        """
+            Method for creating a result node.
+        """
+        rnode = ResultContainer(scope_id, name, monikers, ResultType.TASK_CONTAINER, parent_inst=parent_inst)
+        return rnode
 
     def create_test_result_container(self, scope_id: str, scope_name: str, parent_inst: str) -> ResultContainer:
         """
