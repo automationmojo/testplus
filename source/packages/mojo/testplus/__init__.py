@@ -74,9 +74,9 @@ __all__ = [
 ]
 
 try:
-    from mojo.results.model.taskingresult import assert_tasking_results
+    from mojo.results.model.taskingresult import verify_tasking_results
 
-    __all__.append(assert_tasking_results)
+    __all__.append(verify_tasking_results)
 
 except ImportError:
     pass

@@ -125,6 +125,9 @@ class TestCollector:
         referenced_integrations = {}
         referenced_scopes = {}
 
+        # Add implied injected resources
+        resource_registry.add_implied_session_resource("sequencer")
+
         # All the implicit registration of all the integration, scope and resource parameters sources
         # should have happend by now.  The ResourceRegistry should have a partially populated scope
         # tree.

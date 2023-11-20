@@ -50,6 +50,8 @@ from mojo.xmods.landscaping.coupling.integrationcoupling import IntegrationCoupl
 from mojo.results.model.resulttype import ResultType
 from mojo.results.model.resultcontainer import ResultContainer
 from mojo.results.model.resultnode import ResultNode
+from mojo.results.model.taskinggroup import TaskingGroup
+from mojo.results.model.taskingresult import TaskingResult
 
 from mojo.results.recorders.resultrecorder import ResultRecorder
 
@@ -249,7 +251,7 @@ class SequencerSessionScope(SequencerScopeBase):
         return handled
 
 
-class SequencerTaskGroupScope:
+class SequencerTaskingGroupScope:
 
     def __init__(self, sequencer: "TestSequencer", recorder: ResultRecorder, group_name: str):
         self._sequencer = sequencer
@@ -266,9 +268,8 @@ class SequencerTaskGroupScope:
 
     def __enter__(self):
         self._parent_scope_id, self._scope_id = self._sequencer.scope_id_create(self._group_name)
-        logger.info("TASK GROUP ENTER: {}, {}".format(self._group_name, self._scope_id))
-        self._result = self._sequencer.create_test_result_node(self._scope_id, self._test_name, self._monikers, self._pivots, parent_inst=self._parent_scope_id)
-        self._test_scope_enter()
+        logger.info("TASKING GROUP ENTER: {}, {}".format(self._group_name, self._scope_id))
+        self._result = self._sequencer.create_tasking_group(self._scope_id, self._group_name, self._parent_scope_id)
         return self
 
     def __exit__(self, ex_type, ex_inst, ex_tb):
@@ -276,41 +277,33 @@ class SequencerTaskGroupScope:
 
         if ex_type is not None:
 
-            if issubclass(ex_type, SkipTestError):
-                self._result.mark_skip(ex_inst.reason, ex_inst.bug)
-            else:
-                # If an exceptions was thrown in this context, it means
-                # that a test threw an exception.
-                tb_detail = create_traceback_detail(ex_inst)
+            # If an exceptions was thrown in this context, it means
+            # that a test threw an exception.
+            tb_detail = create_traceback_detail(ex_inst)
+            
+            if issubclass(ex_type, AssertionError):
+                # The convention for test failures that all tests should throw
+                # an AssertionError derived exception for failure conditions.
+                # This is important because a failure condition implies an expectation
+                # was checked and not met which implies a product code related failure
                 
-                if issubclass(ex_type, AssertionError):
-                    # The convention for test failures that all tests should throw
-                    # an AssertionError derived exception for failure conditions.
-                    # This is important because a failure condition implies an expectation
-                    # was checked and not met which implies a product code related failure
-                    
-                    self._result.add_failure(tb_detail)
-                else:
-                    self._result.add_error(tb_detail)
+                self._result.add_failure(tb_detail)
+            else:
+                self._result.add_error(tb_detail)
 
-                traceback_lines = format_traceback_detail(tb_detail)
-                errmsg = os.linesep.join(traceback_lines)
-                logger.error(errmsg)
+            traceback_lines = format_traceback_detail(tb_detail)
+            errmsg = os.linesep.join(traceback_lines)
+            logger.error(errmsg)
 
             handled = True
-        else:
-            self._result.mark_passed()
 
-        # Call test scope exit before we finalize our results
-        self._test_scope_exit()
 
         self._result.finalize()
         self._recorder.record(self._result)
 
-        self._scope_node.finalize()
-        self._sequencer.scope_id_pop(self._context_identifier)
+        self._sequencer.scope_id_pop(self._group_name)
 
-        logger.info("TEST SCOPE EXIT: {}, {}".format(self._context_identifier, self._scope_id))
+        logger.info("TASKING GROUP EXIT: {}, {}".format(self._group_name, self._scope_id))
 
         return handled
 
@@ -615,12 +608,16 @@ class TestSequencer(ContextUser):
         
         return environment_dict
 
-    def create_task_result_container(self, scope_id: str, name: str, monikers: List[str], parent_inst: str) -> ResultNode:
+    def create_tasking_group(self, scope_id: str, name: str, parent_inst: str) -> TaskingGroup:
         """
-            Method for creating a result node.
+            Method for creating a result group.
         """
-        rnode = ResultContainer(scope_id, name, monikers, ResultType.TASK_CONTAINER, parent_inst=parent_inst)
-        return rnode
+        tgrp = TaskingGroup(scope_id, name, parent_inst, ResultType.TASKING_GROUP)
+        return tgrp
+    
+    def create_tasking_result(self, scope_id: str, name: str, parent_inst: str) -> TaskingResult:
+        tresult = TaskingResult(scope_id, name, parent_inst, ResultType.TASKING) 
+        return tresult
 
     def create_test_result_container(self, scope_id: str, scope_name: str, parent_inst: str) -> ResultContainer:
         """
@@ -830,6 +827,18 @@ class TestSequencer(ContextUser):
 
         return
 
+    def get_recorder(self) -> str:
+        return self._recorder
+
+    def get_top_scope_id(self) -> str:
+
+        top_id = None
+        if len(self._scope_stack) > 0:
+            top_id = self._scope_stack[-1][1]
+        
+        return top_id
+        
+
     def scope_id_create(self, scope_name: str):
 
         parent_id = None
@@ -883,7 +892,8 @@ class TestSequencer(ContextUser):
 
         # Import all the parameter source functions
         for _, porigin in this_scope.parameter_originations.items():
-            method_lines.append('{}from {} import {}'.format(current_indent, porigin.source_module_name, porigin.source_function.__name__))
+            if not porigin.implied:
+                method_lines.append('{}from {} import {}'.format(current_indent, porigin.source_module_name, porigin.source_function.__name__))
         method_lines.append('')
 
         # Create the calls to all of the root test scopes
@@ -891,10 +901,11 @@ class TestSequencer(ContextUser):
 
         # Create the variables with session scope
         for pname, porigin in this_scope.parameter_originations.items():
-            source_func_call = porigin.generate_call()
-            method_lines.append('{}for {} in {}:'.format(current_indent, pname, source_func_call))
-            child_call_args.append(pname)
-            current_indent = current_indent + indent_space
+            if not porigin.implied:
+                source_func_call = porigin.generate_call()
+                method_lines.append('{}for {} in {}:'.format(current_indent, pname, source_func_call))
+                child_call_args.append(pname)
+                current_indent = current_indent + indent_space
 
         child_name_list = [cnk for cnk in root_node.children.keys()]
         child_name_list.sort()

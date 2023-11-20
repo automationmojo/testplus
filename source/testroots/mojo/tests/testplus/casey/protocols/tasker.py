@@ -17,17 +17,20 @@ from mojo.results.model.taskingresult import TaskingResult
 from mojo.interop.clients.linux.linuxclient import LinuxClient
 
 from mojo.interop.protocols.tasker.taskernode import TaskerClientNode
-from mojo.interop.protocols.tasker.taskingresultpromise import TaskingResultPromise
 from mojo.interop.protocols.tasker.taskercontroller import ClientTaskerController
+from mojo.interop.protocols.tasker.taskingadapter import TaskingAdapter
+from mojo.interop.protocols.tasker.taskingresultpromise import TaskingResultPromise
 
 from mojo.interop.protocols.tasker.examples.helloworldtasking import HelloWorldTasking
 
 
 from mojo.runtime.paths import get_path_for_output
 
+from mojo.testplus.testsequencer import TestSequencer
+
 
 @testplus.resource()
-def tasker_network_controller(lscape: Landscape, constraints={}) -> Generator[LinuxClient, None, None]:
+def create_tasking_adapter(sequencer: TestSequencer, lscape: Landscape, constraints={}) -> Generator[LinuxClient, None, None]:
     
     lcl_output_dir = get_path_for_output()
 
@@ -45,7 +48,9 @@ def tasker_network_controller(lscape: Landscape, constraints={}) -> Generator[Li
     tcontroller.start_tasker_network(client_list)
     tcontroller.reinitialize_logging_on_nodes(taskings_log_directory=rmt_tasking_dir)
 
-    yield tcontroller
+    tadapter = TaskingAdapter(tcontroller, sequencer)
+
+    yield tadapter
 
     zip_contexts = []
 
@@ -75,12 +80,16 @@ def tasker_network_controller(lscape: Landscape, constraints={}) -> Generator[Li
 
 
 
-@testplus.param(tasker_network_controller, identifier="tcontroller")
-def test_tasker_say_hello(tcontroller: ClientTaskerController):
 
-    promises: List[TaskingResultPromise] =  tcontroller.execute_tasking_on_all_nodes(tasking=HelloWorldTasking, message="Hello World")
+@testplus.param(create_tasking_adapter, identifier="tadapter")
+def test_tasker_say_hello(tadapter: TaskingAdapter):
 
-    results: List[TaskingResult] = tcontroller.wait_for_tasking_results(promises)
-    testplus.assert_tasking_results(results, "The specified taskings did not complete successfully.")
+    with tadapter.create_tasking_group("Hello Group") as hgrp:
+
+        hgrp.execute_tasking(tasking=HelloWorldTasking, message="Hello World")
+        results: List[TaskingResult] = hgrp.wait_for_tasking_results()
+
+        testplus.verify_tasking_results(results, "The specified taskings did not complete successfully.")
+
 
     return
