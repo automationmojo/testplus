@@ -84,12 +84,12 @@ def create_tasking_adapter(sequencer: TestSequencer, lscape: Landscape, constrai
 @testplus.param(create_tasking_adapter, identifier="tadapter")
 def test_tasker_say_hello(tadapter: TaskingAdapter):
 
-    with tadapter.create_tasking_group("Hello Group") as hgrp:
+    with tadapter.create_tasking_group_scope("Hello Group") as hgrp:
 
         hgrp.execute_tasking(tasking=HelloWorldTasking, message="Hello World")
         results: List[TaskingResult] = hgrp.wait_for_tasking_results()
 
-        testplus.verify_tasking_results(results, "The specified taskings did not complete successfully.")
+        testplus.verify_tasking_results(results, "The specified taskings did not complete successfully.", hgrp.name)
 
 
     return

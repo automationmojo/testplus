@@ -689,14 +689,14 @@ files = [
 
 [[package]]
 name = "mojo-interop"
-version = "0.0.103"
+version = "0.0.104"
 description = "Automation Mojo Interop Extensions"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_interop-0.0.103-py3-none-any.whl", hash = "sha256:a9ad23e5ec0c7097132885e944d1971f1bdf38df9c1346968757f5201e5f6386"},
-    {file = "mojo_interop-0.0.103.tar.gz", hash = "sha256:4332217b77f9db790fd42dccad707eb878b7382dee95a30826109b95e7097b4f"},
+    {file = "mojo_interop-0.0.104-py3-none-any.whl", hash = "sha256:34fbbb6822ec5b10078c35f4d864632c323da55a9d247639ec5fdb3fcfce481f"},
+    {file = "mojo_interop-0.0.104.tar.gz", hash = "sha256:29c2b2dea55c70b08f1030d7649311af34c95014c125d6e166d55e0f56bb8848"},
 ]
 
 [package.dependencies]
@@ -1507,4 +1507,4 @@ mongodb = ["pymongo"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "a574d3b6e534048c1a1c791e060878efee38ce2b8801f81f56f443881cbc643d"
+content-hash = "c05b7f349894e155c8b7faf7758594b2484a7bbaeeb965c962f45c012acdfa54"
