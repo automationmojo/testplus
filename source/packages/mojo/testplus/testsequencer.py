@@ -45,7 +45,7 @@ from mojo.xmods.injection.resourceregistry import resource_registry
 from mojo.xmods.injection.parameterorigin import ParameterOrigin
 
 from mojo.xmods.markers import MetaFilter
-from mojo.xmods.landscaping.coupling.integrationcoupling import IntegrationCoupling
+from mojo.landscaping.coupling.integrationcoupling import IntegrationCoupling
 
 from mojo.results.model.resulttype import ResultType
 from mojo.results.model.resultcontainer import ResultContainer
@@ -204,7 +204,6 @@ class SequencerModuleScope(SequencerScopeBase):
         logger.info("MODULE EXIT: {}, {}".format(self._scope_name, self._scope_id))
         return handled
 
-    
 
 class SequencerSessionScope(SequencerScopeBase):
     def __init__(self, sequencer: "TestSequencer", recorder: ResultRecorder, root_result:ResultContainer):
@@ -321,6 +320,7 @@ class SequencerTestScope:
         self._parameterized = parameterized
         self._monikers, self._pivots = self._get_monikers_and_pivots()
         self._context_identifier = "{}:{}".format(self._test_name, ",".join(self._monikers))
+
         return
 
     @property
@@ -356,6 +356,7 @@ class SequencerTestScope:
         self._parent_scope_id, self._scope_id = self._sequencer.scope_id_create(self._context_identifier)
         logger.info("TEST SCOPE ENTER: {}, {}".format(self._context_identifier, self._scope_id))
         self._result = self._sequencer.create_test_result_node(self._scope_id, self._test_name, self._monikers, self._pivots, parent_inst=self._parent_scope_id)
+        self._recorder.record(self._result)
         self._test_scope_enter()
         return self
 

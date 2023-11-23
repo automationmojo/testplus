@@ -27,7 +27,7 @@ from mojo.errors.exceptions import SemanticError
 
 from mojo.xmods.injection.resourceregistry import resource_registry
 from mojo.xmods.markers import MetaFilter
-from mojo.xmods.landscaping.coupling.integrationcoupling import IntegrationCoupling
+from mojo.landscaping.coupling.integrationcoupling import IntegrationCoupling
 
 from mojo.testplus.exceptions import UnknownParameterError
 from mojo.testplus.expressions import parse_test_include_expression

@@ -79,8 +79,6 @@ def create_tasking_adapter(sequencer: TestSequencer, lscape: Landscape, constrai
             zipf.extractall(lcl_taskings_dir)
 
 
-
-
 @testplus.param(create_tasking_adapter, identifier="tadapter")
 def test_tasker_say_hello(tadapter: TaskingAdapter):
 
