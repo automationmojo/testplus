@@ -3,8 +3,9 @@ from typing import Generator
 
 from mojo import testplus
 
-from mojo.xmods.wellknown.singletons import LandscapeSingleton
-from mojo.xmods.landscaping.landscape import Landscape
+from mojo.landscaping.wellknown import LandscapeSingleton
+from mojo.landscaping.landscape import Landscape
+
 from mojo.interop.clients.linux.linuxclientcoordinatorcoupling import LinuxClientCoordinatorCoupling
 
 @testplus.resource()

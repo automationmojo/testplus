@@ -55,7 +55,8 @@
                 "--root=${workspaceFolder}/source/testroots/mojo",
                 "--default-configs=credentials",
                 "--default-configs=landscape",
-                "--includes=mojo.tests.testplus.casey.protocols.ssh"
+                "--includes=mojo.tests.testplus.casey.protocols.ssh",
+                "--breakpoint=testrun-start"
             ],
             "console": "integratedTerminal",
             "justMyCode": false

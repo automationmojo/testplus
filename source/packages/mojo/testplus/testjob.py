@@ -24,9 +24,10 @@ import traceback
 from mojo.collections.contextuser import ContextUser
 from mojo.collections.contextpaths import ContextPaths
 
-from mojo.xmods.wellknown.singletons import LandscapeSingleton
 from mojo.xmods.xformatting import CommandOutputFormat
 from mojo.xmods.xdebugger import WELLKNOWN_BREAKPOINTS, debugger_wellknown_breakpoint_entry
+
+from mojo.landscaping.wellknown import LandscapeSingleton
 
 from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
 from mojo.runtime.paths import (

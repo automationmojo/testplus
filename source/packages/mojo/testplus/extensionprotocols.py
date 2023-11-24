@@ -3,7 +3,12 @@ from typing import Protocol, Type
 
 from mojo.testplus.testjob import TestJob
 
-class TestPlusExtensionPoints(Protocol):
+from mojo.extension.extensionprotocol import ExtProtocol
+from mojo.extension.superfactory import SuperFactory
+
+class TestPlusExtensionProtocol(ExtProtocol):
+
+    ext_protocol_name = "mojo-testplus"
 
     def get_testplus_default_job_type() -> Type[TestJob]:
         """

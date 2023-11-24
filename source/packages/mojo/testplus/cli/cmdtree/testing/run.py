@@ -317,12 +317,12 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     # STEP 7 - Create and kick off the job
 
     from mojo.extension.wellknown import ConfiguredSuperFactorySingleton
-    from mojo.testplus.extensionpoints import TestPlusExtensionPoints
+    from mojo.testplus.extensionprotocols import TestPlusExtensionProtocol
 
     # At this point in the code, we either lookup an existing test job or we create a test job
     # from the includes, excludes or test_module
     sfactory = ConfiguredSuperFactorySingleton()
-    TestJobType = sfactory.get_override_types_by_order(TestPlusExtensionPoints.get_testplus_default_job_type)
+    TestJobType = sfactory.get_override_types_by_order(TestPlusExtensionProtocol.get_testplus_default_job_type)
 
     result_code = 0
     with TestJobType(logger, test_root, includes=includes, excludes=excludes, metafilters=metafilters) as tjob:

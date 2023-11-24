@@ -704,14 +704,14 @@ files = [
 
 [[package]]
 name = "mojo-extension"
-version = "0.0.2"
+version = "0.0.8"
 description = "Automation Mojo Extension Package"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_extension-0.0.2-py3-none-any.whl", hash = "sha256:d997972fc60e8a8e94b5cf3ebcc63b80b7319ff00b7bd6090fc49c0af13e5987"},
-    {file = "mojo_extension-0.0.2.tar.gz", hash = "sha256:a2263cde16a2cfb1da9b1cd557558f130ed3ed1c71c5bd0aaef70b3dbb159393"},
+    {file = "mojo_extension-0.0.8-py3-none-any.whl", hash = "sha256:61c7f770d0968b2bc96a5bda634d4306a12e26cf8b01256cc5a150bad543fa3b"},
+    {file = "mojo_extension-0.0.8.tar.gz", hash = "sha256:d00c27229e9642e75c2216dae2a93b44af3231079c4098527cfdd42fcddb6756"},
 ]
 
 [package.dependencies]
@@ -731,44 +731,44 @@ files = [
 
 [[package]]
 name = "mojo-interop"
-version = "0.1.0"
+version = "0.1.3"
 description = "Automation Mojo Interop Extensions"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_interop-0.1.0-py3-none-any.whl", hash = "sha256:7b9f3d9316fd7f19242f4abab58618908337b300588c90f38fa8da1774f8830c"},
-    {file = "mojo_interop-0.1.0.tar.gz", hash = "sha256:617dcb17457170b242c9d9e750370b17934269d00dbd8b646551bd0185e23b54"},
+    {file = "mojo_interop-0.1.3-py3-none-any.whl", hash = "sha256:488c835ec60e86c741f54d272494b7584a2c095a28aa21d86d1946690472e2ee"},
+    {file = "mojo_interop-0.1.3.tar.gz", hash = "sha256:b559642c439787732e198ade9a644d3288a10689db9d1170bcf4027ffc94422a"},
 ]
 
 [package.dependencies]
 mojo-credentials = ">=0.0.1,<0.1.0"
 mojo-errors = ">=0.0.5,<0.1.0"
-mojo-landscaping = ">=0.0.3,<0.1.0"
+mojo-landscaping = ">=0.0.7,<0.1.0"
 mojo-networking = ">=0.0.4,<0.1.0"
 mojo-results = ">=0.1.0,<0.2.0"
-mojo-xmodules = ">=1.0.0,<1.1.0"
+mojo-xmodules = ">=1.0.1,<1.1.0"
 pexpect = ">=4.8.0,<5.0.0"
 psutil = ">=5.9.6,<6.0.0"
 rpyc = ">=5.3.1,<6.0.0"
 
 [[package]]
 name = "mojo-landscaping"
-version = "0.0.3"
+version = "0.0.10"
 description = "Automation Mojo Landscaping Package"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_landscaping-0.0.3-py3-none-any.whl", hash = "sha256:373ddfb9b38d9cb8051ffd4232dc985d81ff43cfc6903f6ec9c11447b37ef627"},
-    {file = "mojo_landscaping-0.0.3.tar.gz", hash = "sha256:72113e16744c9ecefda90d0a647e90cf0894f9bfe1140be96fddb766a1d3b92b"},
+    {file = "mojo_landscaping-0.0.10-py3-none-any.whl", hash = "sha256:b0e05eae41b273f497748769568b9ce7ee5420b6c2eda9925c1e6623947954bf"},
+    {file = "mojo_landscaping-0.0.10.tar.gz", hash = "sha256:9d74c9134e73bb6773196d0433b42afd3beda6bbced9c593b6a3f9544f637339"},
 ]
 
 [package.dependencies]
-mojo-credentials = ">=0.0.1,<0.0.2"
-mojo-extension = ">=0.0.2,<0.0.3"
-mojo-interfaces = ">=0.0.1,<0.0.2"
-mojo-xmodules = ">=1.0.0,<=1.1.0"
+mojo-credentials = ">=0.0.1,<0.1.0"
+mojo-extension = ">=0.0.3,<0.1.0"
+mojo-interfaces = ">=0.0.1,<0.1.0"
+mojo-xmodules = ">=1.0.2,<1.1.0"
 
 [[package]]
 name = "mojo-networking"
@@ -847,14 +847,14 @@ files = [
 
 [[package]]
 name = "mojo-xmodules"
-version = "1.0.0"
+version = "1.0.2"
 description = "Automation Mojo X-Modules"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_xmodules-1.0.0-py3-none-any.whl", hash = "sha256:9f17b95c80febdf6e9d680f45991a765c0aa778a587228eae08b9db94547aa2c"},
-    {file = "mojo_xmodules-1.0.0.tar.gz", hash = "sha256:2355932f61462587c3c26830b033c1f34d1255db704bd95849cdbee143e5262b"},
+    {file = "mojo_xmodules-1.0.2-py3-none-any.whl", hash = "sha256:efeac1bc8e59300ad7ebb79fff9332a89f7ce0b5a0b4923b3a5b7f9343728f07"},
+    {file = "mojo_xmodules-1.0.2.tar.gz", hash = "sha256:ab6c8c838ed911d58d30aa8cecc8af5a0aab59265a89e79282a4116afaa4ecbd"},
 ]
 
 [package.dependencies]
@@ -1580,4 +1580,4 @@ mongodb = ["pymongo"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "d570895c1dba6cacfaf9109d95ae18a4024f4493313487ed71d40a23b16e3a72"
+content-hash = "c15aaff2d0333487f018ff553954322ea04c5b983978945d007d04984125ec7d"

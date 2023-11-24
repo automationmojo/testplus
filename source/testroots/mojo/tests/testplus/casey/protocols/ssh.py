@@ -3,8 +3,8 @@ from typing import Generator
 
 from mojo import testplus
 
-from mojo.xmods.landscaping.landscape import Landscape
-from mojo.xmods.landscaping.includefilters import IncludeDeviceByDeviceType
+from mojo.landscaping.landscape import Landscape
+from mojo.landscaping.includefilters import IncludeDeviceByDeviceType
 
 from mojo.interop.clients.linux.linuxclient import LinuxClient
 

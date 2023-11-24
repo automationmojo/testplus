@@ -116,11 +116,11 @@ def command_testplus_testing_query(root, includes, excludes,
 
     logger = logging.getLogger()
 
-    from mojo.xmods.wellknown.singletons import SuperFactorySinglton
-    from mojo.testplus.extensionpoints import TestPlusExtensionPoints
+    from mojo.extension.wellknown import ConfiguredSuperFactorySingleton
+    from mojo.testplus.extensionprotocols import TestPlusExtensionProtocol
 
-    sfactory = SuperFactorySinglton()
-    TestJobType = sfactory.get_override_types_by_order(TestPlusExtensionPoints.get_testplus_default_job_type)
+    sfactory = ConfiguredSuperFactorySingleton()
+    TestJobType = sfactory.get_override_types_by_order(TestPlusExtensionProtocol.get_testplus_default_job_type)
 
     # At this point in the code, we either lookup an existing test job or we create a test job
     # from the includes, excludes or test_module

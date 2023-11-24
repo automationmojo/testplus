@@ -45,7 +45,7 @@ from mojo.xmods.injection.resourceregistry import resource_registry
 from mojo.xmods.injection.parameterorigin import ParameterOrigin
 
 from mojo.xmods.markers import MetaFilter
-from mojo.landscaping.coupling.integrationcoupling import IntegrationCoupling
+from mojo.xmods.injection.coupling.integrationcoupling import IntegrationCoupling
 
 from mojo.results.model.resulttype import ResultType
 from mojo.results.model.resultcontainer import ResultContainer
@@ -532,7 +532,7 @@ class TestSequencer(ContextUser):
         integ_type: IntegrationCoupling
 
         for _, integ_type in self._integrations.items():
-            integ_type.attach_to_framework(landscape)
+            integ_type.attach_to_framework(landscape=landscape)
 
         return
 
