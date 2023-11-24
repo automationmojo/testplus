@@ -9,8 +9,8 @@ import zipfile
 from mojo import testplus
 
 
-from mojo.xmods.landscaping.landscape import Landscape
-from mojo.xmods.landscaping.includefilters import IncludeDeviceByDeviceType
+from mojo.landscaping.landscape import Landscape
+from mojo.landscaping.includefilters import IncludeDeviceByDeviceType
 
 from mojo.results.model.taskingresult import TaskingResult
 

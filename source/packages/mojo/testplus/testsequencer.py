@@ -48,10 +48,11 @@ from mojo.xmods.markers import MetaFilter
 from mojo.xmods.injection.coupling.integrationcoupling import IntegrationCoupling
 
 from mojo.results.model.resulttype import ResultType
-from mojo.results.model.resultcontainer import ResultContainer
-from mojo.results.model.resultnode import ResultNode
+from mojo.results.model.jobcontainer import JobContainer
 from mojo.results.model.taskinggroup import TaskingGroup
 from mojo.results.model.taskingresult import TaskingResult
+from mojo.results.model.testcontainer import TestContainer
+from mojo.results.model.testresult import TestResult
 
 from mojo.results.recorders.resultrecorder import ResultRecorder
 
@@ -206,7 +207,7 @@ class SequencerModuleScope(SequencerScopeBase):
 
 
 class SequencerSessionScope(SequencerScopeBase):
-    def __init__(self, sequencer: "TestSequencer", recorder: ResultRecorder, root_result:ResultContainer):
+    def __init__(self, sequencer: "TestSequencer", recorder: ResultRecorder, root_result: JobContainer):
         super().__init__(sequencer, recorder)
         
         self._scope_name = root_result.name
@@ -585,11 +586,11 @@ class TestSequencer(ContextUser):
 
         return
 
-    def create_job_result_container(self, scope_id: str, scope_name: str) -> ResultContainer:
+    def create_job_result_container(self, scope_id: str, scope_name: str) -> JobContainer:
         """
             Method for creating a result container.
         """
-        rcontainer = ResultContainer(scope_id, scope_name, ResultType.JOB, parent_inst=None)
+        rcontainer = JobContainer(scope_id, scope_name)
         return rcontainer
 
     def create_password_masked_environment(self):
@@ -613,25 +614,25 @@ class TestSequencer(ContextUser):
         """
             Method for creating a result group.
         """
-        tgrp = TaskingGroup(scope_id, name, parent_inst, ResultType.TASKING_GROUP)
+        tgrp = TaskingGroup(scope_id, name, parent_inst)
         return tgrp
     
     def create_tasking_result(self, scope_id: str, name: str, parent_inst: str) -> TaskingResult:
-        tresult = TaskingResult(scope_id, name, parent_inst, ResultType.TASKING) 
+        tresult = TaskingResult(scope_id, name, parent_inst) 
         return tresult
 
-    def create_test_result_container(self, scope_id: str, scope_name: str, parent_inst: str) -> ResultContainer:
+    def create_test_result_container(self, scope_id: str, scope_name: str, parent_inst: str) -> TestContainer:
         """
             Method for creating a result container.
         """
-        rcontainer = ResultContainer(scope_id, scope_name, ResultType.TEST_CONTAINER, parent_inst=parent_inst)
+        rcontainer = TestContainer(scope_id, scope_name, parent_inst)
         return rcontainer
     
-    def create_test_result_node(self, scope_id: str, name: str, monikers: List[str], pivots: OrderedDict[str, Any], parent_inst: str) -> ResultNode:
+    def create_test_result_node(self, scope_id: str, name: str, monikers: List[str], pivots: OrderedDict[str, Any], parent_inst: str) -> TestResult:
         """
             Method for creating a result node.
         """
-        rnode = ResultNode(scope_id, name, monikers, pivots, ResultType.TEST, parent_inst=parent_inst)
+        rnode = TestResult(scope_id, name, parent_inst, monikers, pivots)
         return rnode
 
     def diagnostic_capture_pre_testrun(self, level: int=9):

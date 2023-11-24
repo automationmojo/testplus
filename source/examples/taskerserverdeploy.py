@@ -11,9 +11,9 @@ from mojo.config.variables import resolve_configuration_variables
 from mojo.config.configurationmaps import resolve_configuration_maps
 from mojo.config.optionoverrides import MOJO_CONFIG_OPTION_OVERRIDES
 
-from mojo.xmods.credentials.sshcredential import SshCredential
-from mojo.xmods.landscaping.landscapeparameters import LandscapeActivationParams
-from mojo.xmods.landscaping.landscape import startup_landscape
+from mojo.credentials.sshcredential import SshCredential
+from mojo.landscaping.landscapeparameters import LandscapeActivationParams
+from mojo.landscaping.landscape import startup_landscape
 
 from mojo.interop.protocols.ssh.sshagent import SshAgent
 from mojo.interop.clients.linux.linuxclient import LinuxClient

@@ -788,14 +788,14 @@ requests = "<=2.29.0"
 
 [[package]]
 name = "mojo-results"
-version = "0.1.0"
+version = "0.1.3"
 description = "The Automation Mojo Results Package"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_results-0.1.0-py3-none-any.whl", hash = "sha256:977ecc91b1b011c1d392828ee7e15b41aeaa2627b7a9e819b83c705be57cb0e8"},
-    {file = "mojo_results-0.1.0.tar.gz", hash = "sha256:a0531c7ccac7c2077e2b1854967eab58d4f7ab89ab2a713b2c7f8b9862da70d3"},
+    {file = "mojo_results-0.1.3-py3-none-any.whl", hash = "sha256:bd49ce404bd563c7034dcf64bfadce4c168e1bd5ff121bc1090e42338775adce"},
+    {file = "mojo_results-0.1.3.tar.gz", hash = "sha256:d1ce0eab612c773a049854cbb783eed0cf75ba048243af6c0dd5fe08e33f1a8e"},
 ]
 
 [package.dependencies]
@@ -1580,4 +1580,4 @@ mongodb = ["pymongo"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "c15aaff2d0333487f018ff553954322ea04c5b983978945d007d04984125ec7d"
+content-hash = "4f049d3f6be7e07512b4572fc7c7d5c0176a6dabf802541ac9c0706f61617419"
