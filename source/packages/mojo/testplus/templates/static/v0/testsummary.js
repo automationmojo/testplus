@@ -296,64 +296,123 @@ async function load_results() {
     if (g_display_mode == "GROUPED") {
         g_results = {};
 
+        var parent_lookup = {};
+
         if (g_filter_mode == "NONE") {
             var rcount = results.length;
+
             while (rcount > 0) {
+
                 var ritem = results.shift();
 
+                var ritem_instance = ritem.instance;
+                var ritem_parentid = ritem.parent;
+
                 if (ritem.rtype == "TEST") {
-                    var moniker_suffix = ""
-                    if ((ritem.monikers) && (ritem.monikers.length > 0)) {
-                        moniker_start = "["
-                        ritem.monikers.forEach(item => {
-                            moniker_suffix = moniker_suffix + "[" + item + "]"
-                            moniker_start = ",["
-                        });
-                    }
 
-                    var testname_full = ritem.name;
-                    if (moniker_suffix != "") {
-                        testname_full = testname_full + ":" + moniker_suffix;
-                    }
+                    if (! parent_lookup.hasOwnProperty(ritem_instance)) {
 
-                    const [package_name, test_name] = split_test_fullname(testname_full);
-                    ritem.name = test_name
-                    ritem.package_name = package_name
+                        ritem.tasking_groups = [];
+                        parent_lookup[ritem_instance] = ritem;
 
-                    var detail = ritem.detail;
-                    detail.passed = false;
-                    detail.skipped = false;
+                    } else {
+                        
+                        var preview_ritem = parent_lookup[ritem_instance];
+                        ritem.tasking_groups = preview_ritem.tasking_groups;
 
-                    if (detail.errors.length > 0) {
-                        counter_errors += 1;
-                    }
-                    else if (detail.failures.length > 0) {
-                        counter_failed += 1;
-                    }
-                    else {
-                        if (ritem.result == "SKIPPED") {
-                            detail.skipped = true;
-                            counter_skipped += 1;
+                        var moniker_suffix = ""
+                        if ((ritem.monikers) && (ritem.monikers.length > 0)) {
+                            moniker_start = "["
+                            ritem.monikers.forEach(item => {
+                                moniker_suffix = moniker_suffix + "[" + item + "]"
+                                moniker_start = ",["
+                            });
+                        }
+
+                        var testname_full = ritem.name;
+                        if (moniker_suffix != "") {
+                            testname_full = testname_full + ":" + moniker_suffix;
+                        }
+
+                        const [package_name, test_name] = split_test_fullname(testname_full);
+                        ritem.name = test_name
+                        ritem.package_name = package_name
+
+                        var detail = ritem.detail;
+                        detail.passed = false;
+                        detail.skipped = false;
+
+                        if (detail.errors.length > 0) {
+                            counter_errors += 1;
+                        }
+                        else if (detail.failures.length > 0) {
+                            counter_failed += 1;
+                        }
+                        else {
+                            if (ritem.result == "SKIPPED") {
+                                detail.skipped = true;
+                                counter_skipped += 1;
+                            } else {
+                                detail.passed = true;
+                                counter_passed += 1;
+                            }
+                        }
+
+                        var package_list = null;
+                        if (package_name in g_results) {
+                            package_list = g_results[package_name];
                         } else {
-                            detail.passed = true;
-                            counter_passed += 1;
+                            package_list = [];
+                            g_results[package_name] = package_list;
+                        }
+
+                        package_list.push(ritem);
+
+                    }
+
+                } else if (ritem.rtype == "TASKING_GROUP") {
+
+                    if (parent_lookup.hasOwnProperty(ritem_parentid)) {
+
+                        if (! parent_lookup.hasOwnProperty(ritem_instance)) {
+                            parent_item = parent_lookup[ritem_parentid];
+                            ritem.taskings = [];
+                            ritem.passed = 0;
+                            ritem.failed = 0;
+                            ritem.errored = 0;
+                            parent_item.tasking_groups.push(ritem);
+                            parent_lookup[ritem_instance] = ritem;
+
+                        } else {
+                            original_tgroup = parent_lookup[ritem_instance];
+                            original_tgroup.stop = ritem.stop;
+                        }
+
+                    }
+                
+                } else if (ritem.rtype == "TASKING") {
+                    
+                    if (parent_lookup.hasOwnProperty(ritem_parentid)) {
+                        var parent_item = parent_lookup[ritem_parentid];
+                        parent_item.taskings.push(ritem)
+
+                        if (ritem.detail.errors.length > 0) {
+                            parent_item.errored += 1;
+                        }
+                        else if (ritem.detail.failures.length > 0) {
+                            parent_item.failed += 1;
+                        }
+                        else {
+                            parent_item.passed += 1;
                         }
                     }
-
-                    var package_list = null;
-                    if (package_name in g_results) {
-                        package_list = g_results[package_name];
-                    } else {
-                        package_list = [];
-                        g_results[package_name] = package_list;
-                    }
-
-                    package_list.push(ritem);
                 }
 
                 rcount = rcount - 1;
             }
+
         } else {
+
             var filter_status = g_filter_mode;
             var rcount = results.length;
             while (rcount > 0) {
@@ -363,7 +422,9 @@ async function load_results() {
                 }
                 rcount = rcount - 1;
             }
+
         }
+
     } else {
         //TODO: Add code to create tree based g_results
     }
@@ -611,7 +672,7 @@ function create_trace_element(trace) {
 }
 
 function create_errors_table(errorsList) {
-    errorsTable = document.createElement("div");
+    var errorsTable = document.createElement("div");
     errorsTable.classList.add("e-list");
 
     for (var eidx in errorsList) {
@@ -620,7 +681,6 @@ function create_errors_table(errorsList) {
         var itemElement = document.createElement("div");
         
         var headerElement = document.createElement("pre");
-        headerElement.classList.add("code-font-dk");
         headerElement.innerHTML = eitem.extype + ", " + eitem.exargs.join(",");
         itemElement.appendChild(headerElement);
 
@@ -638,7 +698,7 @@ function create_errors_table(errorsList) {
 }
 
 function create_failures_table(failuresList) {
-    failuresTable = document.createElement("div");
+    var failuresTable = document.createElement("div");
     failuresTable.classList.add("f-list");
 
     for (var fidx in failuresList) {
@@ -647,7 +707,6 @@ function create_failures_table(failuresList) {
         var itemElement = document.createElement("div");
         
         var headerElement = document.createElement("pre");
-        headerElement.classList.add("code-font-dk");
         headerElement.innerHTML = fitem.extype + ", " + fitem.exargs.join(",");
         itemElement.appendChild(headerElement);
 
@@ -662,6 +721,109 @@ function create_failures_table(failuresList) {
     }
 
     return failuresTable
+}
+
+function create_tasking_groups_table(tasking_groups) {
+    var taskingGroupsContent = document.createElement("div");
+    taskingGroupsContent.classList.add("tgrp-content");
+    
+    var taskingGroupsDetails = document.createElement("details");
+
+    taskingGroupsContent.appendChild(taskingGroupsDetails);
+
+    var taskingGroupsHeader = document.createElement("summary");
+    taskingGroupsHeader.classList.add("tgrp-content-hdr");
+    taskingGroupsDetails.appendChild(taskingGroupsHeader);
+
+    var taskingGroupHdrContent = document.createElement("div");
+    taskingGroupHdrContent.innerHTML = "Tasking Groups";
+    taskingGroupHdrContent.classList.add("tgrp-content-hdr-row");
+    
+    taskingGroupsHeader.appendChild(taskingGroupHdrContent);
+
+    for (tgidx in tasking_groups) {
+        var tgroup = tasking_groups[tgidx];
+
+        var tgroupItem = document.createElement("div");
+        tgroupItem.classList.add("tgrp-dtl-body");
+
+        if (tgroup.errored > 0) {
+            tgroupItem.classList.add("tgrp-dtl-error");
+        } else if (tgroup.failed > 0) {
+            tgroupItem.classList.add("tgrp-dtl-fail");
+        } else if (tgroup.passed > 0) {
+            tgroupItem.classList.add("tgrp-dtl-pass");
+        } else {
+            tgroupItem.classList.add("tgrp-dtl-unk");
+        }
+
+        var tgroupDetails = document.createElement("details");
+        tgroupDetails.classList.add("tgrp-dtl-row");
+        tgroupItem.appendChild(tgroupDetails);
+
+        var tgroupSummary = document.createElement("summary");
+        tgroupSummary.classList.add("tgrp-dtl-hdr");
+
+        var tgroupSummaryHdrRow = document.createElement("div");
+        tgroupSummaryHdrRow.classList.add("tgrp-dtl-hdr-row");
+    
+
+        var tgroupNameLbl = document.createElement("div");
+        tgroupNameLbl.classList.add("tgrp-dtl-label");
+        tgroupNameLbl.innerHTML = "Name";
+        tgroupSummaryHdrRow.appendChild(tgroupNameLbl);
+
+
+        var tgroupNameVal = document.createElement("div");
+        tgroupNameVal.classList.add("tgrp-dtl-value");
+        tgroupNameVal.innerHTML = tgroup.name;
+        tgroupSummaryHdrRow.appendChild(tgroupNameVal);
+        
+
+        var tgroupStartLbl = document.createElement("div");
+        tgroupStartLbl.classList.add("tgrp-dtl-label");
+        tgroupStartLbl.innerHTML = "Start";
+        tgroupSummaryHdrRow.appendChild(tgroupStartLbl);
+
+
+        var tgroupStartVal = document.createElement("div");
+        tgroupStartVal.classList.add("tgrp-dtl-value");
+        tgroupStartVal.innerHTML = tgroup.start;
+        tgroupSummaryHdrRow.appendChild(tgroupStartVal);
+
+
+        var tgroupStopLbl = document.createElement("div");
+        tgroupStopLbl.classList.add("tgrp-dtl-label");
+        tgroupStopLbl.innerHTML = "Stop";
+        tgroupSummaryHdrRow.appendChild(tgroupStopLbl);
+
+
+        var tgroupStopVal = document.createElement("div");
+        tgroupStopVal.classList.add("tgrp-dtl-value");
+        tgroupStopVal.innerHTML = tgroup.stop;
+        tgroupSummaryHdrRow.appendChild(tgroupStopVal);
+
+
+        tgroupSummary.appendChild(tgroupSummaryHdrRow);
+        tgroupDetails.appendChild(tgroupSummary);
+
+        var taskingsTable = create_taskings_table(tgroup);
+        tgroupDetails.appendChild(taskingsTable);
+
+        taskingGroupsDetails.appendChild(tgroupItem);
+    }
+
+    return taskingGroupsContent;
+}
+
+function create_taskings_table(taskings) {
+    var taskingsTable = document.createElement("div");
+    
+    var taskingsDetails = document.createElement("details")
+    taskingsTable.appendChild(taskingsDetails);
+
+
+    return taskingsTable;
 }
 
 function create_result_item_content(ritem) {
@@ -798,6 +960,12 @@ function create_result_item_content(ritem) {
         detailContainer.appendChild(failuresTable);
 
         detailContainer.appendChild(document.createElement("br"));
+    }
+
+    if (ritem.tasking_groups.length > 0) {
+        var taskingGroupContent = create_tasking_groups_table(ritem.tasking_groups);
+
+        detailContainer.appendChild(taskingGroupContent);
     }
 
     resultElement.appendChild(detailContainer);

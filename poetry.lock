@@ -455,14 +455,14 @@ files = [
 
 [[package]]
 name = "idna"
-version = "3.4"
+version = "3.6"
 description = "Internationalized Domain Names in Applications (IDNA)"
 category = "main"
 optional = false
 python-versions = ">=3.5"
 files = [
-    {file = "idna-3.4-py3-none-any.whl", hash = "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"},
-    {file = "idna-3.4.tar.gz", hash = "sha256:814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"},
+    {file = "idna-3.6-py3-none-any.whl", hash = "sha256:c05567e9c24a6b9faaa835c4821bad0590fbb9d5779e7caa6e1cc4978e7eb24f"},
+    {file = "idna-3.6.tar.gz", hash = "sha256:9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"},
 ]
 
 [[package]]
@@ -731,14 +731,14 @@ files = [
 
 [[package]]
 name = "mojo-interop"
-version = "0.1.3"
+version = "0.1.10"
 description = "Automation Mojo Interop Extensions"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_interop-0.1.3-py3-none-any.whl", hash = "sha256:488c835ec60e86c741f54d272494b7584a2c095a28aa21d86d1946690472e2ee"},
-    {file = "mojo_interop-0.1.3.tar.gz", hash = "sha256:b559642c439787732e198ade9a644d3288a10689db9d1170bcf4027ffc94422a"},
+    {file = "mojo_interop-0.1.10-py3-none-any.whl", hash = "sha256:18c96cf2427a286e446fed34197dd6bbce5f10b200e16479e0e9267c8b794881"},
+    {file = "mojo_interop-0.1.10.tar.gz", hash = "sha256:36ff4d7822dcb759a69d4ad9a85c5f8b0ced8d1b8178e211106f9c84950748c6"},
 ]
 
 [package.dependencies]
@@ -746,7 +746,7 @@ mojo-credentials = ">=0.0.1,<0.1.0"
 mojo-errors = ">=0.0.5,<0.1.0"
 mojo-landscaping = ">=0.0.7,<0.1.0"
 mojo-networking = ">=0.0.4,<0.1.0"
-mojo-results = ">=0.1.0,<0.2.0"
+mojo-results = ">=0.1.6,<0.2.0"
 mojo-xmodules = ">=1.0.1,<1.1.0"
 pexpect = ">=4.8.0,<5.0.0"
 psutil = ">=5.9.6,<6.0.0"
@@ -788,14 +788,14 @@ requests = "<=2.29.0"
 
 [[package]]
 name = "mojo-results"
-version = "0.1.3"
+version = "0.1.12"
 description = "The Automation Mojo Results Package"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_results-0.1.3-py3-none-any.whl", hash = "sha256:bd49ce404bd563c7034dcf64bfadce4c168e1bd5ff121bc1090e42338775adce"},
-    {file = "mojo_results-0.1.3.tar.gz", hash = "sha256:d1ce0eab612c773a049854cbb783eed0cf75ba048243af6c0dd5fe08e33f1a8e"},
+    {file = "mojo_results-0.1.12-py3-none-any.whl", hash = "sha256:1b5a69f43035d40c1fd522b59c6cd686a5b88f54650d61d79abc2a2a89e19012"},
+    {file = "mojo_results-0.1.12.tar.gz", hash = "sha256:075bcbbf8d25fa08ca36a81d65776d0c3463f02534fcf16a5265984a7b350ed3"},
 ]
 
 [package.dependencies]
@@ -968,14 +968,14 @@ invoke = ["invoke (>=2.0)"]
 
 [[package]]
 name = "pexpect"
-version = "4.8.0"
+version = "4.9.0"
 description = "Pexpect allows easy control of interactive console applications."
 category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "pexpect-4.8.0-py2.py3-none-any.whl", hash = "sha256:0b48a55dcb3c05f3329815901ea4fc1537514d6ba867a152b581d69ae3710937"},
-    {file = "pexpect-4.8.0.tar.gz", hash = "sha256:fc65a43959d153d0114afe13997d439c22823a27cefceb5ff35c2178c6784c0c"},
+    {file = "pexpect-4.9.0-py2.py3-none-any.whl", hash = "sha256:7236d1e080e4936be2dc3e326cec0af72acf9212a7e1d060210e70a47e253523"},
+    {file = "pexpect-4.9.0.tar.gz", hash = "sha256:ee7d41123f3c9911050ea2c2dac107568dc43b2d3b0c7557a33212c398ead30f"},
 ]
 
 [package.dependencies]
@@ -1580,4 +1580,4 @@ mongodb = ["pymongo"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "4f049d3f6be7e07512b4572fc7c7d5c0176a6dabf802541ac9c0706f61617419"
+content-hash = "3b6380c74a2a1ac220712c775af2b4e4535abcb1aa5efdc755fbcd445a1cebf4"

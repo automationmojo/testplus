@@ -357,7 +357,7 @@ class SequencerTestScope:
         self._parent_scope_id, self._scope_id = self._sequencer.scope_id_create(self._context_identifier)
         logger.info("TEST SCOPE ENTER: {}, {}".format(self._context_identifier, self._scope_id))
         self._result = self._sequencer.create_test_result_node(self._scope_id, self._test_name, self._monikers, self._pivots, parent_inst=self._parent_scope_id)
-        self._recorder.record(self._result)
+        self._recorder.preview(self._result)
         self._test_scope_enter()
         return self
 

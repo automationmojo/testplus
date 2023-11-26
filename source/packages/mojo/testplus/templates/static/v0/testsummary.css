@@ -127,11 +127,9 @@ body {
 .summary-banner-image {
     width: 100px;
     height: 100px;
+    background-color: indigo;
     margin: 10px;
-    background-position: left;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-image: url("test-report-banner-background-image.png");
+    content: url("test-report-banner-background-image.png");
 }
 
 .summary-banner-metrics {
@@ -566,6 +564,88 @@ body {
     width: -webkit-fill-available;
     height: 600px;
 }
+
+.task-dtl-body {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px lightgrey;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.tgrp-content {
+    width: 100%;
+    margin-top: 20px;
+    display: block;
+}
+
+.tgrp-content-hdr {
+    width: 100%;
+}
+
+.tgrp-content-hdr-row {
+    width: calc(100% - 20px);
+    display: inline-flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+}
+
+.tgrp-dtl-body {
+    margin: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px lightgrey;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.tgrp-dtl-error {
+    background-color: indianred;
+}
+
+.tgrp-dtl-fail {
+    background-color: salmon;
+}
+
+.tgrp-dtl-pass {
+    background-color: lightgreen;
+}
+
+.tgrp-dtl-unk {
+    background-color: lightgray;
+}
+
+.tgrp-dtl-row {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.tgrp-dtl-hdr {
+    width: 100%;
+}
+
+.tgrp-dtl-hdr-row {
+    width: calc(100% - 20px);
+    display: inline-flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+}
+
+.tgrp-dtl-label {
+    font-weight: bolder;
+    padding-left: 20px;
+}
+
+.tgrp-dtl-value {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
 
 .tree-node {
     display: block;
