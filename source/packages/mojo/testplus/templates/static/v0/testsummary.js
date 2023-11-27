@@ -807,7 +807,7 @@ function create_tasking_groups_table(tasking_groups) {
         tgroupSummary.appendChild(tgroupSummaryHdrRow);
         tgroupDetails.appendChild(tgroupSummary);
 
-        var taskingsTable = create_taskings_table(tgroup);
+        var taskingsTable = create_taskings_table(tgroup.taskings);
         tgroupDetails.appendChild(taskingsTable);
 
         taskingGroupsDetails.appendChild(tgroupItem);
@@ -818,10 +818,165 @@ function create_tasking_groups_table(tasking_groups) {
 
 function create_taskings_table(taskings) {
     var taskingsTable = document.createElement("div");
-    
-    var taskingsDetails = document.createElement("details")
-    taskingsTable.appendChild(taskingsDetails);
 
+    for (tidx in taskings) {
+        var titem = taskings[tidx];
+
+        var taskItemElement = document.createElement("div");
+        taskItemElement.classList.add("task-item");
+        taskingsTable.appendChild(taskItemElement);
+
+        var taskingDetails = document.createElement("details");
+        taskItemElement.appendChild(taskingDetails);
+
+        var taskingSummary = document.createElement("summary");
+        taskingSummary.classList.add("task-item-hdr");
+        taskingDetails.appendChild(taskingSummary);
+
+        var taskingHeader = document.createElement("div");
+        taskingHeader.classList.add("task-item-hdr-row");
+        taskingSummary.appendChild(taskingHeader);
+
+        var tname = titem.name.substring(titem.name.indexOf("@") + 1);
+
+        var fieldLbl = document.createElement("div");
+        fieldLbl.classList.add("tgrp-dtl-label");
+        fieldLbl.innerHTML = "Name";
+        taskingHeader.appendChild(fieldLbl);
+
+        var fieldVal = document.createElement("div");
+        fieldVal.classList.add("tgrp-dtl-value");
+        fieldVal.innerHTML = tname;
+        taskingHeader.appendChild(fieldVal);
+
+        var fieldLbl = document.createElement("div");
+        fieldLbl.classList.add("tgrp-dtl-label");
+        fieldLbl.innerHTML = "Start";
+        taskingHeader.appendChild(fieldLbl);
+
+        var fieldVal = document.createElement("div");
+        fieldVal.classList.add("tgrp-dtl-value");
+        fieldVal.innerHTML = titem.start;
+        taskingHeader.appendChild(fieldVal);
+
+        var fieldLbl = document.createElement("div");
+        fieldLbl.classList.add("tgrp-dtl-label");
+        fieldLbl.innerHTML = "Stop";
+        taskingHeader.appendChild(fieldLbl);
+
+        var fieldVal = document.createElement("div");
+        fieldVal.classList.add("tgrp-dtl-value");
+        fieldVal.innerHTML = titem.stop;
+        taskingHeader.appendChild(fieldVal);
+
+        var fieldLbl = document.createElement("div");
+        fieldLbl.classList.add("task-dtl-label");
+        fieldLbl.innerHTML = "Result";
+        taskingHeader.appendChild(fieldLbl);
+
+        var resultColorClass = "color-skip";
+        if (titem.result == "PASSED") {
+            resultColorClass = "color-pass";
+        } else if (titem.result == "ERRORED") {
+            resultColorClass = "color-error";
+        } else if (titem.result == "FAILED") {
+            resultColorClass = "color-fail";
+        }
+
+        var fieldVal = document.createElement("div");
+        fieldVal.classList.add("task-dtl-value");
+        fieldVal.classList.add(resultColorClass);
+        fieldVal.style = "font-weight: 500";
+        fieldVal.innerHTML = titem.result;
+        taskingHeader.appendChild(fieldVal);
+
+        // Expanded Detail
+
+        var taskingInnerDetail = document.createElement("div");
+        taskingInnerDetail.classList.add("task-dtl-body");
+        taskingDetails.appendChild(taskingInnerDetail);
+
+        var taskingDetailRow = document.createElement("div");
+        taskingDetailRow.classList.add("task-dtl-row");
+        taskingInnerDetail.appendChild(taskingDetailRow);
+
+        var fieldLbl = document.createElement("div");
+        fieldLbl.classList.add("tgrp-dtl-label");
+        fieldLbl.innerHTML = "Worker";
+        taskingDetailRow.appendChild(fieldLbl);
+
+        var fieldVal = document.createElement("div");
+        fieldVal.classList.add("tgrp-dtl-value");
+        fieldVal.innerHTML = "<a href='http://" + titem.worker + "'>" + titem.worker + "</a>";
+        taskingDetailRow.appendChild(fieldVal);
+
+        var fieldLbl = document.createElement("div");
+        fieldLbl.classList.add("tgrp-dtl-label");
+        fieldLbl.innerHTML = "InstId";
+        taskingDetailRow.appendChild(fieldLbl);
+
+        var fieldVal = document.createElement("div");
+        fieldVal.classList.add("tgrp-dtl-value");
+        fieldVal.innerHTML = titem.instance;
+        taskingDetailRow.appendChild(fieldVal);
+
+        var fieldLbl = document.createElement("div");
+        fieldLbl.classList.add("tgrp-dtl-label");
+        fieldLbl.innerHTML = "Parent";
+        taskingDetailRow.appendChild(fieldLbl);
+
+        var fieldVal = document.createElement("div");
+        fieldVal.classList.add("tgrp-dtl-value");
+        fieldVal.innerHTML = titem.parent;
+        taskingDetailRow.appendChild(fieldVal);
+
+        var taskingDetailRow = document.createElement("div");
+        taskingDetailRow.classList.add("task-dtl-row");
+        taskingInnerDetail.appendChild(taskingDetailRow);
+
+        var logfolder = "taskings/" + titem.prefix + "-" + titem.instance;
+
+        var fieldLbl = document.createElement("img");
+        fieldLbl.style = "margin-left: 20px;";
+        fieldLbl.classList.add("icon-folder");
+        taskingDetailRow.appendChild(fieldLbl);
+
+        var fieldVal = document.createElement("div");
+        fieldVal.classList.add("tgrp-dtl-value");
+        fieldVal.innerHTML = "<a href='" + logfolder + "'>Tasking Logs</a>";
+        taskingDetailRow.appendChild(fieldVal);
+
+        var detail = titem.detail;
+
+        if (detail.errors.length > 0) {
+            var errorList = detail.errors;
+            var errorsHeader = document.createElement("div");
+            errorsHeader.classList.add("e-list-hdr");
+    
+            errorsHeader.innerHTML = "<h3>ERRORS</h3>";
+            taskingInnerDetail.appendChild(errorsHeader);
+    
+            var errorsTable = create_errors_table(errorList);
+            taskingInnerDetail.appendChild(errorsTable);
+    
+            taskingInnerDetail.appendChild(document.createElement("br"));
+        }
+    
+        if (detail.failures.length > 0) {
+            var failuresList = detail.failures;
+            var failuresHeader = document.createElement("div");
+            failuresHeader.classList.add("f-list-hdr");
+    
+            failuresHeader.innerHTML = "<h3>FAILURES</h3>";
+            taskingInnerDetail.appendChild(failuresHeader);
+    
+            var failuresTable = create_failures_table(failuresList);
+            taskingInnerDetail.appendChild(failuresTable);
+    
+            taskingInnerDetail.appendChild(document.createElement("br"));
+        }
+
+    }
 
     return taskingsTable;
 }

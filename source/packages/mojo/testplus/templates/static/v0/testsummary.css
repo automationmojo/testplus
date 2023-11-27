@@ -565,15 +565,56 @@ body {
     height: 600px;
 }
 
-.task-dtl-body {
-    margin: 10px;
-    padding: 10px;
-    border-radius: 10px;
+.task-item {
+    width: 100%;
+    margin-top: 20px;
+    display: block;
     box-shadow: 4px 4px 8px lightgrey;
     background-color: white;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+}
+
+.task-item-hdr {
+    width: 100%;
+}
+
+.task-item-hdr-row {
+    width: calc(100% - 20px);
+    display: inline-flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+}
+
+.task-dtl-hdr {
+    width: 100%;
+}
+
+.task-dtl-hdr-row {
+    width: calc(100% - 20px);
+    display: inline-flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+}
+
+.task-dtl-body {
+    margin: 0px 10px 10px 10px;
+}
+
+.task-dtl-row {
+    width: calc(100% - 20px);
+    display: inline-flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    margin-top: 5px;
+}
+
+.task-dtl-label {
+    font-weight: bolder;
+    padding-left: 20px;
+}
+
+.task-dtl-value {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .tgrp-content {
@@ -594,7 +635,7 @@ body {
 }
 
 .tgrp-dtl-body {
-    margin: 10px;
+    margin: 10px 2px 10px 10px;
     padding: 5px;
     border-radius: 10px;
     box-shadow: 4px 4px 8px lightgrey;
@@ -701,8 +742,8 @@ body {
 }
 
 .test-dtl-body {
-    margin: 10px;
-    padding: 10px;
+    margin: 10px 4px 10px 10px;
+    padding: 10px 2px 10px 10px;
     border-radius: 10px;
     box-shadow: 4px 4px 8px lightgrey;
     background-color: white;
