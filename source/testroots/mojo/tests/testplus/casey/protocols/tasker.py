@@ -37,6 +37,7 @@ def create_tasking_adapter(sequencer: TestSequencer, lscape: Landscape, constrai
     lcl_taskings_dir = os.path.join(lcl_output_dir, "taskings")
     lcl_output_basename = os.path.basename(lcl_output_dir)
 
+    rmt_output_dir = os.path.join("~/mjr/results/testresults", lcl_output_basename)
     rmt_tasking_dir = os.path.join("~/mjr/results/testresults", lcl_output_basename, "taskings")
 
     includes = [IncludeDeviceByDeviceType("network/client-linux")]
@@ -45,12 +46,13 @@ def create_tasking_adapter(sequencer: TestSequencer, lscape: Landscape, constrai
 
     tcontroller = ClientTaskerController()
 
-    tcontroller.start_tasker_network(client_list)
-    tcontroller.reinitialize_logging_on_nodes(taskings_log_directory=rmt_tasking_dir)
+    tcontroller.start_tasker_network(client_list, output_directory=rmt_output_dir)
 
     tadapter = TaskingAdapter(tcontroller, sequencer)
 
     yield tadapter
+
+    tcontroller.stop_tasker_network()
 
     zip_contexts = []
 
