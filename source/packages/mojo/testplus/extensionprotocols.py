@@ -1,10 +1,9 @@
 
-from typing import Protocol, Type
+from typing import Type
 
 from mojo.testplus.testjob import TestJob
 
 from mojo.extension.extensionprotocol import ExtProtocol
-from mojo.extension.superfactory import SuperFactory
 
 class TestPlusExtensionProtocol(ExtProtocol):
 

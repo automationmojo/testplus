@@ -16,9 +16,12 @@ __email__ = "myron.walker@gmail.com"
 __status__ = "Development" # Prototype, Development or Production
 __license__ = "MIT"
 
-from typing import List, Optional, Protocol
+from typing import List, Optional
 
+import collections
+import json
 import os
+import sys
 import traceback
 
 from mojo.collections.contextuser import ContextUser
@@ -27,13 +30,17 @@ from mojo.collections.contextpaths import ContextPaths
 from mojo.xmods.xformatting import CommandOutputFormat
 from mojo.xmods.xdebugger import WELLKNOWN_BREAKPOINTS, debugger_wellknown_breakpoint_entry
 
+from mojo.xmods.injection.coupling.integrationcoupling import IntegrationCoupling
+
 from mojo.landscaping.wellknown import LandscapeSingleton
 
 from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
 from mojo.runtime.paths import (
     get_summary_html_template_source,
     get_summary_static_resource_dest_dir,
-    get_summary_static_resource_src_dir
+    get_summary_static_resource_src_dir,
+    get_path_for_diagnostics,
+    get_path_for_output
 )
 
 from mojo.results.model.buildinfo import BuildInfo
@@ -44,7 +51,8 @@ from mojo.results.model.renderinfo import RenderInfo
 
 from mojo.results.recorders.jsonresultrecorder import JsonResultRecorder
 
-from mojo.testplus.testsequencer import TestSequencer
+from mojo.testplus.diagnostics import DiagnosticLabel, RuntimeConfigPaths
+from mojo.testplus.sequencing.testsequencer import TestSequencer
 
 
 class TestJob(ContextUser):
@@ -148,8 +156,6 @@ class TestJob(ContextUser):
             Called at the beginning of a test job in order to setup the recording of test results.
         """
 
-        
-
         env = self.context.lookup("/environment")
 
         self._test_results_dir = env["output_directory"]
@@ -200,8 +206,7 @@ class TestJob(ContextUser):
                 self._logger.section("Integration Publishing")
 
                 # Initiate contact with the TestLandscape
-                landscape = LandscapeSingleton() # pylint: disable=unused-variable
-                landscape.activate_configuration()
+                self.fire_activate_configuration()
 
                 # STEP 3: Call attach_to_framework on the sequencer to give all the couplings a chance
                 # to plug themselves into the automation framework.  This allows us to only integrate
@@ -209,13 +214,11 @@ class TestJob(ContextUser):
                 # are included in the test framework.  This give the opportunity for the couplings to trigger
                 # the startup of the coordinators that inter-operate with the test landscape and the
                 # associated devices.
-                self._logger.section("Attaching to Framework")
-                tseq.attach_to_framework(landscape)
+                self.fire_attach_to_framework(tseq)
 
                 # STEP 4: After all the couplings have had the opportunity to plug themselves into
                 # the test framework, we trigger the finalization of the test landscape initialization
-                self._logger.section("Finalizing Coupling Registration")
-                landscape.activate_integration()
+                self.fire_activate_integration()
 
                 # STEP 5: Now that we have collected all the couplings and have a preview of
                 # the complexity of the automation run encoded into the coupling types collected.
@@ -226,8 +229,7 @@ class TestJob(ContextUser):
                 # This is the final step of validating all the input information to the run and
                 # we are able to perform this step in the context of the integration code and
                 # outside of the execution of any test code
-                self._logger.section("Attaching to Environment")
-                tseq.attach_to_environment(landscape)
+                self.fire_attach_to_environment(tseq)
 
                 # STEP 6: All the couplings have had a chance to analyze the configuration
                 # information and provide us with a clear indication if there are any configuration
@@ -247,16 +249,15 @@ class TestJob(ContextUser):
                 #
                 # This helps to ensure the reduction of automation failure noise due to configuration
                 # or environmental issues
-                self._logger.section("Establishing Connectivity")
-                landscape.activate_operations()
+                self.fire_activate_operations()
 
                 # STEP 8: After we have established that we have good connectivity with all of the
                 # test landscape devices, we then want to give the integration couplings an opportunity
                 # to establish a presence of presistent functionality or services with the remote devices
-                tseq.establish_presence()
+                self.fire_establish_presence(tseq)
 
                 # STEP 9: Capture a pre-testrun diagnostic capture
-                tseq.diagnostic_capture_pre_testrun()
+                self.diagnostic_capture_pre_testrun()
 
                 self._logger.section("Expanding Test Tree Based on Query")
                 tseq.expand_test_tree_based_on_query()
@@ -303,7 +304,7 @@ class TestJob(ContextUser):
 
                         try:
                             # STEP 12: Capture a post-testrun diagnostic capture
-                            tseq.diagnostic_capture_post_testrun()
+                            self.diagnostic_capture_post_testrun()
                         except Exception:
                             err_msg = traceback.format_exc()
                             self._logger.error(err_msg)
@@ -362,6 +363,75 @@ class TestJob(ContextUser):
 
         return result_code
 
+    def diagnostic_capture_pre_testrun(self, level: int=9):
+        """
+            Perform a pre-run diagnostic on the devices in the test landscape.
+        """
+
+        prerun_info = self.context.lookup(RuntimeConfigPaths.DIAGNOSTIC_PRERUN)
+
+        if prerun_info is not None:
+            label = DiagnosticLabel.PRERUN_DIAGNOSTIC
+            diagnostic_root = get_path_for_diagnostics(label)
+
+            for _, integ_type in self._integrations.items():
+                integ_type.diagnostic(label, level, diagnostic_root)
+
+        return
+
+    def diagnostic_capture_post_testrun(self, level: int=9):
+        """
+            Perform a post-run diagnostic on the devices in the test landscape.
+        """
+        postrun_info = self.context.lookup(RuntimeConfigPaths.DIAGNOSTIC_POSTRUN)
+
+        if postrun_info is not None:
+
+            label = DiagnosticLabel.POSTRUN_DIAGNOSTIC
+            diagnostic_root = get_path_for_diagnostics(label)
+
+            for _, integ_type in self._integrations.items():
+                integ_type.diagnostic(label, level, diagnostic_root)
+
+        return
+
+    def fire_attach_to_environment(self, tseq: TestSequencer):
+        """
+            Goes through all the integrations and provides them with an opportunity to
+            attach to the test environment.
+        """
+
+        tseq.attach_to_environment()
+
+        return
+
+    def fire_attach_to_framework(self, tseq: TestSequencer):
+        """
+            Goes through all the integrations and provides them with an opportunity to
+            attach to the test environment.
+        """
+
+        tseq.attach_to_framework()
+
+        return
+
+    def fire_activate_configuration(self):
+        self._logger.debug("Firing: fire_activate_configuration")
+        return
+    
+    def fire_activate_integration(self):
+        self._logger.debug("Firing: fire_activate_integration")
+        return
+    
+    def fire_activate_operations(self):
+        self._logger.debug("Firing: fire_activate_operations")
+        return
+
+    def fire_establish_presence(self, tseq: TestSequencer):
+
+        tseq.establish_presence()
+
+        return
 
     def finalize(self): # pylint: disable=no-self-use
         """

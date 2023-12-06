@@ -26,7 +26,7 @@ from mojo.interop.protocols.tasker.examples.helloworldtasking import HelloWorldT
 
 from mojo.runtime.paths import get_path_for_output
 
-from mojo.testplus.testsequencer import TestSequencer
+from mojo.testplus.sequencing.testsequencer import TestSequencer
 
 
 @testplus.resource()

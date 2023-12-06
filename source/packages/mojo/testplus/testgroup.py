@@ -16,15 +16,9 @@ __email__ = "myron.walker@gmail.com"
 __status__ = "Development" # Prototype, Development or Production
 __license__ = "MIT"
 
-from typing import Dict, List, Optional, Union
 
 import logging
-import sys
 
-from mojo.errors.exceptions import SemanticError
-
-from mojo.xmods.injection.resourceregistry import resource_registry
-from mojo.xmods.injection.resourcescope import ResourceScope
 from mojo.xmods.injection.injectablegroup import InjectableGroup
 
 from mojo.testplus.testref import TestRef
