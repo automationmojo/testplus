@@ -44,41 +44,6 @@
             "justMyCode": false
         },
         {
-            "name": "Python: Internal Tests - Run on Casey",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/source/packages/mojo/testplus/cli/testplus_command.py",
-            "envFile": "${workspaceFolder}/.env",
-            "args": [
-                "testing",
-                "run",
-                "--root=${workspaceFolder}/source/testroots/mojo",
-                "--default-configs=credentials",
-                "--default-configs=landscape",
-                "--includes=mojo.tests.testplus.casey.protocols.ssh",
-                "--breakpoint=testrun-start"
-            ],
-            "console": "integratedTerminal",
-            "justMyCode": false
-        },
-        {
-            "name": "Python: Internal Tests - Tasker on Casey",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/source/packages/mojo/testplus/cli/testplus_command.py",
-            "envFile": "${workspaceFolder}/.env",
-            "args": [
-                "testing",
-                "run",
-                "--root=${workspaceFolder}/source/testroots/mojo",
-                "--default-configs=credentials",
-                "--default-configs=landscape",
-                "--includes=mojo.tests.testplus.casey.protocols.tasker"
-            ],
-            "console": "integratedTerminal",
-            "justMyCode": false
-        },
-        {
             "name": "Python: Results - Initialize",
             "type": "python",
             "request": "launch",
