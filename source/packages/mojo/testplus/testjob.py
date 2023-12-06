@@ -77,17 +77,6 @@ class TestJob(ContextUser):
     excludes = None # The tests that are to be excluded from this TestJob
     metafilters = None
 
-    _instance = None
-
-    def __new__(cls, *_args, **_kwargs):
-        """
-            Creates an instance of a TestJob and then returns that instance of the TestJob for all subsequent
-            calls to create test Job instances.
-        """
-        if cls._instance is None:
-            cls._instance = super(TestJob, cls).__new__(cls)
-        return cls._instance
-
     def __init__(self, logger, testroot, includes: Optional[List[str]]=None, excludes: Optional[List[str]]=None,
                  metafilters: Optional[List[str]]=None, test_module: Optional[str]=None, parser=None):
         """
