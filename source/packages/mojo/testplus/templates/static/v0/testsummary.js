@@ -1444,20 +1444,20 @@ function refresh_summary() {
     if (g_summary.hasOwnProperty("build")) {
         var build_info = g_summary.build;
         
-        if (build_info.hasOwnProperty("name")) {
-            if (build_info.hasOwnProperty("name") && build_info.name != null) {
+        if (build_info.hasOwnProperty("build")) {
+            if (build_info.hasOwnProperty("build") && build_info.build != null) {
                 setElement = document.getElementById("summary-build");
                 if (setElement != null) {
-                    setElement.innerHTML = build_info.name;
+                    setElement.innerHTML = build_info.build;
                 }
             }
-            if (g_summary.hasOwnProperty("branch") && build_info.branch != null) {
+            if (build_info.hasOwnProperty("branch") && build_info.branch != null) {
                 setElement = document.getElementById("summary-branch");
                 if (setElement != null) {
                     setElement.innerHTML = build_info.build;
                 }
             }
-            if (g_summary.hasOwnProperty("flavor") && build_info.flavor != null) {
+            if (build_info.hasOwnProperty("flavor") && build_info.flavor != null) {
                 setElement = document.getElementById("summary-flavor");
                 if (setElement != null) {
                     setElement.innerHTML = build_info.flavor;
