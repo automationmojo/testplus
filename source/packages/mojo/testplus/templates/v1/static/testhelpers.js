@@ -105,6 +105,16 @@ async function fetch_json_stream(url) {
 }
 
 
+function get_parent_directory(refurl) {
+    return refurl.substring(0, refurl.lastIndexOf("/"));
+}
+
+
+function get_output_directory(tab_content_url) {
+    var output_dir = get_parent_directory(get_parent_directory(tab_content_url))
+}
+
+
 function get_time_difference(start, stop) {
     var startTimeStamp = Date.parse(start, DATETIME_FORMAT) / 1000;
     var stopTimeStamp = Date.parse(stop, DATETIME_FORMAT) / 1000;
@@ -146,6 +156,13 @@ function get_time_difference(start, stop) {
 
     return diff;
 }
+
+
+function tab_get_content_directory() {
+    var iframe_pathname = window.location.pathname;
+    var content_directory = get_parent_directory(iframe_pathname);
+}
+
 
 function isDict(value) {
     rtnval = false;
