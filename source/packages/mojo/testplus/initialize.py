@@ -13,8 +13,8 @@ TESTPLUS_DIR = os.path.dirname(__file__)
 
 class TestPlusVariables:
     TESTPLUS_TEMPLATES_DIR = os.path.join(TESTPLUS_DIR, "templates")
-    TESTPLUS_RESOURCE_SRC_DIR = os.path.join(TESTPLUS_TEMPLATES_DIR, "static")
-    TESTPLUS_SUMMARY_TEMPLATE = os.path.join(TESTPLUS_TEMPLATES_DIR, "testsummary.html")
+    TESTPLUS_RESOURCE_SRC_DIR = os.path.join(TESTPLUS_TEMPLATES_DIR, "v1", "static")
+    TESTPLUS_SUMMARY_TEMPLATE = os.path.join(TESTPLUS_TEMPLATES_DIR, "v1", "testsummary.html")
 
 def initialize_testplus_runtime():
     if not MOJO_RUNTIME_STATE.INITIALIZED:
