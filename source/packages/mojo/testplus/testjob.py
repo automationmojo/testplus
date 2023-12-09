@@ -53,6 +53,7 @@ from mojo.results.recorders.jsonresultrecorder import JsonResultRecorder
 
 from mojo.testplus.diagnostics import DiagnosticLabel, RuntimeConfigPaths
 from mojo.testplus.sequencing.testsequencer import TestSequencer
+from mojo.testplus.initialize import TestPlusVariables
 
 
 class TestJob(ContextUser):
