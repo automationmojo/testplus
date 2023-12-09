@@ -111,7 +111,8 @@ function get_parent_directory(refurl) {
 
 
 function get_output_directory(tab_content_url) {
-    var output_dir = get_parent_directory(get_parent_directory(tab_content_url))
+    var output_dir = get_parent_directory(get_parent_directory(tab_content_url));
+    return output_dir;
 }
 
 
@@ -161,6 +162,7 @@ function get_time_difference(start, stop) {
 function tab_get_content_directory() {
     var iframe_pathname = window.location.pathname;
     var content_directory = get_parent_directory(iframe_pathname);
+    return content_directory;
 }
 
 
