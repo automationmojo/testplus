@@ -50,8 +50,7 @@ def command_testplus_testing_query(root, includes, excludes,
     from mojo.runtime.activation import activate_runtime, ActivationProfile
     from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES, resolve_runtime_variables
 
-    # STEP 2 - Resolve the configuration variables
-    resolve_runtime_variables()
+    # STEP 2 - Resolve the configuration variables (performed by the root command)
 
     # STEP 3 - Activate the runtime for the given activation class
 
@@ -66,7 +65,7 @@ def command_testplus_testing_query(root, includes, excludes,
 
     from mojo.runtime.optionoverrides import MOJO_RUNTIME_OPTION_OVERRIDES
 
-    from mojo.testplus.markers import MetaFilter, parse_marker_expression
+    from mojo.xmods.markers import MetaFilter, parse_marker_expression
 
     # Setup the Test Root
     if root is None:

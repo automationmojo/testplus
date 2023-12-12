@@ -115,14 +115,13 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     from mojo.xmods.xpython import extend_path
 
     from mojo.runtime.activation import activate_runtime, ActivationProfile
-    from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES, resolve_runtime_variables
+    from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
     
     from mojo.runtime.optionoverrides import MOJO_RUNTIME_OPTION_OVERRIDES
 
     # STEP 1 - Initialize the Runtime (Performed by the root command)
 
-    # STEP 2 - Resolve the configuration variables
-    resolve_runtime_variables()
+    # STEP 2 - Resolve the configuration variables (Performed by the root command)
 
     # STEP 3 - Activate the runtime for the given activation class
     activate_runtime(profile=ActivationProfile.TestRun)
