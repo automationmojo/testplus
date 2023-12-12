@@ -148,9 +148,10 @@ class TestJob(ContextUser):
 
         env = self.context.lookup("/environment")
 
-        self._test_results_dir = env["output_directory"]
         self._starttime = env["starttime"]
 
+        self._test_results_dir = get_path_for_output()
+        
         self._result_filename = os.path.join(self._test_results_dir, "testrun_results.jsos")
         self._summary_filename = os.path.join(self._test_results_dir, "testrun_summary.json")
         self._summary_template = get_summary_html_template_source()
