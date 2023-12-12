@@ -30,10 +30,6 @@ from mojo.collections.contextpaths import ContextPaths
 from mojo.xmods.xformatting import CommandOutputFormat
 from mojo.xmods.xdebugger import WELLKNOWN_BREAKPOINTS, debugger_wellknown_breakpoint_entry
 
-from mojo.xmods.injection.coupling.integrationcoupling import IntegrationCoupling
-
-from mojo.landscaping.wellknown import LandscapeSingleton
-
 from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
 from mojo.runtime.paths import (
     get_summary_html_template_source,
