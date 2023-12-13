@@ -243,7 +243,7 @@ class TestJob(ContextUser):
                 self.fire_establish_presence(tseq)
 
                 # STEP 9: Capture a pre-testrun diagnostic capture
-                self.fire_diagnostic_capture_pre_testrun()
+                self.fire_diagnostic_capture_pre_testrun(tseq)
 
                 self._logger.section("Expanding Test Tree Based on Query")
                 tseq.expand_test_tree_based_on_query()
@@ -290,7 +290,7 @@ class TestJob(ContextUser):
 
                         try:
                             # STEP 12: Capture a post-testrun diagnostic capture
-                            self.fire_diagnostic_capture_post_testrun()
+                            self.fire_diagnostic_capture_post_testrun(tseq)
                         except Exception:
                             err_msg = traceback.format_exc()
                             self._logger.error(err_msg)
