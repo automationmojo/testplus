@@ -12,5 +12,5 @@ class DiagnosticLabel:
     POSTRUN_DIAGNOSTIC = "postrun-diagnostic"
 
 class RuntimeConfigPaths:
-    DIAGNOSTIC_PRERUN = "/configuration/diagnostics/prerun-diagnostic"
-    DIAGNOSTIC_POSTRUN = "/configuration/diagnostics/postrun-diagnostic"
+    DIAGNOSTIC_PRERUN = "/configuration/runtime/diagnostics/prerun-diagnostic"
+    DIAGNOSTIC_POSTRUN = "/configuration/runtime/diagnostics/postrun-diagnostic"
