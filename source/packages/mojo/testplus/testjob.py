@@ -47,7 +47,6 @@ from mojo.results.model.renderinfo import RenderInfo
 
 from mojo.results.recorders.jsonresultrecorder import JsonResultRecorder
 
-from mojo.testplus.diagnostics import DiagnosticLabel, RuntimeConfigPaths
 from mojo.testplus.sequencing.testsequencer import TestSequencer
 from mojo.testplus.initialize import TestPlusVariables
 
@@ -244,7 +243,7 @@ class TestJob(ContextUser):
                 self.fire_establish_presence(tseq)
 
                 # STEP 9: Capture a pre-testrun diagnostic capture
-                self.diagnostic_capture_pre_testrun()
+                self.fire_diagnostic_capture_pre_testrun()
 
                 self._logger.section("Expanding Test Tree Based on Query")
                 tseq.expand_test_tree_based_on_query()
@@ -291,7 +290,7 @@ class TestJob(ContextUser):
 
                         try:
                             # STEP 12: Capture a post-testrun diagnostic capture
-                            self.diagnostic_capture_post_testrun()
+                            self.fire_diagnostic_capture_post_testrun()
                         except Exception:
                             err_msg = traceback.format_exc()
                             self._logger.error(err_msg)
@@ -350,38 +349,6 @@ class TestJob(ContextUser):
 
         return result_code
 
-    def diagnostic_capture_pre_testrun(self, level: int=9):
-        """
-            Perform a pre-run diagnostic on the devices in the test landscape.
-        """
-
-        prerun_info = self.context.lookup(RuntimeConfigPaths.DIAGNOSTIC_PRERUN)
-
-        if prerun_info is not None:
-            label = DiagnosticLabel.PRERUN_DIAGNOSTIC
-            diagnostic_root = get_path_for_diagnostics(label)
-
-            for _, integ_type in self._integrations.items():
-                integ_type.diagnostic(label, level, diagnostic_root)
-
-        return
-
-    def diagnostic_capture_post_testrun(self, level: int=9):
-        """
-            Perform a post-run diagnostic on the devices in the test landscape.
-        """
-        postrun_info = self.context.lookup(RuntimeConfigPaths.DIAGNOSTIC_POSTRUN)
-
-        if postrun_info is not None:
-
-            label = DiagnosticLabel.POSTRUN_DIAGNOSTIC
-            diagnostic_root = get_path_for_diagnostics(label)
-
-            for _, integ_type in self._integrations.items():
-                integ_type.diagnostic(label, level, diagnostic_root)
-
-        return
-
     def fire_attach_to_environment(self, tseq: TestSequencer):
         """
             Goes through all the integrations and provides them with an opportunity to
@@ -412,6 +379,14 @@ class TestJob(ContextUser):
     
     def fire_activate_operations(self):
         self._logger.debug("Firing: fire_activate_operations")
+        return
+
+    def fire_diagnostic_capture_post_testrun(self, tseq: TestSequencer, level: int=9):
+        tseq.diagnostic_capture_post_testrun(level)
+        return
+
+    def fire_diagnostic_capture_pre_testrun(self, tseq: TestSequencer, level: int=9):
+        tseq.diagnostic_capture_pre_testrun(level)
         return
 
     def fire_establish_presence(self, tseq: TestSequencer):

@@ -52,9 +52,10 @@ from mojo.results.model.testresult import TestResult
 
 from mojo.results.recorders.resultrecorder import ResultRecorder
 
-from mojo.runtime.paths import get_path_for_output
+from mojo.runtime.paths import get_path_for_output, get_path_for_diagnostics
 
 from mojo.testplus.constraints import Constraints
+from mojo.testplus.diagnostics import DiagnosticLabel, RuntimeConfigPaths
 from mojo.testplus.testcollector import TestCollector
 from mojo.testplus.testgroup import TestGroup
 from mojo.testplus.testref import TestRef
@@ -286,6 +287,38 @@ class TestSequencer(ContextUser):
         """
         rnode = TestResult(scope_id, name, parent_inst, monikers, pivots)
         return rnode
+
+    def diagnostic_capture_pre_testrun(self, level: int=9):
+        """
+            Perform a pre-run diagnostic on the devices in the test landscape.
+        """
+
+        prerun_info = self.context.lookup(RuntimeConfigPaths.DIAGNOSTIC_PRERUN)
+
+        if prerun_info is not None:
+            label = DiagnosticLabel.PRERUN_DIAGNOSTIC
+            diagnostic_root = get_path_for_diagnostics(label)
+
+            for _, integ_type in self._integrations.items():
+                integ_type.diagnostic(label, level, diagnostic_root)
+
+        return
+
+    def diagnostic_capture_post_testrun(self, level: int=9):
+        """
+            Perform a post-run diagnostic on the devices in the test landscape.
+        """
+        postrun_info = self.context.lookup(RuntimeConfigPaths.DIAGNOSTIC_POSTRUN)
+
+        if postrun_info is not None:
+
+            label = DiagnosticLabel.POSTRUN_DIAGNOSTIC
+            diagnostic_root = get_path_for_diagnostics(label)
+
+            for _, integ_type in self._integrations.items():
+                integ_type.diagnostic(label, level, diagnostic_root)
+
+        return
 
     def discover(self, test_module=None, include_integrations: bool=True):
         """
