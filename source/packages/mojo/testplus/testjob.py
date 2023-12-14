@@ -45,7 +45,7 @@ from mojo.results.model.jobinfo import JobInfo
 from mojo.results.model.pipelineinfo import PipelineInfo
 from mojo.results.model.renderinfo import RenderInfo
 
-from mojo.results.recorders.jsonresultrecorder import JsonResultRecorder
+from mojo.results.recorders.jsonresultrecorder import ResultRecorder, JsonResultRecorder
 
 from mojo.testplus.sequencing.testsequencer import TestSequencer
 from mojo.testplus.initialize import TestPlusVariables
@@ -255,7 +255,6 @@ class TestJob(ContextUser):
                 title = self.title
                 runid = self._run_id
                 start = str(self._starttime)
-                apod = self._apod
 
                 static_resource_source = get_summary_static_resource_src_dir()
                 static_resource_destination = get_summary_static_resource_dest_dir()
@@ -282,7 +281,7 @@ class TestJob(ContextUser):
                 #
                 # Now we start going through all the test testpacks and tests and start instantiating
                 # test scopes and instances and start executing setup, teardown and test level code
-                with JsonResultRecorder(runid=runid, start=start, render_info=render_info, apod=apod,
+                with self._create_recorder(runid=runid, start=start, render_info=render_info,
                                         build_info=build_info, pipeline_info=pipeline_info, job_info=job_info) as recorder:
                     try:
                         # Traverse the execution graph
@@ -437,6 +436,17 @@ class TestJob(ContextUser):
             to configure the job.
         """
         return
+
+    def _create_recorder(self, runid: str, start: str, render_info: RenderInfo, build_info: BuildInfo,
+                         pipeline_info: PipelineInfo, job_info: JobInfo) -> ResultRecorder:
+        """
+            Simple hook function to make it possible to overload the type of ResultRecorder that is created for
+            any given job.
+        """
+
+        inst = JsonResultRecorder(runid=runid, start=start, render_info=render_info, apod=self._apod,
+                                        build_info=build_info, pipeline_info=pipeline_info, job_info=job_info)
+        return inst
 
     def _create_sequencer(self):
         """
