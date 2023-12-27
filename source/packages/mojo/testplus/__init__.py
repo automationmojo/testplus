@@ -21,15 +21,19 @@ from mojo.xmods.markers import (
     mark_descendent_priority
 )
 
-from mojo.xmods.injection.parameters import (
-    originate_parameter,
-    param
+from mojo.xmods.injection.origination import (
+    originate_parameter
 )
 
-from mojo.xmods.injection.resources import (
+from mojo.xmods.injection.decorators.factory import (
     integration,
     resource,
     scope
+)
+
+from mojo.xmods.injection.decorators.injection import (
+    param,
+    validate
 )
 
 from .verification import (
@@ -70,7 +74,8 @@ __all__ = [
     param,
     resource,
     scope,
-    skip_test
+    skip_test,
+    validate
 ]
 
 try:

@@ -17,10 +17,12 @@ __email__ = "myron.walker@gmail.com"
 __status__ = "Development" # Prototype, Development or Production
 __license__ = "MIT"
 
-from typing import Any, List, Tuple, TYPE_CHECKING
+from typing import Any, List, Tuple, Type, TYPE_CHECKING
 
 import logging
 import os
+
+from types import TracebackType
 
 from collections import OrderedDict
 
@@ -39,7 +41,7 @@ if TYPE_CHECKING:
 
 
 class SequencerTestScope:
-    def __init__(self, sequencer: "TestSequencer", recorder: ResultRecorder, test_name: str, parameterized: OrderedDict[str, Any]={}):
+    def __init__(self, sequencer: "TestSequencer", recorder: ResultRecorder, test_name: str, notables: OrderedDict[str, Any]={}):
         super().__init__()
 
         self._sequencer = sequencer
@@ -49,15 +51,23 @@ class SequencerTestScope:
         self._parent_scope_id = None
         self._result = None
         self._scope_node = self._sequencer.find_treenode_for_scope(test_name)
-        self._parameterized = parameterized
+        self._notables = notables
         self._monikers, self._pivots = self._get_monikers_and_pivots()
         self._context_identifier = "{}:{}".format(self._test_name, ",".join(self._monikers))
 
         return
 
     @property
+    def recorder(self):
+        return self._recorder
+
+    @property
     def scope_id(self):
         return self._scope_id
+
+    @property
+    def test_name(self):
+        return self._test_name
 
     def _get_monikers_and_pivots(self) -> Tuple[List[str], OrderedDict[str, Any]]:
         """
@@ -68,9 +78,9 @@ class SequencerTestScope:
         monikers = []
         pivots = OrderedDict()
 
-        if len(self._parameterized) > 0:
+        if len(self._notables) > 0:
 
-            for pname, pobj in self._parameterized.items():
+            for pname, pobj in self._notables.items():
                 
                 if hasattr(pobj, "moniker"):
                     monikers.append(pobj.moniker)
@@ -92,7 +102,7 @@ class SequencerTestScope:
         self._test_scope_enter()
         return self
 
-    def __exit__(self, ex_type, ex_inst, ex_tb):
+    def __exit__(self, ex_type: Type, ex_inst: BaseException, ex_tb: TracebackType) -> bool:
         handled = True
 
         if ex_type is not None:

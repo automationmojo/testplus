@@ -25,7 +25,7 @@ import os
 
 from mojo.errors.exceptions import SemanticError
 
-from mojo.xmods.injection.resourceregistry import resource_registry
+from mojo.xmods.injection.injectionregistry import injection_registry
 from mojo.xmods.markers import MetaFilter
 from mojo.xmods.injection.coupling.integrationcoupling import IntegrationCoupling
 
@@ -126,14 +126,14 @@ class TestCollector:
         referenced_scopes = {}
 
         # Add implied injected resources
-        resource_registry.add_implied_session_resource("sequencer")
+        injection_registry.add_implied_session_resource("sequencer")
 
         # All the implicit registration of all the integration, scope and resource parameters sources
         # should have happend by now.  The ResourceRegistry should have a partially populated scope
         # tree.
-        resource_registry.finalize_startup(self._test_references)
+        injection_registry.finalize_startup(self._test_references)
 
-        unknown_parameter = resource_registry.unknown_parameters
+        unknown_parameter = injection_registry.unknown_parameters
 
         if len(unknown_parameter) > 0:
             err_msg_lines = [
@@ -150,8 +150,8 @@ class TestCollector:
             err_msg = os.linesep.join(err_msg_lines)
             raise UnknownParameterError(err_msg) from None
 
-        referenced_integrations = resource_registry.referenced_integrations
-        referenced_scopes = resource_registry.referenced_scopes
+        referenced_integrations = injection_registry.referenced_integrations
+        referenced_scopes = injection_registry.referenced_scopes
 
         return referenced_integrations, referenced_scopes
 

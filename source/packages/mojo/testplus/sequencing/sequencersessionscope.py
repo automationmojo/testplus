@@ -16,10 +16,12 @@ __email__ = "myron.walker@gmail.com"
 __status__ = "Development" # Prototype, Development or Production
 __license__ = "MIT"
 
-from typing import TYPE_CHECKING
+from typing import Type, TYPE_CHECKING
 
 import logging
 import os
+
+from types import TracebackType
 
 from mojo.errors.xtraceback import create_traceback_detail, format_traceback_detail
 
@@ -52,7 +54,7 @@ class SequencerSessionScope(SequencerScopeBase):
         logger.info("SESSION ENTER: {}".format(self._scope_id))
         return self
 
-    def __exit__(self, ex_type, ex_inst, ex_tb):
+    def __exit__(self, ex_type: Type, ex_inst: BaseException, ex_tb: TracebackType) -> bool:
         handled = False
 
         if ex_type is not None:

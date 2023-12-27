@@ -17,7 +17,7 @@ __status__ = "Development" # Prototype, Development or Production
 __license__ = "MIT"
 
 
-from typing import Any, List, OrderedDict, Sequence, Union
+from typing import Any, List, OrderedDict, Sequence, Tuple, Type, Union
 
 
 import collections
@@ -28,6 +28,7 @@ import sys
 import uuid
 
 from io import TextIOWrapper
+from types import TracebackType
 
 from mojo.collections.contextuser import ContextUser
 
@@ -37,7 +38,7 @@ from mojo.xmods.ximport import import_file
 
 
 from mojo.xmods.jsos import CHAR_RECORD_SEPERATOR
-from mojo.xmods.injection.resourceregistry import resource_registry
+from mojo.xmods.injection.injectionregistry import injection_registry
 from mojo.xmods.injection.parameterorigin import ParameterOrigin
 from mojo.xmods.injection.coupling.integrationcoupling import IntegrationCoupling
 
@@ -71,6 +72,8 @@ CONSTRAINT_IMPORT_INSERTION_POINT = "# ------- INSERT CONSTRAINT IMPORTS HERE --
 
 FACTORY_IMPORT_INSERTION_POINT = "# ------- INSERT FACTORY IMPORTS HERE -------"
 
+TEST_IMPORT_INSERTION_POINT = "# ------- INSERT TEST IMPORTS HERE -------"
+
 TEMPLATE_TESTRUN_SEQUENCE_MODULE = '''"""
     ======================================= CODE GENERATED - DO NOT EDIT =======================================
     This is a code generated execution sequence document, do not manually edit this document.  The 'testplus'
@@ -88,7 +91,9 @@ logger = logging.getLogger()
 
 {}
 
-'''.format(CONSTRAINT_IMPORT_INSERTION_POINT, FACTORY_IMPORT_INSERTION_POINT)
+{}
+
+'''.format(CONSTRAINT_IMPORT_INSERTION_POINT, FACTORY_IMPORT_INSERTION_POINT, TEST_IMPORT_INSERTION_POINT)
 
 
 class TEST_SEQUENCER_PHASES:
@@ -144,7 +149,7 @@ class TestSequencer(ContextUser):
         """
         return self
 
-    def __exit__(self, ex_type, ex_inst, ex_tb):
+    def __exit__(self, ex_type: Type, ex_inst: BaseException, ex_tb: TracebackType) -> bool:
         """
             Provides 'with' statement scope semantics for the :class:`TestSequencer`
         """
@@ -246,7 +251,7 @@ class TestSequencer(ContextUser):
         rcontainer = JobContainer(scope_id, scope_name)
         return rcontainer
 
-    def create_password_masked_environment(self):
+    def create_password_masked_environment(self) -> OrderedDict[str, str]:
         """
             Creates copy of the environment for writing to a file with the passwords masked.
         """
@@ -271,6 +276,9 @@ class TestSequencer(ContextUser):
         return tgrp
     
     def create_tasking_result(self, scope_id: str, name: str, parent_inst: str) -> TaskingResult:
+        """
+            Method for creating a tasking result.
+        """
         tresult = TaskingResult(scope_id, name, parent_inst) 
         return tresult
 
@@ -320,7 +328,7 @@ class TestSequencer(ContextUser):
 
         return
 
-    def discover(self, test_module=None, include_integrations: bool=True):
+    def discover(self, test_module=None, include_integrations: bool=True) -> int:
         """
             Initiates the discovery phase of the test run.
         """
@@ -344,19 +352,19 @@ class TestSequencer(ContextUser):
 
         return testcount
 
-    def enter_module_scope_context(self, scope_name):
+    def enter_module_scope_context(self, scope_name) -> SequencerModuleScope:
         context = SequencerModuleScope(self, self._recorder, scope_name)
         return context
 
-    def enter_session_scope_context(self):
+    def enter_session_scope_context(self) -> SequencerSessionScope:
         context = SequencerSessionScope(self, self._recorder, self._root_result)
         return context
 
-    def enter_test_scope_context(self, test_name, parameterized: Sequence=[]):
-        context = SequencerTestScope(self, self._recorder, test_name, parameterized=parameterized)
+    def enter_test_scope_context(self, test_name, notables: Sequence=[]) -> SequencerTestScope:
+        context = SequencerTestScope(self, self._recorder, test_name, notables=notables)
         return context
 
-    def enter_test_setup_context(self, test_name):
+    def enter_test_setup_context(self, test_name) -> SequencerTestSetupScope:
         context = SequencerTestSetupScope(self, self._recorder, test_name)
         return context
 
@@ -435,8 +443,9 @@ class TestSequencer(ContextUser):
 
     def generate_testrun_sequence_document(self, outputfilename: str, indent_space="    "):
 
-        factory_imports = set()
         constraint_imports = set()
+        factory_imports = set()
+        test_imports = set()
 
         temp_outputfile = outputfilename + ".tmp"
 
@@ -449,7 +458,8 @@ class TestSequencer(ContextUser):
             while len(scopes_called) > 0:
                 sdf.write(os.linesep)
                 scope_module, scope_name, scope_node, scope_call_args = scopes_called.pop(0)
-                child_scopes_called = self._generate_scope_method(sdf, scope_module, scope_name, scope_node, scope_call_args, factory_imports, constraint_imports, indent_space)
+                child_scopes_called = self._generate_scope_method(sdf, scope_module, scope_name, scope_node, scope_call_args, test_imports, 
+                                                                  factory_imports, constraint_imports, indent_space)
                 child_scopes_called.extend(scopes_called)
                 scopes_called = child_scopes_called
 
@@ -469,10 +479,17 @@ class TestSequencer(ContextUser):
                         for cimp in constraint_imports:
                             sdf.write(cimp)
                             sdf.write(linesep)
+
                     elif nxtline.startswith(FACTORY_IMPORT_INSERTION_POINT):
                         for fimp in factory_imports:
                             sdf.write(fimp)
                             sdf.write(linesep)
+
+                    elif nxtline.startswith(TEST_IMPORT_INSERTION_POINT):
+                        for timp in test_imports:
+                            sdf.write(timp)
+                            sdf.write(linesep)
+
                     else:
                         sdf.write(nxtline)
 
@@ -494,7 +511,7 @@ class TestSequencer(ContextUser):
         return top_id
         
 
-    def scope_id_create(self, scope_name: str):
+    def scope_id_create(self, scope_name: str) -> Tuple[str, str]:
 
         parent_id = None
         if len(self._scope_stack) > 0:
@@ -592,7 +609,8 @@ class TestSequencer(ContextUser):
         return scopes_called
 
     def _generate_scope_method(self, outf: TextIOWrapper, scope_module: str, scope_name: str, scope_node: TestGroup,
-                               scope_call_args: List[str], factory_imports: set, constraint_imports: set, indent_space: str):
+                               scope_call_args: List[str], test_imports: set, factory_imports: set, constraint_imports: set,
+                               indent_space: str):
         scopes_called = []
 
         current_indent = "    "
@@ -645,7 +663,7 @@ class TestSequencer(ContextUser):
 
                 # Generate a test run scope for this test
                 test_scope_name = child_node.name
-                test_scope = resource_registry.lookup_resource_scope(test_scope_name)
+                test_scope = injection_registry.lookup_resource_scope(test_scope_name)
 
                 test_parameters = child_node.function_parameters
 
@@ -659,12 +677,15 @@ class TestSequencer(ContextUser):
                         param_obj = test_scope.parameter_originations[param_name]
                         test_local_args.append((param_name, param_obj))
 
-                parameterized_args = ""
+                notables_map = ""
+                notables_args = ""
 
                 method_lines.append("{}# ================ Test Scope: {} ================".format(current_indent, test_scope_name))
                 method_lines.append('')
-                # Import the test function and assign the test name
-                method_lines.append("{}from {} import {}".format(current_indent, child_node.module_name, child_node.base_name))
+
+                # Add the test method to the test_imports set
+                test_imports.add("from {} import {}".format(child_node.module_name, child_node.base_name))
+                
                 method_lines.append('{}test_scope_name = "{}"'.format(current_indent, test_scope_name))
                 method_lines.append('')
 
@@ -672,7 +693,7 @@ class TestSequencer(ContextUser):
                     method_lines.append('{}with sequencer.enter_test_setup_context(test_scope_name) as tsetup:'.format(current_indent))
                     current_indent += indent_space
 
-                    parameterized_args_names = []
+                    notables_map_names = []
 
                     # Import any factory functions that are used in test local factory methods
                     param_name: str
@@ -701,18 +722,21 @@ class TestSequencer(ContextUser):
 
                         ffuncargs_str = " ,".join(ffuncargs)
                         method_lines.append("{}for {} in {}({}):".format(current_indent, param_name, ffuncname, ffuncargs_str))
-                        parameterized_args_names.append(param_name)
+                        notables_map_names.append(param_name)
                         current_indent += indent_space
                 
-                    parameterized_args = ", ".join(map(lambda arg: "'{}': {}".format(arg, arg), parameterized_args_names))
-                    if len(parameterized_args_names) == 1:
-                        parameterized_args += ","
+                    notables_map = ", ".join(map(lambda arg: "'{}': {}".format(arg, arg), notables_map_names))
+                    if len(notables_map_names) == 1:
+                        notables_map += ","
 
-                    parameterized_args = ", parameterized={%s}" % (parameterized_args)
+                    notables_args = ", notables=notables"
 
                     method_lines.append('')
 
-                method_lines.append('{}with sequencer.enter_test_scope_context(test_scope_name{}) as tsc:'.format(current_indent, parameterized_args))
+                if len(notables_map) > 0:
+                    method_lines.append('{}notables = {}'.format(current_indent, notables_map))
+
+                method_lines.append('{}with sequencer.enter_test_scope_context(test_scope_name{}) as tsc:'.format(current_indent, notables_args))
                 current_indent += indent_space
 
                 # Make the call to the test function
