@@ -69,6 +69,8 @@ class Validator(ValidatorCoupling):
         self._parent_scope_id = self._testscope._parent_scope_id
         self._validator_name = testscope.test_name + "_" + self._suffix
         self._recorder = testscope.recorder
+        self._result = TestResult(self._inst_id, self._validator_name, self._parent_scope_id, self._testscope._monikers, self._testscope._pivots)
+        self._recorder.preview(self._result)
         return
 
     def validate(self):
@@ -84,19 +86,17 @@ class Validator(ValidatorCoupling):
             to be raised.  It should handle and store any exceptions raised during finalization and store any
             exceptions it has encountered into its associated test result.
         """
-        
-        result = TestResult(self._inst_id, self._validator_name, self._parent_scope_id, self._testscope._monikers, self._testscope._pivots)
 
         try:
             self.validate()
 
-            result.mark_passed()
+            self._result.mark_passed()
         except AssertionError as aerr:
             # If an exceptions was thrown in this context, it means
             # that a test threw an exception.
             tb_detail = create_traceback_detail(aerr)
             
-            result.add_failure(tb_detail)
+            self._result.add_failure(tb_detail)
 
             traceback_lines = format_traceback_detail(tb_detail)
             errmsg = os.linesep.join(traceback_lines)
@@ -106,16 +106,16 @@ class Validator(ValidatorCoupling):
             # that a test threw an exception.
             tb_detail = create_traceback_detail(aerr)
 
-            result.add_error(tb_detail)
+            self._result.add_error(tb_detail)
 
             traceback_lines = format_traceback_detail(tb_detail)
             errmsg = os.linesep.join(traceback_lines)
             self._logger.error(errmsg)
 
         finally:
-            result.finalize()
+            self._result.finalize()
 
-            self._recorder.record(result)
+            self._recorder.record(self._result)
 
         return
 

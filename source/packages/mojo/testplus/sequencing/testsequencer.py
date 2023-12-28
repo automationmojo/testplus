@@ -72,7 +72,6 @@ CONSTRAINT_IMPORT_INSERTION_POINT = "# ------- INSERT CONSTRAINT IMPORTS HERE --
 
 FACTORY_IMPORT_INSERTION_POINT = "# ------- INSERT FACTORY IMPORTS HERE -------"
 
-TEST_IMPORT_INSERTION_POINT = "# ------- INSERT TEST IMPORTS HERE -------"
 
 TEMPLATE_TESTRUN_SEQUENCE_MODULE = '''"""
     ======================================= CODE GENERATED - DO NOT EDIT =======================================
@@ -91,9 +90,7 @@ logger = logging.getLogger()
 
 {}
 
-{}
-
-'''.format(CONSTRAINT_IMPORT_INSERTION_POINT, FACTORY_IMPORT_INSERTION_POINT, TEST_IMPORT_INSERTION_POINT)
+'''.format(CONSTRAINT_IMPORT_INSERTION_POINT, FACTORY_IMPORT_INSERTION_POINT)
 
 
 class TEST_SEQUENCER_PHASES:
@@ -458,7 +455,7 @@ class TestSequencer(ContextUser):
             while len(scopes_called) > 0:
                 sdf.write(os.linesep)
                 scope_module, scope_name, scope_node, scope_call_args = scopes_called.pop(0)
-                child_scopes_called = self._generate_scope_method(sdf, scope_module, scope_name, scope_node, scope_call_args, test_imports, 
+                child_scopes_called = self._generate_scope_method(sdf, scope_module, scope_name, scope_node, scope_call_args, 
                                                                   factory_imports, constraint_imports, indent_space)
                 child_scopes_called.extend(scopes_called)
                 scopes_called = child_scopes_called
@@ -483,11 +480,6 @@ class TestSequencer(ContextUser):
                     elif nxtline.startswith(FACTORY_IMPORT_INSERTION_POINT):
                         for fimp in factory_imports:
                             sdf.write(fimp)
-                            sdf.write(linesep)
-
-                    elif nxtline.startswith(TEST_IMPORT_INSERTION_POINT):
-                        for timp in test_imports:
-                            sdf.write(timp)
                             sdf.write(linesep)
 
                     else:
@@ -609,7 +601,7 @@ class TestSequencer(ContextUser):
         return scopes_called
 
     def _generate_scope_method(self, outf: TextIOWrapper, scope_module: str, scope_name: str, scope_node: TestGroup,
-                               scope_call_args: List[str], test_imports: set, factory_imports: set, constraint_imports: set,
+                               scope_call_args: List[str], factory_imports: set, constraint_imports: set,
                                indent_space: str):
         scopes_called = []
 
@@ -659,9 +651,6 @@ class TestSequencer(ContextUser):
             child_node: Union[TestRef, TestGroup] = scope_node.children[child_name]
 
             if isinstance(child_node, TestRef):
-
-                # Add the test method to the test_imports set
-                test_imports.add("from {} import {}".format(child_node.module_name, child_node.base_name))
 
                 pre_test_scope_indent = current_indent
 
@@ -752,16 +741,19 @@ class TestSequencer(ContextUser):
                     for vorigin in validator_originations:
                         factory_imports.add("from {} import {}".format(vorigin.source_module_name, vorigin.source_function_name))
                         
-                        if constraints is None:
+                        if "constraints" in vorigin.source_signature.parameters and constraints is None:
                             method_lines.append("{}constraints = None".format(current_indent))
                         
                         method_lines.append("{}{} = {}".format(current_indent, vorigin.identifier, vorigin.generate_call()))
                         method_lines.append("{}{}.attach_to_test(tsc, '{}')".format(current_indent, vorigin.identifier, vorigin.suffix))
+                    method_lines.append("")
 
                 # Make the call to the test function
                 test_args = []
                 for param_name in test_parameters:
                     test_args.append(param_name)
+
+                method_lines.append("{}from {} import {}".format(current_indent, child_node.module_name, child_node.base_name))
 
                 call_line = '{}{}({})'.format(current_indent, child_node.base_name, ", ".join(test_args))
                 method_lines.append(call_line)
