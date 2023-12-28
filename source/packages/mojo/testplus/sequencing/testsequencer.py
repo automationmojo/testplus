@@ -659,6 +659,10 @@ class TestSequencer(ContextUser):
             child_node: Union[TestRef, TestGroup] = scope_node.children[child_name]
 
             if isinstance(child_node, TestRef):
+
+                # Add the test method to the test_imports set
+                test_imports.add("from {} import {}".format(child_node.module_name, child_node.base_name))
+
                 pre_test_scope_indent = current_indent
 
                 # Generate a test run scope for this test
@@ -683,11 +687,12 @@ class TestSequencer(ContextUser):
                 method_lines.append("{}# ================ Test Scope: {} ================".format(current_indent, test_scope_name))
                 method_lines.append('')
 
-                # Add the test method to the test_imports set
-                test_imports.add("from {} import {}".format(child_node.module_name, child_node.base_name))
+                
                 
                 method_lines.append('{}test_scope_name = "{}"'.format(current_indent, test_scope_name))
                 method_lines.append('')
+
+                constraints = None
 
                 if len(test_local_args) > 0:
                     method_lines.append('{}with sequencer.enter_test_setup_context(test_scope_name) as tsetup:'.format(current_indent))
@@ -739,13 +744,35 @@ class TestSequencer(ContextUser):
                 method_lines.append('{}with sequencer.enter_test_scope_context(test_scope_name{}) as tsc:'.format(current_indent, notables_args))
                 current_indent += indent_space
 
+                validator_originations = [vo for vo in test_scope.validator_originations.values()]
+
+                # Write the validator construction calls
+                if len(validator_originations) > 0:
+                    method_lines.append("")
+                    for vorigin in validator_originations:
+                        factory_imports.add("from {} import {}".format(vorigin.source_module_name, vorigin.source_function_name))
+                        
+                        if constraints is None:
+                            method_lines.append("{}constraints = None".format(current_indent))
+                        
+                        method_lines.append("{}{} = {}".format(current_indent, vorigin.identifier, vorigin.generate_call()))
+                        method_lines.append("{}{}.attach_to_test(tsc, '{}')".format(current_indent, vorigin.identifier, vorigin.suffix))
+
                 # Make the call to the test function
                 test_args = []
                 for param_name in test_parameters:
                     test_args.append(param_name)
+
                 call_line = '{}{}({})'.format(current_indent, child_node.base_name, ", ".join(test_args))
                 method_lines.append(call_line)
                 method_lines.append('')
+
+                # Write the validator construction calls
+                if len(validator_originations) > 0:
+                    validator_originations.reverse()
+                    method_lines.append("")
+                    for vorigin in validator_originations:
+                        method_lines.append("{}{}.finalize()".format(current_indent, vorigin.identifier))
 
                 # Restor the indent to before the test scope
                 current_indent = pre_test_scope_indent

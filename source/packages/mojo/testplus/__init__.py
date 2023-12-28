@@ -28,7 +28,8 @@ from mojo.xmods.injection.origination import (
 from mojo.xmods.injection.decorators.factory import (
     integration,
     resource,
-    scope
+    scope,
+    validator
 )
 
 from mojo.xmods.injection.decorators.injection import (
@@ -75,7 +76,8 @@ __all__ = [
     resource,
     scope,
     skip_test,
-    validate
+    validate,
+    validator
 ]
 
 try:
