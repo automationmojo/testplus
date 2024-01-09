@@ -190,6 +190,7 @@ class LoopingValidator(Validator):
         sgate.clear()
 
         self._thread = threading.Thread(target=self._thread_entry, args=(sgate,) ,daemon=True)
+        self._thread.start()
 
         sgate.wait()
 
