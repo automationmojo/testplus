@@ -737,6 +737,7 @@ class TestSequencer(ContextUser):
 
                 # Write the validator construction calls
                 if len(validator_originations) > 0:
+                    validator_originations.reverse()
                     method_lines.append("")
                     for vorigin in validator_originations:
                         factory_imports.add("from {} import {}".format(vorigin.source_module_name, vorigin.source_function_name))
@@ -759,7 +760,7 @@ class TestSequencer(ContextUser):
                 method_lines.append(call_line)
                 method_lines.append('')
 
-                # Write the validator construction calls
+                # Write the validator finalize calls
                 if len(validator_originations) > 0:
                     validator_originations.reverse()
                     method_lines.append("")

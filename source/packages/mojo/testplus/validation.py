@@ -103,10 +103,10 @@ class Validator(ValidatorCoupling):
             traceback_lines = format_traceback_detail(tb_detail)
             errmsg = os.linesep.join(traceback_lines)
             self._logger.error(errmsg)
-        except:
+        except Exception as gerr:
             # If an exceptions was thrown in this context, it means
             # that a test threw an exception.
-            tb_detail = create_traceback_detail(aerr)
+            tb_detail = create_traceback_detail(gerr)
 
             self._result.add_error(tb_detail)
 
@@ -217,7 +217,7 @@ class LoopingValidator(Validator):
 
     def wait(self):
 
-        wait_for_it(self._wait_for_shutdown, "LoopingValidator Shutdown", timeout=self._shutdown_timeout, interval=self._shutdown_interval)
+        wait_for_it(self._wait_for_shutdown, what_for="LoopingValidator Shutdown", timeout=self._shutdown_timeout, interval=self._shutdown_interval)
 
         return
 
