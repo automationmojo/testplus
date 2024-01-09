@@ -2,7 +2,6 @@
 from typing import Type
 
 from mojo.extension.extensionfactory import ExtFactory
-from mojo.extension.superfactory import SuperFactory
 
 from mojo.testplus.extensionprotocols import TestPlusExtensionProtocol
 
