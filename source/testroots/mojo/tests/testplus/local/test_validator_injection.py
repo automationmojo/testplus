@@ -17,8 +17,9 @@ class TestValidator(Validator):
         self._logger.info("TestValidator 'validate' called ...")
         return
 
-class TestLoopingValidator(LoopingValidator):
 
+class TestLoopingValidator(LoopingValidator):
+    
     def do_work(self):
         self._logger.info("TestLoopingValidator 'do_work' called ...")
         return True
@@ -27,13 +28,14 @@ class TestLoopingValidator(LoopingValidator):
         self._logger.info("TestLoopingValidator 'validate' called ...")
         return
 
-class TestTimeIntervalValidator(TimeIntervalValidator):
 
+class TestTimeIntervalValidator(TimeIntervalValidator):
+    
     def tick(self):
         now = time.time()
         self._logger.info(f"TestTimeIntervalValidator 'tick' called ... now={now}")
         return
-    
+
     def validate(self):
         self._logger.info("TestTimeIntervalValidator 'validate' called ...")
         return
@@ -58,7 +60,7 @@ def create_looping_validator() -> TestLoopingValidator:
 @testplus.validator()
 def create_time_interval_validator() -> TimeIntervalValidator:
 
-    validator = TimeIntervalValidator(interval=1)
+    validator = TestTimeIntervalValidator(interval=1)
     validator.initialize()
 
     return validator

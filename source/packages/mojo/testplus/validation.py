@@ -29,6 +29,8 @@ from mojo.waiting import wait_for_it, TimeoutContext
 class Validator(ValidatorCoupling):
 
     def __init__(self):
+        super().__init__()
+
         self._inst_id = str(uuid.uuid4())
 
         self._suffix = None
@@ -249,6 +251,7 @@ class LoopingValidator(Validator):
 
         return shutdown
 
+
 class TimeIntervalValidator(LoopingValidator):
     """
         The :class:`TimeIntervalValidator` object provides a mechanism for performing a series
@@ -259,13 +262,13 @@ class TimeIntervalValidator(LoopingValidator):
         super().__init__(loop_delay=interval, shutdown_timeout=shutdown_timeout, shutdown_interval=shutdown_interval)
         return
     
+    def do_work(self) -> bool:
+        self.tick()
+        return True
+    
     def tick(self):
         """
             The 'tick' method is implemented by derived classes in order to perform work at
             a specified interval.
         """
         return
-    
-    def do_work(self) -> bool:
-        self.tick()
-        return True
