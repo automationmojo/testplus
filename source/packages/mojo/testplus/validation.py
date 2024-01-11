@@ -227,6 +227,8 @@ class LoopingValidator(Validator):
 
         sgate.set()
 
+        self._state = LoopingValidatorState.Running
+
         while self._state == LoopingValidatorState.Running:
             more_work = self.do_work()
             if not more_work:

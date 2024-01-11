@@ -300,7 +300,7 @@ class TestSequencer(ContextUser):
 
         prerun_info = self.context.lookup(RuntimeConfigPaths.DIAGNOSTIC_PRERUN)
 
-        if prerun_info is not None:
+        if prerun_info is not None and prerun_info == True:
             label = DiagnosticLabel.PRERUN_DIAGNOSTIC
             diagnostic_root = get_path_for_diagnostics(label)
 
@@ -315,7 +315,7 @@ class TestSequencer(ContextUser):
         """
         postrun_info = self.context.lookup(RuntimeConfigPaths.DIAGNOSTIC_POSTRUN)
 
-        if postrun_info is not None:
+        if postrun_info is not None and postrun_info == True:
 
             label = DiagnosticLabel.POSTRUN_DIAGNOSTIC
             diagnostic_root = get_path_for_diagnostics(label)
