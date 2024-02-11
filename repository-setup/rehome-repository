@@ -83,7 +83,7 @@ def generate_python_path():
 
     #TODO: Add any PYTHONPATH customizations here.
 
-    python_path = "{}/testroots/testplus:{}/packages:{}/testroots/testplus:{}".format(
+    python_path = "{}/tools:{}/packages:{}/testroots/testplus:{}".format(
         REPOSITORY_SOURCE_FOLDER,
         REPOSITORY_SOURCE_FOLDER,
         REPOSITORY_SOURCE_FOLDER,

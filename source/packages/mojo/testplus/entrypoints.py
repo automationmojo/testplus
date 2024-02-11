@@ -31,7 +31,7 @@ from mojo.xmods.xlogging.levels import LOG_LEVEL_NAMES
 from mojo.xmods.ximport import import_by_name
 
 from mojo.runtime.paths import get_path_for_testresults
-from mojo.xmods.injection.resourceregistry import ResourceRegistry
+from mojo.xmods.injection.injectionregistry import InjectionRegistry
 
 from mojo.testplus.utilities import find_testmodule_root, find_testmodule_fullname
 from mojo.testplus.testjob import DefaultTestJob
@@ -51,7 +51,7 @@ def generic_test_entrypoint():
 
     from mojo.runtime.activation import activate_runtime, ActivationProfile
 
-    activate_runtime(ActivationProfile.TestRun)
+    activate_runtime(profile=ActivationProfile.TestRun)
 
     initialize_testplus_results()
 
@@ -116,7 +116,7 @@ def generic_test_entrypoint():
             if tfobj_module_name == "__main__":
                 testfunc_obj.__module__ = module_fullname
 
-        resource_registry = ResourceRegistry()
+        resource_registry = InjectionRegistry()
         resource_registry.rename_resource_origins_from_main(module_fullname)
 
     args = base_parser.parse_args()

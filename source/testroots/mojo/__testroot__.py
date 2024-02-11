@@ -1,2 +1,2 @@
 
-
+ROOT_TYPE = "testplus"
