@@ -20,7 +20,9 @@ class TestPlusVariables:
 
 def initialize_testplus_runtime():
     if not MOJO_RUNTIME_STATE.INITIALIZED:
-        initialize_runtime(name="testplus", logger_name="TP")
+        name="testplus"
+        home_dir = os.path.join(os.path.expanduser("~"), name)
+        initialize_runtime(name=name, home_dir=home_dir, logger_name="TP")
     return
 
 def initialize_testplus_results():
