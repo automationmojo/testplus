@@ -1340,4 +1340,4 @@ mongodb = ["pymongo"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "3eba1006aee8402c29f5348023817b63efa4dac0384bd32df357a4221afd99e2"
+content-hash = "f324911ac23c76e70ea475a8c4de6e6136ffdce3b93caa2cd1eb1a9e235102bb"
