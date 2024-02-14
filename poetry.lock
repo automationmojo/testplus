@@ -732,14 +732,14 @@ mojo-xmodules = ">=1.3.0,<1.4.0"
 
 [[package]]
 name = "mojo-runtime"
-version = "1.3.3"
+version = "1.3.4"
 description = "Automation Mojo Runtime Module (mojo-runtime)"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_runtime-1.3.3-py3-none-any.whl", hash = "sha256:58f7c71d2d73f455af69e070fa1102bac8c15c9e6358cfe18b3c8ae5f4d2e5bd"},
-    {file = "mojo_runtime-1.3.3.tar.gz", hash = "sha256:49ca0eae224880c478d0048aaf7caa63ae68080a1fc4945dac0c927879dc9aed"},
+    {file = "mojo_runtime-1.3.4-py3-none-any.whl", hash = "sha256:60286b65ce2e635cbd485ec7da0c470aeb94b991a9bef66c4d2298e6fa97ddb2"},
+    {file = "mojo_runtime-1.3.4.tar.gz", hash = "sha256:db7c42c34a93ae1eefc2cef8ce78d4c92ad001b28966c22f43d1a4fe5ac8d41c"},
 ]
 
 [package.dependencies]
