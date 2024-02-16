@@ -735,18 +735,21 @@ class TestSequencer(ContextUser):
 
                 validator_originations = [vo for vo in test_scope.validator_originations.values()]
 
+                val_indent = ""
                 # Write the validator construction calls
                 if len(validator_originations) > 0:
+                    val_indent = "    "
                     validator_originations.reverse()
                     method_lines.append("")
+                    method_lines.append(f"{current_indent}try:")
                     for vorigin in validator_originations:
                         factory_imports.add("from {} import {}".format(vorigin.source_module_name, vorigin.source_function_name))
                         
                         if "constraints" in vorigin.source_signature.parameters and constraints is None:
-                            method_lines.append("{}constraints = None".format(current_indent))
+                            method_lines.append("{}{}constraints = None".format(current_indent, val_indent))
                         
-                        method_lines.append("{}{} = {}".format(current_indent, vorigin.identifier, vorigin.generate_call()))
-                        method_lines.append("{}{}.attach_to_test(tsc, '{}')".format(current_indent, vorigin.identifier, vorigin.suffix))
+                        method_lines.append("{}{}{} = {}".format(current_indent, val_indent, vorigin.identifier, vorigin.generate_call()))
+                        method_lines.append("{}{}{}.attach_to_test(tsc, '{}')".format(current_indent, val_indent, vorigin.identifier, vorigin.suffix))
                     method_lines.append("")
 
                 # Make the call to the test function
@@ -754,9 +757,9 @@ class TestSequencer(ContextUser):
                 for param_name in test_parameters:
                     test_args.append(param_name)
 
-                method_lines.append("{}from {} import {}".format(current_indent, child_node.module_name, child_node.base_name))
+                method_lines.append("{}{}from {} import {}".format(current_indent, val_indent, child_node.module_name, child_node.base_name))
 
-                call_line = '{}{}({})'.format(current_indent, child_node.base_name, ", ".join(test_args))
+                call_line = '{}{}{}({})'.format(current_indent, val_indent, child_node.base_name, ", ".join(test_args))
                 method_lines.append(call_line)
                 method_lines.append('')
 
@@ -764,8 +767,9 @@ class TestSequencer(ContextUser):
                 if len(validator_originations) > 0:
                     validator_originations.reverse()
                     method_lines.append("")
+                    method_lines.append(f"{current_indent}finally:")
                     for vorigin in validator_originations:
-                        method_lines.append("{}{}.finalize()".format(current_indent, vorigin.identifier))
+                        method_lines.append("{}{}{}.finalize()".format(current_indent, val_indent, vorigin.identifier))
 
                 # Restor the indent to before the test scope
                 current_indent = pre_test_scope_indent
