@@ -432,23 +432,23 @@ files = [
 
 [[package]]
 name = "dnspython"
-version = "2.5.0"
+version = "2.6.1"
 description = "DNS toolkit"
 category = "main"
 optional = true
 python-versions = ">=3.8"
 files = [
-    {file = "dnspython-2.5.0-py3-none-any.whl", hash = "sha256:6facdf76b73c742ccf2d07add296f178e629da60be23ce4b0a9c927b1e02c3a6"},
-    {file = "dnspython-2.5.0.tar.gz", hash = "sha256:a0034815a59ba9ae888946be7ccca8f7c157b286f8455b379c692efb51022a15"},
+    {file = "dnspython-2.6.1-py3-none-any.whl", hash = "sha256:5ef3b9680161f6fa89daf8ad451b5f1a33b18ae8a1c6778cdf4b43f08c0a6e50"},
+    {file = "dnspython-2.6.1.tar.gz", hash = "sha256:e8f0f9c23a7b7cb99ded64e6c3a6f3e701d78f50c55e002b839dea7225cff7cc"},
 ]
 
 [package.extras]
-dev = ["black (>=23.1.0)", "coverage (>=7.0)", "flake8 (>=5.0.3)", "mypy (>=1.0.1)", "pylint (>=2.7)", "pytest (>=6.2.5)", "pytest-cov (>=3.0.0)", "sphinx (>=7.0.0)", "twine (>=4.0.0)", "wheel (>=0.41.0)"]
+dev = ["black (>=23.1.0)", "coverage (>=7.0)", "flake8 (>=7)", "mypy (>=1.8)", "pylint (>=3)", "pytest (>=7.4)", "pytest-cov (>=4.1.0)", "sphinx (>=7.2.0)", "twine (>=4.0.0)", "wheel (>=0.42.0)"]
 dnssec = ["cryptography (>=41)"]
-doh = ["h2 (>=4.1.0)", "httpcore (>=0.17.3)", "httpx (>=0.25.1)"]
-doq = ["aioquic (>=0.9.20)"]
-idna = ["idna (>=2.1)"]
-trio = ["trio (>=0.14)"]
+doh = ["h2 (>=4.1.0)", "httpcore (>=1.0.0)", "httpx (>=0.26.0)"]
+doq = ["aioquic (>=0.9.25)"]
+idna = ["idna (>=3.6)"]
+trio = ["trio (>=0.23)"]
 wmi = ["wmi (>=1.5.1)"]
 
 [[package]]
@@ -666,14 +666,14 @@ files = [
 
 [[package]]
 name = "mojo-config"
-version = "1.3.4"
+version = "1.3.5"
 description = "Automation Mojo Configuration Package"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_config-1.3.4-py3-none-any.whl", hash = "sha256:dfd940f6be858ee6e3b835ea3da415b9ec06ab18aa4618136630f2d7fb0359c4"},
-    {file = "mojo_config-1.3.4.tar.gz", hash = "sha256:f5832228a00efebd747612ca4336b282373664aee8037d9ee6c7dac9e4437a65"},
+    {file = "mojo_config-1.3.5-py3-none-any.whl", hash = "sha256:080d899db058c25cdc40960c91602751a84daa3ecea885ac105318c04a7a7f47"},
+    {file = "mojo_config-1.3.5.tar.gz", hash = "sha256:cd2c3b202883d5d58865a2c8ed94fe95c99988f4f2389f90b088c278bf2609ed"},
 ]
 
 [package.dependencies]
@@ -689,14 +689,14 @@ mongodb = ["pymongo[srv] (>=4.0.0,<5.0.0)"]
 
 [[package]]
 name = "mojo-errors"
-version = "1.3.0"
+version = "1.3.1"
 description = "Automation Mojo Errors Module"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_errors-1.3.0-py3-none-any.whl", hash = "sha256:7ecf6cc68fbd5ef1924bfc0fce820381440f1e80ecd42c469a8874ddf633609e"},
-    {file = "mojo_errors-1.3.0.tar.gz", hash = "sha256:229b91ee8f818994fbd69261fcf9c53c967c62e0b73c63d3a5b6afa7d181b68a"},
+    {file = "mojo_errors-1.3.1-py3-none-any.whl", hash = "sha256:01020d033d41ca7934c7dba449dc681378a3a117f399cc30b6f5cd13d4995edd"},
+    {file = "mojo_errors-1.3.1.tar.gz", hash = "sha256:0b406273fa74c210c7c2f8a100a24126c4727f66557ae00d2f18c107f5bfb543"},
 ]
 
 [[package]]
@@ -716,14 +716,14 @@ mojo-startup = ">=1.3.5,<1.4.0"
 
 [[package]]
 name = "mojo-results"
-version = "1.3.1"
+version = "1.3.7"
 description = "The Automation Mojo Results Package"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_results-1.3.1-py3-none-any.whl", hash = "sha256:addabdef9c0b2738922097c1f711f23baedfc04d0d563fc1fe3876178e66bc84"},
-    {file = "mojo_results-1.3.1.tar.gz", hash = "sha256:897eca2d97628d44c47a7890cdb8c62e79c8535041bc5630a6860af0e45d4c9e"},
+    {file = "mojo_results-1.3.7-py3-none-any.whl", hash = "sha256:a146e9ef579b07da5c1f7dd83c7ff4324d2522604a7d3e8ad777173c4a5bfead"},
+    {file = "mojo_results-1.3.7.tar.gz", hash = "sha256:1a6405c3baa8cbd42a020c8976be92b76623190e3e0b167a4d9f718aa12cee48"},
 ]
 
 [package.dependencies]
@@ -732,14 +732,14 @@ mojo-xmodules = ">=1.3.0,<1.4.0"
 
 [[package]]
 name = "mojo-runtime"
-version = "1.3.4"
+version = "1.3.5"
 description = "Automation Mojo Runtime Module (mojo-runtime)"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "mojo_runtime-1.3.4-py3-none-any.whl", hash = "sha256:60286b65ce2e635cbd485ec7da0c470aeb94b991a9bef66c4d2298e6fa97ddb2"},
-    {file = "mojo_runtime-1.3.4.tar.gz", hash = "sha256:db7c42c34a93ae1eefc2cef8ce78d4c92ad001b28966c22f43d1a4fe5ac8d41c"},
+    {file = "mojo_runtime-1.3.5-py3-none-any.whl", hash = "sha256:b05920f76bef35843ba613f97d0924b2a55d0db86e50e2d21a972508cfc18c47"},
+    {file = "mojo_runtime-1.3.5.tar.gz", hash = "sha256:3ebcd78935519baaac126fabb900dd1219257395db2dc279c872e4f667f568bb"},
 ]
 
 [package.dependencies]
@@ -1301,14 +1301,14 @@ files = [
 
 [[package]]
 name = "urllib3"
-version = "2.2.0"
+version = "2.2.1"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "urllib3-2.2.0-py3-none-any.whl", hash = "sha256:ce3711610ddce217e6d113a2732fafad960a03fd0318c91faa79481e35c11224"},
-    {file = "urllib3-2.2.0.tar.gz", hash = "sha256:051d961ad0c62a94e50ecf1af379c3aba230c66c710493493560c0c223c49f20"},
+    {file = "urllib3-2.2.1-py3-none-any.whl", hash = "sha256:450b20ec296a467077128bff42b73080516e71b56ff59a60a02bef2232c4fa9d"},
+    {file = "urllib3-2.2.1.tar.gz", hash = "sha256:d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"},
 ]
 
 [package.extras]
@@ -1340,4 +1340,4 @@ mongodb = ["pymongo"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "f324911ac23c76e70ea475a8c4de6e6136ffdce3b93caa2cd1eb1a9e235102bb"
+content-hash = "88d6278789d4fafb1cc98073724ec5f0003bc85b1aba13453ed8b6e80e2f7cce"
