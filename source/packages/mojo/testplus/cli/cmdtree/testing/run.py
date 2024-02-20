@@ -128,7 +128,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     
     ctx = ContextSingleton()
 
-    # STEP 4 - Apply any Option Overrides
+    # STEP 4 - Apply any 'Environment' Option Overrides
 
     # We need to default these to 'None' so they do not effect the runtime behavior unless
     # this command explicitly sets them later.
@@ -243,6 +243,16 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
         MOJO_RUNTIME_OPTION_OVERRIDES.override_run_id(runid)
 
 
+    # STEP 5 - Resolve the Configuration Maps
+    from mojo.config.configurationmaps import resolve_configuration_maps
+    resolve_configuration_maps(use_credentials=use_credentials, use_landscape=use_landscape,
+                               use_runtime=use_runtime, use_topology=use_topology)
+
+
+    # STEP 6 - Applying runtime options must happen after we have resolved configuration
+    # maps because some of those settings will get overridden by the options.  So the runtime
+    # needs to be loaded and set first before we apply runtime options
+
     # Process the commandline args here and then set the variables on the environment
     # as necessary.  We need to do this before we import activate.
     if breakpoints is not None:
@@ -296,12 +306,6 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
         imexp = imexp.strip("'")
         mfilter = parse_marker_expression("-" + imexp)
         metafilters.append(mfilter)
-
-    # STEP 5 - Resolve the Configuration Maps
-
-    from mojo.config.configurationmaps import resolve_configuration_maps
-    resolve_configuration_maps(use_credentials=use_credentials, use_landscape=use_landscape,
-                               use_runtime=use_runtime, use_topology=use_topology)
 
     # STEP 6 - Initialize the Results Output
 
