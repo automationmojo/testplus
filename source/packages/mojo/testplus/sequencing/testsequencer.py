@@ -55,7 +55,7 @@ from mojo.results.recorders.resultrecorder import ResultRecorder
 
 from mojo.runtime.paths import get_path_for_output, get_path_for_diagnostics
 
-from mojo.testplus.constraints import Constraints
+from mojo.testplus import Constraints
 from mojo.testplus.diagnostics import DiagnosticLabel, RuntimeConfigPaths
 from mojo.testplus.testcollector import TestCollector
 from mojo.testplus.testgroup import TestGroup
@@ -64,6 +64,10 @@ from mojo.testplus.testref import TestRef
 from mojo.testplus.sequencing.sequencersessionscope import SequencerSessionScope
 from mojo.testplus.sequencing.sequencermodulescope import SequencerModuleScope
 from mojo.testplus.sequencing.sequencertestscope import SequencerTestScope, SequencerTestSetupScope
+
+from mojo.testplus import ConstraintsCatalog
+
+constraints_catalog = ConstraintsCatalog()
 
 logger = logging.getLogger()
 
@@ -85,6 +89,10 @@ __traceback_format_policy__ = "Brief"
 import logging
 
 logger = logging.getLogger()
+
+from mojo.testplus import ConstraintsCatalog
+
+constraints_catalog = ConstraintsCatalog()
 
 {}
 
@@ -632,13 +640,12 @@ class TestSequencer(ContextUser):
 
             sp_parameter_names = [pn for pn in porigin.source_signature.parameters.keys()]
             if 'constraints' in sp_parameter_names:
-                constraints = {}
-                if porigin.constraints is not None:
-                    constraints = porigin.constraints
-                    if issubclass(type(constraints), Constraints):
-                        constraint_imports.add(constraints.get_import_statement())
-                method_lines.append('{}constraints={}'.format(current_indent, repr(constraints)))
-            
+                constraints_key = porigin.constraints_key
+                if constraints_key is not None:
+                    if constraints_catalog.lookup_constraints(constraints_key) is None:
+                        raise RuntimeError(f"Constraint required but not found for contraints_key={constraints_key}")
+                    method_lines.append('{}constraints=constraints_catalog.lookup_constraints({})'.format(current_indent, repr(constraints_key)))
+
             source_func_call = porigin.generate_call()
             method_lines.append('{}for {} in {}:'.format(current_indent, pname, source_func_call))
             child_call_args.append(pname)
@@ -707,12 +714,11 @@ class TestSequencer(ContextUser):
                         ffuncargs = [pn for pn in ffuncsig.parameters]
 
                         if 'constraints' in ffuncargs:
-                            constraints = {}
-                            if param_obj.constraints is not None:
-                                constraints = param_obj.constraints
-                                if issubclass(type(constraints), Constraints):
-                                    constraint_imports.add(constraints.get_import_statement())
-                            method_lines.append('{}constraints={}'.format(current_indent, repr(constraints)))
+                            constraints_key = param_obj.constraints_key
+                            if constraints_key is not None:
+                                if constraints_catalog.lookup_constraints(constraints_key) is None:
+                                    raise RuntimeError(f"Constraint required but not found for contraints_key={constraints_key}")
+                                method_lines.append('{}constraints=constraints_catalog({})'.format(current_indent, repr(constraints_key)))
 
                         ffuncargs_str = " ,".join(ffuncargs)
                         method_lines.append("{}for {} in {}({}):".format(current_indent, param_name, ffuncname, ffuncargs_str))

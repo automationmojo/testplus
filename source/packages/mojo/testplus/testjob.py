@@ -18,10 +18,7 @@ __license__ = "MIT"
 
 from typing import List, Optional
 
-import collections
-import json
 import os
-import sys
 import traceback
 
 from mojo.collections.contextuser import ContextUser
@@ -35,7 +32,6 @@ from mojo.runtime.paths import (
     get_summary_html_template_source,
     get_summary_static_resource_dest_dir,
     get_summary_static_resource_src_dir,
-    get_path_for_diagnostics,
     get_path_for_output
 )
 

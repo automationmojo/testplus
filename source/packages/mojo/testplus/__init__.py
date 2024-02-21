@@ -21,6 +21,13 @@ from mojo.xmods.markers import (
     mark_descendent_priority
 )
 
+from mojo.xmods.injection.constraints import (
+    Constraints,
+    FeatureConstraints
+)
+
+from mojo.xmods.injection.constraintscatalog import ConstraintsCatalog
+
 from mojo.xmods.injection.origination import (
     originate_parameter
 )
@@ -77,7 +84,10 @@ __all__ = [
     scope,
     skip_test,
     validate,
-    validator
+    validator,
+    Constraints,
+    ConstraintsCatalog,
+    FeatureConstraints
 ]
 
 try:

@@ -16,15 +16,12 @@ __email__ = "myron.walker@gmail.com"
 __status__ = "Development" # Prototype, Development or Production
 __license__ = "MIT"
 
-from typing import Any, Dict, List, OrderedDict, Optional, Sequence
+from typing import Any, List, OrderedDict
 
 from types import FunctionType
 
 import collections
-import inspect
-import sys
 
-from mojo.xmods.markers import MetaFilter
 from mojo.xmods.injection.injectableref import InjectableRef
 
 class TestRef(InjectableRef):
