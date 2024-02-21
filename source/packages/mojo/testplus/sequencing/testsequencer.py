@@ -718,7 +718,7 @@ class TestSequencer(ContextUser):
                             if constraints_key is not None:
                                 if constraints_catalog.lookup_constraints(constraints_key) is None:
                                     raise RuntimeError(f"Constraint required but not found for contraints_key={constraints_key}")
-                                method_lines.append('{}constraints=constraints_catalog({})'.format(current_indent, repr(constraints_key)))
+                                method_lines.append('{}constraints=constraints_catalog.lookup_constraints({})'.format(current_indent, repr(constraints_key)))
 
                         ffuncargs_str = " ,".join(ffuncargs)
                         method_lines.append("{}for {} in {}({}):".format(current_indent, param_name, ffuncname, ffuncargs_str))
