@@ -17,3 +17,7 @@ def create_landscape(constraints={}) -> Generator[Landscape, None, None]:
 def create_linux_client_coordinator_coupling() -> Generator[LinuxClientCoordinatorCoupling, None, None]:
     lc_coupling = LinuxClientCoordinatorCoupling()
     yield lc_coupling
+
+@testplus.resource()
+def create_blah(constraints={}):
+    yield "blah"
