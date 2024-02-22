@@ -639,14 +639,19 @@ class TestSequencer(ContextUser):
         for pname, porigin in resource_scope.parameter_originations.items():
 
             sp_parameter_names = [pn for pn in porigin.source_signature.parameters.keys()]
+            sp_constraints = None
+
             if 'constraints' in sp_parameter_names:
                 constraints_key = porigin.constraints_key
                 if constraints_key is not None:
-                    if constraints_catalog.lookup_constraints(constraints_key) is None:
+                    sp_constraints = constraints_catalog.lookup_constraints(constraints_key)
+                    if sp_constraints is None:
                         raise RuntimeError(f"Constraint required but not found for contraints_key={constraints_key}")
                     method_lines.append('{}constraints=constraints_catalog.lookup_constraints({})'.format(current_indent, repr(constraints_key)))
+                else:
+                    sp_parameter_names.remove('constraints')
 
-            source_func_call = porigin.generate_call()
+            source_func_call = porigin.generate_call(constraints=sp_constraints)
             method_lines.append('{}for {} in {}:'.format(current_indent, pname, source_func_call))
             child_call_args.append(pname)
             current_indent = current_indent + indent_space
@@ -719,6 +724,8 @@ class TestSequencer(ContextUser):
                                 if constraints_catalog.lookup_constraints(constraints_key) is None:
                                     raise RuntimeError(f"Constraint required but not found for contraints_key={constraints_key}")
                                 method_lines.append('{}constraints=constraints_catalog.lookup_constraints({})'.format(current_indent, repr(constraints_key)))
+                            else:
+                                ffuncargs.remove('constraints')
 
                         ffuncargs_str = " ,".join(ffuncargs)
                         method_lines.append("{}for {} in {}({}):".format(current_indent, param_name, ffuncname, ffuncargs_str))
