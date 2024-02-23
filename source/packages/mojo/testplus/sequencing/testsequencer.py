@@ -757,9 +757,19 @@ class TestSequencer(ContextUser):
                     method_lines.append(f"{current_indent}try:")
                     for vorigin in validator_originations:
                         factory_imports.add("from {} import {}".format(vorigin.source_module_name, vorigin.source_function_name))
-                        
-                        if "constraints" in vorigin.source_signature.parameters and constraints is None:
-                            method_lines.append("{}{}constraints = None".format(current_indent, val_indent))
+
+                        val_parameter_names = [pn for pn in vorigin.source_signature.parameters.keys()]
+                        val_constraints = None
+
+                        if 'constraints' in val_parameter_names:
+                            constraints_key = vorigin.constraints_key
+                            if constraints_key is not None:
+                                val_constraints = constraints_catalog.lookup_constraints(constraints_key)
+                                if val_constraints is None:
+                                    raise RuntimeError(f"Constraint required but not found for contraints_key={constraints_key}")
+                                method_lines.append('{}{}constraints=constraints_catalog.lookup_constraints({})'.format(current_indent, val_indent, repr(constraints_key)))
+                            else:
+                                val_parameter_names.remove('constraints')
                         
                         method_lines.append("{}{}{} = {}".format(current_indent, val_indent, vorigin.identifier, vorigin.generate_call()))
                         method_lines.append("{}{}{}.attach_to_test(tsc, '{}')".format(current_indent, val_indent, vorigin.identifier, vorigin.suffix))
