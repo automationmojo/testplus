@@ -771,7 +771,7 @@ class TestSequencer(ContextUser):
                             else:
                                 val_parameter_names.remove('constraints')
                         
-                        method_lines.append("{}{}{} = {}".format(current_indent, val_indent, vorigin.identifier, vorigin.generate_call()))
+                        method_lines.append("{}{}{} = {}".format(current_indent, val_indent, vorigin.identifier, vorigin.generate_call(constraints=val_constraints)))
                         method_lines.append("{}{}{}.attach_to_test(tsc, '{}')".format(current_indent, val_indent, vorigin.identifier, vorigin.suffix))
                     method_lines.append("")
 
