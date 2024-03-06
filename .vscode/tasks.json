@@ -45,6 +45,15 @@
             },
             "command": "${workspaceFolder}/.venv/bin/python -m http.server 8000",
             "problemMatcher": []
+        },
+        {
+            "label": "Web Service - Examples",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/source/examples"
+            },
+            "command": "${workspaceFolder}/.venv/bin/python -m http.server 8000",
+            "problemMatcher": []
         }
     ]
 }

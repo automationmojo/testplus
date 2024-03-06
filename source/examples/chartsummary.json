@@ -1,0 +1,33 @@
+{
+    "title" : "Example Time Series Chart",
+    "axis": {
+        "y": { "label": "iops"},
+        "x": { "label": "timestamp"}
+    },
+    "series" : [
+        {
+            "name": "node-1",
+            "src": "./series/write-perf-iops-node-1.jsos",
+            "fields": {
+                "time": "time",
+                "value": "value"
+            }
+        },
+        {
+            "name": "node-2",
+            "src": "./series/write-perf-iops-node-2.jsos",
+            "fields": {
+                "time": "time",
+                "value": "value"
+            }
+        },
+        {
+            "name": "node-3",
+            "src": "./series/write-perf-iops-node-3.jsos",
+            "fields": {
+                "time": "time",
+                "value": "value"
+            }
+        }
+    ]
+}
