@@ -18,14 +18,14 @@ __license__ = "MIT"
 
 import os
 
-from akit.exceptions import AKitRuntimeError
 
 DIR_TEMPLATES = os.path.dirname(os.path.abspath(__file__))
 
-DIR_TAB_TEMPLATES = os.path.join(DIR_TEMPLATES, "tabs")
+DIR_TAB_TEMPLATES = os.path.join(DIR_TEMPLATES, "v1", "tabs")
 
 TABS_TEMPLATE_IMAGES = os.path.join(DIR_TAB_TEMPLATES, "tab-images.html")
 TABS_TEMPLATE_SOUNDS = os.path.join(DIR_TAB_TEMPLATES, "tab-sounds.html")
+TABS_TEMPLATE_TIME_SERIES = os.path.join(DIR_TAB_TEMPLATES, "tab-timeseries.html")
 
 class SummaryTemplateNames:
     Html = "html-template"
