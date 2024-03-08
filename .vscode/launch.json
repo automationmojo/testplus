@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "Python: Current File",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
@@ -15,7 +15,7 @@
         },
         {
             "name": "Python: Internal Tests - Query",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/source/packages/mojo/testplus/cli/testplus_command.py",
             "envFile": "${workspaceFolder}/.env",
@@ -30,7 +30,7 @@
         },
         {
             "name": "Python: Internal Tests - Run",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/source/packages/mojo/testplus/cli/testplus_command.py",
             "envFile": "${workspaceFolder}/.env",
@@ -46,7 +46,7 @@
         },
         {
             "name": "Python: Results - Initialize",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/source/packages/mojo/testplus/cli/testplus_command.py",
             "envFile": "${workspaceFolder}/.env",
@@ -66,7 +66,7 @@
         },
         {
             "name": "Python: Results - Publish",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/source/packages/mojo/testplus/cli/testplus_command.py",
             "envFile": "${workspaceFolder}/.env",
@@ -88,7 +88,7 @@
         },
         {
             "name": "Python: Tasker Deploy",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/source/examples/taskerserverdeploy.py",
             "envFile": "${workspaceFolder}/.env",
