@@ -207,7 +207,7 @@
                         chartSeries.push({
                             "series": srcName,
                             "time": Date.parse(sval[timeField]),
-                            "value": sval[valueField]
+                            "value": Math.round(sval[valueField])
                         })
                     }
                     
@@ -232,8 +232,8 @@
             function render_chart() {
 
                 // Specify the chart’s dimensions.
-                const width = 928;
-                const height = 600;
+                const width = 2000;
+                const height = 400;
                 const marginTop = 20;
                 const marginRight = 20;
                 const marginBottom = 30;
