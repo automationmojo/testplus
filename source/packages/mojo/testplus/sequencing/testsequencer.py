@@ -741,7 +741,7 @@ class TestSequencer(ContextUser):
                     method_lines.append('')
 
                 if len(notables_map) > 0:
-                    method_lines.append('{}notables = {!r}'.format(current_indent, notables_map))
+                    method_lines.append('{}notables = {}'.format(current_indent, repr(notables_map)))
 
                 method_lines.append('{}with sequencer.enter_test_scope_context(test_scope_name{}) as tsc:'.format(current_indent, notables_args))
                 current_indent += indent_space
