@@ -36,7 +36,6 @@ from mojo.runtime.paths import (
 )
 
 from mojo.results.model.buildinfo import BuildInfo
-from mojo.results.model.forwardinginfo import ForwardingInfo
 from mojo.results.model.jobinfo import JobInfo
 from mojo.results.model.pipelineinfo import PipelineInfo
 from mojo.results.model.renderinfo import RenderInfo
@@ -44,7 +43,6 @@ from mojo.results.model.renderinfo import RenderInfo
 from mojo.results.recorders.jsonresultrecorder import ResultRecorder, JsonResultRecorder
 
 from mojo.testplus.sequencing.testsequencer import TestSequencer
-from mojo.testplus.initialize import TestPlusVariables
 
 
 class TestJob(ContextUser):
