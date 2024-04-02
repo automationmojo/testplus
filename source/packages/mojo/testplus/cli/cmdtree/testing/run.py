@@ -197,7 +197,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_landscape_files(landscape_files)
 
     if len(landscape_names) > 0:
-        Use_landscape = True
+        use_landscape = True
         MOJO_RUNTIME_OPTION_OVERRIDES.override_config_landscape_names(landscape_names)
     
     if len(landscape_sources) > 0:
