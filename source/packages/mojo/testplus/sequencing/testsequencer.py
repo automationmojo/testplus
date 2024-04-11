@@ -743,7 +743,7 @@ class TestSequencer(ContextUser):
                 if len(notables_map) > 0:
                     method_lines.append('{}notables'.format(current_indent) + " = { " + notables_map + " }")
 
-                method_lines.append('{}with sequencer.enter_test_scope_context(test_scope_name{}) as tsc:'.format(current_indent, notables_args))
+                method_lines.append('{}with sequencer.enter_test_scope_context(test_scope_name{}) as tscope:'.format(current_indent, notables_args))
                 current_indent += indent_space
 
                 validator_originations = [vo for vo in test_scope.validator_originations.values()]
@@ -772,7 +772,7 @@ class TestSequencer(ContextUser):
                                 val_parameter_names.remove('constraints')
                         
                         method_lines.append("{}{}{} = {}".format(current_indent, val_indent, vorigin.identifier, vorigin.generate_call(constraints=val_constraints)))
-                        method_lines.append("{}{}{}.attach_to_test(tsc, '{}')".format(current_indent, val_indent, vorigin.identifier, vorigin.suffix))
+                        method_lines.append("{}{}{}.attach_to_test(tscope, '{}')".format(current_indent, val_indent, vorigin.identifier, vorigin.suffix))
                     method_lines.append("")
 
                 # Make the call to the test function

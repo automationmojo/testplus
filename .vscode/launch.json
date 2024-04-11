@@ -38,7 +38,6 @@
                 "testing",
                 "run",
                 "--root=${workspaceFolder}/source/testroots/mojo",
-                "--includes=mojo.tests.testplus.local",
                 "--includes=mojo.tests.testplus.local.injection"
             ],
             "console": "integratedTerminal",

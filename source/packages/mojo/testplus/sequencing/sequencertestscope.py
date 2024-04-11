@@ -17,7 +17,7 @@ __email__ = "myron.walker@gmail.com"
 __status__ = "Development" # Prototype, Development or Production
 __license__ = "MIT"
 
-from typing import Any, List, Tuple, Type, TYPE_CHECKING
+from typing import Any, List, Optional, Tuple, Type, TYPE_CHECKING
 
 import logging
 import os
@@ -27,10 +27,11 @@ from types import TracebackType
 from collections import OrderedDict
 
 from mojo.errors.xtraceback import create_traceback_detail, format_traceback_detail
-
 from mojo.results.recorders.resultrecorder import ResultRecorder
+from mojo.runtime.paths import get_path_for_testcase_by_products
 
 from mojo.testplus.exceptions import SkipTestError
+from mojo.testplus.sequencing.testactivity import TestActivity
 
 
 logger = logging.getLogger()
@@ -40,7 +41,9 @@ if TYPE_CHECKING:
     from mojo.testplus.sequencing.testsequencer import TestSequencer
 
 
+
 class SequencerTestScope:
+
     def __init__(self, sequencer: "TestSequencer", recorder: ResultRecorder, test_name: str, notables: OrderedDict[str, Any]={}):
         super().__init__()
 
@@ -55,6 +58,8 @@ class SequencerTestScope:
         self._monikers, self._pivots = self._get_monikers_and_pivots()
         self._context_identifier = "{}:{}".format(self._test_name, ",".join(self._monikers))
 
+        self._tc_byproducts_folder = None
+        self._activity_stream_filename = None
         return
 
     @property
@@ -68,6 +73,29 @@ class SequencerTestScope:
     @property
     def test_name(self):
         return self._test_name
+
+    def begin_activity(self, activity_name: str, target: str="NA", detail: Optional[dict] = None):
+        """
+            Mark the beginning of a test activity.
+        """
+        if not os.path.exists(self._tc_byproducts_folder):
+            os.makedirs(self._tc_byproducts_folder)
+
+        activity = TestActivity(self._activity_stream_filename, activity_name, target, detail=detail)
+
+        return activity
+    
+    def mark_activity(self, activity_name: str, target: str="NA", detail: Optional[dict] = None):
+        """
+            Mark the beginning of a test activity.
+        """
+        if not os.path.exists(self._tc_byproducts_folder):
+            os.makedirs(self._tc_byproducts_folder)
+
+        activity = TestActivity(self._activity_stream_filename, activity_name, target, detail=detail)
+        activity.finalize()
+
+        return activity
 
     def _get_monikers_and_pivots(self) -> Tuple[List[str], OrderedDict[str, Any]]:
         """
@@ -97,6 +125,10 @@ class SequencerTestScope:
     def __enter__(self):
         self._parent_scope_id, self._scope_id = self._sequencer.scope_id_create(self._context_identifier)
         logger.info("TEST SCOPE ENTER: {}, {}".format(self._context_identifier, self._scope_id))
+
+        self._tc_byproducts_folder = get_path_for_testcase_by_products(self._scope_id)
+        self._activity_stream_filename = os.path.join(self._tc_byproducts_folder, "activity.jsos")
+
         self._result = self._sequencer.create_test_result_node(self._scope_id, self._test_name, self._monikers, self._pivots, parent_inst=self._parent_scope_id)
         self._recorder.preview(self._result)
         self._test_scope_enter()
