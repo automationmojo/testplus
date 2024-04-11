@@ -74,7 +74,7 @@ class SequencerTestScope:
     def test_name(self):
         return self._test_name
 
-    def begin_activity(self, activity_name: str, target: str="NA", detail: Optional[dict] = None):
+    def begin_activity(self, activity_name: str, target: str="NA", detail: Optional[dict] = None) -> TestActivity:
         """
             Mark the beginning of a test activity.
         """
@@ -95,7 +95,7 @@ class SequencerTestScope:
         activity = TestActivity(self._activity_stream_filename, activity_name, target, detail=detail)
         activity.finalize()
 
-        return activity
+        return
 
     def _get_monikers_and_pivots(self) -> Tuple[List[str], OrderedDict[str, Any]]:
         """
@@ -128,7 +128,7 @@ class SequencerTestScope:
 
         self._tc_byproducts_folder = get_path_for_testcase_by_products(self._scope_id)
         self._activity_stream_filename = os.path.join(self._tc_byproducts_folder, "activity.jsos")
-
+        
         self._result = self._sequencer.create_test_result_node(self._scope_id, self._test_name, self._monikers, self._pivots, parent_inst=self._parent_scope_id)
         self._recorder.preview(self._result)
         self._test_scope_enter()
