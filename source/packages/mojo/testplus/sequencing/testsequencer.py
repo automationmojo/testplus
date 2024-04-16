@@ -17,7 +17,7 @@ __status__ = "Development" # Prototype, Development or Production
 __license__ = "MIT"
 
 
-from typing import Any, List, OrderedDict, Sequence, Tuple, Type, Union
+from typing import Any, List, OrderedDict, Optional, Sequence, Tuple, Type, Union
 
 
 import collections
@@ -430,6 +430,15 @@ class TestSequencer(ContextUser):
 
         return
 
+    def find_test_scope(self) -> SequencerTestScope:
+
+        test_scope = None
+        for next_scope in self._scope_stack:
+            if isinstance(next_scope, SequencerTestScope):
+                test_scope = next_scope
+
+        return test_scope
+
     def find_treenode_for_scope(self, scope_name, cursor=None):
         found = None
 
@@ -509,7 +518,18 @@ class TestSequencer(ContextUser):
             top_id = self._scope_stack[-1][1]
         
         return top_id
+    
+    def mark_activity(self, activity_name: str, target: str="NA", detail: Optional[dict] = None):
+        """
+            A helper method that classes having a reference to the sequence can used to pass activity
+            markers through to the current test scope.
+        """
+
+        test_scope = self.find_test_scope()
+        if test_scope is not None:
+            test_scope.mark_activity(activity_name, target=target, detail=detail)
         
+        return
 
     def scope_id_create(self, scope_name: str) -> Tuple[str, str]:
 
