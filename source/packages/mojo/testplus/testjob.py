@@ -18,11 +18,14 @@ __license__ = "MIT"
 
 from typing import List, Optional
 
+import yaml
 import os
 import traceback
 
 from mojo.collections.contextuser import ContextUser
 from mojo.collections.contextpaths import ContextPaths
+
+from mojo.config.variables import CONFIGURATION_MAPS
 
 from mojo.xmods.xformatting import CommandOutputFormat
 from mojo.xmods.xdebugger import WELLKNOWN_BREAKPOINTS, debugger_wellknown_breakpoint_entry
@@ -32,7 +35,7 @@ from mojo.runtime.paths import (
     get_summary_html_template_source,
     get_summary_static_resource_dest_dir,
     get_summary_static_resource_src_dir,
-    get_path_for_output
+    get_path_for_testresults
 )
 
 from mojo.results.model.buildinfo import BuildInfo
@@ -139,7 +142,13 @@ class TestJob(ContextUser):
 
         self._starttime = env["starttime"]
 
-        self._test_results_dir = get_path_for_output()
+        self._test_results_dir = get_path_for_testresults()
+        
+        # Dump out a flattened copy of the runtime file to the test output folder so we have a copy
+        # of the inputs to the automation run.
+        self._runtime_archive = os.path.join(self._test_results_dir, "runtime-declared.yaml")
+        with open(self._runtime_archive, 'w+') as raf:
+            yaml.safe_dump(CONFIGURATION_MAPS.RUNTIME_CONFIGURATION_MAP.flatten(), raf, indent=4)
         
         self._result_filename = os.path.join(self._test_results_dir, "testrun_results.jsos")
         self._summary_filename = os.path.join(self._test_results_dir, "testrun_summary.json")

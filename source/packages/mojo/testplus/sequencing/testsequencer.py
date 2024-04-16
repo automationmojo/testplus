@@ -53,7 +53,7 @@ from mojo.results.model.testresult import TestResult
 
 from mojo.results.recorders.resultrecorder import ResultRecorder
 
-from mojo.runtime.paths import get_path_for_output, get_path_for_diagnostics
+from mojo.runtime.paths import get_path_for_testresults, get_path_for_diagnostics
 
 from mojo.testplus import Constraints
 from mojo.testplus.diagnostics import DiagnosticLabel, RuntimeConfigPaths
@@ -193,7 +193,7 @@ class TestSequencer(ContextUser):
             attach to the test environment.
         """
 
-        results_dir = get_path_for_output()
+        results_dir = get_path_for_testresults()
 
         environment_dict = self.create_password_masked_environment()
 
