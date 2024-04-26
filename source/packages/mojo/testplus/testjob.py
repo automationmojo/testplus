@@ -116,7 +116,9 @@ class TestJob(ContextUser):
         self._job_name = MOJO_RUNTIME_VARIABLES.MJR_JOB_NAME
         self._job_owner = MOJO_RUNTIME_VARIABLES.MJR_JOB_OWNER
         self._job_type = MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE
-
+        self._job_venue = MOJO_RUNTIME_VARIABLES.MJR_JOB_VENUE
+        self._job_tag = MOJO_RUNTIME_VARIABLES.MJR_JOB_TAG
+        
         self._import_errors = []
 
         return
@@ -274,7 +276,7 @@ class TestJob(ContextUser):
                     pipeline_info = PipelineInfo(id=self._pipeline_id, name=self._pipeline_name, instance=self._pipeline_instance)
 
                 job_info = JobInfo(id=self._job_id, name=self._job_name, type=self._job_type, owner=self._job_owner, label=self._job_label,
-                                   initiator=self._job_initiator)
+                                   initiator=self._job_initiator, venue=self._job_venue, tag=self._job_tag)
                 
                 self._logger.section("Running Tests")
 
