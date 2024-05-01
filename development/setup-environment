@@ -37,18 +37,24 @@ def customize_activation_script(activate_script: str, env_file: str, cli_alias: 
             asf.write(LNSEP)
             asf.write(LNSEP)
 
+            print("DEBUG:")
+            cli_alias_len = len(cli_alias)
+            print(f"cli_alias_len={cli_alias_len}")
+
+            cli_entry_point_script_len = len(cli_entry_point_script)
+            print(f"cli_entry_point_script_len={cli_entry_point_script_len}")
 
             # Check to see if we have a custom commandline to setup
-            if cli_alias is not None and len(cli_alias) > 0 and cli_entry_point_script is not None and len(cli_entry_point_script) > 0:
+            if (cli_alias is not None) and (cli_alias_len > 0) and (cli_entry_point_script is not None) and (cli_entry_point_script_len > 0):
 
                 # We were given both cli_alias and cli_entry_point
-                asf.write(f"# Create an alias for the " + cli_alias + " command{LNSEP}")
+                asf.write(f"# Create an alias for the " + cli_alias + f" command{LNSEP}")
                 asf.write("function " + cli_alias + "() {" + LNSEP)
-                asf.write(f"    {venv_python}{LNSEP} {cli_entry_point_script}")
+                asf.write(f"    {venv_python} {cli_entry_point_script}{LNSEP}")
                 asf.write("}" + LNSEP)
                 asf.write("export -f " + cli_alias)
 
-            elif cli_alias is not None and len(cli_alias) > 0 or cli_entry_point_script is not None and len(cli_entry_point_script) > 0:
+            elif ((cli_alias is not None) and (len(cli_alias) > 0)) or ((cli_entry_point_script is not None) and (len(cli_entry_point_script) > 0)):
                 errmsg = "To add a custom commandline, you must set both 'CUSTOM_CLI_ALIAS' and 'CUSTOM_CLI_ENTRY_SCRIPT'"
                 print(errmsg, file=sys.stderr)
                 exit(1)
@@ -57,8 +63,21 @@ def customize_activation_script(activate_script: str, env_file: str, cli_alias: 
 
 def normalize_variable_value(val: str):
 
-    if val.startswith('"') and val.endswith('"') or  val.startswith("'") and val.endswith("'"):
-        val = val[1: -1]
+    print("DEBUG")
+    print(f"val={val}")
+    val = val.strip()
+    print(f"val={val}")
+
+    if (val.startswith('"') and val.endswith('"')) or  (val.startswith("'") and val.endswith("'")):
+        
+        print(f"val={val}")
+
+        if len(val) > 2:
+            val = val[1: -1]
+        else:
+            val = ""
+
+    print(f"val={val}")
 
     return val
 
@@ -119,8 +138,8 @@ def setup_environment_main():
     print(f"ENV_FILE={ENV_FILE}")
 
     PYTHON_VERSION = ""
-    CUSTOM_CLI_ALIAS=""
-    CUSTOM_CLI_ENTRY_SCRIPT=""
+    CUSTOM_CLI_ALIAS = ""
+    CUSTOM_CLI_ENTRY_SCRIPT =  ""
 
     with open(ENV_FILE, 'r') as ef:
         content_lines = ef.readlines()
@@ -130,15 +149,6 @@ def setup_environment_main():
             if nxtline.startswith("PYTHON_VERSION="):
                 _, PYTHON_VERSION = nxtline.split("=", maxsplit=1)
                 PYTHON_VERSION = normalize_variable_value(PYTHON_VERSION)
-
-            if nxtline.startswith("CUSTOM_CLI_ALIAS="):
-                _, CUSTOM_CLI_ALIAS = nxtline.split("=", maxsplit=1)
-                CUSTOM_CLI_ALIAS = normalize_variable_value(CUSTOM_CLI_ALIAS)
-
-            if nxtline.startswith("CUSTOM_CLI_ENTRY_SCRIPT="):
-                _, CUSTOM_CLI_ENTRY_SCRIPT = nxtline.split("=", maxsplit=1)
-                CUSTOM_CLI_ENTRY_SCRIPT = normalize_variable_value(CUSTOM_CLI_ENTRY_SCRIPT)
-
 
 
     if len(PYTHON_VERSION.strip()) == 0:
@@ -157,10 +167,10 @@ def setup_environment_main():
         default_section = config["DEFAULT"]
         
         if "CUSTOM_CLI_ALIAS" in default_section:
-            CUSTOM_CLI_ALIAS = default_section["CUSTOM_CLI_ALIAS"]
+            CUSTOM_CLI_ALIAS = normalize_variable_value(default_section["CUSTOM_CLI_ALIAS"])
 
         if "CUSTOM_CLI_ENTRY_SCRIPT" in default_section:
-            CUSTOM_CLI_ENTRY_SCRIPT = default_section["CUSTOM_CLI_ENTRY_SCRIPT"]
+            CUSTOM_CLI_ENTRY_SCRIPT = normalize_variable_value(default_section["CUSTOM_CLI_ENTRY_SCRIPT"])
 
 
     EXTRA_POETRY_SETUP_FLAGS=""
