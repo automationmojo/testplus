@@ -1,4 +1,8 @@
 
+__author__ = "Myron Walker"
+__copyright__ = "Copyright 2020, Myron W Walker"
+__credits__ = []
+
 from typing import Type
 
 from mojo.extension.extensionfactory import ExtFactory
