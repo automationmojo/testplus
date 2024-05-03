@@ -1,7 +1,7 @@
 {
     "folders": [
         {
-            "name": "mjr",
+            "name": "mjr-config",
             "path": "${TMPLT:HOME_CONFIG}"
         },
         {
