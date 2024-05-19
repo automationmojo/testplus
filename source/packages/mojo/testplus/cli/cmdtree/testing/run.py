@@ -27,6 +27,7 @@ from mojo.testplus.cli.cmdtree.testing.constants import (
     HELP_JOB_LABEL,
     HELP_JOB_NAME,
     HELP_JOB_OWNER,
+    HELP_CONFIG_NAME,
     HELP_CREDENTIAL,
     HELP_CREDENTIAL_NAMES,
     HELP_CREDENTIAL_SOURCES,
@@ -68,6 +69,7 @@ from mojo.testplus.cli.cmdtree.testing.constants import (
 @click.option("--job-name", default=None, required=False, help=HELP_JOB_NAME)
 @click.option("--job-owner", default=None, required=False, help=HELP_JOB_OWNER)
 @click.option("--default-configs", "default_configs", multiple=True, default=None, required=False, type=click.Choice(CONFIGURATION_CHOICES), help=HELP_DEFAULT_CONFIGS)
+@click.option("--config-name", "config_name", multiple=False, default=None, required=False, help=HELP_CONFIG_NAME)
 @click.option("--credential", "credential_files", multiple=True, default=None, required=False, help=HELP_CREDENTIAL)
 @click.option("--credential-name", "credential_names", multiple=True, default=None, required=False, help=HELP_CREDENTIAL_NAMES)
 @click.option("--credential-source", "credential_sources", multiple=True, default=None, required=False, help=HELP_CREDENTIAL_SOURCES)
@@ -89,11 +91,17 @@ from mojo.testplus.cli.cmdtree.testing.constants import (
 @click.option("--include-marker-exp", required=False, multiple=True, help=HELP_INCLUDE_MARKER_EXP)
 @click.option("--exclude-marker-exp", required=False, multiple=True, help=HELP_EXCLUDE_MARKER_EXP)
 def command_testplus_testing_run(root, includes, excludes, output, start, runid, branch, build, flavor, job_id, job_initiator,
-                        job_label, job_name, job_owner, default_configs, credential_files, credential_names, credential_sources,
+                        job_label, job_name, job_owner, default_configs, config_name, credential_files, credential_names, credential_sources,
                         landscape_files, landscape_names, landscape_sources, runtime_files, runtime_names, runtime_sources,
                         topology_files, topology_names, topology_sources, console_level, logfile_level,
                         debugger, breakpoints, prerun_diagnostic, postrun_diagnostic, include_marker_exp,
                         exclude_marker_exp):
+
+    if config_name is not None:
+        if config_name not in landscape_names:
+            landscape_names.append(config_name)
+        if config_name not in topology_names:
+            topology_names.append(config_name)
 
     # pylint: disable=unused-import,import-outside-toplevel
 
@@ -118,10 +126,11 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
 
     # STEP 2 - Resolve the configuration variables (Performed by the root command)
 
-    # STEP 3 - Activate the runtime for the given activation class
+    # STEP 3 - Activate the runtime for the given activation class (Could be done by a parent command or self)
     activate_runtime(profile=ActivationProfile.TestRun)
     
     ctx = ContextSingleton()
+
 
     # STEP 4 - Apply any 'Environment' Option Overrides
 
@@ -302,7 +311,8 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
         mfilter = parse_marker_expression("-" + imexp)
         metafilters.append(mfilter)
 
-    # STEP 6 - Initialize the Results Output
+
+    # STEP 7 - Initialize the Results Output
 
     # Initialize testplus results and logging
     from mojo.testplus.initialize import initialize_testplus_results
@@ -312,7 +322,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     logger = logging.getLogger()
 
 
-    # STEP 7 - Create and kick off the job
+    # STEP 8 - Create and kick off the job
 
     from mojo.extension.wellknown import ConfiguredSuperFactorySingleton
     from mojo.testplus.extensionprotocols import TestPlusExtensionProtocol
