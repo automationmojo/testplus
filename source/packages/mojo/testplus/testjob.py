@@ -112,6 +112,7 @@ class TestJob(ContextUser):
         self._job_label = MOJO_RUNTIME_VARIABLES.MJR_JOB_LABEL
         self._job_name = MOJO_RUNTIME_VARIABLES.MJR_JOB_NAME
         self._job_owner = MOJO_RUNTIME_VARIABLES.MJR_JOB_OWNER
+        self._job_seed = MOJO_RUNTIME_VARIABLES.MJR_JOB_SEED
         self._job_type = MOJO_RUNTIME_VARIABLES.MJR_JOB_TYPE
         self._job_venue = MOJO_RUNTIME_VARIABLES.MJR_JOB_VENUE
         self._job_tag = MOJO_RUNTIME_VARIABLES.MJR_JOB_TAG
