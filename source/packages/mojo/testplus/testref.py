@@ -12,7 +12,7 @@ __copyright__ = "Copyright 2023, Myron W Walker"
 __credits__ = []
 
 
-from typing import Any, List, OrderedDict
+from typing import Any, List, Optional, OrderedDict
 
 from types import FunctionType
 
@@ -31,12 +31,18 @@ class TestRef(InjectableRef):
         being used.
     """
 
-    def __init__(self, testfunc: FunctionType, monikers: List[str]=[], pivots: OrderedDict[str, Any]=collections.OrderedDict()):
+    def __init__(self, testfunc: FunctionType, monikers: Optional[List[str]] = None, pivots: Optional[OrderedDict[str, Any]] = None):
         """
             Initializes the test reference object.
 
             :param testcontainer: The class of the test object that is being created.
             :param testmeth: The method on the test container
         """
+        if monikers is None:
+            monikers = []
+
+        if pivots is None:
+            pivots = collections.OrderedDict()
+
         super().__init__(testfunc, monikers=monikers, pivots=pivots)
         return

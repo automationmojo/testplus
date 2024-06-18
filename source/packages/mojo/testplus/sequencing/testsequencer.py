@@ -361,7 +361,11 @@ class TestSequencer(ContextUser):
         context = SequencerSessionScope(self, self._recorder, self._root_result)
         return context
 
-    def enter_test_scope_context(self, test_name, notables: Sequence=[]) -> SequencerTestScope:
+    def enter_test_scope_context(self, test_name, notables: Optional[Sequence] = None) -> SequencerTestScope:
+
+        if notables is None:
+            notables = []
+
         context = SequencerTestScope(self, self._recorder, test_name, notables=notables)
         return context
 
