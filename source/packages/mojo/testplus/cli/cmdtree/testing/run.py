@@ -118,7 +118,7 @@ def command_testplus_testing_run(root, includes, excludes, output, start, runid,
     from mojo.xmods.xpython import extend_path
 
     from mojo.runtime.activation import activate_runtime, ActivationProfile
-    from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
+    from mojo.runtime.runtimevariables import MOJO_RUNTIME_VARIABLES
     
     from mojo.runtime.optionoverrides import MOJO_RUNTIME_OPTION_OVERRIDES
 

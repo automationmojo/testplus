@@ -11,10 +11,10 @@ import click
 @click.command("timestamp")
 def command_testplus_utilities_timestamp():
 
-    from mojo.xmods.xdatetime import FORMAT_DATETIME
+    from mojo.xmods.xdatetime import DATETIME_FORMAT_FILESYSTEM
 
     now = datetime.now()
-    timestamp = now.strftime(FORMAT_DATETIME).replace(" ", "T")
+    timestamp = now.strftime(DATETIME_FORMAT_FILESYSTEM).replace(" ", "T")
     print(timestamp)
 
     return

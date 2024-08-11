@@ -24,7 +24,7 @@ from mojo.testplus.cli.cmdtree.utilities import group_testplus_utilities
 @click.option('-v', '--verbose', count=True)
 def testplus_root_command(verbose):
 
-    from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
+    from mojo.runtime.runtimevariables import MOJO_RUNTIME_VARIABLES
 
     if verbose == 0:
         MOJO_RUNTIME_VARIABLES.MJR_INTERACTIVE_CONSOLE = True
