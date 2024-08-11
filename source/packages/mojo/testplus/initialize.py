@@ -12,7 +12,7 @@ from mojo.collections.wellknown import ContextSingleton
 from mojo.xmods.xlogging.foundations import logging_initialize
     
 from mojo.runtime.initialize import initialize_runtime, MOJO_RUNTIME_STATE
-from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
+from mojo.runtime.runtimevariables import MOJO_RUNTIME_VARIABLES
 
 TESTPLUS_DIR = os.path.dirname(__file__)
 

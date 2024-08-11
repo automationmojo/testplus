@@ -55,7 +55,7 @@
             "options": {
                 "cwd": "${env:HOME}/mjr/results"
             },
-            "command": "${workspaceFolder}/.venv/bin/python -m http.server 8000",
+            "command": "${workspaceFolder}/.venv/bin/python -m http.server 8888",
             "problemMatcher": []
         },
         {
