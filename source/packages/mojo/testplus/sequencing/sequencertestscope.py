@@ -26,7 +26,7 @@ from mojo.errors.xtraceback import create_traceback_detail, format_traceback_det
 from mojo.results.recorders.resultrecorder import ResultRecorder
 from mojo.runtime.paths import get_path_for_testcase_by_products
 
-from mojo.testplus.exceptions import SkipTestError
+from mojo.testplus.exceptions import SkipError
 from mojo.testplus.sequencing.testactivity import TestActivity
 
 
@@ -135,7 +135,7 @@ class SequencerTestScope:
 
         if ex_type is not None:
 
-            if issubclass(ex_type, SkipTestError):
+            if issubclass(ex_type, SkipError):
                 self._result.mark_skip(ex_inst.reason, ex_inst.bug)
             else:
                 # If an exceptions was thrown in this context, it means

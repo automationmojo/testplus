@@ -25,7 +25,7 @@ from mojo.errors.xtraceback import create_traceback_detail, format_traceback_det
 
 from mojo.results.recorders.resultrecorder import ResultRecorder
 
-from mojo.testplus.exceptions import SkipTestError
+from mojo.errors.exceptions import SkipError
 from mojo.testplus.sequencing.sequencerscopebase import SequencerScopeBase
 
 
@@ -59,7 +59,7 @@ class SequencerModuleScope(SequencerScopeBase):
 
         if ex_type is not None:
 
-            if issubclass(ex_type, SkipTestError):
+            if issubclass(ex_type, SkipError):
                 self._mark_descendants_skipped(self._scope_node, self._scope_id, ex_inst.reason, ex_inst.bug)
             else:
                 tb_detail = create_traceback_detail(ex_inst)

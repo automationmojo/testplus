@@ -467,26 +467,26 @@ wmi = ["wmi (>=1.5.1)"]
 
 [[package]]
 name = "idna"
-version = "3.7"
+version = "3.8"
 description = "Internationalized Domain Names in Applications (IDNA)"
 category = "main"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.6"
 files = [
-    {file = "idna-3.7-py3-none-any.whl", hash = "sha256:82fee1fc78add43492d3a1898bfa6d8a904cc97d8427f683ed8e798d07761aa0"},
-    {file = "idna-3.7.tar.gz", hash = "sha256:028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"},
+    {file = "idna-3.8-py3-none-any.whl", hash = "sha256:050b4e5baadcd44d760cedbd2b8e639f2ff89bbc7a5730fcc662954303377aac"},
+    {file = "idna-3.8.tar.gz", hash = "sha256:d838c2c0ed6fced7693d5e8ab8e734d5f8fda53a039c0164afb0b82e771e3603"},
 ]
 
 [[package]]
 name = "mojo-collections"
-version = "2.0.1"
+version = "2.0.22"
 description = "Mojo Collections Package"
 category = "main"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "mojo_collections-2.0.1-py3-none-any.whl", hash = "sha256:97d186cb7262fd604dde62634d9929cbb0ee0bb8bdb2ad53e3e353e3542b7909"},
-    {file = "mojo_collections-2.0.1.tar.gz", hash = "sha256:79f3a46614cc1a1d07173a738fae122049e3251238596fd3c32c1b205a4e066c"},
+    {file = "mojo_collections-2.0.22-py3-none-any.whl", hash = "sha256:b9307c8de82d687167becdf822cd35d5fe8d3abf3a698edbbed54898dedbad30"},
+    {file = "mojo_collections-2.0.22.tar.gz", hash = "sha256:0cfb71917dc7aaefa7004ad73278f844ff88da03f0d4614cb1e9fc24820e89f4"},
 ]
 
 [[package]]
@@ -532,14 +532,14 @@ mojo-errors = ">=2.0.0,<2.1.0"
 
 [[package]]
 name = "mojo-errors"
-version = "2.0.0"
+version = "2.0.1"
 description = "Automation Mojo Errors Module"
 category = "main"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "mojo_errors-2.0.0-py3-none-any.whl", hash = "sha256:dd0acddf8ec0ae7978b224aed6c1217d0c96e7f5312976a38706598da2831132"},
-    {file = "mojo_errors-2.0.0.tar.gz", hash = "sha256:05bac3948cf9add042057a6b15615ba3edde425851d0b019721e82bfe173b96b"},
+    {file = "mojo_errors-2.0.1-py3-none-any.whl", hash = "sha256:4b2e8d8e0cff05f8acce64397a11a0670e17e567ce5175b1f2f1c6a82ef00945"},
+    {file = "mojo_errors-2.0.1.tar.gz", hash = "sha256:6620509734e78dd09706e483afc4efeef32ca11cbaf690d5d6c375ef5fa0e847"},
 ]
 
 [[package]]
@@ -661,14 +661,14 @@ paramiko = ">=3.1.0,<4.0.0"
 
 [[package]]
 name = "paramiko"
-version = "3.4.0"
+version = "3.4.1"
 description = "SSH2 protocol library"
 category = "main"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "paramiko-3.4.0-py3-none-any.whl", hash = "sha256:43f0b51115a896f9c00f59618023484cb3a14b98bbceab43394a39c6739b7ee7"},
-    {file = "paramiko-3.4.0.tar.gz", hash = "sha256:aac08f26a31dc4dffd92821527d1682d99d52f9ef6851968114a8728f3c274d3"},
+    {file = "paramiko-3.4.1-py3-none-any.whl", hash = "sha256:8e49fd2f82f84acf7ffd57c64311aa2b30e575370dc23bdb375b10262f7eac32"},
+    {file = "paramiko-3.4.1.tar.gz", hash = "sha256:8b15302870af7f6652f2e038975c1d2973f06046cb5d7d65355668b3ecbece0c"},
 ]
 
 [package.dependencies]
@@ -915,4 +915,4 @@ mongodb = ["pymongo"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4.0"
-content-hash = "b6f7d6b0d0c61c9d3a0eafc4ee0aa970f796232991b2fd37f1248ddd15b84f0c"
+content-hash = "6eee0d11340a556672e3cf88e36e6405a8e8c987d2a56c77f9f1475ed916c0cc"
