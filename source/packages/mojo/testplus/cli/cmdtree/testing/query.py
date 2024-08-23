@@ -44,7 +44,7 @@ def command_testplus_testing_query(root, includes, excludes,
     from mojo.xmods.xpython import extend_path
 
     from mojo.runtime.activation import activate_runtime, ActivationProfile
-    from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES, resolve_runtime_variables
+    from mojo.runtime.runtimevariables import MOJO_RUNTIME_VARIABLES
 
     # STEP 2 - Resolve the configuration variables (performed by the root command)
 
