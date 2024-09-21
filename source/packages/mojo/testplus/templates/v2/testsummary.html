@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--
+        __author__ = "Myron Walker"
+        __copyright__ = "Copyright 2020, Myron W Walker"
+        __version__ = "2.0.0"
+    -->
+    <head>
+
+        <link rel="stylesheet" href="/static/v2/prism.css" ></link>
+        <link rel="stylesheet" href="/static/v2/testsummary.css" ></link>
+
+        <link rel="import" href="/static/v2/testsummary-templates.html" id="testsummary-templates"></link>
+
+        <script type="text/javascript" src="/static/v2/testsummary-components.js" ></script>
+        <script type="text/javascript" src="/static/v2/testsummary-helpers.js" ></script>
+        <script type="text/javascript" src="/static/v2/testsummary.js" ></script>
+
+        <script type="text/javascript">
+
+            function on_page_load() {
+                refresh_page().then(function() {
+                console.log("Page loaded");
+                }, function(err) {
+                    console.log("ERROR:\n" + err);
+                    console.log(err.stack)
+                });
+            }
+
+        </script>
+
+    </head>
+    <body onload="on_page_load()">
+        <script type="text/javascript" src="/static/v2/prism.js" ></script>
+        <div class='section-header'>
+            <testsummary-banner id="testsummary-banner" />
+        </div>
+            
+        <div class='section-body'>
+            <testsummary-configuration id="teststummary-configuration"/>
+
+            <div class="test-configuration-card">
+                <h2 id='test-configuration-title' class='body-title'>Configuration</h2>
+                <div id='test-configuration-header'>
+                </div>
+                <div id='test-configuration-body' class='landscape-table'>
+                </div>
+            </div>
+            
+            <div class="test-results-card">
+                <h2 id='test-results-title' class='body-title'>Test Cases</h2>
+                <div id='test-results-header' class='results-headers'>
+                    <div class='results-hdr-start'>Start</div>
+                    <div class='results-hdr-name'>Test Name</div>
+                    <div class='results-hdr-e'>E</div>
+                    <div class='results-hdr-f'>F</div>
+                    <div class='results-hdr-s'>S</div>
+                    <div class='results-hdr-p'>P</div>
+                </div>
+                <div id='test-results-body' class='results-table'>
+                </div>
+            </div>
+            <div class="imp-error-card">
+                <h2 id='import-errors-title' class='body-title'>Import Failures</h2>
+                <div id='import-errors-header' class='imp-error-headers'>
+                    <div class='imp-error-hdr-filename'>Filename</div>
+                </div>
+                <div id='import-errors-body' class='imp-error-table' >
+                    
+                </div>
+            </div>
+            
+            <h2 id='artifacts-title' class='body-title' style="display: none">Artifacts</h2>
+            <div id='artifacts-tab-bar' class='tab' style="display: none">
+            </div>
+            <div id='artifacts-tab-content' style="display: none">
+            </div>
+        </div>
+        <div class='section-footer'>
+            <div class="files-and-folders-card">
+                <h2>Folders</h2>
+                <div id='container-folders' class='ff-list'>
+                </div>
+                <br/>
+                <h2>Files</h2>
+                <div id='container-files' class='ff-list'>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

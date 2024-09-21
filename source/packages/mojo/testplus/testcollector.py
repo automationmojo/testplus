@@ -24,7 +24,7 @@ from mojo.xmods.injection.injectionregistry import injection_registry
 from mojo.xmods.markers import MetaFilter
 from mojo.xmods.injection.coupling.integrationcoupling import IntegrationCoupling
 
-from mojo.testplus.exceptions import UnknownParameterError
+from mojo.errors.exceptions import UnknownParameterError
 from mojo.testplus.expressions import parse_test_include_expression
 from mojo.testplus.utilities import find_included_modules_under_root
 from mojo.testplus.queries import collect_test_references

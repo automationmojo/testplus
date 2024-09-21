@@ -1,0 +1,94 @@
+.ts-banner {
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px lightgrey;
+    background-color: #21224b;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.ts-banner-column {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px
+}
+
+.ts-banner-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    margin-top: 20px;
+    width: 100%;
+    text-shadow: 5px 5px 6px black;
+}
+
+.ts-banner-label {
+    text-align: right;
+    min-width: 60px;
+    font-weight: bolder;
+    font-size: 14pt;
+    padding-right: 10px;
+    color: whitesmoke;
+}
+
+.ts-banner-value {
+    text-align: left;
+    min-width: 80px;
+    font-size: 14pt;
+    padding-left: 8px;
+    padding-right: 20px;
+    color: whitesmoke;
+}
+
+.ts-banner-row {
+    display: flex;
+    flex-flow: row nowrap;
+    flex-grow: 1;
+    text-align: left;
+    justify-content: flex-start;
+}
+
+.ts-banner-logo {
+    width: 100px;
+    height: 100px;
+    background-color: indigo;
+    margin: 10px;
+    content: url("test-report-banner-background-image.png");
+}
+
+.ts-banner-metrics {
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px lightgrey;
+    background-color:  white;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.ts-banner-metrics-column {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px
+}
+
+.ts-banner-metrics-panel {
+    display: flex;
+    flex-direction: row;
+    padding-left: 50px;
+    padding-right: 50px;
+    justify-content: flex-end;
+}
+
+.ts-banner-metrics-row {
+    display: flex;
+    flex-flow: row nowrap;
+    flex-grow: 1;
+    text-align: left;
+    justify-content: flex-start;
+    height: 30px;
+}
