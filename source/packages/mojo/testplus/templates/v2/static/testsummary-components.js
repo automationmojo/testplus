@@ -1,15 +1,46 @@
+/*
+    Author: "Myron Walker"
+    Copyright: "Copyright 2024, Myron W Walker"
+    Version: = "2.0.0"
+    Email: myron.walker@gmail.com
+*/
 
-var templatesLink = document.querySelector( 'link#testsummary-templates' )
-var templatesCollection = templatesLink.import
+
+let globalSheets = null;
+
+
+function getGlobalStyleSheets() {
+    if (globalSheets === null) {
+        globalSheets = Array.from(document.styleSheets)
+          .map(x => {
+            const sheet = new CSSStyleSheet();
+            const css = Array.from(x.cssRules).map(rule => rule.cssText).join(' ');
+            sheet.replaceSync(css);
+            return sheet;
+          });
+      }
+    
+      return globalSheets;
+}
+
+
+function addGlobalStylesToShadowRoot(shadowRoot) {
+    shadowRoot.adoptedStyleSheets.push(
+        ...getGlobalStyleSheets()
+    );
+}
+
 
 class TestSummaryBanner extends HTMLElement {
     constructor() {
         super();
 
-        const template = templatesCollection.querySelector("#template-testsummary-banner").content;
+        const template = document.querySelector("#template-testsummary-banner");
 
         const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.appendChild(template.cloneNode(true));
+        shadowRoot.innerHTML = template.innerHTML;
+
+        addGlobalStylesToShadowRoot(shadowRoot);
 
         this.summary = {};
     }
@@ -47,7 +78,7 @@ class TestSummaryBanner extends HTMLElement {
         }
 
         if ("detail" in this.summary) {
-            var detailInfo = this.summary["build"];
+            var detailInfo = this.summary["detail"];
 
             var errors = detailInfo["errors"];
             var failed = detailInfo["failed"];
@@ -76,40 +107,91 @@ class TestSummaryBanner extends HTMLElement {
     }
 }
 
-customElements.define("testsummary-banner", TestSummaryBanner);
-
 
 class TestSummaryConfiguration extends HTMLElement {
     constructor() {
         super();
 
-        const template = templatesCollection.querySelector("#template-testsummary-configuration").content;
+        const template = document.querySelector("#template-testsummary-configuration");
 
         const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.appendChild(template.cloneNode(true));
+        shadowRoot.innerHTML = template.innerHTML;
 
-        this.landscape = {};
-        this.packages = {};
-        this.environment = {};
+        addGlobalStylesToShadowRoot(shadowRoot);
+
+        this.landscape = undefined;
+        this.command = undefined;
+        this.environment = undefined;
+        this.packages = undefined;
     }
 
-    syncData (landscape, packages, environment) {
+    syncData (startup, landscape) {
+
         this.landscape = landscape;
-        this.packages = packages;
-        this.environment = environment
+
+        if (startup != null) {
+            if ("command" in startup) {
+                this.command = startup.command;
+            }
+
+            if ("environment" in startup) {
+                this.environment = startup.environment;
+            }
+
+            if ("packages" in startup) {
+                this.packages = startup.packages;
+            }
+        }
+
+        if (this.landscape != undefined) {
+            var landscapeElement = this.shadowRoot.querySelector("#id-ts-configuration-landscape");
+        }
+
+        if (this.command != undefined) {
+            var commandElement = this.shadowRoot.querySelector("#id-ts-configuration-command");
+
+            var commandDetail = this.shadowRoot.createElement("detail");
+            commandElement.appendChild(commandDetail);
+
+            var commandSummary = this.shadowRoot.createElement("summary");
+            commandSummary.innerHTML = "<div>Command</div>";
+            commandDetail.appendChild(commandSummary);
+        }
+
+        if (this.environment != undefined) {
+            var environmentElement = this.shadowRoot.querySelector("#id-ts-configuration-environment");
+        }
+
+        if (this.packages != undefined) {
+            var packagesElement = this.shadowRoot.querySelector("#id-ts-configuration-packages");
+        }
+
+    }
+
+    refreshCommand() {
+
+    }
+
+    refreshEnvironment() {
+
+    }
+
+    refreshLandscape() {
+
+    }
+
+    refreshPackages() {
+
     }
 
 }
-
-customElements.define("testsummary-configuration", TestSummaryConfiguration);
-
 
 
 class TestSummaryResultDetail extends HTMLElement {
     constructor() {
         super();
 
-        const template = templatesCollection.querySelector("#template-testsummary-resultdetail")
+        const template = document.querySelector("#template-testsummary-resultdetail")
 
         const shadowRoot = this.attachShadow({mode: 'open'})
         shadowRoot.append(template)
@@ -119,16 +201,13 @@ class TestSummaryResultDetail extends HTMLElement {
         
     }
 }
-
-customElements.define("testsummary-resultdetail", TestSummaryResultDetail);
-
 
 
 class TestSummaryArtifacts extends HTMLElement {
     constructor() {
         super();
 
-        const template = templatesCollection.querySelector("#template-testsummary-artifacts")
+        const template = document.querySelector("#template-testsummary-artifacts")
 
         const shadowRoot = this.attachShadow({mode: 'open'})
         shadowRoot.append(template)
@@ -138,16 +217,13 @@ class TestSummaryArtifacts extends HTMLElement {
         
     }
 }
-
-customElements.define("testsummary-artifacts", TestSummaryArtifacts);
-
 
 
 class TestSummaryImportFailures extends HTMLElement {
     constructor() {
         super();
 
-        const template = templatesCollection.querySelector("#template-testsummary-importfailures")
+        const template = document.querySelector("#template-testsummary-importfailures")
 
         const shadowRoot = this.attachShadow({mode: 'open'})
         shadowRoot.append(template)
@@ -157,16 +233,13 @@ class TestSummaryImportFailures extends HTMLElement {
         
     }
 }
-
-customElements.define("testsummary-importfailures", TestSummaryImportFailures);
-
 
 
 class TestSummaryFilesAndFolders extends HTMLElement {
     constructor() {
         super();
 
-        const template = templatesCollection.querySelector("#template-testsummary-filesandfolders")
+        const template = document.querySelector("#template-testsummary-filesandfolders")
 
         const shadowRoot = this.attachShadow({mode: 'open'})
         shadowRoot.append(template)
@@ -177,5 +250,12 @@ class TestSummaryFilesAndFolders extends HTMLElement {
     }
 }
 
-customElements.define("testsummary-filesandfolders", TestSummaryFilesAndFolders);
 
+function register_summary_components() {
+    customElements.define("testsummary-banner", TestSummaryBanner);
+    customElements.define("testsummary-configuration", TestSummaryConfiguration);
+    customElements.define("testsummary-resultdetail", TestSummaryResultDetail);
+    customElements.define("testsummary-artifacts", TestSummaryArtifacts);
+    customElements.define("testsummary-importfailures", TestSummaryImportFailures);
+    customElements.define("testsummary-filesandfolders", TestSummaryFilesAndFolders);
+}
