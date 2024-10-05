@@ -1,88 +1,116 @@
+<!--
+    Author: "Myron Walker"
+    Copyright: "Copyright 2024, Myron W Walker"
+    Version: = "2.0.0"
+    Email: myron.walker@gmail.com
+-->
+
+<template id="template-property-table">
+    <div class="ts-pgrid" id="id-ts-pgrid">
+        
+    </div>
+</template>
+
+
 <template id="template-testsummary-banner">
     <div class='ts-banner'>
-        <div class='ts-banner-logo' part="ts-banner-logo">
+        <div class='ts-banner-job'>
+            <div class='ts-banner-logo'>
+            </div>
+            <div class="ts-banner-content">
+                <div style="flex-grow: 1;"></div>
+                <div class="ts-banner-column">
+                    <div class="ts-banner-row">
+                        <div class="ts-banner-value-pair">
+                            <div class="ts-banner-label">Automation Pod:</div>
+                            <div class="ts-banner-value" id="id-summary-banner-apod">(not set)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ts-banner-column">
+                    <div class="ts-banner-row">
+                        <div class="ts-banner-value-pair">
+                            <div class="ts-banner-label">Branch:</div>
+                            <div class="ts-banner-value" id="id-summary-banner-branch">(not set)</div>
+                        </div>
+                    </div>
+                    <br>   
+                    <div class="ts-banner-row">
+                        <div class="ts-banner-value-pair" style="flex-basis: 1;">
+                            <div class="ts-banner-label">Start:</div>
+                            <div class="ts-banner-value" id="id-summary-banner-start">(not set)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ts-banner-column">
+                    <div class="ts-banner-row">
+                        <div class="ts-banner-value-pair">
+                            <div class="ts-banner-label">Build:</div>
+                            <div class="ts-banner-value" id="id-summary-banner-build">(not set)</div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="ts-banner-row">
+                        <div class="ts-banner-value-pair">
+                            <div class="ts-banner-label">Stop:</div>
+                            <div class="ts-banner-value" id="id-summary-banner-stop">(not set)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ts-banner-column">
+                    <div class="ts-banner-row">
+                        <div class="ts-banner-value-pair">
+                            <div class="ts-banner-label">Flavor:</div>
+                            <div class="ts-banner-value" id="id-summary-banner-flavor">(not set)</div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="ts-banner-row">
+                        <div class="ts-banner-value-pair">
+                            <div class="ts-banner-label">Status:</div>
+                            <div class="ts-banner-value" id="id-summary-banner-status">(not set)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="ts-banner-content">
+        <div class="ts-banner-metrics" >
             <div style="flex-grow: 1;"></div>
-            <div class="ts-banner-column">
-                <div class="ts-banner-row">
-                    <div class="ts-banner-value-pair">
-                        <div class="ts-banner-label">Automation Pod</div>
-                        <div class="ts-banner-value" id="id-summary-banner-apod">(not set)</div>
+            <div class="ts-banner-metrics-panel">
+                <div class="ts-banner-metrics-column">
+                    <div class="ts-banner-metrics-value-pair">
+                        <div class="ts-banner-metrics-label">Errors:</div>
+                        <div class="color-error ts-banner-metrics-value" id="id-summary-metrics-error">NaN</div>
                     </div>
                 </div>
-            </div>
-            <div class="ts-banner-column">
-                <div class="ts-banner-row">
-                    <div class="ts-banner-value-pair">
-                        <div class="ts-banner-label">Branch</div>
-                        <div class="ts-banner-value" id="id-summary-banner-branch">(not set)</div>
+                <div class="ts-banner-metrics-column">
+                    <div class="ts-banner-metrics-value-pair">
+                        <div class="ts-banner-metrics-label">Failed:</div>
+                        <div class="color-fail ts-banner-metrics-value" id="id-summary-metrics-fail">NaN</div>
                     </div>
                 </div>
-                <br>   
-                <div class="ts-banner-row">
-                    <div class="ts-banner-value-pair" style="flex-basis: 1;">
-                        <div class="ts-banner-label">Start</div>
-                        <div class="ts-banner-value" id="id-summary-banner-start">(not set)</div>
+                <div class="ts-banner-metrics-column">
+                    <div class="ts-banner-metrics-value-pair">
+                        <div class="ts-banner-metrics-label">Skipped:</div>
+                        <div class="color-skip ts-banner-metrics-value" id="id-summary-metrics-skip">NaN</div>
                     </div>
                 </div>
-            </div>
-            <div class="ts-banner-column">
-                <div class="ts-banner-row">
-                    <div class="ts-banner-value-pair">
-                        <div class="ts-banner-label">Build</div>
-                        <div class="ts-banner-value" id="id-summary-banner-build">(not set)</div>
+                <div class="ts-banner-metrics-column">
+                    <div class="ts-banner-metrics-value-pair">
+                        <div class="ts-banner-metrics-label">Passed:</div>
+                        <div class="color-pass ts-banner-metrics-value" id="id-summary-metrics-pass">NaN</div>
                     </div>
                 </div>
-                <br>
-                <div class="ts-banner-row">
-                    <div class="ts-banner-value-pair">
-                        <div class="ts-banner-label">Stop</div>
-                        <div class="ts-banner-value" id="id-summary-banner-stop">(not set)</div>
+                <div class="ts-banner-metrics-column">
+                    <div class="ts-banner-metrics-value-pair">
+                        <div class="ts-banner-metrics-label">Total:</div>
+                        <div class="ts-banner-metrics-value" id="id-summary-metrics-total">NaN</div>
+                    </div>
+                    <div class="ts-banner-metrics-value-pair">
+                        <div class="ts-banner-metrics-label">Score:</div>
+                        <div class="ts-banner-metrics-value" id="id-summary-metrics-score">NaN</div>
                     </div>
                 </div>
-            </div>
-            <div class="ts-banner-column">
-                <div class="ts-banner-row">
-                    <div class="ts-banner-value-pair">
-                        <div class="ts-banner-label">Flavor</div>
-                        <div class="ts-banner-value" id="id-summary-banner-flavor">(not set)</div>
-                    </div>
-                </div>
-                <br>
-                <div class="ts-banner-row">
-                    <div class="ts-banner-value-pair">
-                        <div class="ts-banner-label">Status</div>
-                        <div class="ts-banner-value" id="id-summary-banner-status">(not set)</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="ts-banner-metrics" >
-        <div style="flex-grow: 1;"></div>
-        <div class="ts-banner-metrics-panel">
-            <div class="ts-banner-metrics-column">
-                <div class="ts-banner-metrics-row"><div class="ts-banner-label">Errors</div>
-                <div class="ts-banner-value color-error" id="id-summary-metrics-error">NaN</div></div>
-            </div>
-            <div class="ts-banner-metrics-column">
-                <div class="ts-banner-metrics-row"><div class="ts-banner-label">Failed</div>
-                <div class="ts-banner-value color-fail" id="id-summary-metrics-fail">NaN</div></div>
-            </div>
-            <div class="ts-banner-metrics-column">
-                <div class="ts-banner-metrics-row"><div class="ts-banner-label">Skipped</div>
-                <div class="ts-banner-value color-skip" id="id-summary-metrics-skip">NaN</div></div>
-            </div>
-            <div class="ts-banner-metrics-column">
-                <div class="ts-banner-metrics-row"><div class="ts-banner-label">Passed</div>
-                <div class="ts-banner-value color-pass" id="id-summary-metrics-pass">NaN</div></div>
-            </div>
-            <div class="ts-banner-metrics-column">
-                <div class="ts-banner-metrics-row"><div class="ts-banner-label">Total</div>
-                <div class="ts-banner-value" id="id-summary-metrics-total">NaN</div></div>
-                <div class="ts-banner-metrics-row"><div class="ts-banner-label">Score</div>
-                <div class="ts-banner-value" id="id-summary-metrics-score">NaN</div></div>
             </div>
         </div>
     </div>
@@ -91,43 +119,112 @@
 
 <template id="template-testsummary-configuration">
     <div class="ts-configuration-card">
-        <h2 id="ts-configuration-title" class="body-title">Configuration</h2>
-        <div id="ts-configuration-header">
+        <div class="ts-section-header">
+            <h2 class="zero-margins-and-padding">Configuration</h2>
         </div>
-        <div id="ts-configuration-body" class="landscape-table">
-        </div>
+        <div class="ts-section-detail">
+            <div class="ts_vertical_tiling_panel">
+                <property-table id="id-ts-configuration-command"></property-table>
+                <details style="display: block; padding-bottom: 4px;">
+                    <summary>Environment</summary>
+                    <property-table id="id-ts-configuration-environment"></property-table>
+                </details>
+                <details style="display: block; padding-bottom: 4px;">
+                    <summary>Packages</summary>
+                    <property-table id="id-ts-configuration-packages"></property-table>
+                </details>
+                <details style="display: block; padding-bottom: 4px;">
+                    <summary>Landscape</summary>
+                    <property-table id="id-ts-configuration-landscape"></property-table>
+                </details>
+            </div>
+        </div>  
     </div>
+</template>
+
+
+<template id="template-testsummary-resultgroup">
+    <details>
+        <summary id="id-rgroup-summary">
+            <div class="ts-results-grp-grid">
+                <span id="id-rgs-name" class="ts-results-grp-name"></span>
+                <span id="id-rgs-error" class="ts-results-grp-score"></span>
+                <span id="id-rgs-failure" class="ts-results-grp-score"></span>
+                <span id="id-rgs-skip" class="ts-results-grp-score"></span>
+                <span id="id-rgs-pass" class="ts-results-grp-score"></span>
+            </div>
+        </summary>
+        <div id="id-resultgroup-detail" style="margin-left: 20px;">
+        </div>
+    </details>
+
+</template>
+
+
+<template id="template-testsummary-resultitem">
+    <details>
+        <summary id="id-ritem-summary">
+            <div class="ts-results-items-grid">
+                <span id="id-ris-start" class="ts-results-item-start"></span>
+                <span id="id-ris-name" class="ts-results-item-name"></span>
+                <span id="id-ris-error" class="ts-results-item-score"></span>
+                <span id="id-ris-failure"  class="ts-results-item-score"></span>
+                <span id="id-ris-skip"  class="ts-results-item-score"></span>
+                <span id="id-ris-pass"  class="ts-results-item-score"></span>
+            </div>
+        </summary>
+        <div id="id-resultitem-detail">
+        </div>
+    </details>
 </template>
 
 
 <template id="template-testsummary-testresults">
-    <div class="test-results-card">
-        <h2 id='test-results-title' class='body-title'>Test Cases</h2>
-        <div id='test-results-header' class='results-headers'>
-            <div class='results-hdr-start'>Start</div>
-            <div class='results-hdr-name'>Test Name</div>
-            <div class='results-hdr-e'>E</div>
-            <div class='results-hdr-f'>F</div>
-            <div class='results-hdr-s'>S</div>
-            <div class='results-hdr-p'>P</div>
+    <div class="ts-resultdetail-card">
+        <div class="ts-section-header">
+            <h2 class="zero-margins-and-padding">Test Result Detail</h2>
         </div>
-        <div id='test-results-body' class='results-table'>
+        <div class="ts-section-detail">
+            <div id='id-test-results-header' class='ts-results-hdr-grid'>
+                
+            </div>
+            <div id='id-test-results-items'>
+                
+            </div>
         </div>
     </div>
 </template>
 
 
-<template id="template-testsummary-importerrors">
-
+<template id="template-testsummary-artifacts">
+    <div class="ts-artifacts-card">
+        <div class="ts-section-header">
+            <h2 class="zero-margins-and-padding">Artifacts</h2>
+        </div>
+        <div class="ts-section-detail">
+        </div>
+    </div>
 </template>
 
 
-<template id="template-testsummary-folders">
-
+<template id="template-testsummary-importfailures">
+    <div class="ts-importfailures-card">
+        <div class="ts-section-header">
+            <h2 class="zero-margins-and-padding">Import Failures</h2>
+        </div>
+        <div class="ts-section-detail">
+        </div>
+    </div>
 </template>
 
 
-<template id="template-testsummary-files">
-
+<template id="template-testsummary-filesandfolders">
+    <div class="ts-filesandfolders-card">
+        <div class="ts-section-header">
+            <h2 class="zero-margins-and-padding">Files and Folders</h2>
+        </div>
+        <div class="ts-section-detail">
+        </div>
+    </div>
 </template>
 

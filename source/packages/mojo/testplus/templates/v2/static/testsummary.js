@@ -410,13 +410,23 @@ function refresh_startup_landscape() {
     }
 }
 
-
 function refresh_configuration() {
     var configurationComponent = document.getElementById("testsummary-configuration");
 
     configurationComponent.syncData(g_startup_configuration, g_landscape_configuration)
 }
 
+function refesh_results_content_as_grouped() {
+    var resultsDetail = document.getElementById("testsummary-resultdetail");
+
+    resultsDetail.syncData("render_by_package", g_results)
+}
+
+function refresh_results_content_as_tree() {
+    var resultsDetail = document.getElementById("testsummary-resultdetail");
+
+    resultsDetail.syncData("render_as_tree", g_results)
+}
 
 function refresh_summary() {
 
@@ -447,23 +457,19 @@ async function refresh_page() {
     });
 
     load_results().then(() => {
-        var result_content = null;
-
         if (g_display_mode == "GROUPED") {
-            result_content = create_results_content_as_grouped();
+            result_content = refesh_results_content_as_grouped();
         } else {
-            result_content = create_results_content_as_tree();
+            result_content = refresh_results_content_as_tree();
         }
 
-        if (result_content != null) {
-            var resultsContainer = document.getElementById("test-results-body");
-            resultsContainer.innerHTML = "";
-            resultsContainer.appendChild(result_content);
+        try {
+            window.Prism = window.Prism || {};
+            window.Prism.manual = true;
+            Prism.highlightAll();
+        } catch(error) {
+            console.warn(error)
         }
-
-        window.Prism = window.Prism || {};
-        window.Prism.manual = true;
-        Prism.highlightAll();
     });
 
     load_import_errors().then(() => {

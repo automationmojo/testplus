@@ -1,7 +1,142 @@
+/* =======================================================================
+    Author: "Myron Walker"
+    Copyright: "Copyright 2024, Myron W Walker"
+    Version: = "2.0.0"
+    Email: myron.walker@gmail.com
+ =======================================================================*/
+
+ .zero-margins-and-padding {
+    margin: 0px;
+    padding: 0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+ }
+
+/* =======================================================================
+                                  COLOR CLASSES
+   =======================================================================*/
+.color-error {
+    color: maroon !important;
+}
+
+.color-fail {
+    color: red !important;
+}
+
+.color-ghost {
+    color: #B0B0B0 !important;
+}
+
+.color-pass {
+    color: green !important;
+}
+
+.color-skip {
+    color: gray !important;
+}
+
+.color-warn {
+    color: orange !important;
+}
+
+/* =======================================================================
+                               SIZING CLASSES
+   =======================================================================*/
+
+.full_available_width {
+    width: 100%;
+}
+
+.fit_content_width {
+    width: fit-content;
+}
+
+.flex_grow_content_width {
+    flex-grow: 1;
+}
+
+/* =======================================================================
+                           LAYOUT AND VISUAL CLASSES
+   =======================================================================*/
+
+.ts-pgrid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: max-content auto max-content;
+}
+
+.ts-pgrid-label {
+    height: 24px;
+    margin-bottom: 4px;
+    background-color: darkgray;
+    color: black;
+    text-align: right;
+    font-weight: bold;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px 1px 2px 2px;
+    padding: 3px 5px 0px 5px
+}
+
+.ts-pgrid-value {
+    height: 24px;
+    margin-bottom: 4px;
+    background-color: lightgray;
+    text-align: left;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px 2px 2px 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 3px 5px 0px 5px
+}
+
+.ts-pgrid-copy {
+    width: 50px;
+    margin-bottom: 4px;
+    height: 30px;
+    padding: 4px 5px 4px 5px
+}
+
+.ts_horizontal_tiling_panel {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.ts_vertical_tiling_panel {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.ts-section-header {
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-radius: 10px 10px 0px 0px;
+    background-color: lightgray;
+    color: black;
+}
+
+.ts-section-detail {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 0px 0px 10px 10px ;
+    background-color: white;
+}
+
 .ts-banner {
-    padding: 5px;
     border-radius: 10px;
-    box-shadow: 4px 4px 8px lightgrey;
+    box-shadow: 4px 4px 8px gray;
+    background-color: white;
+}
+
+.ts-banner-job {
+    padding: 0px;
+    border-radius: 10px 10px 0px 0px;
     background-color: #21224b;
     display: flex;
     flex-direction: row;
@@ -26,6 +161,8 @@
 }
 
 .ts-banner-label {
+    width: fit-content;
+    height: fit-content;
     text-align: right;
     min-width: 60px;
     font-weight: bolder;
@@ -35,6 +172,8 @@
 }
 
 .ts-banner-value {
+    width: fit-content;
+    height: fit-content;
     text-align: left;
     min-width: 80px;
     font-size: 14pt;
@@ -43,7 +182,7 @@
     color: whitesmoke;
 }
 
-.ts-banner-row {
+.ts-banner-value-pair {
     display: flex;
     flex-flow: row nowrap;
     flex-grow: 1;
@@ -56,7 +195,7 @@
     height: 100px;
     background-color: indigo;
     margin: 10px;
-    content: url("test-report-banner-background-image.png");
+    content: url("/static/v2/test-report-banner-background-image.png");
 }
 
 .ts-banner-metrics {
@@ -70,12 +209,6 @@
     flex-grow: 1;
 }
 
-.ts-banner-metrics-column {
-    display: flex;
-    flex-direction: column;
-    margin-right: 10px
-}
-
 .ts-banner-metrics-panel {
     display: flex;
     flex-direction: row;
@@ -84,7 +217,13 @@
     justify-content: flex-end;
 }
 
-.ts-banner-metrics-row {
+.ts-banner-metrics-column {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px
+}
+
+.ts-banner-metrics-value-pair {
     display: flex;
     flex-flow: row nowrap;
     flex-grow: 1;
@@ -92,3 +231,196 @@
     justify-content: flex-start;
     height: 30px;
 }
+
+.ts-banner-metrics-label {
+    width: fit-content;
+    height: fit-content;
+    text-align: right;
+    min-width: 60px;
+    font-weight: bolder;
+    font-size: 14pt;
+    padding-right: 10px;
+    color: black;
+}
+
+.ts-banner-metrics-value {
+    width: fit-content;
+    height: fit-content;
+    text-align: left;
+    min-width: 80px;
+    font-size: 14pt;
+    padding-left: 8px;
+    padding-right: 20px;
+    color: black;
+}
+
+
+.ts-artifacts-card {
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px gray;
+    background-color: white;
+    min-height: 100px;
+}
+
+.ts-configuration-card {
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px gray;
+    background-color: white;
+}
+
+.ts-filesandfolders-card {
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px gray;
+    background-color: white;
+    min-height: 100px;
+}
+
+.ts-importfailures-card {
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px gray;
+    background-color: white;
+    min-height: 100px;
+}
+
+.ts-resultdetail-card {
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px gray;
+    background-color: white;
+    min-height: 100px;
+}
+
+.ts-results-hdr-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(160px, max-content) auto minmax(60px, max-content) minmax(60px, max-content) minmax(60px, max-content) minmax(60px, max-content);
+}
+
+.ts-results-hdr-start {
+    text-align: center;
+    font-size: 14pt;
+    font-weight: bolder;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ts-results-hdr-name {
+    text-align: center;
+    font-size: 14pt;
+    font-weight: bolder;
+    flex-grow: 1;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ts-results-hdr-e {
+    text-align: center;
+    font-size: 14pt;
+    font-weight: bolder;
+    color: maroon;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ts-results-hdr-f {
+    text-align: center;
+    font-size: 14pt;
+    font-weight: bolder;
+    color: red;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ts-results-hdr-s {
+    text-align: center;
+    font-size: 14pt;
+    font-weight: bolder;
+    color: gray;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ts-results-hdr-p {
+    text-align: center;
+    font-size: 14pt;
+    font-weight: bolder;
+    color: green;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ts-results-hdr-w {
+    text-align: center;
+    font-size: 14pt;
+    font-weight: bolder;
+    color: orange;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ts-results-grp-grid {
+    display: inline-grid;
+    grid-template-columns: auto minmax(60px, max-content) minmax(60px, max-content) minmax(60px, max-content) minmax(60px, max-content);
+    width: calc(100% - 16px);
+}
+
+.ts-results-grp-start {
+    text-align: center;
+    font-size: 14pt;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ts-results-grp-name {
+    text-align: left;
+    font-size: 14pt;
+    flex-grow: 1;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ts-results-grp-score {
+    text-align: center;
+    font-size: 14pt;
+    color: maroon;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ts-results-items-grid {
+    width: calc(100% - 16px);
+    display: inline-grid;
+    grid-template-columns: minmax(140px, max-content) auto minmax(60px, max-content) minmax(60px, max-content) minmax(60px, max-content) minmax(60px, max-content);
+}
+
+.ts-results-item-indent {
+    width: 10px;
+}
+
+.ts-results-item-start {
+    text-align: center;
+    font-size: 14pt;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ts-results-item-name {
+    text-align: left;
+    font-size: 14pt;
+    flex-grow: 1;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ts-results-item-score {
+    text-align: center;
+    font-size: 14pt;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
