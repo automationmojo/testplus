@@ -161,6 +161,49 @@
 </template>
 
 
+<template id="template-testsummary-trace-item">
+    <div>
+        <pre id="id-trace-origin"></pre>
+        <pre id="id-trace-call"></pre>
+        <pre id="id-trace-code"></pre>
+    </div>
+</template>
+
+
+<template id="template-testsummary-error-item">
+    <div id="id-eitem-container">
+        <pre id="id-eitem-message"></pre>
+
+        <!-- The error trace elements are added here. -->
+        <div id="id-eitem-trace-items">
+
+        </div>
+    </div>
+</template>
+
+
+<template id="template-testsummary-failure-item">
+    <div id="id-fitem-container">
+        <pre id="id-fitem-message"></pre>
+
+        <!-- The failure trace elements are added here. -->
+        <div id="id-fitem-trace-items">
+
+        </div>
+    </div>
+</template>
+
+
+<template id="template-testsummary-taskgroup-item">
+
+</template>
+
+
+<template id="template-testsummary-tasking-item">
+
+</template>
+
+
 <template id="template-testsummary-resultitem">
     <details>
         <summary id="id-ritem-summary">
@@ -174,9 +217,15 @@
             </div>
         </summary>
         <div id="id-resultitem-detail">
+            <div id="id-ris-item-detail">
+            </div>
+            <div id="id-ris-taskings"></div>
         </div>
     </details>
 </template>
+
+
+
 
 
 <template id="template-testsummary-testresults">
