@@ -22,12 +22,12 @@ import traceback
 from mojo.collections.contextuser import ContextUser
 from mojo.collections.contextpaths import ContextPaths
 
-from mojo.config.variables import CONFIGURATION_MAPS
+from mojo.config.configurationmaps import CONFIGURATION_MAPS
 
 from mojo.xmods.xformatting import CommandOutputFormat
 from mojo.xmods.xdebugger import WELLKNOWN_BREAKPOINTS, debugger_wellknown_breakpoint_entry
 
-from mojo.runtime.variables import MOJO_RUNTIME_VARIABLES
+from mojo.runtime.runtimevariables import MOJO_RUNTIME_VARIABLES
 from mojo.runtime.paths import (
     get_summary_html_template_source,
     get_summary_static_resource_dest_dir,
