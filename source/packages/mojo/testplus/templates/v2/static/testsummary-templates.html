@@ -133,12 +133,67 @@
                     <summary>Packages</summary>
                     <property-table id="id-ts-configuration-packages"></property-table>
                 </details>
-                <details style="display: block; padding-bottom: 4px;">
+                <details id="id-ts-configuration-landscape" style="padding-bottom: 4px;">
                     <summary>Landscape</summary>
-                    <property-table id="id-ts-configuration-landscape"></property-table>
+                    <div style="margin-left: 20px;">
+                        <div id="id-ts-configuration-landscape-label"></div>
+                        <details id="id-ts-configuration-landscape-devices">
+                            <summary>Devices</summary>
+                            <div id="id-ts-configuration-landscape-device-groups" class="ts-lscape-device-groups-list">
+                            </div>
+                        </details>
+                        <details id="id-ts-configuration-landscape-services">
+                            <summary>Services</summary>
+                            <div id="id-ts-configuration-landscape-services-list" class="ts-lscape-services-list">
+
+                            </div>
+                        </details>
+                    </div>
                 </details>
             </div>
         </div>  
+    </div>
+</template>
+
+
+<template id="template-testsummary-deviceitem">
+    <div id="id-device-item-container" class="ts-lscape-device-item">
+        <div id="id-devitem-name">
+            <div id="id-devitem-name-label" class="ts-lscape-device-lbl">Name</div>
+            <div id="id-devitem-name-value" class="ts-lscape-device-val"></div>
+        </div>
+        <div id="id-devitem-role">
+            <div id="id-devitem-role-label" class="ts-lscape-device-lbl">Role</div>
+            <div id="id-devitem-role-value" class="ts-lscape-device-val"></div>
+        </div>
+        <div id="id-devitem-dtype">
+            <div id="id-devitem-dtype-label" class="ts-lscape-device-lbl">Type</div>
+            <div id="id-devitem-dtype-value" class="ts-lscape-device-val"></div>
+        </div>
+        <div id="id-devitem-host">
+            <div id="id-devitem-host-label" class="ts-lscape-device-lbl">Host</div>
+            <div id="id-devitem-host-value" class="ts-lscape-device-val"></div>
+        </div>
+        <div id="id-devitem-creds">
+            <div id="id-devitem-creds-label" class="ts-lscape-device-lbl">Credentails</div>
+            <div id="id-devitem-creds-value" class="ts-lscape-device-val"></div>
+        </div>
+        <div id="id-devitem-features">
+            <div id="id-devitem-features-label" class="ts-lscape-device-lbl">Features</div>
+            <div id="id-devitem-features-value" class="ts-lscape-device-val"></div>
+        </div>
+        <div id="id-devitem-skip">
+            <div id="id-devitem-skip-label" class="ts-lscape-device-lbl">Skip</div>
+            <div id="id-devitem-skip-value" class="ts-lscape-device-val"></div>
+        </div>
+    </div>
+</template>
+
+
+
+<template id="template-testsummary-devicegroup">
+    <div id="id-device-group-container" class="ts-lscape-device-group">
+
     </div>
 </template>
 

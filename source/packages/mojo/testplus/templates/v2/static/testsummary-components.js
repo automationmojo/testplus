@@ -160,6 +160,118 @@ class TestSummaryBanner extends HTMLElement {
 }
 
 
+class TestSummaryDeviceItem extends HTMLElement {
+    constructor() {
+        super();
+
+        const template = document.querySelector("#template-testsummary-deviceitem");
+
+        const shadowRoot = this.attachShadow({mode: 'open'});
+        shadowRoot.innerHTML = template.innerHTML;
+
+        addGlobalStylesToShadowRoot(shadowRoot);
+
+        this.name = undefined;
+        this.role = undefined;
+        this.device_type = undefined;
+        this.host = undefined;
+        this.credentials = undefined;
+        this.features = undefined;
+        this.skip = undefined;
+    }
+
+    syncData (device_info) {
+        var containerEl = this.shadowRoot.querySelector("#id-device-item-container");
+
+        var nameEl = containerEl.querySelector("#id-devitem-name-value");
+        var roleEl = containerEl.querySelector("#id-devitem-role-value");
+        var dtypeEl = containerEl.querySelector("#id-devitem-dtype-value");
+        var hostEl = containerEl.querySelector("#id-devitem-host-value");
+        var credsEl = containerEl.querySelector("#id-devitem-creds-value");
+        var featuresEl = containerEl.querySelector("#id-devitem-features-value");
+        var skipEl = containerEl.querySelector("#id-devitem-skip-value");
+
+        if ("name" in device_info) {
+            this.name = device_info["name"];
+            nameEl.innerHTML = this.name;
+        } else {
+            nameEl.style.display = 'none';
+        }
+
+        if ("role" in device_info) {
+            this.role = device_info["role"];
+            roleEl.innerHTML = this.role;
+        } else {
+            roleEl.style.display = 'none';
+        }
+
+        if ("dataType" in device_info) {
+            this.dtype = device_info["dataType"];
+            dtypeEl.innerHTML = this.dtype;
+        } else {
+            dtypeEl.style.display = 'none';
+        }
+
+        if ("host" in device_info) {
+            this.host = device_info["host"];
+            hostEl.innerHTML = this.host;
+        } else {
+            hostEl.style.display = 'none';
+        }
+
+        if ("credentials" in device_info) {
+            this.credentials = device_info["credentials"];
+            credsEl.innerHTML = this.credentials;
+        } else {
+            credsEl.style.display = 'none';
+        }
+
+        if ("features" in device_info) {
+            this.features = device_info["features"];
+            featuresEl.innerHTML = this.features;
+        } else {
+            featuresEl.style.display = 'none';
+        }
+
+        if ("skip" in device_info) {
+            this.skip = device_info["skip"];
+            skipEl.innerHTML = this.skip;
+        } else {
+            skipEl.style.display = 'none';
+        }
+
+    }
+}
+
+
+
+class TestSummaryDeviceGroup extends HTMLElement {
+    constructor() {
+        super();
+
+        const template = document.querySelector("#template-testsummary-devicegroup");
+
+        const shadowRoot = this.attachShadow({mode: 'open'});
+        shadowRoot.innerHTML = template.innerHTML;
+
+        addGlobalStylesToShadowRoot(shadowRoot);
+
+        this.name = undefined;
+        this.devices = undefined;
+    }
+
+    syncData(group_name, group_devices) {
+
+        var containerEl = this.shadowRoot.querySelector("#id-device-item-container");
+
+        this.name = name;
+        this.devices = group_devices;
+
+
+    }
+}
+
+
 class TestSummaryConfiguration extends HTMLElement {
     constructor() {
         super();
@@ -195,46 +307,100 @@ class TestSummaryConfiguration extends HTMLElement {
             }
         }
 
-        if (this.landscape != undefined) {
-            var landscapeElement = this.shadowRoot.querySelector("#id-ts-configuration-landscape");
-        }
-
         if (this.command != undefined) {
-            var commandElement = this.shadowRoot.querySelector("#id-ts-configuration-command");
-            commandElement.innerHTML = "";
+            var commandEl = this.shadowRoot.querySelector("#id-ts-configuration-command");
+            commandEl.innerHTML = "";
 
-            commandElement.syncData({ "Command": this.command });
+            commandEl.syncData({ "Command": this.command });
         }
 
         if (this.environment != undefined) {
-            var environmentElement = this.shadowRoot.querySelector("#id-ts-configuration-environment");
-            environmentElement.innerHTML = "";
+            var environmentEl = this.shadowRoot.querySelector("#id-ts-configuration-environment");
+            environmentEl.innerHTML = "";
 
-            environmentElement.syncData(this.environment);
+            environmentEl.syncData(this.environment);
         }
 
         if (this.packages != undefined) {
-            var packagesElement = this.shadowRoot.querySelector("#id-ts-configuration-packages");
-            packagesElement.innerHTML = "";
+            var packagesEl = this.shadowRoot.querySelector("#id-ts-configuration-packages");
+            packagesEl.innerHTML = "";
 
-            packagesElement.syncData(this.packages);
+            packagesEl.syncData(this.packages);
         }
 
-    }
+        if (this.landscape != undefined) {
+            var landscapeDetailsEl = this.shadowRoot.querySelector("#id-ts-configuration-landscape");
+            landscapeDetailsEl.style.display = "block";
 
-    refreshCommand() {
+            var landscape = this.landscape;
 
-    }
+            var landscapeDevicesEl = this.shadowRoot.querySelector("#id-ts-configuration-landscape-devices");
 
-    refreshEnvironment() {
+            if (landscape.apod != undefined) {
+                var apod = landscape.apod
 
-    }
+                var deviceGroupsEl = this.shadowRoot.querySelector("#id-ts-configuration-landscape-device-groups");
 
-    refreshLandscape() {
+                if (apod.length > 0) {
+                    // If we have device groups in the automation pod, then 
 
-    }
+                    for (var device_group of Object.keys(apod)) {
 
-    refreshPackages() {
+                        console.debug("Processing device group (" + device_group + ")");
+
+                        var group_devices = apod[device_group];
+                        
+                        var nextDeviceGroupEl = document.createElement("testsummary-devicegroup");
+                        nextDeviceGroupEl.syncData(device_group, group_devices);
+
+                        deviceGroupsEl.appendChild(nextDeviceGroupEl)
+                    }
+
+                } else {
+                    landscapeDevicesEl.style.display = "none";
+                }
+
+            } else {
+                landscapeDevicesEl.style.display = "none";
+            }
+
+            if (landscape.dataprofiles != undefined) {
+                // TODO: Add support for displaying data profiles
+            
+            } else {
+                var landscapeDevicesEl = this.shadowRoot.querySelector("#id-ts-configuration-landscape-dataprofiles");
+                landscapeDevicesEl.style.display = "none";
+            }
+
+            if (landscape.environment != undefined) {
+                var lscape_env = landscape.environment;
+
+                if (lscape_env.label != undefined) {
+                    var env_label = lscape_env.label;
+
+                    // TODO: Update the environment declared in the landscape file
+                }
+
+            }
+
+            if (landscape.infrastructure != undefined) {
+
+                var infrastructure = landscape.infrastructure;
+                var landscapeServiceEl = this.shadowRoot.querySelector("#id-ts-configuration-landscape-services");
+
+                if (infrastructure.services != undefined) {
+                    // TODO: Add support for displaying infrastructure details
+                    landscapeServiceEl.style.display = 'block';
+                
+                } else {
+                    landscapeServiceEl.style.display = 'none';
+                }
+            }
+
+        } else {
+            var landscapeDetailsEl = this.shadowRoot.querySelector("#id-ts-configuration-landscape");
+            landscapeDetailsEl.style.display = "none";
+        }
 
     }
 
@@ -289,7 +455,7 @@ class TestSummaryResultGroup extends HTMLElement {
         }
 
         var grpErrorEl = this.shadowRoot.querySelector("#id-rgs-error");
-        if (errored > 1) {
+        if (errored > 0) {
             grpErrorEl.classList.add("color-error");
         } else {
             grpErrorEl.classList.add("color-ghost");
@@ -297,7 +463,7 @@ class TestSummaryResultGroup extends HTMLElement {
         grpErrorEl.innerHTML = errored.toString();
 
         var grpFailEl = this.shadowRoot.querySelector("#id-rgs-failure");
-        if (failed > 1) {
+        if (failed > 0) {
             grpFailEl.classList.add("color-fail");
         } else {
             grpFailEl.classList.add("color-ghost");
@@ -305,7 +471,7 @@ class TestSummaryResultGroup extends HTMLElement {
         grpFailEl.innerHTML = failed.toString();
 
         var grpSkipEl = this.shadowRoot.querySelector("#id-rgs-skip");
-        if (skipped > 1) {
+        if (skipped > 0) {
             grpSkipEl.classList.add("color-skip");
         } else {
             grpSkipEl.classList.add("color-ghost");
@@ -313,7 +479,7 @@ class TestSummaryResultGroup extends HTMLElement {
         grpSkipEl.innerHTML = skipped.toString();
 
         var grpPassEl = this.shadowRoot.querySelector("#id-rgs-pass");
-        if (passed > 1) {
+        if (passed > 0) {
             grpPassEl.classList.add("color-pass");
         } else {
             grpPassEl.classList.add("color-ghost");
@@ -516,6 +682,8 @@ function register_summary_components() {
     customElements.define("property-table", PropertyTable);
     customElements.define("testsummary-banner", TestSummaryBanner);
     customElements.define("testsummary-configuration", TestSummaryConfiguration);
+    customElements.define("testsummary-devicegroup", TestSummaryDeviceGroup);
+    customElements.define("testsummary-deviceitem", TestSummaryDeviceItem);
     customElements.define("testsummary-resultgroup", TestSummaryResultGroup);
     customElements.define("testsummary-resultitem", TestSummaryResultItem);
     customElements.define("testsummary-resultdetail", TestSummaryResultDetail);

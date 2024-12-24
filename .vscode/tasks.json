@@ -55,7 +55,7 @@
             "options": {
                 "cwd": "${env:HOME}/mjr/results"
             },
-            "command": "${workspaceFolder}/.venv/bin/python -m http.server 8888",
+            "command": "python3 ${workspaceFolder}/source/packages/mojo/testplus/resultserver.py",
             "problemMatcher": []
         },
         {

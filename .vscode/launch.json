@@ -38,7 +38,7 @@
                 "testing",
                 "run",
                 "--root=${workspaceFolder}/source/testroots/mojo",
-                "--includes=mojo.tests.testplus.local.test_validator_injection"
+                "--includes=mojo.tests.testplus.local"
             ],
             "console": "integratedTerminal",
             "justMyCode": false
@@ -81,6 +81,18 @@
                 "password",
                 "--results",
                 "/home/myron/mjr/results/testresults/2023-06-25T2106!48.804103"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            "name": "Python: Results - Server",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/source/packages/mojo/testplus/resultserver.py",
+            "envFile": "${workspaceFolder}/.env",
+            "args": [
+                "--directory=~/mjr/results"
             ],
             "console": "integratedTerminal",
             "justMyCode": false

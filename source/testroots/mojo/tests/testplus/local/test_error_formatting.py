@@ -1,9 +1,11 @@
 
 import mojo.testplus as testplus
 
-
 def test_intentional_error():
-    testplus.assert_equal(False, True, "Intentional error")
+    raise Exception("Intentional error.")
+
+def test_intentional_failure():
+    testplus.assert_equal(False, True, "Intentional failure.")
     return
 
 if __name__ == "__main__":

@@ -286,6 +286,34 @@
     min-height: 100px;
 }
 
+.ts-lscape-device-item {
+    display: flex;
+    flex-direction: row;
+}
+
+.ts-lscape-device-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.ts-lscape-device-groups-list {
+    display: flex;
+    flex-direction: row;
+}
+
+.ts-lscape-services-list {
+    display: flex;
+    flex-direction: row;
+}
+
+.ts-lscape-device-lbl {
+    
+}
+
+.ts-lscape-device-val {
+    
+}
+
 .ts-resultdetail-card {
     margin-top: 10px;
     border-radius: 10px;
