@@ -1,0 +1,726 @@
+
+{
+    "name": "<session>",
+    "instance": "e02c754f-2a77-4e4b-9c8b-b69703099dba",
+    "parent": null,
+    "rtype": "JOB"
+}
+{
+    "name": "mojo",
+    "instance": "b39fac03-b7d6-4c43-815d-3b235d367f94",
+    "parent": "e02c754f-2a77-4e4b-9c8b-b69703099dba",
+    "rtype": "TEST_CONTAINER"
+}
+{
+    "name": "mojo.tests",
+    "instance": "e56e9045-50f7-49b0-abc4-002968643498",
+    "parent": "b39fac03-b7d6-4c43-815d-3b235d367f94",
+    "rtype": "TEST_CONTAINER"
+}
+{
+    "name": "mojo.tests.testplus",
+    "instance": "17b46f92-2a90-4583-9d2c-dd3554a89f07",
+    "parent": "e56e9045-50f7-49b0-abc4-002968643498",
+    "rtype": "TEST_CONTAINER"
+}
+{
+    "name": "mojo.tests.testplus.local",
+    "instance": "bd278f51-3ada-4162-a487-4bc14275851a",
+    "parent": "17b46f92-2a90-4583-9d2c-dd3554a89f07",
+    "rtype": "TEST_CONTAINER"
+}
+{
+    "name": "mojo.tests.testplus.local.injection",
+    "instance": "fd949fe2-ef56-4105-97a5-e69c595f0b3c",
+    "parent": "bd278f51-3ada-4162-a487-4bc14275851a",
+    "rtype": "TEST_CONTAINER"
+}
+{
+    "name": "mojo.tests.testplus.local.injection.test_constraints",
+    "instance": "2d84ce27-e5d8-4143-a1ef-b1be3c9370a0",
+    "parent": "fd949fe2-ef56-4105-97a5-e69c595f0b3c",
+    "rtype": "TEST_CONTAINER"
+}
+{
+    "name": "mojo.tests.testplus.local.injection.test_constraints#test_activity_logging",
+    "monikers": [],
+    "pivots": {},
+    "instance": "ada56679-5037-4f33-b82b-374f75c00d30",
+    "parent": "2d84ce27-e5d8-4143-a1ef-b1be3c9370a0",
+    "rtype": "TEST",
+    "result": "UNSET",
+    "start": "2024-12-14T18:29:17.622490",
+    "stop": ""
+}
+{
+    "name": "mojo.tests.testplus.local.injection.test_constraints#test_activity_logging",
+    "monikers": [],
+    "pivots": {},
+    "instance": "ada56679-5037-4f33-b82b-374f75c00d30",
+    "parent": "2d84ce27-e5d8-4143-a1ef-b1be3c9370a0",
+    "rtype": "TEST",
+    "result": "PASSED",
+    "start": "2024-12-14T18:29:17.622490",
+    "stop": "2024-12-14T18:29:21.633337",
+    "detail": {
+        "errors": [],
+        "failures": [],
+        "warnings": []
+    }
+}
+{
+    "name": "mojo.tests.testplus.local.injection.test_constraints#test_constraint_constrained_parameter",
+    "monikers": [],
+    "pivots": {},
+    "instance": "bd647711-59c8-4161-a0d7-2426dd501471",
+    "parent": "2d84ce27-e5d8-4143-a1ef-b1be3c9370a0",
+    "rtype": "TEST",
+    "result": "UNSET",
+    "start": "2024-12-14T18:29:21.635562",
+    "stop": ""
+}
+{
+    "name": "mojo.tests.testplus.local.injection.test_constraints#test_constraint_constrained_parameter",
+    "monikers": [],
+    "pivots": {},
+    "instance": "bd647711-59c8-4161-a0d7-2426dd501471",
+    "parent": "2d84ce27-e5d8-4143-a1ef-b1be3c9370a0",
+    "rtype": "TEST",
+    "result": "PASSED",
+    "start": "2024-12-14T18:29:21.635562",
+    "stop": "2024-12-14T18:29:21.636890",
+    "detail": {
+        "errors": [],
+        "failures": [],
+        "warnings": []
+    }
+}
+{
+    "name": "mojo.tests.testplus.local.injection.test_constraints#test_tscope_parameter",
+    "monikers": [],
+    "pivots": {},
+    "instance": "d96e489b-2373-4a3f-934e-4523ee852fde",
+    "parent": "2d84ce27-e5d8-4143-a1ef-b1be3c9370a0",
+    "rtype": "TEST",
+    "result": "UNSET",
+    "start": "2024-12-14T18:29:21.638026",
+    "stop": ""
+}
+{
+    "name": "mojo.tests.testplus.local.injection.test_constraints#test_tscope_parameter",
+    "monikers": [],
+    "pivots": {},
+    "instance": "d96e489b-2373-4a3f-934e-4523ee852fde",
+    "parent": "2d84ce27-e5d8-4143-a1ef-b1be3c9370a0",
+    "rtype": "TEST",
+    "result": "PASSED",
+    "start": "2024-12-14T18:29:21.638026",
+    "stop": "2024-12-14T18:29:21.638906",
+    "detail": {
+        "errors": [],
+        "failures": [],
+        "warnings": []
+    }
+}
+{
+    "name": "mojo.tests.testplus.local.test_error_formatting",
+    "instance": "ce08d6ef-54e8-47d5-b906-3c8eb97802b8",
+    "parent": "bd278f51-3ada-4162-a487-4bc14275851a",
+    "rtype": "TEST_CONTAINER"
+}
+{
+    "name": "mojo.tests.testplus.local.test_error_formatting#test_intentional_error",
+    "monikers": [],
+    "pivots": {},
+    "instance": "0644e494-a432-4495-bed4-c9906a6d46bb",
+    "parent": "ce08d6ef-54e8-47d5-b906-3c8eb97802b8",
+    "rtype": "TEST",
+    "result": "UNSET",
+    "start": "2024-12-14T18:29:21.641846",
+    "stop": ""
+}
+{
+    "name": "mojo.tests.testplus.local.test_error_formatting#test_intentional_error",
+    "monikers": [],
+    "pivots": {},
+    "instance": "0644e494-a432-4495-bed4-c9906a6d46bb",
+    "parent": "ce08d6ef-54e8-47d5-b906-3c8eb97802b8",
+    "rtype": "TEST",
+    "result": "ERRORED",
+    "start": "2024-12-14T18:29:21.641846",
+    "stop": "2024-12-14T18:29:21.654067",
+    "detail": {
+        "errors": [
+            {
+                "extype": "Exception",
+                "exargs": [
+                    "'Intentional error.'"
+                ],
+                "traces": [
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/source/testroots/mojo/tests/testplus/local/test_error_formatting.py",
+                            "lineno": 5,
+                            "scope": "test_intentional_error"
+                        },
+                        "call": "test_intentional_error()",
+                        "code": [
+                            "4: def test_intentional_error():",
+                            "5:     raise Exception(\"Intentional error.\")"
+                        ],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "lineno": 135,
+                            "scope": "scope_mojo_tests_testplus_local_test_error_formatting"
+                        },
+                        "call": "scope_mojo_tests_testplus_local_test_error_formatting(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "lineno": 133,
+                            "scope": "scope_mojo_tests_testplus_local_test_error_formatting"
+                        },
+                        "call": "scope_mojo_tests_testplus_local_test_error_formatting(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "lineno": 73,
+                            "scope": "scope_mojo_tests_testplus_local"
+                        },
+                        "call": "scope_mojo_tests_testplus_local(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "lineno": 62,
+                            "scope": "scope_mojo_tests_testplus"
+                        },
+                        "call": "scope_mojo_tests_testplus(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "lineno": 52,
+                            "scope": "scope_mojo_tests"
+                        },
+                        "call": "scope_mojo_tests(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "lineno": 42,
+                            "scope": "scope_mojo"
+                        },
+                        "call": "scope_mojo(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "lineno": 32,
+                            "scope": "session"
+                        },
+                        "call": "session(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/source/packages/mojo/testplus/sequencing/testsequencer.py",
+                            "lineno": 420,
+                            "scope": "execute_tests"
+                        },
+                        "call": "execute_tests(self=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>, runid='e02c754f-2a77-4e4b-9c8b-b69703099dba', recorder=<mojo.results.recorders.jsonresultrecorder.JsonResultRecorder object at 0x1039b89b0>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/source/packages/mojo/testplus/testjob.py",
+                            "lineno": 291,
+                            "scope": "execute"
+                        },
+                        "call": "execute(self=<mojo.testplus.testjob.DefaultTestJob object at 0x1038a46b0>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/source/packages/mojo/testplus/cli/cmdtree/testing/run.py",
+                            "lineno": 337,
+                            "scope": "command_testplus_testing_run"
+                        },
+                        "call": "command_testplus_testing_run(root='/Users/myron/repos/testplus/source/testroots/mojo', includes=('mojo.tests.testplus.local',), excludes=(), output=None, start=None, runid=None, branch=None, build=None, flavor=None, job_id=None, job_initiator=None, job_label=None, job_name=None, job_owner=None, default_configs=(), config_name=None, credential_files=(), credential_names=(), credential_sources=(), landscape_files=(), landscape_names=(), landscape_sources=(), runtime_files=(), runtime_names=(), runtime_sources=(), topology_files=(), topology_names=(), topology_sources=(), console_level=None, logfile_level=None, debugger=None, breakpoints=(), prerun_diagnostic=False, postrun_diagnostic=False, include_marker_exp=(), exclude_marker_exp=())",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/.venv/lib/python3.12/site-packages/click/core.py",
+                            "lineno": 783,
+                            "scope": "invoke"
+                        },
+                        "call": "invoke(_Context__self=<click.core.Context object at 0x1031fa0f0>, _Context__callback=<function command_testplus_testing_run at 0x103139da0>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/.venv/lib/python3.12/site-packages/click/core.py",
+                            "lineno": 1434,
+                            "scope": "invoke"
+                        },
+                        "call": "invoke(self=<Command run>, ctx=<click.core.Context object at 0x1031fa0f0>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/.venv/lib/python3.12/site-packages/click/core.py",
+                            "lineno": 1688,
+                            "scope": "invoke"
+                        },
+                        "call": "invoke(self=<Group testing>, ctx=<click.core.Context object at 0x1031449b0>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/.venv/lib/python3.12/site-packages/click/core.py",
+                            "lineno": 1688,
+                            "scope": "invoke"
+                        },
+                        "call": "invoke(self=<Group testplus>, ctx=<click.core.Context object at 0x103051910>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/.venv/lib/python3.12/site-packages/click/core.py",
+                            "lineno": 1078,
+                            "scope": "main"
+                        },
+                        "call": "main(self=<Group testplus>, args=['testing', 'run', '--root=/Users/myron/repos/testplus/source/testroots/mojo', '--includes=mojo.tests.testplus.local'], prog_name='testplus_command.py', complete_var=None, standalone_mode=True, windows_expand_args=True)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/.venv/lib/python3.12/site-packages/click/core.py",
+                            "lineno": 1157,
+                            "scope": "__call__"
+                        },
+                        "call": "__call__(self=<Group testplus>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/source/packages/mojo/testplus/cli/testplus_command.py",
+                            "lineno": 50,
+                            "scope": "<module>"
+                        },
+                        "call": "<module>()",
+                        "code": [],
+                        "context": null
+                    }
+                ]
+            }
+        ],
+        "failures": [],
+        "warnings": []
+    }
+}
+{
+    "name": "mojo.tests.testplus.local.test_error_formatting#test_intentional_failure",
+    "monikers": [],
+    "pivots": {},
+    "instance": "7ea7d546-a583-4a3d-b35d-9a0515e7d53c",
+    "parent": "ce08d6ef-54e8-47d5-b906-3c8eb97802b8",
+    "rtype": "TEST",
+    "result": "UNSET",
+    "start": "2024-12-14T18:29:21.655701",
+    "stop": ""
+}
+{
+    "name": "mojo.tests.testplus.local.test_error_formatting#test_intentional_failure",
+    "monikers": [],
+    "pivots": {},
+    "instance": "7ea7d546-a583-4a3d-b35d-9a0515e7d53c",
+    "parent": "ce08d6ef-54e8-47d5-b906-3c8eb97802b8",
+    "rtype": "TEST",
+    "result": "FAILED",
+    "start": "2024-12-14T18:29:21.655701",
+    "stop": "2024-12-14T18:29:25.979140",
+    "detail": {
+        "errors": [],
+        "failures": [
+            {
+                "extype": "AssertionError",
+                "exargs": [
+                    "\"'Intentional failure.' API result verification failed because the found value did not match expected value:\\nEXPECTED:\\nEXPECTED: True\\nFOUND: False\""
+                ],
+                "traces": [
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/source/packages/mojo/testplus/verification.py",
+                            "lineno": 127,
+                            "scope": "assert_equal"
+                        },
+                        "call": "assert_equal(found=False, expected=True, api='Intentional failure.')",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/source/testroots/mojo/tests/testplus/local/test_error_formatting.py",
+                            "lineno": 8,
+                            "scope": "test_intentional_failure"
+                        },
+                        "call": "test_intentional_failure()",
+                        "code": [
+                            "07: def test_intentional_failure():",
+                            "08:     testplus.assert_equal(False, True, \"Intentional failure.\")",
+                            "09:     return"
+                        ],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "lineno": 143,
+                            "scope": "scope_mojo_tests_testplus_local_test_error_formatting"
+                        },
+                        "call": "scope_mojo_tests_testplus_local_test_error_formatting(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "lineno": 141,
+                            "scope": "scope_mojo_tests_testplus_local_test_error_formatting"
+                        },
+                        "call": "scope_mojo_tests_testplus_local_test_error_formatting(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "lineno": 73,
+                            "scope": "scope_mojo_tests_testplus_local"
+                        },
+                        "call": "scope_mojo_tests_testplus_local(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "lineno": 62,
+                            "scope": "scope_mojo_tests_testplus"
+                        },
+                        "call": "scope_mojo_tests_testplus(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "lineno": 52,
+                            "scope": "scope_mojo_tests"
+                        },
+                        "call": "scope_mojo_tests(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "lineno": 42,
+                            "scope": "scope_mojo"
+                        },
+                        "call": "scope_mojo(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "lineno": 32,
+                            "scope": "session"
+                        },
+                        "call": "session(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/source/packages/mojo/testplus/sequencing/testsequencer.py",
+                            "lineno": 420,
+                            "scope": "execute_tests"
+                        },
+                        "call": "execute_tests(self=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>, runid='e02c754f-2a77-4e4b-9c8b-b69703099dba', recorder=<mojo.results.recorders.jsonresultrecorder.JsonResultRecorder object at 0x1039b89b0>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/source/packages/mojo/testplus/testjob.py",
+                            "lineno": 291,
+                            "scope": "execute"
+                        },
+                        "call": "execute(self=<mojo.testplus.testjob.DefaultTestJob object at 0x1038a46b0>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/source/packages/mojo/testplus/cli/cmdtree/testing/run.py",
+                            "lineno": 337,
+                            "scope": "command_testplus_testing_run"
+                        },
+                        "call": "command_testplus_testing_run(root='/Users/myron/repos/testplus/source/testroots/mojo', includes=('mojo.tests.testplus.local',), excludes=(), output=None, start=None, runid=None, branch=None, build=None, flavor=None, job_id=None, job_initiator=None, job_label=None, job_name=None, job_owner=None, default_configs=(), config_name=None, credential_files=(), credential_names=(), credential_sources=(), landscape_files=(), landscape_names=(), landscape_sources=(), runtime_files=(), runtime_names=(), runtime_sources=(), topology_files=(), topology_names=(), topology_sources=(), console_level=None, logfile_level=None, debugger=None, breakpoints=(), prerun_diagnostic=False, postrun_diagnostic=False, include_marker_exp=(), exclude_marker_exp=())",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/.venv/lib/python3.12/site-packages/click/core.py",
+                            "lineno": 783,
+                            "scope": "invoke"
+                        },
+                        "call": "invoke(_Context__self=<click.core.Context object at 0x1031fa0f0>, _Context__callback=<function command_testplus_testing_run at 0x103139da0>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/.venv/lib/python3.12/site-packages/click/core.py",
+                            "lineno": 1434,
+                            "scope": "invoke"
+                        },
+                        "call": "invoke(self=<Command run>, ctx=<click.core.Context object at 0x1031fa0f0>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/.venv/lib/python3.12/site-packages/click/core.py",
+                            "lineno": 1688,
+                            "scope": "invoke"
+                        },
+                        "call": "invoke(self=<Group testing>, ctx=<click.core.Context object at 0x1031449b0>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/.venv/lib/python3.12/site-packages/click/core.py",
+                            "lineno": 1688,
+                            "scope": "invoke"
+                        },
+                        "call": "invoke(self=<Group testplus>, ctx=<click.core.Context object at 0x103051910>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/.venv/lib/python3.12/site-packages/click/core.py",
+                            "lineno": 1078,
+                            "scope": "main"
+                        },
+                        "call": "main(self=<Group testplus>, args=['testing', 'run', '--root=/Users/myron/repos/testplus/source/testroots/mojo', '--includes=mojo.tests.testplus.local'], prog_name='testplus_command.py', complete_var=None, standalone_mode=True, windows_expand_args=True)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/.venv/lib/python3.12/site-packages/click/core.py",
+                            "lineno": 1157,
+                            "scope": "__call__"
+                        },
+                        "call": "__call__(self=<Group testplus>)",
+                        "code": [],
+                        "context": null
+                    },
+                    {
+                        "origin": {
+                            "file": "/Users/myron/repos/testplus/source/packages/mojo/testplus/cli/testplus_command.py",
+                            "lineno": 50,
+                            "scope": "<module>"
+                        },
+                        "call": "<module>()",
+                        "code": [],
+                        "context": null
+                    }
+                ]
+            }
+        ],
+        "warnings": []
+    }
+}
+{
+    "name": "mojo.tests.testplus.local.test_function_signatures",
+    "instance": "e66a411a-e7fc-45ec-b997-535f7e0c5a06",
+    "parent": "bd278f51-3ada-4162-a487-4bc14275851a",
+    "rtype": "TEST_CONTAINER"
+}
+{
+    "name": "mojo.tests.testplus.local.test_function_signatures#test_no_parameters",
+    "monikers": [],
+    "pivots": {},
+    "instance": "6ce9bf4a-5180-4521-9c00-5d7da3d0dd7b",
+    "parent": "e66a411a-e7fc-45ec-b997-535f7e0c5a06",
+    "rtype": "TEST",
+    "result": "UNSET",
+    "start": "2024-12-14T18:29:25.982460",
+    "stop": ""
+}
+{
+    "name": "mojo.tests.testplus.local.test_function_signatures#test_no_parameters",
+    "monikers": [],
+    "pivots": {},
+    "instance": "6ce9bf4a-5180-4521-9c00-5d7da3d0dd7b",
+    "parent": "e66a411a-e7fc-45ec-b997-535f7e0c5a06",
+    "rtype": "TEST",
+    "result": "PASSED",
+    "start": "2024-12-14T18:29:25.982460",
+    "stop": "2024-12-14T18:29:25.983081",
+    "detail": {
+        "errors": [],
+        "failures": [],
+        "warnings": []
+    }
+}
+{
+    "name": "mojo.tests.testplus.local.test_validator_injection",
+    "instance": "fafe84b5-9832-4937-ae0a-807fdc485240",
+    "parent": "bd278f51-3ada-4162-a487-4bc14275851a",
+    "rtype": "TEST_CONTAINER"
+}
+{
+    "name": "mojo.tests.testplus.local.test_validator_injection#test_no_parameters",
+    "monikers": [],
+    "pivots": {},
+    "instance": "3f119d6d-9327-4e7b-8aa1-c2621325a208",
+    "parent": "fafe84b5-9832-4937-ae0a-807fdc485240",
+    "rtype": "TEST",
+    "result": "UNSET",
+    "start": "2024-12-14T18:29:25.985128",
+    "stop": ""
+}
+{
+    "name": "mojo.tests.testplus.local.test_validator_injection#test_no_parameters_vcheck",
+    "monikers": [],
+    "pivots": {},
+    "instance": "71e032be-6f3c-4b13-a999-5ae2d9d8cdd7",
+    "parent": "fafe84b5-9832-4937-ae0a-807fdc485240",
+    "rtype": "TEST",
+    "result": "UNSET",
+    "start": "2024-12-14T18:29:25.986443",
+    "stop": ""
+}
+{
+    "name": "mojo.tests.testplus.local.test_validator_injection#test_no_parameters_vlcheck",
+    "monikers": [],
+    "pivots": {},
+    "instance": "2703cf23-ac1f-4a40-a7b1-305381d2d3f0",
+    "parent": "fafe84b5-9832-4937-ae0a-807fdc485240",
+    "rtype": "TEST",
+    "result": "UNSET",
+    "start": "2024-12-14T18:29:25.988348",
+    "stop": ""
+}
+{
+    "name": "mojo.tests.testplus.local.test_validator_injection#test_no_parameters_vticheck",
+    "monikers": [],
+    "pivots": {},
+    "instance": "bc372e1d-367a-421a-8f2f-29a6f47434b4",
+    "parent": "fafe84b5-9832-4937-ae0a-807fdc485240",
+    "rtype": "TEST",
+    "result": "UNSET",
+    "start": "2024-12-14T18:29:25.991437",
+    "stop": ""
+}
+{
+    "name": "mojo.tests.testplus.local.test_validator_injection#test_no_parameters_vticheck",
+    "monikers": [],
+    "pivots": {},
+    "instance": "bc372e1d-367a-421a-8f2f-29a6f47434b4",
+    "parent": "fafe84b5-9832-4937-ae0a-807fdc485240",
+    "rtype": "TEST",
+    "result": "PASSED",
+    "start": "2024-12-14T18:29:25.991437",
+    "stop": "2024-12-14T18:29:35.994264",
+    "detail": {
+        "errors": [],
+        "failures": [],
+        "warnings": []
+    }
+}
+{
+    "name": "mojo.tests.testplus.local.test_validator_injection#test_no_parameters_vlcheck",
+    "monikers": [],
+    "pivots": {},
+    "instance": "2703cf23-ac1f-4a40-a7b1-305381d2d3f0",
+    "parent": "fafe84b5-9832-4937-ae0a-807fdc485240",
+    "rtype": "TEST",
+    "result": "PASSED",
+    "start": "2024-12-14T18:29:25.988348",
+    "stop": "2024-12-14T18:29:35.996537",
+    "detail": {
+        "errors": [],
+        "failures": [],
+        "warnings": []
+    }
+}
+{
+    "name": "mojo.tests.testplus.local.test_validator_injection#test_no_parameters_vcheck",
+    "monikers": [],
+    "pivots": {},
+    "instance": "71e032be-6f3c-4b13-a999-5ae2d9d8cdd7",
+    "parent": "fafe84b5-9832-4937-ae0a-807fdc485240",
+    "rtype": "TEST",
+    "result": "PASSED",
+    "start": "2024-12-14T18:29:25.986443",
+    "stop": "2024-12-14T18:29:35.997179",
+    "detail": {
+        "errors": [],
+        "failures": [],
+        "warnings": []
+    }
+}
+{
+    "name": "mojo.tests.testplus.local.test_validator_injection#test_no_parameters",
+    "monikers": [],
+    "pivots": {},
+    "instance": "3f119d6d-9327-4e7b-8aa1-c2621325a208",
+    "parent": "fafe84b5-9832-4937-ae0a-807fdc485240",
+    "rtype": "TEST",
+    "result": "PASSED",
+    "start": "2024-12-14T18:29:25.985128",
+    "stop": "2024-12-14T18:29:35.997623",
+    "detail": {
+        "errors": [],
+        "failures": [],
+        "warnings": []
+    }
+}

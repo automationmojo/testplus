@@ -1,0 +1,20 @@
+breakpoints: []
+debugger: debugpy
+logging:
+    branched: []
+    levels:
+        console: INFO
+        logfile: DEBUG
+    logname: '{jobtype}.log'
+paths:
+    results:
+        tests: /Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046
+paths-templates:
+    results:
+        tests: /Users/myron/mjr/results/testresults/%(starttime)s
+results-configuration:
+    html-template: /Users/myron/repos/testplus/source/packages/mojo/testplus/templates/v1/testsummary.html
+    static-resource-dest-dir: /Users/myron/mjr/results/static/v1
+    static-resource-src-dir: /Users/myron/repos/testplus/source/packages/mojo/testplus/templates/v1/static
+testroot: /Users/myron/repos/testplus/source/testroots/mojo
+version: 1.0.0

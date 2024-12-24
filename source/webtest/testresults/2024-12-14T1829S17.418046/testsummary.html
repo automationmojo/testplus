@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--
+        __author__ = "Myron Walker"
+        __copyright__ = "Copyright 2020, Myron W Walker"
+        __version__ = "2.0.0"
+    -->
+    <head>
+
+        <link rel="stylesheet" href="/static/v2/prism.css" ></link>
+        <link rel="stylesheet" href="/static/v2/testsummary.css" ></link>
+
+        <script type="text/javascript" src="/static/v2/prism.js"></script>
+        <script type="text/javascript" src="/static/v2/testsummary-helpers.js"></script>
+        <script type="text/javascript" src="/static/v2/testsummary.js" ></script>
+        <script type="text/javascript" src="/static/v2/testsummary-components.js" ></script>
+
+        <script type="text/javascript">
+            function on_page_load() {
+                include_html_templates().then(function() {
+                    register_summary_components()
+
+                    refresh_page().then(function() {
+                    console.log("Page loaded");
+                    }, function(err) {
+                        console.log("ERROR:\n" + err);
+                        console.log(err.stack)
+                    });
+                })
+
+            }
+        </script>
+
+    </head>
+    <body onload="on_page_load()">
+
+        <div class='section-header'>
+            <testsummary-banner id="testsummary-banner" ></testsummary-banner>
+        </div>
+            
+        <div class='section-body ts_vertical_tiling_panel'>
+            <testsummary-configuration id="testsummary-configuration" ></testsummary-configuration>
+            <testsummary-resultdetail id="testsummary-resultdetail"></testsummary-resultdetail>
+            <testsummary-artifacts id="testsummary-artifacts"></testsummary-artifacts>
+            <testsummary-importfailures id="testsummary-importfailures"></testsummary-importfailures>
+        </div>
+          
+        <div class='section-footer'>
+            <testsummary-filesandfolders id="testsummary-filesandfolders"></testsummary-filesandfolders>
+        </div>
+
+        <div include-html-templates="/static/v2/testsummary-templates.html"></div>
+        
+    </body>
+</html>
