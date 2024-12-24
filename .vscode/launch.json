@@ -86,13 +86,13 @@
             "justMyCode": false
         },
         {
-            "name": "Python: Results - Server",
+            "name": "Python: Results - Tests",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/source/packages/mojo/testplus/resultserver.py",
             "envFile": "${workspaceFolder}/.env",
             "args": [
-                "--directory=~/mjr/results"
+                "--directory=${workspaceFolder}/source/webtest"
             ],
             "console": "integratedTerminal",
             "justMyCode": false
