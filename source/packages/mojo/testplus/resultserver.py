@@ -2,6 +2,8 @@
 import datetime
 import email.utils
 import os
+import posixpath
+import shutil
 import socket
 import urllib
 
@@ -20,6 +22,31 @@ class TestResultRequestHandler(SimpleHTTPRequestHandler):
         
         super().__init__(*args, directory=directory, **kwargs)
         return
+
+    def do_GET(self):
+        """Serve a GET request."""
+        f = self.send_head()
+        if f:
+            try:
+                self.copyfile(f, self.wfile)
+            finally:
+                f.close()
+
+    def copyfile(self, source, outputfile):
+        """Copy all data between two file objects.
+
+        The SOURCE argument is a file object open for reading
+        (or anything with a read() method) and the DESTINATION
+        argument is a file object open for writing (or
+        anything with a write() method).
+
+        The only reason for overriding this would be to change
+        the block size or perhaps to replace newlines by CRLF
+        -- note however that this the default server uses this
+        to copy binary data as well.
+
+        """
+        shutil.copyfileobj(source, outputfile)
 
     def send_head(self):
         """Common code for GET and HEAD commands.
@@ -110,6 +137,38 @@ class TestResultRequestHandler(SimpleHTTPRequestHandler):
         except:
             f.close()
             raise
+
+    def translate_path(self, path):
+        """Translate a /-separated PATH to the local filename syntax.
+
+        Components that mean special things to the local file system
+        (e.g. drive or directory names) are ignored.  (XXX They should
+        probably be diagnosed.)
+
+        """
+        # abandon query parameters
+        path = path.split('?',1)[0]
+        path = path.split('#',1)[0]
+        # Don't forget explicit trailing slash when normalizing. Issue17324
+        trailing_slash = path.rstrip().endswith('/')
+        try:
+            path = urllib.parse.unquote(path, errors='surrogatepass')
+        except UnicodeDecodeError:
+            path = urllib.parse.unquote(path)
+        path = posixpath.normpath(path)
+        words = path.split('/')
+        words = filter(None, words)
+        path = self.directory
+        for word in words:
+            if os.path.dirname(word) or word in (os.curdir, os.pardir):
+                # Ignore components that are not a simple file/directory name
+                continue
+            path = os.path.join(path, word)
+        if trailing_slash:
+            path += '/'
+
+        realpath = os.path.realpath(path)
+        return realpath
 
     def guess_type(self, path):
 

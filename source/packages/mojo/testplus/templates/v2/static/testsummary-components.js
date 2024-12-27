@@ -32,13 +32,17 @@ function addGlobalStylesToShadowRoot(shadowRoot) {
 
 
 class PropertyTable extends HTMLElement {
+
+    template = `
+        <div class="ts-pgrid" id="id-ts-pgrid">
+        </div>
+    `
+
     constructor() {
         super();
 
-        const template = document.querySelector("#template-property-table");
-
         const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.innerHTML = template.innerHTML;
+        shadowRoot.innerHTML = this.template;
 
         addGlobalStylesToShadowRoot(shadowRoot);
     }
@@ -84,13 +88,116 @@ class PropertyTable extends HTMLElement {
 
 
 class TestSummaryBanner extends HTMLElement {
+
+    template = `
+        <div class='ts-banner'>
+            <div class='ts-banner-job'>
+                <div class='ts-banner-logo'>
+                </div>
+                <div class="ts-banner-content">
+                    <div style="flex-grow: 1;"></div>
+                    <div class="ts-banner-column">
+                        <div class="ts-banner-row">
+                            <div class="ts-banner-value-pair">
+                                <div class="ts-banner-label">Automation Pod:</div>
+                                <div class="ts-banner-value" id="id-summary-banner-apod">(not set)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ts-banner-column">
+                        <div class="ts-banner-row">
+                            <div class="ts-banner-value-pair">
+                                <div class="ts-banner-label">Branch:</div>
+                                <div class="ts-banner-value" id="id-summary-banner-branch">(not set)</div>
+                            </div>
+                        </div>
+                        <br>   
+                        <div class="ts-banner-row">
+                            <div class="ts-banner-value-pair" style="flex-basis: 1;">
+                                <div class="ts-banner-label">Start:</div>
+                                <div class="ts-banner-value" id="id-summary-banner-start">(not set)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ts-banner-column">
+                        <div class="ts-banner-row">
+                            <div class="ts-banner-value-pair">
+                                <div class="ts-banner-label">Build:</div>
+                                <div class="ts-banner-value" id="id-summary-banner-build">(not set)</div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="ts-banner-row">
+                            <div class="ts-banner-value-pair">
+                                <div class="ts-banner-label">Stop:</div>
+                                <div class="ts-banner-value" id="id-summary-banner-stop">(not set)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ts-banner-column">
+                        <div class="ts-banner-row">
+                            <div class="ts-banner-value-pair">
+                                <div class="ts-banner-label">Flavor:</div>
+                                <div class="ts-banner-value" id="id-summary-banner-flavor">(not set)</div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="ts-banner-row">
+                            <div class="ts-banner-value-pair">
+                                <div class="ts-banner-label">Status:</div>
+                                <div class="ts-banner-value" id="id-summary-banner-status">(not set)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ts-banner-metrics" >
+                <div style="flex-grow: 1;"></div>
+                <div class="ts-banner-metrics-panel">
+                    <div class="ts-banner-metrics-column">
+                        <div class="ts-banner-metrics-value-pair">
+                            <div class="ts-banner-metrics-label">Errors:</div>
+                            <div class="color-error ts-banner-metrics-value" id="id-summary-metrics-error">NaN</div>
+                        </div>
+                    </div>
+                    <div class="ts-banner-metrics-column">
+                        <div class="ts-banner-metrics-value-pair">
+                            <div class="ts-banner-metrics-label">Failed:</div>
+                            <div class="color-fail ts-banner-metrics-value" id="id-summary-metrics-fail">NaN</div>
+                        </div>
+                    </div>
+                    <div class="ts-banner-metrics-column">
+                        <div class="ts-banner-metrics-value-pair">
+                            <div class="ts-banner-metrics-label">Skipped:</div>
+                            <div class="color-skip ts-banner-metrics-value" id="id-summary-metrics-skip">NaN</div>
+                        </div>
+                    </div>
+                    <div class="ts-banner-metrics-column">
+                        <div class="ts-banner-metrics-value-pair">
+                            <div class="ts-banner-metrics-label">Passed:</div>
+                            <div class="color-pass ts-banner-metrics-value" id="id-summary-metrics-pass">NaN</div>
+                        </div>
+                    </div>
+                    <div class="ts-banner-metrics-column">
+                        <div class="ts-banner-metrics-value-pair">
+                            <div class="ts-banner-metrics-label">Total:</div>
+                            <div class="ts-banner-metrics-value" id="id-summary-metrics-total">NaN</div>
+                        </div>
+                        <div class="ts-banner-metrics-value-pair">
+                            <div class="ts-banner-metrics-label">Score:</div>
+                            <div class="ts-banner-metrics-value" id="id-summary-metrics-score">NaN</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `
+
     constructor() {
         super();
 
-        const template = document.querySelector("#template-testsummary-banner");
-
         const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.innerHTML = template.innerHTML;
+        shadowRoot.innerHTML = this.template;
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
@@ -161,13 +268,45 @@ class TestSummaryBanner extends HTMLElement {
 
 
 class TestSummaryDeviceItem extends HTMLElement {
+
+    template = `
+        <div id="id-device-item-container" class="ts-lscape-device-item">
+            <div id="id-devitem-name">
+                <div id="id-devitem-name-label" class="ts-lscape-device-lbl">Name</div>
+                <div id="id-devitem-name-value" class="ts-lscape-device-val"></div>
+            </div>
+            <div id="id-devitem-role">
+                <div id="id-devitem-role-label" class="ts-lscape-device-lbl">Role</div>
+                <div id="id-devitem-role-value" class="ts-lscape-device-val"></div>
+            </div>
+            <div id="id-devitem-dtype">
+                <div id="id-devitem-dtype-label" class="ts-lscape-device-lbl">Type</div>
+                <div id="id-devitem-dtype-value" class="ts-lscape-device-val"></div>
+            </div>
+            <div id="id-devitem-host">
+                <div id="id-devitem-host-label" class="ts-lscape-device-lbl">Host</div>
+                <div id="id-devitem-host-value" class="ts-lscape-device-val"></div>
+            </div>
+            <div id="id-devitem-creds">
+                <div id="id-devitem-creds-label" class="ts-lscape-device-lbl">Credentails</div>
+                <div id="id-devitem-creds-value" class="ts-lscape-device-val"></div>
+            </div>
+            <div id="id-devitem-features">
+                <div id="id-devitem-features-label" class="ts-lscape-device-lbl">Features</div>
+                <div id="id-devitem-features-value" class="ts-lscape-device-val"></div>
+            </div>
+            <div id="id-devitem-skip">
+                <div id="id-devitem-skip-label" class="ts-lscape-device-lbl">Skip</div>
+                <div id="id-devitem-skip-value" class="ts-lscape-device-val"></div>
+            </div>
+        </div>
+    `
+
     constructor() {
         super();
 
-        const template = document.querySelector("#template-testsummary-deviceitem");
-
         const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.innerHTML = template.innerHTML;
+        shadowRoot.innerHTML = this.template;
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
@@ -246,13 +385,17 @@ class TestSummaryDeviceItem extends HTMLElement {
 
 
 class TestSummaryDeviceGroup extends HTMLElement {
+
+    template = `
+        <div id="id-device-group-container" class="ts-lscape-device-group">
+        </div>
+    `
+
     constructor() {
         super();
 
-        const template = document.querySelector("#template-testsummary-devicegroup");
-
         const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.innerHTML = template.innerHTML;
+        shadowRoot.innerHTML = this.template;
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
@@ -273,13 +416,50 @@ class TestSummaryDeviceGroup extends HTMLElement {
 
 
 class TestSummaryConfiguration extends HTMLElement {
+
+    template = `
+        <div class="ts-configuration-card">
+            <div class="ts-section-header">
+                <h2 class="zero-margins-and-padding">Configuration</h2>
+            </div>
+            <div class="ts-section-detail">
+                <div class="ts_vertical_tiling_panel">
+                    <property-table id="id-ts-configuration-command"></property-table>
+                    <details style="display: block; padding-bottom: 4px;">
+                        <summary>Environment</summary>
+                        <property-table id="id-ts-configuration-environment"></property-table>
+                    </details>
+                    <details style="display: block; padding-bottom: 4px;">
+                        <summary>Packages</summary>
+                        <property-table id="id-ts-configuration-packages"></property-table>
+                    </details>
+                    <details id="id-ts-configuration-landscape" style="padding-bottom: 4px;">
+                        <summary>Landscape</summary>
+                        <div style="margin-left: 20px;">
+                            <div id="id-ts-configuration-landscape-label"></div>
+                            <details id="id-ts-configuration-landscape-devices">
+                                <summary>Devices</summary>
+                                <div id="id-ts-configuration-landscape-device-groups" class="ts-lscape-device-groups-list">
+                                </div>
+                            </details>
+                            <details id="id-ts-configuration-landscape-services">
+                                <summary>Services</summary>
+                                <div id="id-ts-configuration-landscape-services-list" class="ts-lscape-services-list">
+
+                                </div>
+                            </details>
+                        </div>
+                    </details>
+                </div>
+            </div>  
+        </div>
+    `
+
     constructor() {
         super();
 
-        const template = document.querySelector("#template-testsummary-configuration");
-
         const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.innerHTML = template.innerHTML;
+        shadowRoot.innerHTML = this.template;
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
@@ -408,13 +588,28 @@ class TestSummaryConfiguration extends HTMLElement {
 
 
 class TestSummaryResultGroup extends HTMLElement {
+
+    template = `
+        <details>
+            <summary id="id-rgroup-summary">
+                <div class="ts-results-grp-grid">
+                    <span id="id-rgs-name" class="ts-results-grp-name"></span>
+                    <span id="id-rgs-error" class="ts-results-grp-score"></span>
+                    <span id="id-rgs-failure" class="ts-results-grp-score"></span>
+                    <span id="id-rgs-skip" class="ts-results-grp-score"></span>
+                    <span id="id-rgs-pass" class="ts-results-grp-score"></span>
+                </div>
+            </summary>
+            <div id="id-resultgroup-detail" style="margin-left: 20px;">
+            </div>
+        </details>
+    `
+
     constructor() {
         super();
 
-        const template = document.querySelector("#template-testsummary-resultgroup")
-
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = template.innerHTML;
+        shadowRoot.innerHTML = this.template;
 
         addGlobalStylesToShadowRoot(shadowRoot);
     }
@@ -491,13 +686,32 @@ class TestSummaryResultGroup extends HTMLElement {
 
 
 class TestSummaryResultItem extends HTMLElement {
+
+    template = `
+        <details>
+            <summary id="id-ritem-summary">
+                <div class="ts-results-items-grid">
+                    <span id="id-ris-start" class="ts-results-item-start"></span>
+                    <span id="id-ris-name" class="ts-results-item-name"></span>
+                    <span id="id-ris-error" class="ts-results-item-score"></span>
+                    <span id="id-ris-failure"  class="ts-results-item-score"></span>
+                    <span id="id-ris-skip"  class="ts-results-item-score"></span>
+                    <span id="id-ris-pass"  class="ts-results-item-score"></span>
+                </div>
+            </summary>
+            <div id="id-resultitem-detail">
+                <div id="id-ris-item-detail">
+                </div>
+                <div id="id-ris-taskings"></div>
+            </div>
+        </details>
+    `
+
     constructor() {
         super();
 
-        const template = document.querySelector("#template-testsummary-resultitem")
-
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = template.innerHTML;
+        shadowRoot.innerHTML = this.template;
 
         addGlobalStylesToShadowRoot(shadowRoot);
     }
@@ -553,13 +767,28 @@ class TestSummaryResultItem extends HTMLElement {
 
 
 class TestSummaryResultDetail extends HTMLElement {
+    
+    template = `
+        <div class="ts-resultdetail-card">
+            <div class="ts-section-header">
+                <h2 class="zero-margins-and-padding">Test Result Detail</h2>
+            </div>
+            <div class="ts-section-detail">
+                <div id='id-test-results-header' class='ts-results-hdr-grid'>
+                    
+                </div>
+                <div id='id-test-results-items'>
+                    
+                </div>
+            </div>
+        </div>
+    `
+
     constructor() {
         super();
 
-        const template = document.querySelector("#template-testsummary-testresults")
-
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = template.innerHTML;
+        shadowRoot.innerHTML = this.template;
 
         addGlobalStylesToShadowRoot(shadowRoot);
     }
@@ -625,13 +854,22 @@ class TestSummaryResultDetail extends HTMLElement {
 
 
 class TestSummaryArtifacts extends HTMLElement {
+
+    template = `
+        <div class="ts-artifacts-card">
+            <div class="ts-section-header">
+                <h2 class="zero-margins-and-padding">Artifacts</h2>
+            </div>
+            <div class="ts-section-detail">
+            </div>
+        </div>
+    `
+
     constructor() {
         super();
 
-        const template = document.querySelector("#template-testsummary-artifacts")
-
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = template.innerHTML;
+        shadowRoot.innerHTML = this.template;
 
         addGlobalStylesToShadowRoot(shadowRoot);
     }
@@ -643,13 +881,22 @@ class TestSummaryArtifacts extends HTMLElement {
 
 
 class TestSummaryImportFailures extends HTMLElement {
+
+    template = `
+        <div class="ts-importfailures-card">
+            <div class="ts-section-header">
+                <h2 class="zero-margins-and-padding">Import Failures</h2>
+            </div>
+            <div class="ts-section-detail">
+            </div>
+        </div>
+    `
+
     constructor() {
         super();
 
-        const template = document.querySelector("#template-testsummary-importfailures")
-
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = template.innerHTML;
+        shadowRoot.innerHTML = this.template;
 
         addGlobalStylesToShadowRoot(shadowRoot);
     }
@@ -661,13 +908,22 @@ class TestSummaryImportFailures extends HTMLElement {
 
 
 class TestSummaryFilesAndFolders extends HTMLElement {
+
+    template = `
+        <div class="ts-filesandfolders-card">
+            <div class="ts-section-header">
+                <h2 class="zero-margins-and-padding">Files and Folders</h2>
+            </div>
+            <div class="ts-section-detail">
+            </div>
+        </div>
+    `
+
     constructor() {
         super();
 
-        const template = document.querySelector("#template-testsummary-filesandfolders")
-
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = template.innerHTML;
+        shadowRoot.innerHTML = this.template;
 
         addGlobalStylesToShadowRoot(shadowRoot);
     }
