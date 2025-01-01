@@ -61,6 +61,35 @@
                            LAYOUT AND VISUAL CLASSES
    =======================================================================*/
 
+.ts-collapsible {
+    background-color: #a8bad4;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
+
+.ts-collapsible-button {
+    
+}
+
+.ts-collapsible-button:hover {
+    background-color: #92a8c8;
+}
+
+.ts-collapsible-content {
+    padding: 0 18px;
+    display: none;
+}
+
 .ts-pgrid {
     width: 100%;
     display: grid;

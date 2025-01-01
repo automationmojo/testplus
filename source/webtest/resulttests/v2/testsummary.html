@@ -17,16 +17,15 @@
 
         <script type="text/javascript">
             function on_page_load() {
-                include_html_templates().then(function() {
-                    register_summary_components()
 
-                    refresh_page().then(function() {
-                    console.log("Page loaded");
-                    }, function(err) {
-                        console.log("ERROR:\n" + err);
-                        console.log(err.stack)
-                    });
-                })
+                register_summary_components()
+
+                refresh_page().then(function() {
+                console.log("Page loaded");
+                }, function(err) {
+                    console.log("ERROR:\n" + err);
+                    console.log(err.stack)
+                });
 
             }
         </script>
@@ -48,8 +47,6 @@
         <div class='section-footer'>
             <testsummary-filesandfolders id="testsummary-filesandfolders"></testsummary-filesandfolders>
         </div>
-
-        <div include-html-templates="/static/v2/testsummary-templates.html"></div>
         
     </body>
 </html>

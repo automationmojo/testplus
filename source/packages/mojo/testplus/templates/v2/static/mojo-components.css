@@ -1,0 +1,156 @@
+
+.mojo-collapsible {
+    box-sizing: border-box;
+    width: 100%;
+    background-color: white; 
+    color: #444;
+    cursor: pointer;
+    width: 100%;
+    border: solid;
+    border-color: #92a8c8;
+    border-width: 2px;
+    border-radius: 10px;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+}
+
+.mojo-collapsible-button {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: nowrap;
+    background-color: #a8bad4;
+}
+
+.mojo-collapsible-button:hover {
+    background-color: #92a8c8;
+}
+
+.mojo-collapsible-content {
+    padding: 0 18px;
+    display: none;
+}
+
+.mojo-collapsible-header {
+    flex-grow: 1;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.mojo-collapsible-icon {
+    color: white;
+    font-size: 20;
+    font-weight: bold;
+    width: 40px;
+    height: 100%;
+}
+
+.mojo-icon-target {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+.mojo-icon-target:hover {
+    cursor: pointer; 
+}
+
+.mojo-prop-table {
+    box-sizing: border-box;
+    width: 100%;
+    display: grid;
+    grid-template-columns: max-content auto max-content;
+    border-color: #92a8c8;
+    border-width: 2px;
+    border-radius: 4px;
+    border-style: solid;
+    padding: 2px;
+}
+
+.mojo-prop-table-item-copy {
+    box-sizing: border-box;
+    width: 24px;
+    background-color: #a8bad4;
+    border-style: solid;
+    border-color: #a8bad4;
+    border-width: 2px 2px 2px 2px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    margin-bottom: 4px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.mojo-prop-table-item-label {
+    height: 24px;
+    line-height: 24px;
+    margin-bottom: 4px;
+    background-color: #a8bad4;
+    color: black;
+    text-align: right;
+    vertical-align: middle;
+    font-weight: bold;
+    border-style: solid;
+    border-color: #a8bad4;
+    border-width: 2px 2px 2px 2px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    padding: 0px 5px 0px 5px
+}
+
+.mojo-prop-table-item-value {
+    height: 24px;
+    line-height: 24px;
+    margin-bottom: 4px;
+    background-color: whitesmoke;
+    text-align: left;
+    border-style: solid;
+    border-color: #a8bad4;
+    border-width: 2px 2px 2px 2px;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0px 5px 0px 5px;
+    vertical-align: middle;
+}
+
+
+.mojo-prop-single {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border-style: solid;
+    border-color: #92a8c8;
+    border-width: 2px;
+    border-radius: 4px;
+}
+
+.mojo-prop-single-copy {
+    box-sizing: border-box;
+    background-color: #a8bad4;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 2px;
+}
+
+.mojo-prop-single-label {
+    height: 24px;
+    line-height: 24px;
+    background-color: #a8bad4;
+    padding: 0px 5px 0px 5px; /* top, right, bottom, left */
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.mojo-prop-single-value {
+    height: 24px;
+    line-height: 24px;
+    flex-grow: 1;
+    background: white;
+    padding: 0px 5px 0px 5px; /* top, right, bottom, left */
+    vertical-align: middle;
+}

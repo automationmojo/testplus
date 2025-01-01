@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--
+        __author__ = "Myron Walker"
+        __copyright__ = "Copyright 2024, Myron W Walker"
+        __version__ = "2.0.0"
+    -->
+    <head>
+
+        <link rel="stylesheet" href="/static/v2/icon-styles.css" ></link>
+        <link rel="stylesheet" href="/static/v2/mojo-components.css" ></link>
+
+        <script type="text/javascript" src="/static/v2/webcomponent-helpers.js"></script>
+        <script type="text/javascript" src="/static/v2/icon-components.js"></script>
+        <script type="text/javascript" src="/static/v2/mojo-components.js"></script>
+
+        <script type="text/javascript">
+
+            function on_page_load() {
+                
+                register_mojo_components();
+
+                var collapsibleEl = document.querySelector("#id-test-collapsible");
+                collapsibleEl.syncData("Expand Me", "<h1>Hello World</h1>", false);
+
+                var propSingleEl = document.querySelector("#id-test-property-single");
+                propSingleEl.syncData("Hello", "World");
+
+                var propTableEl = document.querySelector("#id-test-property-table");
+                propTableEl.syncData({
+                    "Color": "Blue",
+                    "Width": 5,
+                    "Height": 10,
+                });
+
+            }
+
+        </script>
+
+    </head>
+    <body onload="on_page_load()">
+            
+        <div class='section-body mojo-page'>
+            <h3>Collapsible</h3>
+            <mojo-collapsible id="id-test-collapsible">
+            </mojo-collapsible>
+            <br></br>
+
+            <h3>Icon Target</h3>
+            <div style="height: 24px; width: 24px; fill:white; background-color: #a8bad4;">
+                <mojo-icon-target id="id-test-icon-target" >
+                </mojo-icon-target>
+            </div>
+            <br></br>
+
+            <h3>Poperty Single</h3>
+            <mojo-property-single id="id-test-property-single">
+            </mojo-property-single>
+            <br></br>
+            
+            <h3>Property Table</h3>
+            <mojo-property-table id="id-test-property-table">
+            </mojo-property-table>
+        </div>
+          
+        <div class='section-footer'>
+            <testsummary-filesandfolders id="testsummary-filesandfolders"/>
+        </div>
+        
+    </body>
+</html>

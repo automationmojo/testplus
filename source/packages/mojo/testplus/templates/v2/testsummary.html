@@ -8,26 +8,34 @@
     <head>
 
         <link rel="stylesheet" href="/static/v2/prism.css" ></link>
+        <link rel="stylesheet" href="/static/v2/mojo-components.css" ></link>
         <link rel="stylesheet" href="/static/v2/testsummary.css" ></link>
 
         <script type="text/javascript" src="/static/v2/prism.js"></script>
+        <script type="text/javascript" src="/static/v2/mojo-components.js"></script>
         <script type="text/javascript" src="/static/v2/testsummary-helpers.js"></script>
-        <script type="text/javascript" src="/static/v2/testsummary.js" ></script>
         <script type="text/javascript" src="/static/v2/testsummary-components.js" ></script>
+        <script type="text/javascript" src="/static/v2/testsummary.js" ></script>
 
         <script type="text/javascript">
+
+            register_testsummary_components();
+            
             function on_page_load() {
-                
-                register_summary_components()
 
                 refresh_page().then(function() {
-                console.log("Page loaded");
+
+                    console.log("Page loaded");
+                
                 }, function(err) {
+                
                     console.log("ERROR:\n" + err);
                     console.log(err.stack)
+                
                 });
 
             }
+
         </script>
 
     </head>

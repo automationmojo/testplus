@@ -1,0 +1,8 @@
+
+.icon-fill-white {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    fill: white;
+    padding: 2px;
+}
