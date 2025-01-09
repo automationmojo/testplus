@@ -33,22 +33,86 @@
                     "Height": 10,
                 });
 
+                var tabs = [
+                    new MojoTabPage("A", "A", "<h2>Hello A</h2>"),
+                    new MojoTabPage("B", "B", "<h2>Hello B</h2>"),
+                    new MojoTabPage("C", "C", "<h2>Hello C</h2>")
+                ];
+
+                var tabSetEl = document.querySelector("#id-test-tabset");
+                tabSetEl.syncData(tabs);
+                
+
             }
 
         </script>
 
     </head>
     <body onload="on_page_load()">
-            
+        <style>
+            .test-icon-target {
+                height: 24px;
+                width: 24px;
+                fill:white;
+                background-color: #a8bad4;
+            }
+        </style>
+
         <div class='section-body mojo-page'>
             <h3>Collapsible</h3>
             <mojo-collapsible id="id-test-collapsible">
+                <p>Blah Blah</p>
             </mojo-collapsible>
             <br></br>
 
             <h3>Icon Target</h3>
-            <div style="height: 24px; width: 24px; fill:white; background-color: #a8bad4;">
-                <mojo-icon-target id="id-test-icon-target" >
+            <div style="display: flex; flex-flow: row; gap: 2px;">
+                <mojo-icon-target id="id-test-icon-bug" class="test-icon-target" tooltip="Report Bug">
+                    <icon-bug></icon-bug>
+                </mojo-icon-target>
+                <mojo-icon-target id="id-test-icon-copy" class="test-icon-target" tooltip="Copy">
+                    <icon-copy></icon-copy>
+                </mojo-icon-target>
+                <mojo-icon-target id="id-test-icon-file" class="test-icon-target">
+                    <icon-file></icon-file>
+                </mojo-icon-target>
+                <mojo-icon-target id="id-test-icon-filter" class="test-icon-target">
+                    <icon-filter></icon-filter>
+                </mojo-icon-target>
+                <mojo-icon-target id="id-test-icon-folder" class="test-icon-target">
+                    <icon-folder></icon-folder>
+                </mojo-icon-target>
+                <mojo-icon-target id="id-test-icon-folder-code" class="test-icon-target">
+                    <icon-folder-code></icon-folder-code>
+                </mojo-icon-target>
+                <mojo-icon-target id="id-test-icon-folder-data" class="test-icon-target">
+                    <icon-folder-data></icon-folder-data>
+                </mojo-icon-target>
+                <mojo-icon-target id="id-test-icon-folder-eye" class="test-icon-target">
+                    <icon-folder-eye></icon-folder-eye>
+                </mojo-icon-target>
+                <mojo-icon-target id="id-test-icon-folder-managed" class="test-icon-target">
+                    <icon-folder-managed></icon-folder-managed>
+                </mojo-icon-target>
+                <mojo-icon-target id="id-test-icon-note-add" class="test-icon-target" tooltip="Add Note">
+                    <icon-note-add></icon-note-add>
+                </mojo-icon-target>
+                <mojo-icon-target id="id-test-icon-note-stack" class="test-icon-target" tooltip="Add Note">
+                    <icon-note-stack></icon-note-stack>
+                </mojo-icon-target>
+                <mojo-icon-target id="id-test-icon-search" class="test-icon-target" tooltip="Search">
+                    <icon-search></icon-search>
+                </mojo-icon-target>
+                <mojo-icon-target id="id-test-icon-settings" class="test-icon-target">
+                    <icon-settings></icon-settings>
+                </mojo-icon-target>
+                <mojo-icon-target id="id-test-icon-question" class="test-icon-target">
+                </mojo-icon-target>
+                <mojo-icon-target id="id-test-icon-question" class="test-icon-target">
+                    <icon-question-mark></icon-question-mark>
+                </mojo-icon-target>
+                <mojo-icon-target id="id-test-icon-warning" class="test-icon-target">
+                    <icon-warning></icon-warning>
                 </mojo-icon-target>
             </div>
             <br></br>
@@ -61,6 +125,12 @@
             <h3>Property Table</h3>
             <mojo-property-table id="id-test-property-table">
             </mojo-property-table>
+            <br></br>
+
+            <h3>Tab Set</h3>
+            <mojo-tabset id="id-test-tabset">
+            </mojo-tabset>
+            <br></br>
         </div>
           
         <div class='section-footer'>

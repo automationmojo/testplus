@@ -1,7 +1,7 @@
 
 .mojo-collapsible {
     box-sizing: border-box;
-    width: 100%;
+    width: inherit;
     background-color: white; 
     color: #444;
     cursor: pointer;
@@ -9,7 +9,7 @@
     border: solid;
     border-color: #92a8c8;
     border-width: 2px;
-    border-radius: 10px;
+    border-radius: 4px;
     text-align: center;
     outline: none;
     font-size: 15px;
@@ -27,7 +27,7 @@
 }
 
 .mojo-collapsible-content {
-    padding: 0 18px;
+    padding: 4px 18px;
     display: none;
 }
 
@@ -49,8 +49,10 @@
 
 .mojo-icon-target {
     box-sizing: border-box;
-    width: 100%;
-    height: 100%;
+    width: inherit;
+    height: inherit;
+    fill: inherit;
+    background-color: inherit;
 }
 
 .mojo-icon-target:hover {
@@ -73,6 +75,7 @@
     box-sizing: border-box;
     width: 24px;
     background-color: #a8bad4;
+    fill: white;
     border-style: solid;
     border-color: #a8bad4;
     border-width: 2px 2px 2px 2px;
@@ -81,6 +84,10 @@
     margin-bottom: 4px;
     text-align: center;
     vertical-align: middle;
+}
+
+.mojo-prop-table-item-copy:hover {
+    cursor: pointer; 
 }
 
 .mojo-prop-table-item-label {
@@ -130,11 +137,16 @@
 .mojo-prop-single-copy {
     box-sizing: border-box;
     background-color: #a8bad4;
+    fill: white;
     width: 24px;
     height: 24px;
     text-align: center;
     vertical-align: middle;
     padding: 2px;
+}
+
+.mojo-prop-single-copy:hover {
+    cursor: pointer; 
 }
 
 .mojo-prop-single-label {
@@ -153,4 +165,115 @@
     background: white;
     padding: 0px 5px 0px 5px; /* top, right, bottom, left */
     vertical-align: middle;
+}
+
+
+.mojo-tabset {
+    width: 100%;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 3px;
+    border-color: #a8bad4;
+}
+
+.mojo-tabset-content-collection {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    min-height: 50px;
+    padding: 4px;
+    border-top-style: solid;
+    border-top-width: 2px;
+    border-top-color: #a8bad4;
+}
+
+.mojo-tabset-label-collection {
+    display: flex;
+    flex-direction: row;
+    background-color: #a8bad4;
+    min-height: 20px;
+    column-gap: 1px;
+    padding-top: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-bottom-color: #7d97be;
+    border-bottom-style: solid;
+    border-bottom-width: 1px ;
+}
+
+.mojo-tab-content {
+    display: none;
+    width: 100%;
+}
+
+.mojo-tab-content[selected] {
+    display: block;
+}
+
+.mojo-tab-content-container {
+    width: 100%;
+    background-color: inherit;
+ }
+
+.mojo-tab-label {
+   min-height: 24px;
+   min-width: 50px;
+   background-color: lightgray;
+   border-style: solid;
+   border-width: 1px;
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+   border-top-color: rgb(179, 179, 179);
+   border-left-color:  rgb(179, 179, 179);
+   border-right-color:  rgb(179, 179, 179);
+   border-bottom-color:  rgb(179, 179, 179);
+}
+
+.mojo-tab-label[selected] {
+    min-width: 50px;
+    background-color: #7b9bc7;
+    border-color: #7d97be;
+ }
+
+ .mojo-tab-label-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    background-color: inherit;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+ }
+
+ .mojo-tab-label-container:hover {
+    cursor: pointer; 
+ }
+
+.mojo-tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    transition: 0s;
+}
+  
+.mojo-tooltip .mojo-tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+  
+.mojo-tooltip:hover .mojo-tooltip-text {
+    visibility: visible;
+    transition-delay: 1.5s;
 }

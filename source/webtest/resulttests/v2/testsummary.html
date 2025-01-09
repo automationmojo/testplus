@@ -8,24 +8,33 @@
     <head>
 
         <link rel="stylesheet" href="/static/v2/prism.css" ></link>
+        <link rel="stylesheet" href="/static/v2/icon-styles.css" ></link>
+        <link rel="stylesheet" href="/static/v2/mojo-components.css" ></link>
         <link rel="stylesheet" href="/static/v2/testsummary.css" ></link>
 
         <script type="text/javascript" src="/static/v2/prism.js"></script>
+        <script type="text/javascript" src="/static/v2/webcomponent-helpers.js"></script>
+        <script type="text/javascript" src="/static/v2/icon-components.js"></script>
+        <script type="text/javascript" src="/static/v2/mojo-components.js"></script>
         <script type="text/javascript" src="/static/v2/testsummary-helpers.js"></script>
         <script type="text/javascript" src="/static/v2/testsummary.js" ></script>
         <script type="text/javascript" src="/static/v2/testsummary-components.js" ></script>
 
+
+
         <script type="text/javascript">
             function on_page_load() {
 
-                register_summary_components()
+                register_testsummary_components()
 
-                refresh_page().then(function() {
-                console.log("Page loaded");
-                }, function(err) {
-                    console.log("ERROR:\n" + err);
-                    console.log(err.stack)
-                });
+                refresh_page().then(
+                    function() {
+                        console.log("Page loaded");
+                    }, function(err) {
+                        console.log("ERROR:\n" + err);
+                        console.log(err.stack);
+                    }
+                );
 
             }
         </script>
@@ -39,14 +48,14 @@
             
         <div class='section-body ts_vertical_tiling_panel'>
             <testsummary-configuration id="testsummary-configuration" ></testsummary-configuration>
-            <testsummary-resultdetail id="testsummary-resultdetail"></testsummary-resultdetail>
-            <testsummary-artifacts id="testsummary-artifacts"></testsummary-artifacts>
-            <testsummary-importfailures id="testsummary-importfailures"></testsummary-importfailures>
+            <testsummary-resultdetail id="testsummary-resultdetail" ></testsummary-resultdetail>
+            <testsummary-artifacts id="testsummary-artifacts" ></testsummary-artifacts>
+            <testsummary-importfailures id="testsummary-importfailures" ></testsummary-importfailures>
         </div>
           
         <div class='section-footer'>
             <testsummary-filesandfolders id="testsummary-filesandfolders"></testsummary-filesandfolders>
         </div>
-        
+
     </body>
 </html>

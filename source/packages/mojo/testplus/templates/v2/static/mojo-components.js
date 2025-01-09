@@ -8,7 +8,6 @@
 
 let mojoComponentsRegistered = false;
 
-
 class MojoIconTarget extends HTMLElement {
     static tagname = 'mojo-icon-target'
 
@@ -19,20 +18,45 @@ class MojoIconTarget extends HTMLElement {
     `
 
     sel_container = "#id-icon-target"
+    sel_tooltip = "#id-tooltip"
+
+    static observedAttributes = ["tooltip"];
 
     constructor() {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'})
         shadowRoot.innerHTML = this.template;
+        if (this.classList.length > 0) {
+            shadowRoot.classList = this.classList;
+        }
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
         var containerEl =  this.shadowRoot.querySelector(this.sel_container);
+
+        var tooltip = this.getAttribute("tooltip");
+        if (tooltip != undefined) {
+            this.update_tooltip(containerEl, tooltip);
+        }
+        
+        if (this.innerHTML.trim().length > 0) {
+            containerEl.innerHTML = this.innerHTML;    
+        }
+
         var thisComp = this;
 
         containerEl.addEventListener("mousedown", (event) => { thisComp.mouse_down(event) });
+        containerEl.addEventListener("mouseleave", (event) => { thisComp.mouse_leave(event) });
         containerEl.addEventListener("mouseup", (event) => { thisComp.mouse_up(event) });
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name == "tooltip") {
+            var containerEl =  this.shadowRoot.querySelector(this.sel_container);
+
+            this.update_tooltip(containerEl, newValue);
+        }
     }
 
     mouse_down(event) {
@@ -47,11 +71,44 @@ class MojoIconTarget extends HTMLElement {
         containerEl.style.backgroundColor = fillColor;
     }
 
+    mouse_leave(event) {
+        var containerEl =  this.shadowRoot.querySelector(this.sel_container);
+
+        containerEl.style.fill = "";
+        containerEl.style.backgroundColor = "";
+    }
+
     mouse_up(event) {
         var containerEl =  this.shadowRoot.querySelector(this.sel_container);
 
         containerEl.style.fill = "";
         containerEl.style.backgroundColor = "";
+    }
+
+    update_tooltip(containerEl, tooltip) {
+
+        var ttEl = containerEl.querySelector(this.sel_tooltip);
+
+        if (tooltip.trim().length == 0) {
+            containerEl.classList.remove("mojo-tooltip");
+
+            if (ttEl != undefined) {
+                containerEl.removeChild(ttEl);
+            }
+        } else {
+            if (ttEl == undefined) {
+                ttEl = document.createElement("span");
+
+                ttEl.setAttribute("id", "id-tooltip");
+                ttEl.classList.add("mojo-tooltip-text");
+
+                containerEl.appendChild(ttEl);
+            }
+
+            containerEl.classList.add("mojo-tooltip");
+            ttEl.innerHTML = tooltip;
+        }
+    
     }
 
 }
@@ -98,7 +155,13 @@ class MojoCollapsible extends HTMLElement {
         headerTextEl.innerHTML = header;
         
         var contentEl =  this.shadowRoot.querySelector(this.sel_content);
-        contentEl.innerHTML = content;
+        contentEl.innerHTML = "";
+
+        if (content instanceof HTMLElement) {
+            contentEl.appendChild(content);
+        } else {
+            contentEl.innerHTML = content;
+        }
 
         if (expanded) {
             contentEl.style.display = "block";
@@ -162,13 +225,44 @@ class MojoPropertySingle extends HTMLElement {
         shadowRoot.innerHTML = this.template;
 
         addGlobalStylesToShadowRoot(shadowRoot);
+
+        var copyEl = this.shadowRoot.querySelector(this.sel_copy);
+        var valueEl = this.shadowRoot.querySelector(this.sel_value);
+        
+        copyEl.onclick = function(e) { comp.copyValue(valueEl, e) };
+
+        var thisComp = this;
+
+        copyEl.addEventListener("mousedown", (event) => { thisComp.mouse_down(event, copyEl) });
+        copyEl.addEventListener("mouseleave", (event) => { thisComp.mouse_leave(event, copyEl) });
+        copyEl.addEventListener("mouseup", (event) => { thisComp.mouse_up(event, copyEl) });
     }
 
-    copyValue(valEl, e) {
+    copyValue(valueEl, e) {
 
-        var value = valEl.getAttribute("value");
+        var value = valueEl.innerHTML;
         navigator.clipboard.writeText(value);
 
+    }
+
+    mouse_down(event, copyEl) {
+        var thisStyle = getComputedStyle(copyEl);
+
+        var fillColor = thisStyle.getPropertyValue("fill");
+        var backgroundColor = thisStyle.getPropertyValue("background-color");
+
+        copyEl.style.fill = backgroundColor;
+        copyEl.style.backgroundColor = fillColor;
+    }
+
+    mouse_leave(event, copyEl) {
+        copyEl.style.fill = "";
+        copyEl.style.backgroundColor = "";
+    }
+
+    mouse_up(event, copyEl) {
+        copyEl.style.fill = "";
+        copyEl.style.backgroundColor = "";
     }
 
     syncData(label, value) {
@@ -241,7 +335,7 @@ class MojoPropertyTable extends HTMLElement {
 
     copyValue(valEl, e) {
 
-        var value = valEl.getAttribute("value");
+        var value = valEl.innerHTML;
         navigator.clipboard.writeText(value);
 
     }
@@ -253,7 +347,12 @@ class MojoPropertyTable extends HTMLElement {
         var copyEl = document.createElement("div");
         copyEl.classList = this.default_classes_item_copy;
         copyEl.innerHTML = '<icon-copy></icon-copy>';
+        
         copyEl.onclick = function(e) { comp.copyValue(valEl, e) };
+
+        copyEl.addEventListener("mousedown", (event) => { thisComp.mouse_down(event, copyEl) });
+        copyEl.addEventListener("mouseleave", (event) => { thisComp.mouse_leave(event, copyEl) });
+        copyEl.addEventListener("mouseup", (event) => { thisComp.mouse_up(event, copyEl) });
 
         return copyEl;
     }
@@ -274,6 +373,26 @@ class MojoPropertyTable extends HTMLElement {
         valueEl.classList = this.default_classes_item_value;
         return valueEl;
 
+    }
+
+    mouse_down(event, copyEl) {
+        var thisStyle = getComputedStyle(copyEl);
+
+        var fillColor = thisStyle.getPropertyValue("fill");
+        var backgroundColor = thisStyle.getPropertyValue("background-color");
+
+        copyEl.style.fill = backgroundColor;
+        copyEl.style.backgroundColor = fillColor;
+    }
+
+    mouse_leave(event, copyEl) {
+        copyEl.style.fill = "";
+        copyEl.style.backgroundColor = "";
+    }
+
+    mouse_up(event, copyEl) {
+        copyEl.style.fill = "";
+        copyEl.style.backgroundColor = "";
     }
       
     syncData(propertiesTable) {
@@ -307,6 +426,226 @@ class MojoPropertyTable extends HTMLElement {
 
 }
 
+class MojoTabLabel extends HTMLElement {
+    static tagname = "mojo-tab-label";
+
+    static observedAttributes = ["selected"]
+
+    template = `
+        <div id="id-tab-label-container" class="mojo-tab-label-container">
+        </div>
+    `
+
+    sel_container = "#id-tab-label-container"
+
+    constructor() {
+        super();
+
+        const shadowRoot = this.attachShadow({mode: 'open'});
+        shadowRoot.innerHTML = this.template;
+
+        addGlobalStylesToShadowRoot(shadowRoot);
+    }
+
+    syncData(label) {
+        var containertEl =  this.shadowRoot.querySelector(this.sel_container);
+        containertEl.innerHTML = "";
+
+        if (label instanceof HTMLElement) {
+            containertEl.appendChild(label);
+        } else {
+            containertEl.innerHTML = "<span>" + label + "</span>";
+        }
+    }
+}
+
+
+class MojoTabContent extends HTMLElement {
+    static tagname = "mojo-tab-content";
+
+    static observedAttributes = ["selected"]
+
+    template = `
+        <div id="id-tab-content-container" class="mojo-tab-content-container">
+        </div>
+    `
+
+    sel_container = "#id-tab-content-container"
+
+    constructor() {
+        super();
+
+        const shadowRoot = this.attachShadow({mode: 'open'});
+        shadowRoot.innerHTML = this.template;
+
+        addGlobalStylesToShadowRoot(shadowRoot);
+    }
+
+    syncData(content) {
+        var containertEl =  this.shadowRoot.querySelector(this.sel_container);
+        containertEl.innerHTML = "";
+
+        if (content instanceof HTMLElement) {
+            containertEl.appendChild(content);
+        } else {
+            containertEl.innerHTML = content;
+        }
+    }
+}
+
+
+class MojoTabPage {
+
+    constructor(key, label, content) {
+        this.key = key;
+        this.label = label;
+        this.content = content;
+
+        this.labelEl = undefined;
+        this.contentEl = undefined;
+    }
+
+    createContentElement() {
+
+        var contentEl = document.createElement("mojo-tab-content");
+
+        contentEl.classList.add("mojo-tab-content");
+        contentEl.syncData(this.content);
+
+        this.contentEl = contentEl;
+
+        return contentEl;
+
+    }
+
+    createLabelElement() {
+
+        var labelEl = document.createElement("mojo-tab-label");
+        
+        labelEl.classList.add("mojo-tab-label");
+        labelEl.syncData(this.label);
+        
+        this.labelEl = labelEl;
+
+        return labelEl;
+
+    }
+
+    createTabElements() {
+        var labelEl = this.createLabelElement();
+        var contentEl = this.createContentElement();
+
+        return [labelEl, contentEl];
+    }
+
+    disposeTabElements() {
+        this.labelEl.remove();
+        this.contentEl.remove();
+    }
+
+    updateSelected(selected) {
+        if (selected) {
+            this.contentEl.setAttribute("selected", selected);
+            this.labelEl.setAttribute("selected", selected);
+        } else {
+            this.contentEl.removeAttribute("selected");
+            this.labelEl.removeAttribute("selected");
+        }
+    }
+
+}
+
+
+class MojoTabSet extends HTMLElement {
+
+    static tagname = "mojo-tabset";
+
+    template = `
+        <div id="id-tabset-container" class="mojo-tabset">
+            <div id="id-tabset-labels-collection" class="mojo-tabset-label-collection">
+            </div>
+            <div id="id-tabset-content-collection" class="mojo-tabset-content-collection">
+            </div>
+        </div>
+    `
+
+    sel_container = "#id-tabset-container"
+    sel_labels = "#id-tabset-labels-collection"
+    sel_content = "#id-tabset-content-collection"
+
+    constructor() {
+        super();
+
+        const shadowRoot = this.attachShadow({mode: 'open'});
+        shadowRoot.innerHTML = this.template;
+
+        addGlobalStylesToShadowRoot(shadowRoot);
+
+        this.pages = undefined;
+        this.selected = undefined;
+    }
+
+    scrubOldPages() {
+
+    }
+
+    syncData(tabPages) {
+
+        var labelsCollEl = this.shadowRoot.querySelector(this.sel_labels);
+        var contentCollEl = this.shadowRoot.querySelector(this.sel_content);
+
+        this.scrubOldPages();
+
+        if (tabPages.length > 0) {
+
+            var tabsetComp = this;
+
+            this.pages = {}
+
+            for (const tindex in tabPages) {
+                const tpage = tabPages[tindex];
+
+                const [labelEl, contentEl] = tpage.createTabElements();
+
+                labelEl.onclick = function(e) {
+                    tabsetComp.tabClick(tpage, e)
+                };
+
+                this.pages[tpage.key] = tpage;
+
+                labelsCollEl.appendChild(labelEl);
+                contentCollEl.appendChild(contentEl);
+            }
+
+            this.selected = tabPages[0].key;
+        }
+
+        this.switchToSelected()
+
+    }
+
+    switchToSelected() {
+        var pageKeys = Object.keys(this.pages);
+
+        if (pageKeys.length > 0) {
+
+            for (const pki in pageKeys) {
+                var pkey = pageKeys[pki];
+                var page = this.pages[pkey];
+                page.updateSelected(pkey == this.selected);
+            }
+
+        }
+
+    }
+
+    tabClick(tpage, event) {
+        this.selected = tpage.key;
+        this.switchToSelected();
+    }
+}
+
+
 
 function register_mojo_components() {
 
@@ -319,6 +658,9 @@ function register_mojo_components() {
         customElements.define(MojoIconTarget.tagname, MojoIconTarget);
         customElements.define(MojoPropertySingle.tagname, MojoPropertySingle);
         customElements.define(MojoPropertyTable.tagname, MojoPropertyTable);
+        customElements.define(MojoTabSet.tagname, MojoTabSet);
+        customElements.define(MojoTabContent.tagname, MojoTabContent);
+        customElements.define(MojoTabLabel.tagname, MojoTabLabel);
     }
 
 }

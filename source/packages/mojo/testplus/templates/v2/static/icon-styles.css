@@ -1,8 +1,9 @@
 
-.icon-fill-white {
+.icon-component-style {
     box-sizing: border-box;
     height: 100%;
     width: 100%;
-    fill: white;
+    fill: inherit;
     padding: 2px;
+    background-color: inherit;
 }

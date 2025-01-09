@@ -350,7 +350,14 @@ class TestSummaryConfiguration extends HTMLElement {
             </div>
             <div class="ts-section-detail">
                 <div id="id-ts-configuration-content" class="ts_vertical_tiling_panel">
-                    <property-table id="id-ts-configuration-command"></property-table>
+                    <mojo-property-single id="id-ts-configuration-command">
+                    </mojo-property-single>
+                    <mojo-collapsible id="id-ts-configuration-environment">
+                    </mojo-collapsible>
+                    <mojo-collapsible id="id-ts-configuration-packages">
+                    </mojo-collapsible>
+                    <mojo-collapsible id="id-ts-configuration-landscape">
+                    </mojo-collapsible>
                 </div>
             </div>  
         </div>
@@ -392,41 +399,41 @@ class TestSummaryConfiguration extends HTMLElement {
 
         if (this.command != undefined) {
             var commandEl = this.shadowRoot.querySelector("#id-ts-configuration-command");
-            commandEl.innerHTML = "";
 
-            commandEl.syncData({ "Command": this.command });
+            commandEl.syncData( "Command", this.command );
         }
 
+        var environmentEl = this.shadowRoot.querySelector("#id-ts-configuration-environment");
         if (this.environment != undefined) {
+            environmentEl.innerHTML = "";
 
-            var environmentEl = this.shadowRoot.querySelector("#id-ts-configuration-environment");
-            if (environmentEl == undefined) {
-                environmentEl = document.createElement(TestSummaryConfigurationEnvironment.tagname);
-                contentEl.appendChild(environmentEl);
-            }
+            var tableEl = document.createElement(MojoPropertyTable.tagname);
+            tableEl.syncData(this.environment);
 
-            environmentEl.syncData(this.environment);
+            environmentEl.syncData("Environment", tableEl);
+        } else {
+            environmentEl.style.display = "None";
         }
 
+        var packagesEl = this.shadowRoot.querySelector("#id-ts-configuration-packages");
         if (this.packages != undefined) {
-            
-            var packagesEl = this.shadowRoot.querySelector("#id-ts-configuration-packages");
-            if (packagesEl == undefined) {
-                packagesEl = document.createElement(TestSummaryConfigurationPackages.tagname);
-                contentEl.appendChild(packagesEl);
-            }
+            packagesEl.innerHTML = "";
 
-            packagesEl.syncData(this.packages);
+            var tableEl = document.createElement(MojoPropertyTable.tagname);
+            tableEl.syncData(this.packages);
+
+            packagesEl.syncData("Packages", tableEl);
+        } else {
+            packagesEl.style.display = "None";
         }
 
+        var landscapeEl = this.shadowRoot.querySelector("#id-ts-configuration-landscape");
         if (this.landscape != undefined) {
-            var landscapeEl = this.shadowRoot.querySelector("#id-ts-configuration-landscape");
-            if (landscapeEl == undefined) {
-                landscapeEl = document.createElement(TestSummaryConfigurationLandscape.tagname);
-                contentEl.appendChild(landscapeEl);
-            }
+            landscapeEl.innerHTML = "";
             
-            landscapeEl.syncData(this.landscape);
+            landscapeEl.syncData("Landscape", "");
+        } else {
+            landscapeEl.style.display = "None";
         }
 
     }
