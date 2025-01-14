@@ -18,54 +18,54 @@ class TestSummaryBanner extends HTMLElement {
                     <div style="flex-grow: 1;"></div>
                     <div class="ts-banner-column">
                         <div class="ts-banner-row">
-                            <div class="ts-banner-value-pair">
-                                <div class="ts-banner-label">Automation Pod:</div>
-                                <div class="ts-banner-value" id="id-summary-banner-apod">(not set)</div>
+                            <div class="ts-banner-prop-pair">
+                                <div class="ts-banner-prop-label">Automation Pod:</div>
+                                <div class="ts-banner-prop-value" id="id-summary-banner-apod">(not set)</div>
                             </div>
                         </div>
                     </div>
                     <div class="ts-banner-column">
                         <div class="ts-banner-row">
-                            <div class="ts-banner-value-pair">
-                                <div class="ts-banner-label">Branch:</div>
-                                <div class="ts-banner-value" id="id-summary-banner-branch">(not set)</div>
+                            <div class="ts-banner-prop-pair">
+                                <div class="ts-banner-prop-label">Branch:</div>
+                                <div class="ts-banner-prop-value" id="id-summary-banner-branch">(not set)</div>
                             </div>
                         </div>
                         <br>   
                         <div class="ts-banner-row">
-                            <div class="ts-banner-value-pair" style="flex-basis: 1;">
-                                <div class="ts-banner-label">Start:</div>
-                                <div class="ts-banner-value" id="id-summary-banner-start">(not set)</div>
+                            <div class="ts-banner-prop-pair" style="flex-basis: 1;">
+                                <div class="ts-banner-prop-label">Start:</div>
+                                <div class="ts-banner-prop-value" id="id-summary-banner-start">(not set)</div>
                             </div>
                         </div>
                     </div>
                     <div class="ts-banner-column">
                         <div class="ts-banner-row">
-                            <div class="ts-banner-value-pair">
-                                <div class="ts-banner-label">Build:</div>
-                                <div class="ts-banner-value" id="id-summary-banner-build">(not set)</div>
+                            <div class="ts-banner-prop-pair">
+                                <div class="ts-banner-prop-label">Build:</div>
+                                <div class="ts-banner-prop-value" id="id-summary-banner-build">(not set)</div>
                             </div>
                         </div>
                         <br>
                         <div class="ts-banner-row">
-                            <div class="ts-banner-value-pair">
-                                <div class="ts-banner-label">Stop:</div>
-                                <div class="ts-banner-value" id="id-summary-banner-stop">(not set)</div>
+                            <div class="ts-banner-prop-pair">
+                                <div class="ts-banner-prop-label">Stop:</div>
+                                <div class="ts-banner-prop-value" id="id-summary-banner-stop">(not set)</div>
                             </div>
                         </div>
                     </div>
                     <div class="ts-banner-column">
                         <div class="ts-banner-row">
-                            <div class="ts-banner-value-pair">
-                                <div class="ts-banner-label">Flavor:</div>
-                                <div class="ts-banner-value" id="id-summary-banner-flavor">(not set)</div>
+                            <div class="ts-banner-prop-pair">
+                                <div class="ts-banner-prop-label">Flavor:</div>
+                                <div class="ts-banner-prop-value" id="id-summary-banner-flavor">(not set)</div>
                             </div>
                         </div>
                         <br>
                         <div class="ts-banner-row">
-                            <div class="ts-banner-value-pair">
-                                <div class="ts-banner-label">Status:</div>
-                                <div class="ts-banner-value" id="id-summary-banner-status">(not set)</div>
+                            <div class="ts-banner-prop-pair">
+                                <div class="ts-banner-prop-label">Status:</div>
+                                <div class="ts-banner-prop-value" id="id-summary-banner-status">(not set)</div>
                             </div>
                         </div>
                     </div>
@@ -777,9 +777,28 @@ class TestSummaryResultItem extends HTMLElement {
                 </div>
             </summary>
             <div id="id-resultitem-detail">
-                <div id="id-ris-item-detail">
+                <div id="id-ris-item-detail" class="ts-results-item-detail">
+                    <div class="ts-results-item-prop-row" >
+                        <div class="ts-results-item-prop-pair" >
+                            <div id="id-rip-inst-label" class="ts-results-item-prop-label">InstId</div>
+                            <div id="id-rip-inst-value" class="ts-results-item-prop-value"></div>
+                        </div>
+                        <div class="ts-results-item-prop-pair" >
+                            <div id="id-rip-start-label" class="ts-results-item-prop-label">Start</div>
+                            <div id="id-rip-start-value" class="ts-results-item-prop-value"></div>
+                        </div>
+                        <div class="ts-results-item-prop-pair" >
+                            <div id="id-rip-stop-label" class="ts-results-item-prop-label">Stop</div>
+                            <div id="id-rip-stop-value" class="ts-results-item-prop-value"></div>
+                        </div>
+                        <div class="ts-results-item-prop-pair" >
+                            <div id="id-rip-elapsed-label" class="ts-results-item-prop-label">Elapsed</div>
+                            <div id="id-rip-elapsed-value" class="ts-results-item-prop-value"></div>
+                        </div>
+                    </div>
                 </div>
-                <div id="id-ris-taskings"></div>
+                <div id="id-ris-taskings">
+                </div>
             </div>
         </details>
     `
@@ -839,6 +858,23 @@ class TestSummaryResultItem extends HTMLElement {
             itemPassEl.classList.add("color-ghost");
         }
         itemPassEl.innerHTML = passed.toString();
+
+        var itemDetailEl = this.shadowRoot.querySelector("#id-resultitem-detail");
+
+        var itemInstValEl = this.shadowRoot.querySelector("#id-rip-inst-value");
+        itemInstValEl.innerHTML = testItem.instance;
+
+        var itemStartValEl = this.shadowRoot.querySelector("#id-rip-start-value");
+        itemStartValEl.innerHTML = testItem.start;
+
+        var itemStopValEl = this.shadowRoot.querySelector("#id-rip-stop-value");
+        itemStopValEl.innerHTML = testItem.stop;
+
+        var elapsed = get_time_difference(testItem.start, testItem.stop);
+
+        var itemElapsedValEl = this.shadowRoot.querySelector("#id-rip-elapsed-value");
+        itemElapsedValEl.innerHTML = elapsed;
+
     }
 }
 

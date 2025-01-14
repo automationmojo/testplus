@@ -1,0 +1,46 @@
+apod:
+    clients:
+    -   credentials:
+        - pi-cluster
+        deviceType: network/client-linux
+        features:
+            isolation: false
+        host: 172.16.1.31
+        name: casey-01
+        role: taskerserver
+        skip: false
+    -   credentials:
+        - pi-cluster
+        deviceType: network/client-linux
+        features:
+            isolation: false
+        host: 172.16.1.32
+        name: casey-02
+        role: taskerserver
+        skip: false
+    -   credentials:
+        - pi-cluster
+        deviceType: network/client-linux
+        features:
+            isolation: false
+        host: 172.16.1.33
+        name: casey-03
+        role: taskerserver
+        skip: false
+    -   credentials:
+        - pi-cluster
+        deviceType: network/client-linux
+        features:
+            isolation: false
+        host: 172.16.1.34
+        name: casey-04
+        role: taskerserver
+        skip: false
+environment:
+    label: production
+infrastructure:
+    services:
+    -   credentials:
+        - adminuser
+        name: someservice
+        serviceType: network/service

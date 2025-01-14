@@ -1,0 +1,89 @@
+
+@property --color-error {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: maroon;
+}
+
+@property --color-fail {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: red;
+}
+
+@property --color-ghost {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #B0B0B0;
+}
+
+@property --color-pass {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: green;
+}
+
+@property --color-skip {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: gray;
+}
+
+@property --color-warn {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: orange;
+}
+
+
+@property --color-banner-background-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #50526e;
+}
+
+@property --color-banner-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: white;
+}
+
+@property --color-section-header-background-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #50526e;
+}
+
+@property --color-section-header-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: white;
+}
+
+
+/* =======================================================================
+                                  COLOR CLASSES
+   =======================================================================*/
+.color-error {
+    color: var(--color-error) !important;
+}
+
+.color-fail {
+    color: var(--color-fail)red !important;
+}
+
+.color-ghost {
+    color: var(--color-ghost) !important;
+}
+
+.color-pass {
+    color: var(--color-pass) !important;
+}
+
+.color-skip {
+    color: var(--color-skip) !important;
+}
+
+.color-warn {
+    color: var(--color-warn) !important;
+}

@@ -1,0 +1,41 @@
+{
+    "version": "2",
+    "title": "",
+    "runid": "3a1c8f00-b768-4ced-8fbc-669e1cf90934",
+    "build": {
+        "release": "(not-set)",
+        "branch": "(not-set)",
+        "build": "(not-set)",
+        "flavor": "(not-set)",
+        "url": "(not-set)"
+    },
+    "pipeline": {
+        "id": "(not-set)",
+        "name": "(not-set)",
+        "instance": "(not-set)"
+    },
+    "job": {
+        "id": "0d6a3c4f-537a-4a83-880d-a819b6f1a1b8",
+        "initiator": "(not-set)",
+        "label": "(not-set)",
+        "name": "(not-set)",
+        "owner": "(not-set)",
+        "type": "testrun",
+        "venue": "(not-set)",
+        "seed": null,
+        "tag": "(not-set)"
+    },
+    "start": "2024-12-14 19:06:56.795084",
+    "stop": "2024-12-14 19:07:06.819793",
+    "result": "PASSED",
+    "apod": "(not-set)",
+    "totals": null,
+    "running": {},
+    "detail": {
+        "errors": 0,
+        "failed": 0,
+        "skipped": 0,
+        "passed": 4,
+        "total": 4
+    }
+}

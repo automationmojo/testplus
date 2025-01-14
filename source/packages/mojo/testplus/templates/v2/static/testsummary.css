@@ -14,31 +14,9 @@
     margin-inline-end: 0px;
  }
 
-/* =======================================================================
-                                  COLOR CLASSES
-   =======================================================================*/
-.color-error {
-    color: maroon !important;
-}
 
-.color-fail {
-    color: red !important;
-}
-
-.color-ghost {
-    color: #B0B0B0 !important;
-}
-
-.color-pass {
-    color: green !important;
-}
-
-.color-skip {
-    color: gray !important;
-}
-
-.color-warn {
-    color: orange !important;
+.page-style {
+    background-color: lightgray;
 }
 
 /* =======================================================================
@@ -62,8 +40,6 @@
    =======================================================================*/
 
 .ts-collapsible {
-    background-color: #a8bad4;
-    color: #444;
     cursor: pointer;
     padding: 18px;
     width: 100%;
@@ -75,6 +51,8 @@
     font-size: 15px;
     margin-bottom: 2px;
     margin-top: 2px;
+    background-color: #a5a7b5;
+    color: black;
 }
 
 .ts-collapsible-button {
@@ -147,8 +125,8 @@
     padding-top: 4px;
     padding-bottom: 4px;
     border-radius: 10px 10px 0px 0px;
-    background-color: lightgray;
-    color: black;
+    background-color: var(--color-section-header-background-color);
+    color: var(--color-section-header-color);
 }
 
 .ts-section-detail {
@@ -161,7 +139,8 @@
 .ts-banner {
     border-radius: 10px;
     box-shadow: 4px 4px 8px gray;
-    background-color: white;
+    background-color: var(--color-banner-color-background);
+    color: var(--color-banner-color);
 }
 
 .ts-banner-job {
@@ -190,7 +169,7 @@
     text-shadow: 5px 5px 6px black;
 }
 
-.ts-banner-label {
+.ts-banner-prop-label {
     width: fit-content;
     height: fit-content;
     text-align: right;
@@ -201,7 +180,7 @@
     color: whitesmoke;
 }
 
-.ts-banner-value {
+.ts-banner-prop-value {
     width: fit-content;
     height: fit-content;
     text-align: left;
@@ -212,7 +191,7 @@
     color: whitesmoke;
 }
 
-.ts-banner-value-pair {
+.ts-banner-prop-pair {
     display: flex;
     flex-flow: row nowrap;
     flex-grow: 1;
@@ -428,14 +407,14 @@
 
 .ts-results-grp-start {
     text-align: center;
-    font-size: 14pt;
+    font-size: 13pt;
     padding-left: 10px;
     padding-right: 10px;
 }
 
 .ts-results-grp-name {
     text-align: left;
-    font-size: 14pt;
+    font-size: 13pt;
     flex-grow: 1;
     padding-left: 10px;
     padding-right: 10px;
@@ -443,7 +422,7 @@
 
 .ts-results-grp-score {
     text-align: center;
-    font-size: 14pt;
+    font-size: 13pt;
     color: maroon;
     padding-left: 10px;
     padding-right: 10px;
@@ -455,20 +434,24 @@
     grid-template-columns: minmax(140px, max-content) auto minmax(60px, max-content) minmax(60px, max-content) minmax(60px, max-content) minmax(60px, max-content);
 }
 
+.ts-results-item-detail {
+    margin-bottom: 4px;
+}
+
 .ts-results-item-indent {
     width: 10px;
 }
 
 .ts-results-item-start {
     text-align: center;
-    font-size: 14pt;
+    font-size: 13pt;
     padding-left: 10px;
     padding-right: 10px;
 }
 
 .ts-results-item-name {
     text-align: left;
-    font-size: 14pt;
+    font-size: 13pt;
     flex-grow: 1;
     padding-left: 10px;
     padding-right: 10px;
@@ -476,9 +459,46 @@
 
 .ts-results-item-score {
     text-align: center;
-    font-size: 14pt;
+    font-size: 13pt;
     padding-left: 10px;
     padding-right: 10px;
 }
 
 
+.ts-results-item-prop-label {
+    width: fit-content;
+    height: fit-content;
+    text-align: right;
+    min-width: 60px;
+    font-weight: bolder;
+    font-size: 13pt;
+    padding-right: 10px;
+}
+
+.ts-results-item-prop-value {
+    width: fit-content;
+    height: fit-content;
+    text-align: left;
+    min-width: 80px;
+    font-size: 13pt;
+    padding-left: 8px;
+    padding-right: 20px;
+}
+
+.ts-results-item-prop-pair {
+    display: flex;
+    flex-flow: row nowrap;
+    flex-grow: 1;
+    text-align: left;
+    justify-content: flex-start;
+    margin-top: 2px;
+}
+
+.ts-results-item-prop-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-left: 50px;
+    padding-right: 50px;
+    justify-content: flex-end;
+}

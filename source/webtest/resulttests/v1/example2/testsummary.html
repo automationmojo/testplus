@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--
+        __author__ = "Myron Walker"
+        __copyright__ = "Copyright 2020, Myron W Walker"
+        __credits__ = []
+        __version__ = "1.0.0"
+        __maintainer__ = "Myron Walker"
+        __email__ = "myron.walker@gmail.com"
+        __status__ = "Development" # Prototype, Development or Production
+        __license__ = "MIT"
+    -->
+    <head>
+
+        <link rel="stylesheet" href="/static/v1/prism.css" ></link>
+        <link rel="stylesheet" href="/static/v1/testsummary.css" ></link>
+
+        <script type="text/javascript" src="/static/v1/testhelpers.js" ></script>
+        <script type="text/javascript" src="/static/v1/testsummary.js" ></script>
+
+        <script type="text/javascript">
+
+            function on_page_load() {
+                refresh_page().then(function() {
+                console.log("Page loaded");
+                }, function(err) {
+                    console.log("ERROR:\n" + err);
+                    console.log(err.stack)
+                });
+            }
+
+
+        </script>
+
+    </head>
+    <body onload="on_page_load()">
+        <script type="text/javascript" src="/static/v1/prism.js" ></script>
+        <div class='section-header'>
+            <div class="summary-card">
+                <div class="summary-banner-image"></div>
+                <div style="width: 100%; text-shadow: 5px 5px 6px black;">
+                    <div class="summary-banner-content">
+                        <div class="flex-filler"></div>
+                        <div class="summary-column">
+                            <div class="summary-row">
+                                <div class="summary-value-pair">
+                                    <div style='color: whitesmoke' class="summary-label">Pod</div>
+                                    <div style='color: whitesmoke' class="summary-value" id='summary-apod'>Automation Rig 2</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-column">
+                            <div class="summary-row">
+                                <div class="summary-value-pair">
+                                    <div style='color: whitesmoke' class="summary-label">Branch</div>
+                                    <div style='color: whitesmoke' class="summary-value" id='summary-branch'>blah</div>
+                                </div>
+                            </div>
+                            <br/>   
+                            <div class="summary-row">
+                                <div class="summary-value-pair" style="flex-basis: 1;">
+                                    <div style='color: whitesmoke' class="summary-label">Start</div>
+                                    <div style='color: whitesmoke' class="summary-value" id='summary-start'>2019-09-21 22:43:07.86</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-column">
+                            <div class="summary-row">
+                                <div class="summary-value-pair">
+                                    <div style='color: whitesmoke' class="summary-label">Build</div>
+                                    <div style='color: whitesmoke' class="summary-value" id='summary-build'>1.0.0.1.169</div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="summary-row">
+                                <div class="summary-value-pair">
+                                    <div style='color: whitesmoke' class="summary-label">Stop</div>
+                                    <div style='color: whitesmoke' class="summary-value" id='summary-stop'>2019-09-21 22:43:08.19</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-column">
+                            <div class="summary-row">
+                                <div class="summary-value-pair">
+                                    <div style='color: whitesmoke' class="summary-label">Flavor</div>
+                                    <div style='color: whitesmoke' class="summary-value" id='summary-flavor'>release</div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="summary-row">
+                                <div class="summary-value-pair">
+                                    <div style='color: whitesmoke' class="summary-label">Status</div>
+                                    <div style='color: whitesmoke' class="summary-value" id='summary-status'>RUNNING</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="summary-banner-metrics">
+                <div class="flex-filler"></div>
+                <div class='summary-metrics'>
+                    <div class="summary-column">
+                        <div class="summary-metrics-row"><div class='summary-label'>Errors</div><div id='summary-error' class='summary-value color-error'>0</div></div>
+                    </div>
+                    <div class="summary-column">
+                        <div class="summary-metrics-row"><div class='summary-label'>Failed</div><div id='summary-fail' class='summary-value color-fail'>0</div></div>
+                    </div>
+                    <div class="summary-column">
+                        <div class="summary-metrics-row"><div class='summary-label'>Skipped</div><div id='summary-skip' class='summary-value color-skip'>0</div></div>
+                    </div>
+                    <div class="summary-column">
+                        <div class="summary-metrics-row"><div class='summary-label'>Passed</div><div id='summary-pass' class='summary-value color-pass'>0</div></div>
+                    </div>
+                    <div class="summary-column">
+                        <div class="summary-metrics-row"><div class='summary-label'>Total</div><div id='summary-total' class='summary-value'>0</div></div>
+                        <div class="summary-metrics-row"><div class='summary-label'>Score</div><div id='summary-score' class='summary-value'>0.0</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='section-body'>
+            <div class="test-configuration-card">
+                <h2 id='test-configuration-title' class='body-title'>Configuration</h2>
+                <div id='test-configuration-header'>
+                </div>
+                <div id='test-configuration-body' class='landscape-table'>
+                </div>
+            </div>
+            <div class="test-results-card">
+                <h2 id='test-results-title' class='body-title'>Test Cases</h2>
+                <div id='test-results-header' class='results-headers'>
+                    <div class='results-hdr-start'>Start</div>
+                    <div class='results-hdr-name'>Test Name</div>
+                    <div class='results-hdr-e'>E</div>
+                    <div class='results-hdr-f'>F</div>
+                    <div class='results-hdr-s'>S</div>
+                    <div class='results-hdr-p'>P</div>
+                </div>
+                <div id='test-results-body' class='results-table'>
+                </div>
+            </div>
+            <div class="imp-error-card">
+                <h2 id='import-errors-title' class='body-title'>Import Failures</h2>
+                <div id='import-errors-header' class='imp-error-headers'>
+                    <div class='imp-error-hdr-filename'>Filename</div>
+                </div>
+                <div id='import-errors-body' class='imp-error-table' >
+                    
+                </div>
+            </div>
+            
+            <h2 id='artifacts-title' class='body-title' style="display: none">Artifacts</h2>
+            <div id='artifacts-tab-bar' class='tab' style="display: none">
+            </div>
+            <div id='artifacts-tab-content' style="display: none">
+            </div>
+        </div>
+        <div class='section-footer'>
+            <div class="files-and-folders-card">
+                <h2>Folders</h2>
+                <div id='container-folders' class='ff-list'>
+                </div>
+                <br/>
+                <h2>Files</h2>
+                <div id='container-files' class='ff-list'>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
