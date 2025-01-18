@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--
+        __author__ = "Myron Walker"
+        __copyright__ = "Copyright 2020, Myron W Walker"
+        __credits__ = []
+        __version__ = "1.0.0"
+        __maintainer__ = "Myron Walker"
+        __email__ = "myron.walker@gmail.com"
+        __status__ = "Development" # Prototype, Development or Production
+        __license__ = "MIT"
+    -->
+    <head>
+        <title>Images</title>
+        <style>
+            .items-container {
+                display: flex;
+                width: auto;
+                height: auto;
+            }
+
+            img {
+                width: 100px;
+                height: auto;
+            }
+        </style>
+        <script type="text/javascript">
+            var g_items_ext_list = ["png", "jpg"]
+            var g_catalog = null;
+            var g_items = [];
+
+            async function load_json(url) {
+                var promise = new Promise((resolve, reject) => {
+                    var xmlhttp = new XMLHttpRequest();
+                    
+                    xmlhttp.onreadystatechange = function() {
+                        if (this.readyState == 4) {
+                            if (this.status == 200) {
+                                var robj = JSON.parse(this.responseText);
+                                resolve(robj);
+                            } else {
+                                reject(this.statusText);
+                            }
+                        }
+                    };
+
+                    xmlhttp.onerror = function (){
+                        reject(this.statusText);
+                    };
+
+                    xmlhttp.open("GET", url, true);
+                    xmlhttp.send();
+
+                });
+
+                return promise;
+            }
+
+            async function load_items() {
+                g_catalog = await load_json("catalog.json");
+
+                for (var findex in g_catalog.files) {
+                    var filename = g_catalog.files[findex];
+                    var fext = filename.split(".").pop();
+
+                    if (g_items_ext_list.indexOf(fext) > -1) {
+                        g_items.push(filename);
+                    }
+                }
+            }
+
+            async function refresh_items() {
+                var itemsContainer = document.getElementById('container-items');
+
+                for (var findex in g_items) {
+                    var filename = g_items[findex];
+
+                    var itemElement = document.createElement('img');
+                    itemElement.src = filename;
+
+                    itemsContainer.appendChild(itemElement);
+                }
+            }
+
+            async function refresh_page() {
+                await load_items();
+                await refresh_items();
+            }
+
+            refresh_page().then(function() {
+                console.log("Page loaded");
+            }, function(err) {
+                console.log("ERROR:\n" + err);
+                console.log(err.stack)
+            });
+
+        </script>
+    </head>
+    <body style="width: 100%;">
+        <h3>Images</h3>
+        <div id='container-items' class='items-container'>
+
+        </div>
+    </body>
+</html>

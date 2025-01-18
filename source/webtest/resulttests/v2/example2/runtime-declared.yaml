@@ -1,0 +1,21 @@
+breakpoints:
+- testrun-start
+debugger: debugpy
+logging:
+    branched: []
+    levels:
+        console: INFO
+        logfile: DEBUG
+    logname: '{jobtype}.log'
+paths:
+    results:
+        tests: /Users/myron/mjr/results/testresults/2024-12-14T1906S56.795084
+paths-templates:
+    results:
+        tests: /Users/myron/mjr/results/testresults/%(starttime)s
+results-configuration:
+    html-template: /Users/myron/repos/mojo-interop/.venv/lib/python3.12/site-packages/mojo/testplus/templates/v1/testsummary.html
+    static-resource-dest-dir: /Users/myron/mjr/results/static/v1
+    static-resource-src-dir: /Users/myron/repos/mojo-interop/.venv/lib/python3.12/site-packages/mojo/testplus/templates/v1/static
+testroot: /Users/myron/repos/mojo-interop/source/testroots/mojo
+version: 1.0.0

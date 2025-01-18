@@ -17,6 +17,21 @@
 
 .page-style {
     background-color: lightgray;
+    box-sizing: border-box;
+}
+
+.code-font-lt {
+    font-family: monospace;
+    font-weight: 500;
+    white-space: pre-wrap;
+    color: gray;
+}
+
+.code-font-dk {
+    font-family: monospace;
+    font-weight: 500;
+    white-space: pre-wrap;
+    color: black;
 }
 
 /* =======================================================================
@@ -177,7 +192,6 @@
     font-weight: bolder;
     font-size: 14pt;
     padding-right: 10px;
-    color: whitesmoke;
 }
 
 .ts-banner-prop-value {
@@ -188,7 +202,6 @@
     font-size: 14pt;
     padding-left: 8px;
     padding-right: 20px;
-    color: whitesmoke;
 }
 
 .ts-banner-prop-pair {
@@ -204,7 +217,7 @@
     height: 100px;
     background-color: indigo;
     margin: 10px;
-    content: url("/static/v2/test-report-banner-background-image.png");
+    content: var(--image-logo);
 }
 
 .ts-banner-metrics {
@@ -285,6 +298,22 @@
     box-shadow: 4px 4px 8px gray;
     background-color: white;
     min-height: 100px;
+}
+
+.ts-file-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.ts-folder-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .ts-importfailures-card {
@@ -402,7 +431,7 @@
 .ts-results-grp-grid {
     display: inline-grid;
     grid-template-columns: auto minmax(60px, max-content) minmax(60px, max-content) minmax(60px, max-content) minmax(60px, max-content);
-    width: calc(100% - 16px);
+    width: calc(100% - 18px);
 }
 
 .ts-results-grp-start {
@@ -429,13 +458,14 @@
 }
 
 .ts-results-items-grid {
-    width: calc(100% - 16px);
+    width: calc(100% - 18px);
     display: inline-grid;
     grid-template-columns: minmax(140px, max-content) auto minmax(60px, max-content) minmax(60px, max-content) minmax(60px, max-content) minmax(60px, max-content);
 }
 
 .ts-results-item-detail {
-    margin-bottom: 4px;
+    margin-bottom: 10px;
+    
 }
 
 .ts-results-item-indent {
@@ -502,3 +532,116 @@
     padding-right: 50px;
     justify-content: flex-end;
 }
+
+.ts-errors-collapsible {
+    box-sizing: border-box;
+    width: inherit;
+    background-color: var(--color-error); 
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    border: solid;
+    border-color: var(--color-error);
+    border-width: 2px;
+    border-radius: 4px;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.ts-errors-collapsible-button {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: nowrap;
+    background-color: inherit;
+}
+
+.ts-errors-collapsible-content {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+}
+
+.ts-errors-collapsible-header {
+    flex-grow: 1;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.ts-errors-collapsible-icon {
+    fill: white;
+    font-size: 20;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+}
+
+.ts-failures-collapsible {
+    box-sizing: border-box;
+    width: inherit;
+    background-color: var(--color-fail); 
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    border: solid;
+    border-color: var(--color-fail);
+    border-width: 2px;
+    border-radius: 4px;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.ts-failures-collapsible-button {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: nowrap;
+    background-color: var(--color-fail);
+}
+
+.ts-failures-collapsible-content {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+}
+
+.ts-failures-collapsible-header {
+    flex-grow: 1;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.ts-failures-collapsible-icon {
+    fill: white;
+    font-size: 20;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+}
+
+
+.ts-results-item-failures-coll {
+    fill: var(--color-fail);
+    background-color: var(--color-fail);
+    color: white;
+}
+
+.ts-results-item-failures-list {
+    display: flex;
+    flex-direction: row;
+}
+
+.ts-exception-content {
+    text-align: left;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 8px;
+}
+

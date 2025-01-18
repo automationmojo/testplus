@@ -135,11 +135,16 @@ class MojoCollapsible extends HTMLElement {
     sel_header_icon = "#id-header-icon"
     sel_content = "#id-collapsible-content"
 
-    constructor() {
+    constructor(overrideTemplate = undefined) {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = this.template;
+
+        if (overrideTemplate == undefined) {
+            shadowRoot.innerHTML = this.template;
+        } else {
+            shadowRoot.innerHTML = overrideTemplate;
+        }
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
@@ -147,24 +152,26 @@ class MojoCollapsible extends HTMLElement {
         var thisComp = this;
 
         buttonEl.addEventListener("click", (event) => { thisComp.toggle(event) });
-
     }
 
     syncData(header, content, expanded) {
         var headerTextEl =  this.shadowRoot.querySelector(this.sel_header_text);
         headerTextEl.innerHTML = header;
-        
-        var contentEl =  this.shadowRoot.querySelector(this.sel_content);
-        contentEl.innerHTML = "";
 
-        if (content instanceof HTMLElement) {
-            contentEl.appendChild(content);
-        } else {
-            contentEl.innerHTML = content;
+        var contentEl =  this.shadowRoot.querySelector(this.sel_content);
+
+        if (content != undefined) {
+            contentEl.innerHTML = "";
+
+            if (content instanceof HTMLElement) {
+                contentEl.appendChild(content);
+            } else {
+                contentEl.innerHTML = content;
+            }
         }
 
         if (expanded) {
-            contentEl.style.display = "block";
+            contentEl.style.display = "";
         } else {
             contentEl.style.display = "none";
         }
@@ -176,7 +183,7 @@ class MojoCollapsible extends HTMLElement {
         var contentEl =  this.shadowRoot.querySelector(this.sel_content);
 
         if (contentEl.style.display == "none") {
-            contentEl.style.display = "block";
+            contentEl.style.display = "";
         } else {
             contentEl.style.display = "none";
         }
@@ -188,9 +195,9 @@ class MojoCollapsible extends HTMLElement {
         var iconEl = this.shadowRoot.querySelector(this.sel_header_icon);
 
         if (contentEl.style.display != "none") {
-            iconEl.innerHTML = "-";
+            iconEl.innerHTML = "<icon-minus-sign></icon-minus-sign>";
         } else {
-            iconEl.innerHTML = "+";
+            iconEl.innerHTML = "<icon-plus-sign></icon-plus-sign>";
         }
     }
 

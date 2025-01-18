@@ -171,6 +171,21 @@ class IconFolderManaged extends IconBase {
     }
 }
 
+class IconMinusSign extends IconBase {
+
+    static tagname = 'icon-minus-sign'
+
+    template = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="icon-component-style">
+            <path d="M200-440v-80h560v80H200Z"/>
+        </svg>
+    `
+    constructor() {
+        super();
+        this.initializeShadow(this.template);
+    }
+}
+
 class IconNoteAdd extends IconBase {
 
     static tagname = 'icon-note-add'
@@ -193,6 +208,21 @@ class IconNoteStack extends IconBase {
     template = `
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="icon-component-style">
             <path d="M280-160v-441q0-33 24-56t57-23h439q33 0 56.5 23.5T880-600v320L680-80H360q-33 0-56.5-23.5T280-160ZM81-710q-6-33 13-59.5t52-32.5l434-77q33-6 59.5 13t32.5 52l10 54h-82l-7-40-433 77 40 226v279q-16-9-27.5-24T158-276L81-710Zm279 110v440h280v-160h160v-280H360Zm220 220Z"/>
+        </svg>
+    `
+    constructor() {
+        super();
+        this.initializeShadow(this.template);
+    }
+}
+
+class IconPlusSign extends IconBase {
+
+    static tagname = 'icon-plus-sign'
+
+    template = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="icon-component-style">
+            <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
         </svg>
     `
     constructor() {
@@ -276,6 +306,8 @@ function register_icon_components() {
         customElements.define(IconFolderData.tagname, IconFolderData);
         customElements.define(IconFolderEye.tagname, IconFolderEye);
         customElements.define(IconFolderManaged.tagname, IconFolderManaged);
+        customElements.define(IconMinusSign.tagname, IconMinusSign);
+        customElements.define(IconPlusSign.tagname, IconPlusSign);
         customElements.define(IconNoteAdd.tagname, IconNoteAdd);
         customElements.define(IconNoteStack.tagname, IconNoteStack);
         customElements.define(IconSearch.tagname, IconSearch);

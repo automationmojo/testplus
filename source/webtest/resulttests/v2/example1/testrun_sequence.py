@@ -16,9 +16,9 @@ from mojo.testplus import ConstraintsCatalog
 constraints_catalog = ConstraintsCatalog()
 
 
-from mojo.coupling.simplefactories import create_blah
-from mojo.tests.testplus.local.test_validator_injection import create_validator
 from mojo.tests.testplus.local.test_validator_injection import create_looping_validator
+from mojo.tests.testplus.local.test_validator_injection import create_validator
+from mojo.coupling.simplefactories import create_blah
 from mojo.tests.testplus.local.test_validator_injection import create_time_interval_validator
 
 def session(sequencer):

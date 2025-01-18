@@ -339,6 +339,7 @@ function entity_escape(tgtstr) {
  *************************************************************************************/
 
 function refresh_artifacts() {
+
     var artifactsBarElement = document.getElementById("artifacts-tab-bar");
     var artifactsContentElement = document.getElementById("artifacts-tab-content");
 
@@ -360,36 +361,20 @@ function refresh_artifacts() {
         var tabName = firstButton.getAttribute("name");
         select_tab(tabName);
     }
+    
 }
 
 function refresh_catalog() {
+    var filesAndFoldersEl = document.getElementById("testsummary-filesandfolders");
 
-    var container = document.getElementById("container-folders");
-    render_folder_element(container, "Parent", "..")
-
-    var folders_list = g_catalog.folders;
-    for (var idx in folders_list) {
-        var nxt = folders_list[idx];
-
-        render_folder_element(container, nxt, nxt)
-    }
-
-    var container = document.getElementById("container-files");
-    var file_list = g_catalog.files;
-    for (var idx in file_list) {
-        var nxt = file_list[idx];
-
-        render_file_element(container, nxt, nxt)
-    }
+    filesAndFoldersEl.syncData(g_catalog.files, g_catalog.folders);
+    
 }
 
 function refresh_import_errors() {
-    var ierrbody = document.getElementById("import-errors-body");
+    var impErrorEl = document.getElementById("import-errors-detail");
 
-    for (var idx in g_import_errors) {
-        var imp_err_item = g_import_errors[idx];
-        render_import_error_item_content(ierrbody, imp_err_item);
-    }
+    impErrorEl.syncData(g_import_errors);
 }
 
 function refresh_startup_environment() {

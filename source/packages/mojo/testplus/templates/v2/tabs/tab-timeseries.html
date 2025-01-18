@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--
+        __author__ = "Myron Walker"
+        __copyright__ = "Copyright 2020, Myron W Walker"
+        __credits__ = []
+        __version__ = "1.0.0"
+        __maintainer__ = "Myron Walker"
+        __email__ = "myron.walker@gmail.com"
+        __status__ = "Development" # Prototype, Development or Production
+        __license__ = "MIT"
+
+        NOTES: To use this html page to render a Time Series Chart, you need to create a file in the same directory
+               that is named 'chartsummary.json'.  This file provides information about the data series to present
+               and where to find the data.  The following is an example of this file.
+
+                {
+                    "title" : "Example Time Series Chart",
+                    "axis": {
+                        "y": { "label": "iops"},
+                        "x": { "label": "timestamp"}
+                    },
+                    "series" : [
+                        {
+                            "name": "node-1",
+                            "src": "./series/write-perf-iops-node-1.jsos",
+                            "fields": {
+                                "time": "time",
+                                "value": "value"
+                            }
+                        },
+                        {
+                            "name": "node-2",
+                            "src": "./series/write-perf-iops-node-2.jsos",
+                            "fields": {
+                                "time": "time",
+                                "value": "value"
+                            }
+                        }
+                    ]
+                }
+
+            The series files are in the form of 'jsos' files that contain a series of data samples seperated by the
+            ASCII record seperator character ''.  The fields of each sample must provide a time, and value that
+            should be represented.  The samples should be compatible across the series that are specified.
+
+            { "time": "2024-03-01T23:27:10", "value": 1473.15 }
+
+    -->
+    <head>
+        <title>Time Series Chart</title>
+        <style>
+            .items-container {
+                display: flex;
+                width: auto;
+                height: auto;
+            }
+
+            img {
+                width: 100px;
+                height: auto;
+            }
+        </style>
+
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.js" ></script>
+
+        <script type="text/javascript">
+
+
+            const g_series_colors = [
+                "blue",
+                "blueviolet",
+                "burlywood",
+                "cadetblue",
+                "chocolate",
+                "coral",
+                "cornflowerblue",
+                "crimson",
+                "cyan",
+                "darkgreen",
+                "darkkhaki",
+                "darkmagenta",
+                "darkolivegreen",
+                "darkorange",
+                "darkorchid",
+                "darkred",
+                "darksalmon",
+                "darkslateblue",
+                "darkslategray",
+                "deeppink",
+                "gold",
+                "goldenrod",
+                "green",
+                "greenyellow",
+                "hotpink",
+                "skyblue",
+                "tan",
+                "aqua",
+                "aquamarine"
+            ];
+
+            const g_color_table = {};
+
+            async function fetch_json(url) {
+                var promise = new Promise((resolve, reject) => {
+                    var xmlhttp = new XMLHttpRequest();
+
+                    xmlhttp.onreadystatechange = function () {
+                        if (this.readyState == 4) {
+                            if (this.status == 200) {
+                                var robj = JSON.parse(this.responseText);
+                                resolve(robj);
+                            } else {
+                                reject(this.statusText);
+                            }
+                        }
+                    };
+
+                    xmlhttp.onerror = function () {
+                        reject(this.statusText);
+                    };
+
+                    xmlhttp.open("GET", url, true);
+                    xmlhttp.send();
+
+                });
+
+                return promise;
+            }
+
+
+            async function fetch_json_stream(url) {
+                var promise = new Promise((resolve, reject) => {
+                    var xmlhttp = new XMLHttpRequest();
+
+                    xmlhttp.onreadystatechange = function () {
+                        if (this.readyState == 4) {
+                            if (this.status == 200) {
+                                var json_objects = [];
+
+                                var split_responses = this.responseText.split("\x1e");
+                                var srlength = split_responses.length;
+                                while (srlength > 0) {
+                                    var ritem = split_responses.pop().trim();
+                                    if (ritem.length > 0) {
+                                        var robj = JSON.parse(ritem);
+                                        json_objects.unshift(robj);
+                                    }
+                                    srlength = srlength - 1;
+                                }
+
+                                resolve(json_objects);
+                            } else {
+                                reject(this.statusText);
+                            }
+                        }
+                    };
+
+                    xmlhttp.onerror = function () {
+                        reject(this.statusText);
+                    };
+
+                    xmlhttp.open("GET", url, true);
+                    xmlhttp.send();
+
+                });
+
+                return promise;
+            }
+
+
+            async function load_chartseries_from_sources(seriesSources) {
+
+                chartSeries = [];
+
+                for (let index = 0; index < seriesSources.length; index++) {
+                    source = seriesSources[index];
+                    
+                    var colorIndex = index % g_series_colors.length;
+                    var color = g_series_colors[colorIndex];
+
+                    var srcName = source["name"];
+                    var srcUrl = source["src"];
+
+                    g_color_table[srcName] = color;
+
+                    var timeField = "time";
+                    var valueField = "value";
+                    
+                    if ("fields" in source) {
+                        fields = source["fields"];
+
+                        if ("time" in fields) {
+                            timeField = fields["time"];
+                        }
+                        
+                        if ("value" in fields) {
+                            valueField = fields["value"]
+                        }
+                    }
+
+                    var samples = await fetch_json_stream(srcUrl);
+
+                    for (let sindex = 0; sindex < samples.length; sindex++){
+                        var sval = samples[sindex];
+
+                        chartSeries.push({
+                            "series": srcName,
+                            "time": Date.parse(sval[timeField]),
+                            "value": Math.round(sval[valueField])
+                        })
+                    }
+                    
+                }
+
+                return chartSeries;
+            }
+
+
+            var chartTitle = null;
+            var chartSummary = null; 
+            var chartSeries = null;
+            var chartYName = null;
+
+
+            function lookupLineColor(group, index) {
+                gname = group[index][2];
+                var color = g_color_table[gname];
+                return color;
+            }
+
+            function render_chart() {
+
+                // Specify the chart’s dimensions.
+                const width = 2000;
+                const height = 400;
+                const marginTop = 20;
+                const marginRight = 20;
+                const marginBottom = 30;
+                const marginLeft = 30;
+
+                const timeExtent = d3.extent(chartSeries, d => d.time)
+
+                // Create the positional scales.
+                const x = d3.scaleUtc()
+                    .domain(timeExtent)
+                    .range([marginLeft, width - marginRight]);
+
+                const xticks = x.ticks();
+                x.tickFormat(xticks.length, "%m-%dT%H:%M")
+                
+                const maxy = d3.max(chartSeries, d => d.value);
+
+                const y = d3.scaleLinear()
+                    .domain([0, maxy]).nice()
+                    .range([height - marginBottom, marginTop]);
+
+
+                // Create the SVG container.
+                const chart = d3.select("#chart");
+
+                const svg = chart.append("svg")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .attr("viewBox", [0, 0, width, height])
+                    .attr("style", "max-width: 100%; height: auto; overflow: visible; font: 10px sans-serif;");
+
+
+                // Add the horizontal axis.
+                svg.append("g")
+                    .attr("transform", `translate(0,${height - marginBottom})`)
+                    .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0));
+
+
+                // Add the vertical axis.
+                svg.append("g")
+                    .attr("transform", `translate(${marginLeft},0)`)
+                    .call(d3.axisLeft(y))
+                    .call(g => g.select(".domain").remove())
+                    .call(g => g.append("text")
+                        .attr("x", -marginLeft)
+                        .attr("y", 10)
+                        .attr("fill", "currentColor")
+                        .attr("text-anchor", "start")
+                        .text("↑ " + chartYName));
+
+
+                // Compute the points in pixel space as [x, y, z], where z is the name of the series.
+                const points = chartSeries.map((d) => [x(d.time), y(d.value), d.series]);
+
+                // Group the points by series.
+                const groups = d3.rollup(points, v => Object.assign(v, {z: v[0][2]}), d => d[2]);
+
+                // Draw the lines.
+                const line = d3.line();
+                const path = svg.append("g")
+                    .attr("fill", "none")
+                    .attr("stroke-width", 1.5)
+                    .attr("stroke-linejoin", "round")
+                    .attr("stroke-linecap", "round")
+                    .selectAll("path")
+                    .data(groups.values())
+                    .join("path")
+                    .style("stroke", lookupLineColor)
+                    .style("mix-blend-mode", "multiply")
+                    .attr("d", line);
+
+                // Add an invisible layer for the interactive tip.
+                const dot = svg.append("g")
+                    .attr("display", "none");
+
+                dot.append("circle")
+                    .attr("r", 2.5);
+
+                dot.append("text")
+                    .attr("text-anchor", "middle")
+                    .attr("y", -8);
+
+                const node = svg.node();
+
+                return
+
+            }
+
+
+            async function render_dynamic_content() {
+
+                chartSummary = await fetch_json("chartsummary.json");
+                
+                chartTitle = chartSummary["title"];
+                seriesSources = chartSummary["series"];
+
+                var titleElement = document.getElementById("title");
+                titleElement.innerHTML = chartTitle;
+
+                chartSeries = await load_chartseries_from_sources(seriesSources);
+
+                render_chart()
+            }
+
+        </script>
+    </head>
+    <body style="width: 100%;" onload="render_dynamic_content()">
+        <h3 id="title"></h3>
+        <div id='chart'>
+
+        </div>
+    </body>
+</html>

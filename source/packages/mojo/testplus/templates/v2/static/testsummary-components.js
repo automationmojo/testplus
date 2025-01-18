@@ -797,8 +797,6 @@ class TestSummaryResultItem extends HTMLElement {
                         </div>
                     </div>
                 </div>
-                <div id="id-ris-taskings">
-                </div>
             </div>
         </details>
     `
@@ -874,6 +872,22 @@ class TestSummaryResultItem extends HTMLElement {
 
         var itemElapsedValEl = this.shadowRoot.querySelector("#id-rip-elapsed-value");
         itemElapsedValEl.innerHTML = elapsed;
+
+        if (errored > 0) {
+            var errorsCollapsibleEl = document.createElement(TestSummaryErrorsCollapsible.tagname);
+            
+            errorsCollapsibleEl.syncData(detail.errors);
+
+            itemDetailEl.appendChild(errorsCollapsibleEl);
+        }
+
+        if (failed > 0) {
+            var failsCollapsibleEl = document.createElement(TestSummaryFailuresCollapsible.tagname);
+
+            failsCollapsibleEl.syncData(detail.failures);
+
+            itemDetailEl.appendChild(failsCollapsibleEl);
+        }
 
     }
 }
@@ -968,6 +982,152 @@ class TestSummaryResultDetail extends HTMLElement {
 }
 
 
+class TestSummaryErrorsCollapsible extends MojoCollapsible {
+
+    static tagname = 'testsummary-errors-collection'
+
+    constructor() {
+        super(`
+        <div id="id-collapsible-container" class="ts-errors-collapsible" >
+            <div id="id-collapsible-button" class="ts-errors-collapsible-button">
+                <div id="id-header-text" class="ts-errors-collapsible-header">ERRORS</div>
+                <div id="id-header-icon" class="ts-errors-collapsible-icon">+</div>
+            </div>
+            <div id="id-collapsible-content" class="ts-errors-collapsible-content">
+            </div>
+        </div>
+    `);
+    }
+
+    syncData(errors) {
+
+        var contentEl = this.shadowRoot.querySelector(this.sel_content);
+
+        var errorCount = errors.length;
+
+        for (var eidx = 0; eidx < errorCount; eidx++) {
+            var traceInfo = errors[eidx];
+
+            var traceEl = document.createElement(TestSummaryExceptionTrace.tagname)
+            traceEl.syncData(traceInfo.exargs, traceInfo.extype, traceInfo.traces);
+
+            contentEl.appendChild(traceEl);
+        }
+
+        super.syncData("ERRORS", undefined, false);
+    }
+
+}
+
+
+class TestSummaryFailuresCollapsible extends MojoCollapsible {
+
+    static tagname = 'testsummary-failures-collection'
+
+    constructor() {
+        super(`
+        <div id="id-collapsible-container" class="ts-failures-collapsible" >
+            <div id="id-collapsible-button" class="ts-failures-collapsible-button">
+                <div id="id-header-text" class="ts-failures-collapsible-header"></div>
+                <div id="id-header-icon" class="ts-failures-collapsible-icon">+</div>
+            </div>
+            <div id="id-collapsible-content" class="ts-failures-collapsible-content">
+            </div>
+        </div>
+    `);
+    }
+
+    syncData(failures) {
+
+        var contentEl = this.shadowRoot.querySelector(this.sel_content);
+
+        var failureCount = failures.length;
+
+        for (var fidx = 0; fidx < failureCount; fidx++) {
+            var traceInfo = failures[fidx];
+
+            var traceEl = document.createElement(TestSummaryExceptionTrace.tagname)
+            traceEl.syncData(traceInfo.exargs, traceInfo.extype, traceInfo.traces);
+
+            contentEl.appendChild(traceEl);
+        }
+
+        super.syncData("FAILURES", undefined, false);
+    }
+}
+
+
+class TestSummaryExceptionTrace extends HTMLElement {
+
+    static tagname = 'testsummary-exception-trace'
+
+    template = `
+        <div id="id-exception-content" class="ts-exception-content">
+            <pre></pre>
+        </div>
+    `
+
+    sel_content = "#id-exception-content"
+
+    constructor() {
+        super();
+
+        const shadowRoot = this.attachShadow({mode: 'open'})
+        shadowRoot.innerHTML = this.template;
+
+        addGlobalStylesToShadowRoot(shadowRoot);
+    }
+
+    syncData (exargs, extype, trace_lines) {
+
+        var contentEl = this.shadowRoot.querySelector(this.sel_content);
+
+        var exAndMsgEl = document.createElement("pre");
+        exAndMsgEl.classList.add("code-font-dk")
+        exAndMsgEl.innerHTML = extype + ", " + exargs;
+        contentEl.appendChild(exAndMsgEl);
+
+        var traces_len = trace_lines.length;
+
+        for (var tidx=0; tidx < traces_len; tidx++) {
+            var traceInfo = trace_lines[tidx];
+            var traceEl = this.createTraceElement(traceInfo);
+            contentEl.appendChild(traceEl);
+        }
+    }
+
+    createTraceElement(traceInfo) {
+        var outerDivEl = document.createElement('div');
+        
+        var origin = traceInfo.origin;
+        
+        var nxtPreEl = document.createElement('pre');
+        nxtPreEl.classList.add("code-font-lt");
+        nxtPreEl.innerHTML = "  File " + origin.file + ", line " + origin.lineno + ", in " + origin.scope;
+        outerDivEl.appendChild(nxtPreEl);
+    
+        nxtPreEl = document.createElement('pre');
+        nxtPreEl.classList.add("margin-lg");
+        nxtPreEl.classList.add("code-font-dk");
+        nxtPreEl.innerHTML = entity_escape(traceInfo.call);
+        outerDivEl.appendChild(nxtPreEl);
+    
+        if ((traceInfo.code != undefined) && (traceInfo.code.length > 0)) {
+            var nxtPreEl = document.createElement('pre');
+            nxtPreEl.classList.add("margin-lg");
+    
+            var codeEl = document.createElement('code');
+            codeEl.classList.add("language-python");
+            codeEl.innerHTML = "\n" + traceInfo.code.join("\n");
+            nxtPreEl.appendChild(codeEl);
+        }
+    
+        outerDivEl.appendChild(nxtPreEl);
+    
+        return outerDivEl;
+    }
+}
+
 class TestSummaryArtifacts extends HTMLElement {
 
     static tagname = 'testsummary-artifacts'
@@ -1020,8 +1180,11 @@ class TestSummaryImportFailures extends HTMLElement {
         addGlobalStylesToShadowRoot(shadowRoot);
     }
 
-    syncData () {
-        
+    syncData (importErrors) {
+        for (var idx in g_import_errors) {
+            var imp_err_item = g_import_errors[idx];
+            render_import_error_item_content(ierrbody, imp_err_item);
+        }
     }
 }
 
@@ -1036,10 +1199,20 @@ class TestSummaryFilesAndFolders extends HTMLElement {
                 <h2 class="zero-margins-and-padding">Files and Folders</h2>
             </div>
             <div class="ts-section-detail">
+                <h2>Folders</h2>
+                <div id="id-folders-list">
+                </div>
+                <br></br>
+                <h2>Files</h2>
+                <div id="id-files-list">
+                </div>
             </div>
         </div>
     `
 
+    sel_files = "#id-files-list"
+    sel_folders = "#id-folders-list"
+    
     constructor() {
         super();
 
@@ -1049,9 +1222,44 @@ class TestSummaryFilesAndFolders extends HTMLElement {
         addGlobalStylesToShadowRoot(shadowRoot);
     }
 
-    syncData () {
-        
+    createFileElement(label, path) {
+        var fileEl = document.createElement("div");
+        fileEl.innerHTML = "<icon-file class='ts-file-icon'></icon-file><a href='" + path + "'>" + label + "</a>";
+        return fileEl;
     }
+
+    createFolderElement(label, path) {
+        var folderEl = document.createElement("div");
+        folderEl.innerHTML = "<icon-folder class='ts-folder-icon'></icon-folder><a href='" + path + "'>" + label + "</a>";
+        return folderEl;
+    }
+
+    syncData (files, folders) {
+
+        var folderListEl = this.shadowRoot.querySelector(this.sel_folders);
+        folderListEl.innerHTML = "";
+        
+        var folderEl = this.createFolderElement("Parent", "..");
+        folderListEl.appendChild(folderEl);
+
+        for (var idx in folders) {
+            var nxt = folders[idx];
+
+            folderEl = this.createFolderElement(nxt, nxt);
+            folderListEl.appendChild(folderEl);
+        }
+
+        var fileListEl = this.shadowRoot.querySelector(this.sel_files);
+        fileListEl.innerHTML = "";
+
+        for (var idx in files) {
+            var nxt = files[idx];
+
+            var fileEl = this.createFolderElement(nxt, nxt);
+            fileListEl.appendChild(fileEl);
+        }
+    }
+
 }
 
 
@@ -1069,6 +1277,9 @@ function register_testsummary_components() {
     customElements.define(TestSummaryResultGroup.tagname, TestSummaryResultGroup);
     customElements.define(TestSummaryResultItem.tagname, TestSummaryResultItem);
     customElements.define(TestSummaryResultDetail.tagname, TestSummaryResultDetail);
+    customElements.define(TestSummaryErrorsCollapsible.tagname, TestSummaryErrorsCollapsible);
+    customElements.define(TestSummaryFailuresCollapsible.tagname, TestSummaryFailuresCollapsible);
+    customElements.define(TestSummaryExceptionTrace.tagname, TestSummaryExceptionTrace);
     customElements.define(TestSummaryArtifacts.tagname, TestSummaryArtifacts);
     customElements.define(TestSummaryImportFailures.tagname, TestSummaryImportFailures);
     customElements.define(TestSummaryFilesAndFolders.tagname, TestSummaryFilesAndFolders);

@@ -28,7 +28,7 @@
 
 .mojo-collapsible-content {
     padding: 4px 18px;
-    display: none;
+    display: block;
 }
 
 .mojo-collapsible-header {
@@ -40,11 +40,11 @@
 }
 
 .mojo-collapsible-icon {
-    color: white;
+    fill: white;
     font-size: 20;
     font-weight: bold;
-    width: 40px;
-    height: 100%;
+    width: 24px;
+    height: 24px;
 }
 
 .mojo-icon-target {

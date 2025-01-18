@@ -1,67 +1,67 @@
 
 {
     "name": "<session>",
-    "instance": "e02c754f-2a77-4e4b-9c8b-b69703099dba",
+    "instance": "14a4b257-1999-4a62-b985-8d34e21a21d2",
     "parent": null,
     "rtype": "JOB"
 }
 {
     "name": "mojo",
-    "instance": "b39fac03-b7d6-4c43-815d-3b235d367f94",
-    "parent": "e02c754f-2a77-4e4b-9c8b-b69703099dba",
+    "instance": "7a42f8d8-c7b5-4847-915c-c4944f1f6568",
+    "parent": "14a4b257-1999-4a62-b985-8d34e21a21d2",
     "rtype": "TEST_CONTAINER"
 }
 {
     "name": "mojo.tests",
-    "instance": "e56e9045-50f7-49b0-abc4-002968643498",
-    "parent": "b39fac03-b7d6-4c43-815d-3b235d367f94",
+    "instance": "4e25500c-6eb3-4c8d-9b80-1257620dd0d4",
+    "parent": "7a42f8d8-c7b5-4847-915c-c4944f1f6568",
     "rtype": "TEST_CONTAINER"
 }
 {
     "name": "mojo.tests.testplus",
-    "instance": "17b46f92-2a90-4583-9d2c-dd3554a89f07",
-    "parent": "e56e9045-50f7-49b0-abc4-002968643498",
+    "instance": "b56beb60-684a-4724-8465-e5275a306710",
+    "parent": "4e25500c-6eb3-4c8d-9b80-1257620dd0d4",
     "rtype": "TEST_CONTAINER"
 }
 {
     "name": "mojo.tests.testplus.local",
-    "instance": "bd278f51-3ada-4162-a487-4bc14275851a",
-    "parent": "17b46f92-2a90-4583-9d2c-dd3554a89f07",
+    "instance": "ede9f65d-91d4-4a43-ae24-9d7e253b4dae",
+    "parent": "b56beb60-684a-4724-8465-e5275a306710",
     "rtype": "TEST_CONTAINER"
 }
 {
     "name": "mojo.tests.testplus.local.injection",
-    "instance": "fd949fe2-ef56-4105-97a5-e69c595f0b3c",
-    "parent": "bd278f51-3ada-4162-a487-4bc14275851a",
+    "instance": "02ff6c1d-f828-40c0-8b0b-9b97e7210dc3",
+    "parent": "ede9f65d-91d4-4a43-ae24-9d7e253b4dae",
     "rtype": "TEST_CONTAINER"
 }
 {
     "name": "mojo.tests.testplus.local.injection.test_constraints",
-    "instance": "2d84ce27-e5d8-4143-a1ef-b1be3c9370a0",
-    "parent": "fd949fe2-ef56-4105-97a5-e69c595f0b3c",
+    "instance": "561f1d65-0889-46e6-bca6-7da50e827d61",
+    "parent": "02ff6c1d-f828-40c0-8b0b-9b97e7210dc3",
     "rtype": "TEST_CONTAINER"
 }
 {
     "name": "mojo.tests.testplus.local.injection.test_constraints#test_activity_logging",
     "monikers": [],
     "pivots": {},
-    "instance": "ada56679-5037-4f33-b82b-374f75c00d30",
-    "parent": "2d84ce27-e5d8-4143-a1ef-b1be3c9370a0",
+    "instance": "7f9c87c5-273c-4cf0-8651-efc88a3ec324",
+    "parent": "561f1d65-0889-46e6-bca6-7da50e827d61",
     "rtype": "TEST",
     "result": "UNSET",
-    "start": "2024-12-14T18:29:17.622490",
+    "start": "2025-01-13T10:11:22.045748",
     "stop": ""
 }
 {
     "name": "mojo.tests.testplus.local.injection.test_constraints#test_activity_logging",
     "monikers": [],
     "pivots": {},
-    "instance": "ada56679-5037-4f33-b82b-374f75c00d30",
-    "parent": "2d84ce27-e5d8-4143-a1ef-b1be3c9370a0",
+    "instance": "7f9c87c5-273c-4cf0-8651-efc88a3ec324",
+    "parent": "561f1d65-0889-46e6-bca6-7da50e827d61",
     "rtype": "TEST",
     "result": "PASSED",
-    "start": "2024-12-14T18:29:17.622490",
-    "stop": "2024-12-14T18:29:21.633337",
+    "start": "2025-01-13T10:11:22.045748",
+    "stop": "2025-01-13T10:11:26.059349",
     "detail": {
         "errors": [],
         "failures": [],
@@ -72,23 +72,23 @@
     "name": "mojo.tests.testplus.local.injection.test_constraints#test_constraint_constrained_parameter",
     "monikers": [],
     "pivots": {},
-    "instance": "bd647711-59c8-4161-a0d7-2426dd501471",
-    "parent": "2d84ce27-e5d8-4143-a1ef-b1be3c9370a0",
+    "instance": "bde65490-3d8c-472d-a22c-16713e6de251",
+    "parent": "561f1d65-0889-46e6-bca6-7da50e827d61",
     "rtype": "TEST",
     "result": "UNSET",
-    "start": "2024-12-14T18:29:21.635562",
+    "start": "2025-01-13T10:11:26.064000",
     "stop": ""
 }
 {
     "name": "mojo.tests.testplus.local.injection.test_constraints#test_constraint_constrained_parameter",
     "monikers": [],
     "pivots": {},
-    "instance": "bd647711-59c8-4161-a0d7-2426dd501471",
-    "parent": "2d84ce27-e5d8-4143-a1ef-b1be3c9370a0",
+    "instance": "bde65490-3d8c-472d-a22c-16713e6de251",
+    "parent": "561f1d65-0889-46e6-bca6-7da50e827d61",
     "rtype": "TEST",
     "result": "PASSED",
-    "start": "2024-12-14T18:29:21.635562",
-    "stop": "2024-12-14T18:29:21.636890",
+    "start": "2025-01-13T10:11:26.064000",
+    "stop": "2025-01-13T10:11:26.065393",
     "detail": {
         "errors": [],
         "failures": [],
@@ -99,23 +99,23 @@
     "name": "mojo.tests.testplus.local.injection.test_constraints#test_tscope_parameter",
     "monikers": [],
     "pivots": {},
-    "instance": "d96e489b-2373-4a3f-934e-4523ee852fde",
-    "parent": "2d84ce27-e5d8-4143-a1ef-b1be3c9370a0",
+    "instance": "ca56b1f0-0b56-4226-b827-08e859372965",
+    "parent": "561f1d65-0889-46e6-bca6-7da50e827d61",
     "rtype": "TEST",
     "result": "UNSET",
-    "start": "2024-12-14T18:29:21.638026",
+    "start": "2025-01-13T10:11:26.066873",
     "stop": ""
 }
 {
     "name": "mojo.tests.testplus.local.injection.test_constraints#test_tscope_parameter",
     "monikers": [],
     "pivots": {},
-    "instance": "d96e489b-2373-4a3f-934e-4523ee852fde",
-    "parent": "2d84ce27-e5d8-4143-a1ef-b1be3c9370a0",
+    "instance": "ca56b1f0-0b56-4226-b827-08e859372965",
+    "parent": "561f1d65-0889-46e6-bca6-7da50e827d61",
     "rtype": "TEST",
     "result": "PASSED",
-    "start": "2024-12-14T18:29:21.638026",
-    "stop": "2024-12-14T18:29:21.638906",
+    "start": "2025-01-13T10:11:26.066873",
+    "stop": "2025-01-13T10:11:26.067998",
     "detail": {
         "errors": [],
         "failures": [],
@@ -124,31 +124,31 @@
 }
 {
     "name": "mojo.tests.testplus.local.test_error_formatting",
-    "instance": "ce08d6ef-54e8-47d5-b906-3c8eb97802b8",
-    "parent": "bd278f51-3ada-4162-a487-4bc14275851a",
+    "instance": "e957e5e2-9799-481c-b684-9f66efa371fa",
+    "parent": "ede9f65d-91d4-4a43-ae24-9d7e253b4dae",
     "rtype": "TEST_CONTAINER"
 }
 {
     "name": "mojo.tests.testplus.local.test_error_formatting#test_intentional_error",
     "monikers": [],
     "pivots": {},
-    "instance": "0644e494-a432-4495-bed4-c9906a6d46bb",
-    "parent": "ce08d6ef-54e8-47d5-b906-3c8eb97802b8",
+    "instance": "5b956c41-2476-469e-bc5e-42c4d64d4337",
+    "parent": "e957e5e2-9799-481c-b684-9f66efa371fa",
     "rtype": "TEST",
     "result": "UNSET",
-    "start": "2024-12-14T18:29:21.641846",
+    "start": "2025-01-13T10:11:26.072503",
     "stop": ""
 }
 {
     "name": "mojo.tests.testplus.local.test_error_formatting#test_intentional_error",
     "monikers": [],
     "pivots": {},
-    "instance": "0644e494-a432-4495-bed4-c9906a6d46bb",
-    "parent": "ce08d6ef-54e8-47d5-b906-3c8eb97802b8",
+    "instance": "5b956c41-2476-469e-bc5e-42c4d64d4337",
+    "parent": "e957e5e2-9799-481c-b684-9f66efa371fa",
     "rtype": "TEST",
     "result": "ERRORED",
-    "start": "2024-12-14T18:29:21.641846",
-    "stop": "2024-12-14T18:29:21.654067",
+    "start": "2025-01-13T10:11:26.072503",
+    "stop": "2025-01-13T10:11:26.087416",
     "detail": {
         "errors": [
             {
@@ -172,71 +172,71 @@
                     },
                     {
                         "origin": {
-                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "file": "/Users/myron/mjr/results/testresults/2025-01-13T1011S20.835208/testrun_sequence.py",
                             "lineno": 135,
                             "scope": "scope_mojo_tests_testplus_local_test_error_formatting"
                         },
-                        "call": "scope_mojo_tests_testplus_local_test_error_formatting(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "call": "scope_mojo_tests_testplus_local_test_error_formatting(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x107054620>)",
                         "code": [],
                         "context": null
                     },
                     {
                         "origin": {
-                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "file": "/Users/myron/mjr/results/testresults/2025-01-13T1011S20.835208/testrun_sequence.py",
                             "lineno": 133,
                             "scope": "scope_mojo_tests_testplus_local_test_error_formatting"
                         },
-                        "call": "scope_mojo_tests_testplus_local_test_error_formatting(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "call": "scope_mojo_tests_testplus_local_test_error_formatting(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x107054620>)",
                         "code": [],
                         "context": null
                     },
                     {
                         "origin": {
-                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "file": "/Users/myron/mjr/results/testresults/2025-01-13T1011S20.835208/testrun_sequence.py",
                             "lineno": 73,
                             "scope": "scope_mojo_tests_testplus_local"
                         },
-                        "call": "scope_mojo_tests_testplus_local(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "call": "scope_mojo_tests_testplus_local(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x107054620>)",
                         "code": [],
                         "context": null
                     },
                     {
                         "origin": {
-                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "file": "/Users/myron/mjr/results/testresults/2025-01-13T1011S20.835208/testrun_sequence.py",
                             "lineno": 62,
                             "scope": "scope_mojo_tests_testplus"
                         },
-                        "call": "scope_mojo_tests_testplus(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "call": "scope_mojo_tests_testplus(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x107054620>)",
                         "code": [],
                         "context": null
                     },
                     {
                         "origin": {
-                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "file": "/Users/myron/mjr/results/testresults/2025-01-13T1011S20.835208/testrun_sequence.py",
                             "lineno": 52,
                             "scope": "scope_mojo_tests"
                         },
-                        "call": "scope_mojo_tests(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "call": "scope_mojo_tests(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x107054620>)",
                         "code": [],
                         "context": null
                     },
                     {
                         "origin": {
-                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "file": "/Users/myron/mjr/results/testresults/2025-01-13T1011S20.835208/testrun_sequence.py",
                             "lineno": 42,
                             "scope": "scope_mojo"
                         },
-                        "call": "scope_mojo(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "call": "scope_mojo(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x107054620>)",
                         "code": [],
                         "context": null
                     },
                     {
                         "origin": {
-                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "file": "/Users/myron/mjr/results/testresults/2025-01-13T1011S20.835208/testrun_sequence.py",
                             "lineno": 32,
                             "scope": "session"
                         },
-                        "call": "session(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "call": "session(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x107054620>)",
                         "code": [],
                         "context": null
                     },
@@ -246,7 +246,7 @@
                             "lineno": 420,
                             "scope": "execute_tests"
                         },
-                        "call": "execute_tests(self=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>, runid='e02c754f-2a77-4e4b-9c8b-b69703099dba', recorder=<mojo.results.recorders.jsonresultrecorder.JsonResultRecorder object at 0x1039b89b0>)",
+                        "call": "execute_tests(self=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x107054620>, runid='14a4b257-1999-4a62-b985-8d34e21a21d2', recorder=<mojo.results.recorders.jsonresultrecorder.JsonResultRecorder object at 0x107168680>)",
                         "code": [],
                         "context": null
                     },
@@ -256,7 +256,7 @@
                             "lineno": 291,
                             "scope": "execute"
                         },
-                        "call": "execute(self=<mojo.testplus.testjob.DefaultTestJob object at 0x1038a46b0>)",
+                        "call": "execute(self=<mojo.testplus.testjob.DefaultTestJob object at 0x107054560>)",
                         "code": [],
                         "context": null
                     },
@@ -276,7 +276,7 @@
                             "lineno": 783,
                             "scope": "invoke"
                         },
-                        "call": "invoke(_Context__self=<click.core.Context object at 0x1031fa0f0>, _Context__callback=<function command_testplus_testing_run at 0x103139da0>)",
+                        "call": "invoke(_Context__self=<click.core.Context object at 0x10690b560>, _Context__callback=<function command_testplus_testing_run at 0x106849da0>)",
                         "code": [],
                         "context": null
                     },
@@ -286,7 +286,7 @@
                             "lineno": 1434,
                             "scope": "invoke"
                         },
-                        "call": "invoke(self=<Command run>, ctx=<click.core.Context object at 0x1031fa0f0>)",
+                        "call": "invoke(self=<Command run>, ctx=<click.core.Context object at 0x10690b560>)",
                         "code": [],
                         "context": null
                     },
@@ -296,7 +296,7 @@
                             "lineno": 1688,
                             "scope": "invoke"
                         },
-                        "call": "invoke(self=<Group testing>, ctx=<click.core.Context object at 0x1031449b0>)",
+                        "call": "invoke(self=<Group testing>, ctx=<click.core.Context object at 0x106854dd0>)",
                         "code": [],
                         "context": null
                     },
@@ -306,7 +306,7 @@
                             "lineno": 1688,
                             "scope": "invoke"
                         },
-                        "call": "invoke(self=<Group testplus>, ctx=<click.core.Context object at 0x103051910>)",
+                        "call": "invoke(self=<Group testplus>, ctx=<click.core.Context object at 0x100fe7680>)",
                         "code": [],
                         "context": null
                     },
@@ -351,23 +351,23 @@
     "name": "mojo.tests.testplus.local.test_error_formatting#test_intentional_failure",
     "monikers": [],
     "pivots": {},
-    "instance": "7ea7d546-a583-4a3d-b35d-9a0515e7d53c",
-    "parent": "ce08d6ef-54e8-47d5-b906-3c8eb97802b8",
+    "instance": "ed15b3ea-cb53-434e-8d06-82f7bfc566e1",
+    "parent": "e957e5e2-9799-481c-b684-9f66efa371fa",
     "rtype": "TEST",
     "result": "UNSET",
-    "start": "2024-12-14T18:29:21.655701",
+    "start": "2025-01-13T10:11:26.089507",
     "stop": ""
 }
 {
     "name": "mojo.tests.testplus.local.test_error_formatting#test_intentional_failure",
     "monikers": [],
     "pivots": {},
-    "instance": "7ea7d546-a583-4a3d-b35d-9a0515e7d53c",
-    "parent": "ce08d6ef-54e8-47d5-b906-3c8eb97802b8",
+    "instance": "ed15b3ea-cb53-434e-8d06-82f7bfc566e1",
+    "parent": "e957e5e2-9799-481c-b684-9f66efa371fa",
     "rtype": "TEST",
     "result": "FAILED",
-    "start": "2024-12-14T18:29:21.655701",
-    "stop": "2024-12-14T18:29:25.979140",
+    "start": "2025-01-13T10:11:26.089507",
+    "stop": "2025-01-13T10:11:26.098552",
     "detail": {
         "errors": [],
         "failures": [
@@ -403,71 +403,71 @@
                     },
                     {
                         "origin": {
-                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "file": "/Users/myron/mjr/results/testresults/2025-01-13T1011S20.835208/testrun_sequence.py",
                             "lineno": 143,
                             "scope": "scope_mojo_tests_testplus_local_test_error_formatting"
                         },
-                        "call": "scope_mojo_tests_testplus_local_test_error_formatting(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "call": "scope_mojo_tests_testplus_local_test_error_formatting(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x107054620>)",
                         "code": [],
                         "context": null
                     },
                     {
                         "origin": {
-                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "file": "/Users/myron/mjr/results/testresults/2025-01-13T1011S20.835208/testrun_sequence.py",
                             "lineno": 141,
                             "scope": "scope_mojo_tests_testplus_local_test_error_formatting"
                         },
-                        "call": "scope_mojo_tests_testplus_local_test_error_formatting(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "call": "scope_mojo_tests_testplus_local_test_error_formatting(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x107054620>)",
                         "code": [],
                         "context": null
                     },
                     {
                         "origin": {
-                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "file": "/Users/myron/mjr/results/testresults/2025-01-13T1011S20.835208/testrun_sequence.py",
                             "lineno": 73,
                             "scope": "scope_mojo_tests_testplus_local"
                         },
-                        "call": "scope_mojo_tests_testplus_local(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "call": "scope_mojo_tests_testplus_local(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x107054620>)",
                         "code": [],
                         "context": null
                     },
                     {
                         "origin": {
-                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "file": "/Users/myron/mjr/results/testresults/2025-01-13T1011S20.835208/testrun_sequence.py",
                             "lineno": 62,
                             "scope": "scope_mojo_tests_testplus"
                         },
-                        "call": "scope_mojo_tests_testplus(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "call": "scope_mojo_tests_testplus(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x107054620>)",
                         "code": [],
                         "context": null
                     },
                     {
                         "origin": {
-                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "file": "/Users/myron/mjr/results/testresults/2025-01-13T1011S20.835208/testrun_sequence.py",
                             "lineno": 52,
                             "scope": "scope_mojo_tests"
                         },
-                        "call": "scope_mojo_tests(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "call": "scope_mojo_tests(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x107054620>)",
                         "code": [],
                         "context": null
                     },
                     {
                         "origin": {
-                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "file": "/Users/myron/mjr/results/testresults/2025-01-13T1011S20.835208/testrun_sequence.py",
                             "lineno": 42,
                             "scope": "scope_mojo"
                         },
-                        "call": "scope_mojo(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "call": "scope_mojo(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x107054620>)",
                         "code": [],
                         "context": null
                     },
                     {
                         "origin": {
-                            "file": "/Users/myron/mjr/results/testresults/2024-12-14T1829S17.418046/testrun_sequence.py",
+                            "file": "/Users/myron/mjr/results/testresults/2025-01-13T1011S20.835208/testrun_sequence.py",
                             "lineno": 32,
                             "scope": "session"
                         },
-                        "call": "session(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>)",
+                        "call": "session(sequencer=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x107054620>)",
                         "code": [],
                         "context": null
                     },
@@ -477,7 +477,7 @@
                             "lineno": 420,
                             "scope": "execute_tests"
                         },
-                        "call": "execute_tests(self=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x1037c3770>, runid='e02c754f-2a77-4e4b-9c8b-b69703099dba', recorder=<mojo.results.recorders.jsonresultrecorder.JsonResultRecorder object at 0x1039b89b0>)",
+                        "call": "execute_tests(self=<mojo.testplus.sequencing.testsequencer.TestSequencer object at 0x107054620>, runid='14a4b257-1999-4a62-b985-8d34e21a21d2', recorder=<mojo.results.recorders.jsonresultrecorder.JsonResultRecorder object at 0x107168680>)",
                         "code": [],
                         "context": null
                     },
@@ -487,7 +487,7 @@
                             "lineno": 291,
                             "scope": "execute"
                         },
-                        "call": "execute(self=<mojo.testplus.testjob.DefaultTestJob object at 0x1038a46b0>)",
+                        "call": "execute(self=<mojo.testplus.testjob.DefaultTestJob object at 0x107054560>)",
                         "code": [],
                         "context": null
                     },
@@ -507,7 +507,7 @@
                             "lineno": 783,
                             "scope": "invoke"
                         },
-                        "call": "invoke(_Context__self=<click.core.Context object at 0x1031fa0f0>, _Context__callback=<function command_testplus_testing_run at 0x103139da0>)",
+                        "call": "invoke(_Context__self=<click.core.Context object at 0x10690b560>, _Context__callback=<function command_testplus_testing_run at 0x106849da0>)",
                         "code": [],
                         "context": null
                     },
@@ -517,7 +517,7 @@
                             "lineno": 1434,
                             "scope": "invoke"
                         },
-                        "call": "invoke(self=<Command run>, ctx=<click.core.Context object at 0x1031fa0f0>)",
+                        "call": "invoke(self=<Command run>, ctx=<click.core.Context object at 0x10690b560>)",
                         "code": [],
                         "context": null
                     },
@@ -527,7 +527,7 @@
                             "lineno": 1688,
                             "scope": "invoke"
                         },
-                        "call": "invoke(self=<Group testing>, ctx=<click.core.Context object at 0x1031449b0>)",
+                        "call": "invoke(self=<Group testing>, ctx=<click.core.Context object at 0x106854dd0>)",
                         "code": [],
                         "context": null
                     },
@@ -537,7 +537,7 @@
                             "lineno": 1688,
                             "scope": "invoke"
                         },
-                        "call": "invoke(self=<Group testplus>, ctx=<click.core.Context object at 0x103051910>)",
+                        "call": "invoke(self=<Group testplus>, ctx=<click.core.Context object at 0x100fe7680>)",
                         "code": [],
                         "context": null
                     },
@@ -579,31 +579,31 @@
 }
 {
     "name": "mojo.tests.testplus.local.test_function_signatures",
-    "instance": "e66a411a-e7fc-45ec-b997-535f7e0c5a06",
-    "parent": "bd278f51-3ada-4162-a487-4bc14275851a",
+    "instance": "582c6099-2f26-460e-b61c-07ca642170eb",
+    "parent": "ede9f65d-91d4-4a43-ae24-9d7e253b4dae",
     "rtype": "TEST_CONTAINER"
 }
 {
     "name": "mojo.tests.testplus.local.test_function_signatures#test_no_parameters",
     "monikers": [],
     "pivots": {},
-    "instance": "6ce9bf4a-5180-4521-9c00-5d7da3d0dd7b",
-    "parent": "e66a411a-e7fc-45ec-b997-535f7e0c5a06",
+    "instance": "eed59403-f539-4658-8689-b5c9198cc567",
+    "parent": "582c6099-2f26-460e-b61c-07ca642170eb",
     "rtype": "TEST",
     "result": "UNSET",
-    "start": "2024-12-14T18:29:25.982460",
+    "start": "2025-01-13T10:11:26.100647",
     "stop": ""
 }
 {
     "name": "mojo.tests.testplus.local.test_function_signatures#test_no_parameters",
     "monikers": [],
     "pivots": {},
-    "instance": "6ce9bf4a-5180-4521-9c00-5d7da3d0dd7b",
-    "parent": "e66a411a-e7fc-45ec-b997-535f7e0c5a06",
+    "instance": "eed59403-f539-4658-8689-b5c9198cc567",
+    "parent": "582c6099-2f26-460e-b61c-07ca642170eb",
     "rtype": "TEST",
     "result": "PASSED",
-    "start": "2024-12-14T18:29:25.982460",
-    "stop": "2024-12-14T18:29:25.983081",
+    "start": "2025-01-13T10:11:26.100647",
+    "stop": "2025-01-13T10:11:26.101375",
     "detail": {
         "errors": [],
         "failures": [],
@@ -612,64 +612,64 @@
 }
 {
     "name": "mojo.tests.testplus.local.test_validator_injection",
-    "instance": "fafe84b5-9832-4937-ae0a-807fdc485240",
-    "parent": "bd278f51-3ada-4162-a487-4bc14275851a",
+    "instance": "01be8eeb-9472-4cfd-84cd-57a5f7b47718",
+    "parent": "ede9f65d-91d4-4a43-ae24-9d7e253b4dae",
     "rtype": "TEST_CONTAINER"
 }
 {
     "name": "mojo.tests.testplus.local.test_validator_injection#test_no_parameters",
     "monikers": [],
     "pivots": {},
-    "instance": "3f119d6d-9327-4e7b-8aa1-c2621325a208",
-    "parent": "fafe84b5-9832-4937-ae0a-807fdc485240",
+    "instance": "15d8a51e-53ea-4a32-987d-e43dd4577453",
+    "parent": "01be8eeb-9472-4cfd-84cd-57a5f7b47718",
     "rtype": "TEST",
     "result": "UNSET",
-    "start": "2024-12-14T18:29:25.985128",
+    "start": "2025-01-13T10:11:26.102637",
     "stop": ""
 }
 {
     "name": "mojo.tests.testplus.local.test_validator_injection#test_no_parameters_vcheck",
     "monikers": [],
     "pivots": {},
-    "instance": "71e032be-6f3c-4b13-a999-5ae2d9d8cdd7",
-    "parent": "fafe84b5-9832-4937-ae0a-807fdc485240",
+    "instance": "421a9059-f75c-49c6-ac16-78ed025c2f79",
+    "parent": "01be8eeb-9472-4cfd-84cd-57a5f7b47718",
     "rtype": "TEST",
     "result": "UNSET",
-    "start": "2024-12-14T18:29:25.986443",
+    "start": "2025-01-13T10:11:26.103396",
     "stop": ""
 }
 {
     "name": "mojo.tests.testplus.local.test_validator_injection#test_no_parameters_vlcheck",
     "monikers": [],
     "pivots": {},
-    "instance": "2703cf23-ac1f-4a40-a7b1-305381d2d3f0",
-    "parent": "fafe84b5-9832-4937-ae0a-807fdc485240",
+    "instance": "a70d9f71-9a9e-4c53-a9c3-905cbadde28a",
+    "parent": "01be8eeb-9472-4cfd-84cd-57a5f7b47718",
     "rtype": "TEST",
     "result": "UNSET",
-    "start": "2024-12-14T18:29:25.988348",
+    "start": "2025-01-13T10:11:26.105290",
     "stop": ""
 }
 {
     "name": "mojo.tests.testplus.local.test_validator_injection#test_no_parameters_vticheck",
     "monikers": [],
     "pivots": {},
-    "instance": "bc372e1d-367a-421a-8f2f-29a6f47434b4",
-    "parent": "fafe84b5-9832-4937-ae0a-807fdc485240",
+    "instance": "9737e6e2-9091-4cb5-93e1-3f116eaf4ac3",
+    "parent": "01be8eeb-9472-4cfd-84cd-57a5f7b47718",
     "rtype": "TEST",
     "result": "UNSET",
-    "start": "2024-12-14T18:29:25.991437",
+    "start": "2025-01-13T10:11:26.107179",
     "stop": ""
 }
 {
     "name": "mojo.tests.testplus.local.test_validator_injection#test_no_parameters_vticheck",
     "monikers": [],
     "pivots": {},
-    "instance": "bc372e1d-367a-421a-8f2f-29a6f47434b4",
-    "parent": "fafe84b5-9832-4937-ae0a-807fdc485240",
+    "instance": "9737e6e2-9091-4cb5-93e1-3f116eaf4ac3",
+    "parent": "01be8eeb-9472-4cfd-84cd-57a5f7b47718",
     "rtype": "TEST",
     "result": "PASSED",
-    "start": "2024-12-14T18:29:25.991437",
-    "stop": "2024-12-14T18:29:35.994264",
+    "start": "2025-01-13T10:11:26.107179",
+    "stop": "2025-01-13T10:11:36.117442",
     "detail": {
         "errors": [],
         "failures": [],
@@ -680,12 +680,12 @@
     "name": "mojo.tests.testplus.local.test_validator_injection#test_no_parameters_vlcheck",
     "monikers": [],
     "pivots": {},
-    "instance": "2703cf23-ac1f-4a40-a7b1-305381d2d3f0",
-    "parent": "fafe84b5-9832-4937-ae0a-807fdc485240",
+    "instance": "a70d9f71-9a9e-4c53-a9c3-905cbadde28a",
+    "parent": "01be8eeb-9472-4cfd-84cd-57a5f7b47718",
     "rtype": "TEST",
     "result": "PASSED",
-    "start": "2024-12-14T18:29:25.988348",
-    "stop": "2024-12-14T18:29:35.996537",
+    "start": "2025-01-13T10:11:26.105290",
+    "stop": "2025-01-13T10:11:36.121850",
     "detail": {
         "errors": [],
         "failures": [],
@@ -696,12 +696,12 @@
     "name": "mojo.tests.testplus.local.test_validator_injection#test_no_parameters_vcheck",
     "monikers": [],
     "pivots": {},
-    "instance": "71e032be-6f3c-4b13-a999-5ae2d9d8cdd7",
-    "parent": "fafe84b5-9832-4937-ae0a-807fdc485240",
+    "instance": "421a9059-f75c-49c6-ac16-78ed025c2f79",
+    "parent": "01be8eeb-9472-4cfd-84cd-57a5f7b47718",
     "rtype": "TEST",
     "result": "PASSED",
-    "start": "2024-12-14T18:29:25.986443",
-    "stop": "2024-12-14T18:29:35.997179",
+    "start": "2025-01-13T10:11:26.103396",
+    "stop": "2025-01-13T10:11:36.122817",
     "detail": {
         "errors": [],
         "failures": [],
@@ -712,12 +712,12 @@
     "name": "mojo.tests.testplus.local.test_validator_injection#test_no_parameters",
     "monikers": [],
     "pivots": {},
-    "instance": "3f119d6d-9327-4e7b-8aa1-c2621325a208",
-    "parent": "fafe84b5-9832-4937-ae0a-807fdc485240",
+    "instance": "15d8a51e-53ea-4a32-987d-e43dd4577453",
+    "parent": "01be8eeb-9472-4cfd-84cd-57a5f7b47718",
     "rtype": "TEST",
     "result": "PASSED",
-    "start": "2024-12-14T18:29:25.985128",
-    "stop": "2024-12-14T18:29:35.997623",
+    "start": "2025-01-13T10:11:26.102637",
+    "stop": "2025-01-13T10:11:36.124005",
     "detail": {
         "errors": [],
         "failures": [],

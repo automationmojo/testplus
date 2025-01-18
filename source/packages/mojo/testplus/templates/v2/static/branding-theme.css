@@ -39,13 +39,13 @@
 @property --color-banner-background-color {
     syntax: "<color>";
     inherits: false;
-    initial-value: #50526e;
+    initial-value: #0e0e25;
 }
 
 @property --color-banner-color {
     syntax: "<color>";
     inherits: false;
-    initial-value: white;
+    initial-value: whitesmoke;
 }
 
 @property --color-section-header-background-color {
@@ -57,7 +57,25 @@
 @property --color-section-header-color {
     syntax: "<color>";
     inherits: false;
-    initial-value: white;
+    initial-value: whitesmoke;
+}
+
+@property --color-subsection-header-background-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #50526e;
+}
+
+@property --color-subsection-header-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: whitesmoke;
+}
+
+@property --image-logo {
+    syntax: "<url>";
+    inherits: false;
+    initial-value: url("/static/v2/test-report-banner-background-image.png");
 }
 
 
@@ -69,7 +87,7 @@
 }
 
 .color-fail {
-    color: var(--color-fail)red !important;
+    color: var(--color-fail) !important;
 }
 
 .color-ghost {
