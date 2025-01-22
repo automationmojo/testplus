@@ -204,6 +204,49 @@ class MojoCollapsible extends HTMLElement {
 }
 
 
+class MojoProjectTimeline extends HTMLElement {
+
+    static tagname = "mojo-project-timeline"
+
+    template = `
+        <div class="mojo-project-timeline">
+        </div>
+    `
+
+    constructor() {
+        super();
+
+        const shadowRoot = this.attachShadow({mode: 'open'});
+        shadowRoot.innerHTML = this.template;
+
+        addGlobalStylesToShadowRoot(shadowRoot);
+
+        var thisComp = this;
+
+        copyEl.addEventListener("mousedown", (event) => { thisComp.mouse_down(event) });
+        copyEl.addEventListener("mouseleave", (event) => { thisComp.mouse_leave(event) });
+        copyEl.addEventListener("mouseup", (event) => { thisComp.mouse_up(event) });
+    }
+
+    mouse_down(event) {
+        
+    }
+
+    mouse_leave(event) {
+        
+    }
+
+    mouse_up(event) {
+        
+    }
+
+    syncData(projectInfo) {
+        
+    }
+
+}
+
+
 class MojoPropertySingle extends HTMLElement {
 
     static tagname = "mojo-property-single"
@@ -663,6 +706,7 @@ function register_mojo_components() {
 
         customElements.define(MojoCollapsible.tagname, MojoCollapsible);
         customElements.define(MojoIconTarget.tagname, MojoIconTarget);
+        customElements.define(MojoProjectTimeline.tagname, MojoProjectTimeline);
         customElements.define(MojoPropertySingle.tagname, MojoPropertySingle);
         customElements.define(MojoPropertyTable.tagname, MojoPropertyTable);
         customElements.define(MojoTabSet.tagname, MojoTabSet);

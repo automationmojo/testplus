@@ -42,6 +42,164 @@
                 var tabSetEl = document.querySelector("#id-test-tabset");
                 tabSetEl.syncData(tabs);
                 
+                var projectInfo = {
+                    "name": "Big Widget",
+                    "startdate": "2024-3-1 08:00:00",
+                    "enddate": "2025-3-1 08:00:00",
+                    "branches" : {
+                        "release": {
+                            "id": "2fa91b50-5793-4b78-a027-cde5bc3bdb59",
+                            "name": "Release",
+                            "role": "Release Delivery",
+                            "type": "persistent",
+                            "style": { "color": "gray" }
+                        },
+                        "main" : {
+                            "id": "fe0cbc78-4e82-480b-bea5-4a945dfd44e5",
+                            "name": "Main",
+                            "role": "Production Main",
+                            "type": "persistent",
+                            "upstream": "2fa91b50-5793-4b78-a027-cde5bc3bdb59",
+                            "style": { "color": "gray" }
+                        },
+                        "merge": [
+                            {
+                                "id": "31458869-311e-4091-9cca-e478507a5673",
+                                "name": "Big Widget - Phase 1 Merge",
+                                "role": "Phase 1 Merge",
+                                "upstream": "fe0cbc78-4e82-480b-bea5-4a945dfd44e5",
+                                "creation": "2024-1-1 08:00:00",
+                                "codecomplete": "2024-3-1 08:00:00",
+                                "upmerge": "2024-3-15 08:00:00",
+                                "completion": "2024-3-20 08:00:00",
+                                "refreshes": [],
+                                "style": { "color": "gray" }
+                            },
+                            {
+                                "id": "8697d556-f9d8-42fc-9fd4-07baa437829d",
+                                "name": "Big Widget - Phase 2 Merge",
+                                "role": "Phase 2 Merge",
+                                "upstream": "fe0cbc78-4e82-480b-bea5-4a945dfd44e5",
+                                "creation": "2024-1-1 08:00:00",
+                                "codecomplete": "2024-6-1 08:00:00",
+                                "upmerge": "2024-6-15 08:00:00",
+                                "completion": "2024-6-20 08:00:00",
+                                "refreshes": [
+                                    "2024-6-21 08:00:00"
+                                ],
+                                "style": { "color": "gray" }
+                            },
+                            {
+                                "id": "66ec6cb9-77bf-4e3f-9f8e-1c47bcde33b8",
+                                "name": "Big Widget - Phase 3 Merge",
+                                "role": "Phase 3 Merge",
+                                "upstream": "fe0cbc78-4e82-480b-bea5-4a945dfd44e5",
+                                "creation": "2024-3-21 08:00:00",
+                                "codecomplete": "2024-9-1 08:00:00",
+                                "upmerge": "2024-9-15 08:00:00",
+                                "completion": "2024-9-20 08:00:00",
+                                "refreshes": [],
+                                "style": { "color": "gray" }
+                            }
+                        ],
+                        "feature": [
+                            {
+                                "id": "43956418-a8b9-4268-8e84-df726d2a7a80",
+                                "name": "Big Widget - Feature A",
+                                "role": "Development - Feature A",
+                                "upstream": "31458869-311e-4091-9cca-e478507a5673",
+                                "creation": "2024-1-1 08:00:00",
+                                "codecomplete": "2024-3-1 08:00:00",
+                                "style": { "color": "gray" }
+                            },
+                            {
+                                "id": "59b1b6ad-0fd5-45d7-8a73-bd328c0492cf",
+                                "name": "Big Widget - Feature B",
+                                "role": "Development - Feature B",
+                                "upstream": "31458869-311e-4091-9cca-e478507a5673",
+                                "creation": "2024-1-1 08:00:00",
+                                "codecomplete": "2024-3-1 08:00:00",
+                                "style": { "color": "gray" }
+                            },
+                            {
+                                "id": "f36add7b-6ffd-4530-9fd8-dc453a45be40",
+                                "name": "Big Widget - Feature C",
+                                "role": "Development - Feature C",
+                                "upstream": "31458869-311e-4091-9cca-e478507a5673",
+                                "creation": "2024-1-1 08:00:00",
+                                "codecomplete": "2024-3-1 08:00:00",
+                                "style": { "color": "gray" }
+                            },
+                            {
+                                "id": "f434369e-97c5-489b-be7b-31c72ae284b1",
+                                "name": "Big Widget - Feature A2",
+                                "role": "Development - Feature A2",
+                                "upstream": "8697d556-f9d8-42fc-9fd4-07baa437829d",
+                                "creation": "2024-1-1 08:00:00",
+                                "codecomplete": "2024-6-1 08:00:00",
+                                "style": { "color": "gray" }
+                            },
+                            {
+                                "id": "5335ef50-ea9b-4e99-9f4c-dc2ce5232528",
+                                "name": "Big Widget - Feature D",
+                                "role": "Development - Feature D",
+                                "upstream": "8697d556-f9d8-42fc-9fd4-07baa437829d",
+                                "creation": "2024-1-1 08:00:00",
+                                "codecomplete": "2024-6-1 08:00:00",
+                                "style": { "color": "gray" }
+                            },
+                            {
+                                "id": "9eca2a58-74ae-48aa-bd31-d3f15da8e8c5",
+                                "name": "Big Widget - Feature E",
+                                "role": "Development - Feature E",
+                                "upstream": "8697d556-f9d8-42fc-9fd4-07baa437829d",
+                                "creation": "2024-1-1 08:00:00",
+                                "codecomplete": "2024-6-1 08:00:00",
+                                "style": { "color": "gray" }
+                            },
+                            {
+                                "id": "c6c48608-5cba-4e09-a3df-2bb2ccfc4351",
+                                "name": "Big Widget - Feature B2",
+                                "role": "Development - Feature B2",
+                                "upstream": "66ec6cb9-77bf-4e3f-9f8e-1c47bcde33b8",
+                                "creation": "2024-3-21 08:00:00",
+                                "codecomplete": "2024-9-1 08:00:00",
+                                "style": { "color": "gray" }
+                            },
+                            {
+                                "id": "0dd49c71-4af8-4e28-bcce-40c89a0b4599",
+                                "name": "Big Widget - Feature F",
+                                "role": "Development - Feature F",
+                                "upstream": "66ec6cb9-77bf-4e3f-9f8e-1c47bcde33b8",
+                                "creation": "2024-3-21 08:00:00",
+                                "codecomplete": "2024-9-1 08:00:00",
+                                "style": { "color": "gray" }
+                            },
+                            {
+                                "id": "43e4db60-723b-43ef-9dad-76e8ec562c00",
+                                "name": "Big Widget - Feature D2",
+                                "role": "Development - Feature D2",
+                                "upstream": "66ec6cb9-77bf-4e3f-9f8e-1c47bcde33b8",
+                                "creation": "2024-3-21 08:00:00",
+                                "codecomplete": "2024-9-1 08:00:00",
+                                "style": { "color": "gray" }
+                            },
+                            {
+                                "id": "e86a7d76-f1e9-4799-abba-7d5df915e4b7",
+                                "name": "Big Widget - Feature G",
+                                "role": "Development - Feature G",
+                                "upstream": "66ec6cb9-77bf-4e3f-9f8e-1c47bcde33b8",
+                                "creation": "2024-3-21 08:00:00",
+                                "codecomplete": "2024-9-1 08:00:00",
+                                "style": { "color": "gray" }
+                            }
+                        ]
+                    }
+                }
+
+                var projectTimelineEl = document.querySelector("#id-test-project-timeline");
+                projectTimelineEl.syncData(projectInfo);
+
 
             }
 
@@ -131,6 +289,10 @@
             <mojo-tabset id="id-test-tabset">
             </mojo-tabset>
             <br></br>
+
+            <h3>Project Timeline</h3>
+            <mojo-project-timeline id="id-test-project-timeline">
+            </mojo-project-timeline>
         </div>
           
         <div class='section-footer'>

@@ -1126,6 +1126,13 @@ function render_artifact_tab(tabBarContainer, tabContentContainer, name, content
 
 function render_import_error_item_content(container, imp_err_item) {
 
+    /*
+        {
+            "filename": ""
+            "trace": ""
+        }
+    */
+
     var imp_err_item_row = document.createElement("details");
     imp_err_item_row.classList.add("ierr-item-hdr");
 

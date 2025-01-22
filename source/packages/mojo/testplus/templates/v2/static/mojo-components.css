@@ -59,6 +59,12 @@
     cursor: pointer; 
 }
 
+.mojo-project-timeline {
+    width: 100%;
+    height: 600px;
+    background-color: pink;
+}
+
 .mojo-prop-table {
     box-sizing: border-box;
     width: 100%;
