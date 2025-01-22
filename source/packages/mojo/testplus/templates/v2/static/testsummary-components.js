@@ -1138,9 +1138,12 @@ class TestSummaryArtifacts extends HTMLElement {
                 <h2 class="zero-margins-and-padding">Artifacts</h2>
             </div>
             <div class="ts-section-detail">
+                <mojo-tabset id="id-artifacts-tabset"></mojo-tabset>
             </div>
         </div>
     `
+
+    sel_tabset = "#id-artifacts-tabset"
 
     constructor() {
         super();
@@ -1151,8 +1154,40 @@ class TestSummaryArtifacts extends HTMLElement {
         addGlobalStylesToShadowRoot(shadowRoot);
     }
 
-    syncData () {
-        
+    syncData (artifacts_catalog, artifacts_folder_catalogs) {
+
+        if ((artifacts_catalog != undefined) && (artifacts_catalog.folders != undefined)) {
+
+            var artifacts_folders = artifacts_catalog.folders;
+
+            var tabsList = [];
+
+            for (var findex in artifacts_folders) {
+                var afolder = artifacts_folders[findex];
+                var afolder_catalog = artifacts_folder_catalogs[afolder];
+
+                if (afolder_catalog != undefined) {
+                    if (afolder_catalog["files"] != undefined) {
+                        if (afolder_catalog["files"].includes("tab.html")) {
+                            var tabURL = "artifacts/" + afolder + "/tab.html";
+                        
+                            var iframeEl = document.createElement("iframe");
+                            iframeEl.classList.add("ts-artifact-tab-iframe");
+                            iframeEl.setAttribute("src", tabURL);
+                            iframeEl.setAttribute("title", afolder);
+                            
+                            var tab = new MojoTabPage(afolder, afolder, iframeEl);
+                            tabsList.push(tab);
+                        }
+                    }
+                }
+            }
+
+            var tabsetEl = this.shadowRoot.querySelector(this.sel_tabset);
+            tabsetEl.syncData(tabsList);
+
+        }
+
     }
 }
 

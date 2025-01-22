@@ -1,0 +1,72 @@
+{
+    "environment": {
+        "label": "production"
+    },
+    "infrastructure": {
+        "services": [
+            {
+                "serviceType": "network/service",
+                "name": "someservice",
+                "credentials": [
+                    "adminuser"
+                ]
+            }
+        ]
+    },
+    "apod": {
+        "clients": [
+            {
+                "deviceType": "network/client-linux",
+                "name": "casey-01",
+                "host": "172.16.1.41",
+                "role": "taskerserver",
+                "credentials": [
+                    "pi-cluster"
+                ],
+                "features": {
+                    "isolation": false
+                },
+                "skip": false
+            },
+            {
+                "deviceType": "network/client-linux",
+                "name": "casey-02",
+                "host": "172.16.1.42",
+                "role": "taskerserver",
+                "credentials": [
+                    "pi-cluster"
+                ],
+                "features": {
+                    "isolation": false
+                },
+                "skip": false
+            },
+            {
+                "deviceType": "network/client-linux",
+                "name": "casey-03",
+                "host": "172.16.1.43",
+                "role": "taskerserver",
+                "credentials": [
+                    "pi-cluster"
+                ],
+                "features": {
+                    "isolation": false
+                },
+                "skip": false
+            },
+            {
+                "deviceType": "network/client-linux",
+                "name": "casey-04",
+                "host": "172.16.1.44",
+                "role": "taskerserver",
+                "credentials": [
+                    "pi-cluster"
+                ],
+                "features": {
+                    "isolation": false
+                },
+                "skip": false
+            }
+        ]
+    }
+}

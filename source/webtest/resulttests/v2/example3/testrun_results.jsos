@@ -1,0 +1,162 @@
+
+{
+    "name": "<session>",
+    "instance": "7f280df5-f48d-4251-adc7-1c6e9e520e50",
+    "parent": null,
+    "rtype": "JOB"
+}
+{
+    "name": "mojo",
+    "instance": "6765a520-edf7-4c39-aa92-a27eed2d6ad3",
+    "parent": "7f280df5-f48d-4251-adc7-1c6e9e520e50",
+    "rtype": "TEST_CONTAINER"
+}
+{
+    "name": "mojo.tests",
+    "instance": "b0983c0d-6d75-4114-957e-fcc5c1ffefe5",
+    "parent": "6765a520-edf7-4c39-aa92-a27eed2d6ad3",
+    "rtype": "TEST_CONTAINER"
+}
+{
+    "name": "mojo.tests.interop",
+    "instance": "ffa784ae-ad2b-4e46-ad3e-a6923e4340b5",
+    "parent": "b0983c0d-6d75-4114-957e-fcc5c1ffefe5",
+    "rtype": "TEST_CONTAINER"
+}
+{
+    "name": "mojo.tests.interop.casey",
+    "instance": "bab291de-a7fd-4ad8-a74c-9fc0b06e98d4",
+    "parent": "ffa784ae-ad2b-4e46-ad3e-a6923e4340b5",
+    "rtype": "TEST_CONTAINER"
+}
+{
+    "name": "mojo.tests.interop.casey.protocols",
+    "instance": "5f89b053-7e85-4027-abd8-a128e5f8a600",
+    "parent": "bab291de-a7fd-4ad8-a74c-9fc0b06e98d4",
+    "rtype": "TEST_CONTAINER"
+}
+{
+    "name": "mojo.tests.interop.casey.protocols.tasker",
+    "instance": "1cf4b29a-959e-48e1-92eb-faa00fa4f729",
+    "parent": "5f89b053-7e85-4027-abd8-a128e5f8a600",
+    "rtype": "TEST_CONTAINER"
+}
+{
+    "name": "mojo.tests.interop.casey.protocols.tasker#test_tasker_say_hello",
+    "monikers": [
+        "<mojo.interop.protocols.tasker.taskingadapter.TaskingAdapter object at 0x110bd5d00>"
+    ],
+    "pivots": {
+        "tadapter": "<mojo.interop.protocols.tasker.taskingadapter.TaskingAdapter object at 0x110bd5d00>"
+    },
+    "instance": "4e478966-e5ce-4cea-9dfa-651c263435c5",
+    "parent": "43ad6fad-1870-427b-b8d6-b94162ef5829",
+    "rtype": "TEST",
+    "result": "UNSET",
+    "start": "2025-01-19T12:09:18.417135",
+    "stop": ""
+}
+{
+    "name": "Hello Group",
+    "instance": "b6a7c6a8-0ec3-49cc-bcce-07de82a72993",
+    "parent": "4e478966-e5ce-4cea-9dfa-651c263435c5",
+    "rtype": "TASKING_GROUP",
+    "start": "2025-01-19T12:09:18.418822",
+    "stop": ""
+}
+{
+    "name": "mojo.interop.protocols.tasker.examples.helloworldtasking@HelloWorldTasking",
+    "instance": "e1d4b858-9ab3-40f7-9bbe-e3a3b7a921e9",
+    "parent": "b6a7c6a8-0ec3-49cc-bcce-07de82a72993",
+    "rtype": "TASKING",
+    "result": "PASSED",
+    "prefix": "helloworld",
+    "worker": "172.16.1.44",
+    "start": "2025-01-19T12:09:20.073567",
+    "stop": "2025-01-19T12:11:07.425047",
+    "rvalue": null,
+    "detail": {
+        "errors": [],
+        "failures": [],
+        "warnings": []
+    }
+}
+{
+    "name": "mojo.interop.protocols.tasker.examples.helloworldtasking@HelloWorldTasking",
+    "instance": "d502af64-0d70-44e2-8814-b57630df570b",
+    "parent": "b6a7c6a8-0ec3-49cc-bcce-07de82a72993",
+    "rtype": "TASKING",
+    "result": "PASSED",
+    "prefix": "helloworld",
+    "worker": "172.16.1.43",
+    "start": "2025-01-19T12:09:21.718048",
+    "stop": "2025-01-19T12:11:09.228764",
+    "rvalue": null,
+    "detail": {
+        "errors": [],
+        "failures": [],
+        "warnings": []
+    }
+}
+{
+    "name": "mojo.interop.protocols.tasker.examples.helloworldtasking@HelloWorldTasking",
+    "instance": "7c8aee68-e9fd-4f63-ae99-ba82c7ecabf6",
+    "parent": "b6a7c6a8-0ec3-49cc-bcce-07de82a72993",
+    "rtype": "TASKING",
+    "result": "PASSED",
+    "prefix": "helloworld",
+    "worker": "172.16.1.42",
+    "start": "2025-01-19T12:09:23.338436",
+    "stop": "2025-01-19T12:11:10.651045",
+    "rvalue": null,
+    "detail": {
+        "errors": [],
+        "failures": [],
+        "warnings": []
+    }
+}
+{
+    "name": "mojo.interop.protocols.tasker.examples.helloworldtasking@HelloWorldTasking",
+    "instance": "8139ce29-c83a-4375-ac2c-7e3556f035dd",
+    "parent": "b6a7c6a8-0ec3-49cc-bcce-07de82a72993",
+    "rtype": "TASKING",
+    "result": "PASSED",
+    "prefix": "helloworld",
+    "worker": "172.16.1.41",
+    "start": "2025-01-19T12:09:24.963864",
+    "stop": "2025-01-19T12:11:12.329188",
+    "rvalue": null,
+    "detail": {
+        "errors": [],
+        "failures": [],
+        "warnings": []
+    }
+}
+{
+    "name": "Hello Group",
+    "instance": "b6a7c6a8-0ec3-49cc-bcce-07de82a72993",
+    "parent": "4e478966-e5ce-4cea-9dfa-651c263435c5",
+    "rtype": "TASKING_GROUP",
+    "start": "2025-01-19T12:09:18.418822",
+    "stop": "2025-01-19T12:11:21.737141"
+}
+{
+    "name": "mojo.tests.interop.casey.protocols.tasker#test_tasker_say_hello",
+    "monikers": [
+        "<mojo.interop.protocols.tasker.taskingadapter.TaskingAdapter object at 0x110bd5d00>"
+    ],
+    "pivots": {
+        "tadapter": "<mojo.interop.protocols.tasker.taskingadapter.TaskingAdapter object at 0x110bd5d00>"
+    },
+    "instance": "4e478966-e5ce-4cea-9dfa-651c263435c5",
+    "parent": "43ad6fad-1870-427b-b8d6-b94162ef5829",
+    "rtype": "TEST",
+    "result": "PASSED",
+    "start": "2025-01-19T12:09:18.417135",
+    "stop": "2025-01-19T12:11:21.738324",
+    "detail": {
+        "errors": [],
+        "failures": [],
+        "warnings": []
+    }
+}

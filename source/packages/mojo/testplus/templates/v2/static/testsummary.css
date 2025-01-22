@@ -285,6 +285,13 @@
     min-height: 100px;
 }
 
+.ts-artifact-tab-iframe {
+    display: block;
+    width: calc(100% - 8px);
+    height: 400px;
+    box-sizing: border-box;
+}
+
 .ts-configuration-card {
     margin-top: 10px;
     border-radius: 10px;

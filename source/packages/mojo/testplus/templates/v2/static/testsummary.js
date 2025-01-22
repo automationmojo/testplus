@@ -67,9 +67,9 @@ function split_test_fullname(testname_full) {
  *************************************************************************************/
 
 function enable_artifacts_section() {
-    document.getElementById('artifacts-title').style = "display: block";
-    document.getElementById('artifacts-tab-bar').style = "display: block";
-    document.getElementById('artifacts-tab-content').style = "display: block";
+    //document.getElementById('artifacts-title').style = "display: block";
+    //document.getElementById('artifacts-tab-bar').style = "display: block";
+    //document.getElementById('artifacts-tab-content').style = "display: block";
 }
 
 /*************************************************************************************
@@ -90,8 +90,9 @@ async function load_artifact_folders() {
 
         for (var findex in g_artifacts_catalog.folders) {
             var folder = g_artifacts_catalog.folders[findex];
+            var folderCatalogURL = "artifacts/" + folder + "/catalog.json";
 
-            artifact_catalog = await fetch_http("artifacts/" + folder + "/catalog.json").catch(err => {
+            var artifact_catalog = await fetch_json(folderCatalogURL).catch(err => {
                 console.log("The '" + folder + "' artifacts folder does not have a 'catalog.json' file.")
             });
 
@@ -340,28 +341,10 @@ function entity_escape(tgtstr) {
 
 function refresh_artifacts() {
 
-    var artifactsBarElement = document.getElementById("artifacts-tab-bar");
-    var artifactsContentElement = document.getElementById("artifacts-tab-content");
+    var artifactsEl = document.getElementById("testsummary-artifacts");
 
-    g_artifacts_buttons = [];
-    g_artifacts_tabs = [];
+    artifactsEl.syncData(g_artifacts_catalog, g_artifacts_sub_catalogs);
 
-    for (var findex in g_artifacts_catalog.folders) {
-        var folder = g_artifacts_catalog.folders[findex];
-        var subCatalog = g_artifacts_sub_catalogs[folder];
-        if (subCatalog != undefined) {
-            var folderURL = "artifacts/" + folder + "/tab.html";
-            render_artifact_tab(artifactsBarElement, artifactsContentElement, folder, folderURL);
-        }
-    }
-
-    if (g_artifacts_buttons.length > 0) {
-        var firstButton = g_artifacts_buttons[0];
-
-        var tabName = firstButton.getAttribute("name");
-        select_tab(tabName);
-    }
-    
 }
 
 function refresh_catalog() {
@@ -458,7 +441,7 @@ async function refresh_page() {
     });
 
     load_import_errors().then(() => {
-        refresh_import_errors();
+        //refresh_import_errors();
     });
 
     load_catalog().then(() => {

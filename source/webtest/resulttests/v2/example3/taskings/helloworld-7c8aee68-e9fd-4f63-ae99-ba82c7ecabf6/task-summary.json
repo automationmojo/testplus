@@ -1,0 +1,31 @@
+{
+    "name": "mojo.interop.protocols.tasker.examples.helloworldtasking@HelloWorldTasking",
+    "type": "HelloWorldTasking",
+    "module": "mojo.interop.protocols.tasker.examples.helloworldtasking",
+    "id": "7c8aee68-e9fd-4f63-ae99-ba82c7ecabf6",
+    "parent": "b6a7c6a8-0ec3-49cc-bcce-07de82a72993",
+    "worker": "172.16.1.42",
+    "wref": "2",
+    "start": "2025-01-19 12:09:23.338436",
+    "stop": null,
+    "status": "Running",
+    "metrics": {},
+    "result_code": null,
+    "exception": null,
+    "progress": {
+        "id": "7c8aee68-e9fd-4f63-ae99-ba82c7ecabf6",
+        "category": "hello",
+        "moniker": "mojo.interop.protocols.tasker.examples.helloworldtasking@HelloWorldTasking",
+        "ptype": "NumericRange",
+        "range_min": 0,
+        "range_max": 100,
+        "position": 100,
+        "status": "Completed",
+        "when": "2025-01-19T12:11:10.639947",
+        "data": {
+            "pid": 60045,
+            "message": "Hello World",
+            "iterations": 100
+        }
+    }
+}
