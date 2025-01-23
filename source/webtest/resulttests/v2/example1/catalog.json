@@ -12,6 +12,7 @@
         "unknown.log"
     ],
     "folders": [
+        "artifacts",
         "tc-by-products"
     ]
 }

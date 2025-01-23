@@ -11,7 +11,7 @@ let mojoComponentsRegistered = false;
 class MojoIconTarget extends HTMLElement {
     static tagname = 'mojo-icon-target'
 
-    template = `
+    static template = `
         <div id="id-icon-target" class="mojo-icon-target">
             <icon-question-mark></icon-question-mark>
         </div>
@@ -26,7 +26,7 @@ class MojoIconTarget extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
         if (this.classList.length > 0) {
             shadowRoot.classList = this.classList;
         }
@@ -57,6 +57,10 @@ class MojoIconTarget extends HTMLElement {
 
             this.update_tooltip(containerEl, newValue);
         }
+    }
+
+    getTemplate() {
+        return MojoIconTarget.template;
     }
 
     mouse_down(event) {
@@ -118,7 +122,7 @@ class MojoCollapsible extends HTMLElement {
 
     static tagname = 'mojo-collapsible'
 
-    template = `
+    static template = `
         <div id="id-collapsible-container" class="mojo-collapsible" >
             <div id="id-collapsible-button" class="mojo-collapsible-button">
                 <div id="id-header-text" class="mojo-collapsible-header"></div>
@@ -135,16 +139,11 @@ class MojoCollapsible extends HTMLElement {
     sel_header_icon = "#id-header-icon"
     sel_content = "#id-collapsible-content"
 
-    constructor(overrideTemplate = undefined) {
+    constructor() {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'})
-
-        if (overrideTemplate == undefined) {
-            shadowRoot.innerHTML = this.template;
-        } else {
-            shadowRoot.innerHTML = overrideTemplate;
-        }
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
@@ -152,6 +151,10 @@ class MojoCollapsible extends HTMLElement {
         var thisComp = this;
 
         buttonEl.addEventListener("click", (event) => { thisComp.toggle(event) });
+    }
+
+    getTemplate() {
+        return MojoCollapsible.template;
     }
 
     syncData(header, content, expanded) {
@@ -208,7 +211,7 @@ class MojoProjectTimeline extends HTMLElement {
 
     static tagname = "mojo-project-timeline"
 
-    template = `
+    static template = `
         <div class="mojo-project-timeline">
         </div>
     `
@@ -217,7 +220,7 @@ class MojoProjectTimeline extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
@@ -226,6 +229,10 @@ class MojoProjectTimeline extends HTMLElement {
         copyEl.addEventListener("mousedown", (event) => { thisComp.mouse_down(event) });
         copyEl.addEventListener("mouseleave", (event) => { thisComp.mouse_leave(event) });
         copyEl.addEventListener("mouseup", (event) => { thisComp.mouse_up(event) });
+    }
+
+    getTemplate() {
+        return MojoProjectTimeline.template;
     }
 
     mouse_down(event) {
@@ -251,7 +258,7 @@ class MojoPropertySingle extends HTMLElement {
 
     static tagname = "mojo-property-single"
 
-    template = `
+    static template = `
         <div id="id-property-single-container" class="mojo-prop-single">
             <div id="id-property-single-label" class="mojo-prop-single-label"></div>
             <div id="id-property-single-value" class="mojo-prop-single-value"></div>
@@ -272,7 +279,7 @@ class MojoPropertySingle extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
@@ -286,6 +293,10 @@ class MojoPropertySingle extends HTMLElement {
         copyEl.addEventListener("mousedown", (event) => { thisComp.mouse_down(event, copyEl) });
         copyEl.addEventListener("mouseleave", (event) => { thisComp.mouse_leave(event, copyEl) });
         copyEl.addEventListener("mouseup", (event) => { thisComp.mouse_up(event, copyEl) });
+    }
+
+    getTemplate() {
+        return MojoPropertySingle.template;
     }
 
     copyValue(valueEl, e) {
@@ -330,7 +341,7 @@ class MojoPropertyTable extends HTMLElement {
 
     static tagname = "mojo-property-table";
 
-    template = `
+    static template = `
         <div id="id-property-table-container" class="mojo-prop-table">
         </div>
     `
@@ -348,7 +359,7 @@ class MojoPropertyTable extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
     }
@@ -425,6 +436,10 @@ class MojoPropertyTable extends HTMLElement {
 
     }
 
+    getTemplate() {
+        return MojoPropertyTable.template;
+    }
+
     mouse_down(event, copyEl) {
         var thisStyle = getComputedStyle(copyEl);
 
@@ -481,7 +496,7 @@ class MojoTabLabel extends HTMLElement {
 
     static observedAttributes = ["selected"]
 
-    template = `
+    static template = `
         <div id="id-tab-label-container" class="mojo-tab-label-container">
         </div>
     `
@@ -492,9 +507,13 @@ class MojoTabLabel extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
+    }
+
+    getTemplate() {
+        return MojoTabLabel.template;
     }
 
     syncData(label) {
@@ -515,7 +534,7 @@ class MojoTabContent extends HTMLElement {
 
     static observedAttributes = ["selected"]
 
-    template = `
+    static template = `
         <div id="id-tab-content-container" class="mojo-tab-content-container">
         </div>
     `
@@ -526,9 +545,13 @@ class MojoTabContent extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
+    }
+
+    getTemplate() {
+        return MojoTabContent.template;
     }
 
     syncData(content) {
@@ -610,7 +633,7 @@ class MojoTabSet extends HTMLElement {
 
     static tagname = "mojo-tabset";
 
-    template = `
+    static template = `
         <div id="id-tabset-container" class="mojo-tabset">
             <div id="id-tabset-labels-collection" class="mojo-tabset-label-collection">
             </div>
@@ -627,12 +650,16 @@ class MojoTabSet extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
         this.pages = undefined;
         this.selected = undefined;
+    }
+
+    getTemplate() {
+        return MojoTabSet.template;
     }
 
     scrubOldPages() {

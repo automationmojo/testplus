@@ -9,7 +9,7 @@ class TestSummaryBanner extends HTMLElement {
 
     static tagname = 'testsummary-banner'
 
-    template = `
+    static template = `
         <div class='ts-banner'>
             <div class='ts-banner-job'>
                 <div class='ts-banner-logo'>
@@ -117,11 +117,15 @@ class TestSummaryBanner extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
         this.summary = {};
+    }
+
+    getTemplate() {
+        return TestSummaryBanner.template;
     }
 
     syncData (summary) {
@@ -191,7 +195,7 @@ class TestSummaryDeviceItem extends HTMLElement {
 
     static tagname = 'testsummary-deviceitem'
 
-    template = `
+    static template = `
         <div id="id-device-item-container" class="ts-lscape-device-item">
             <div id="id-devitem-name">
                 <div id="id-devitem-name-label" class="ts-lscape-device-lbl">Name</div>
@@ -228,7 +232,7 @@ class TestSummaryDeviceItem extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
@@ -239,6 +243,10 @@ class TestSummaryDeviceItem extends HTMLElement {
         this.credentials = undefined;
         this.features = undefined;
         this.skip = undefined;
+    }
+
+    getTemplate() {
+        return TestSummaryDeviceItem.template;
     }
 
     syncData (device_info) {
@@ -310,7 +318,7 @@ class TestSummaryDeviceGroup extends HTMLElement {
 
     static tagname = 'testsummary-devicegroup'
 
-    template = `
+    static template = `
         <div id="id-device-group-container" class="ts-lscape-device-group">
         </div>
     `
@@ -319,12 +327,16 @@ class TestSummaryDeviceGroup extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
         this.name = undefined;
         this.devices = undefined;
+    }
+
+    getTemplate() {
+        return TestSummaryDeviceGroup.template;
     }
 
     syncData(group_name, group_devices) {
@@ -343,7 +355,7 @@ class TestSummaryConfiguration extends HTMLElement {
 
     static tagname = 'testsummary-configuration'
 
-    template = `
+    static template = `
         <div class="ts-configuration-card">
             <div class="ts-section-header">
                 <h2 class="zero-margins-and-padding">Configuration</h2>
@@ -367,7 +379,7 @@ class TestSummaryConfiguration extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
@@ -375,6 +387,10 @@ class TestSummaryConfiguration extends HTMLElement {
         this.command = undefined;
         this.environment = undefined;
         this.packages = undefined;
+    }
+
+    getTemplate() {
+        return TestSummaryConfiguration.template;
     }
 
     syncData (startup, landscape) {
@@ -444,7 +460,7 @@ class TestSummaryConfigurationEnvironment extends HTMLElement {
 
     static tagname = 'testsummary-config-environment'
 
-    template = `
+    static template = `
         <button id="id-ts-config-environment-button" type="button" class="ts-collapsible">Environment</button>
         <div id="id-ts-config-environment-content" class="ts-collapsible-content" style="display:none;">
             <property-table id="id-ts-configuration-environment"></property-table>
@@ -455,7 +471,7 @@ class TestSummaryConfigurationEnvironment extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
@@ -465,6 +481,10 @@ class TestSummaryConfigurationEnvironment extends HTMLElement {
         
         var thisComp = this;
         buttonEl.addEventListener("click", (event) => { thisComp.toggle(event) });
+    }
+
+    getTemplate() {
+        return TestSummaryConfigurationEnvironment.template;
     }
 
     syncData (environment) {
@@ -491,7 +511,7 @@ class TestSummaryConfigurationLandscape extends HTMLElement {
 
     static tagname = 'testsummary-config-landscape'
 
-    template = `
+    static template = `
         <button id="id-ts-config-landscape-button" type="button" class="ts-collapsible">Landscape</button>
         <div id="id-ts-config-landscape-content" class="ts-collapsible-content" style="display:none;">
             <div style="margin-left: 20px;">
@@ -515,7 +535,7 @@ class TestSummaryConfigurationLandscape extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
@@ -525,6 +545,10 @@ class TestSummaryConfigurationLandscape extends HTMLElement {
         
         var thisComp = this;
         buttonEl.addEventListener("click", (event) => { thisComp.toggle(event) });
+    }
+
+    getTemplate() {
+        return TestSummaryConfigurationLandscape.template;
     }
 
     syncData (landscape) {
@@ -610,7 +634,7 @@ class TestSummaryConfigurationPackages extends HTMLElement {
 
     static tagname = 'testsummary-config-packages'
 
-    template = `
+    static template = `
         <div id="id-container" class="mojo-collapsible" >
             <div class="mojo-collapsible-button">
                 <div id="id-header-text" class="mojo-collapsible-header"></div>
@@ -626,7 +650,7 @@ class TestSummaryConfigurationPackages extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
@@ -637,6 +661,10 @@ class TestSummaryConfigurationPackages extends HTMLElement {
         buttonEl.addEventListener("click", (event) => { thisComp.toggle(event) });
 
 
+    }
+
+    getTemplate() {
+        return TestSummaryConfigurationPackages.template;
     }
 
     syncData (packages) {
@@ -664,7 +692,7 @@ class TestSummaryResultGroup extends HTMLElement {
 
     static tagname = 'testsummary-resultgroup'
 
-    template = `
+    static template = `
         <details>
             <summary id="id-rgroup-summary">
                 <div class="ts-results-grp-grid">
@@ -684,9 +712,13 @@ class TestSummaryResultGroup extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
+    }
+
+    getTemplate() {
+        return TestSummaryResultGroup.template;
     }
 
     syncData (groupName, groupInfo) {
@@ -764,7 +796,7 @@ class TestSummaryResultItem extends HTMLElement {
 
     static tagname = 'testsummary-resultitem'
 
-    template = `
+    static template = `
         <details>
             <summary id="id-ritem-summary">
                 <div class="ts-results-items-grid">
@@ -805,9 +837,13 @@ class TestSummaryResultItem extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
+    }
+
+    getTemplate() {
+        return TestSummaryResultItem.template;
     }
 
     syncData (testItem) {
@@ -897,7 +933,7 @@ class TestSummaryResultDetail extends HTMLElement {
     
     static tagname = 'testsummary-resultdetail'
 
-    template = `
+    static template = `
         <div class="ts-resultdetail-card">
             <div class="ts-section-header">
                 <h2 class="zero-margins-and-padding">Test Result Detail</h2>
@@ -917,9 +953,13 @@ class TestSummaryResultDetail extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
+    }
+
+    getTemplate() {
+        return TestSummaryResultDetail.template;
     }
 
     syncData (renderFormat, resultsDetail) {
@@ -986,8 +1026,7 @@ class TestSummaryErrorsCollapsible extends MojoCollapsible {
 
     static tagname = 'testsummary-errors-collection'
 
-    constructor() {
-        super(`
+    static template = `
         <div id="id-collapsible-container" class="ts-errors-collapsible" >
             <div id="id-collapsible-button" class="ts-errors-collapsible-button">
                 <div id="id-header-text" class="ts-errors-collapsible-header">ERRORS</div>
@@ -996,7 +1035,14 @@ class TestSummaryErrorsCollapsible extends MojoCollapsible {
             <div id="id-collapsible-content" class="ts-errors-collapsible-content">
             </div>
         </div>
-    `);
+    `
+
+    constructor() {
+        super();
+    }
+
+    getTemplate() {
+        return TestSummaryErrorsCollapsible.template;
     }
 
     syncData(errors) {
@@ -1024,8 +1070,7 @@ class TestSummaryFailuresCollapsible extends MojoCollapsible {
 
     static tagname = 'testsummary-failures-collection'
 
-    constructor() {
-        super(`
+    static template = `
         <div id="id-collapsible-container" class="ts-failures-collapsible" >
             <div id="id-collapsible-button" class="ts-failures-collapsible-button">
                 <div id="id-header-text" class="ts-failures-collapsible-header"></div>
@@ -1034,7 +1079,14 @@ class TestSummaryFailuresCollapsible extends MojoCollapsible {
             <div id="id-collapsible-content" class="ts-failures-collapsible-content">
             </div>
         </div>
-    `);
+    `
+
+    constructor() {
+        super();
+    }
+
+    getTemplate() {
+        return TestSummaryFailuresCollapsible.template;
     }
 
     syncData(failures) {
@@ -1061,26 +1113,30 @@ class TestSummaryExceptionTrace extends HTMLElement {
 
     static tagname = 'testsummary-exception-trace'
 
-    template = `
+    static template = `
         <div id="id-exception-content" class="ts-exception-content">
             <pre></pre>
         </div>
     `
 
-    sel_content = "#id-exception-content"
+    sel_exception_content = "#id-exception-content"
 
     constructor() {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
     }
 
+    getTemplate() {
+        return TestSummaryExceptionTrace.template;
+    }
+
     syncData (exargs, extype, trace_lines) {
 
-        var contentEl = this.shadowRoot.querySelector(this.sel_content);
+        var contentEl = this.shadowRoot.querySelector(this.sel_exception_content);
 
         var exAndMsgEl = document.createElement("pre");
         exAndMsgEl.classList.add("code-font-dk")
@@ -1128,11 +1184,127 @@ class TestSummaryExceptionTrace extends HTMLElement {
     }
 }
 
+
+class TestSummaryImportFailureTrace extends MojoCollapsible {
+    static tagname = 'testsummary-import-failure-trace'
+
+    static template = `
+        <div id="id-collapsible-container" class="ts-importfailure-trace" >
+            <div id="id-collapsible-button" class="ts-importfailure-trace-button">
+                <div id="id-header-text" class="ts-importfailure-trace-header">Trace</div>
+                <div id="id-header-icon" class="ts-importfailure-trace-icon">+</div>
+            </div>
+            <div id="id-collapsible-content" class="ts-importfailure-trace-content">
+            </div>
+        </div>
+    `
+
+    constructor() {
+        super();
+    }
+
+    getTemplate() {
+        return TestSummaryImportFailureTrace.template;
+    }
+
+    syncData(header, trace_lines) {
+
+        var contentEl = this.shadowRoot.querySelector(this.sel_content);
+        contentEl.innerHTML = "";
+
+        var traceContentEl = this.createTraceContent(trace_lines);
+        contentEl.appendChild(traceContentEl);
+
+        super.syncData(header, undefined, false);
+    }
+
+    createTraceContent(trace_lines) {
+
+        trace_lines = trace_lines.reverse();
+
+        var traceLinesEl = document.createElement("div");
+
+        for (var tindex in trace_lines) {
+            var titem = trace_lines[tindex];
+            var nxtLineEl = document.createElement("pre");
+            nxtLineEl.innerHTML = titem;
+
+            traceLinesEl.appendChild(nxtLineEl);
+        }
+
+        return traceLinesEl;
+
+    }
+}
+
+
+class TestSummaryImportFailureItem extends HTMLElement {
+
+    static tagname = 'testsummary-import-failure-item'
+
+    static template = `
+        <div class='ts-importfailure-item'>
+            <mojo-property-table id="id-ts-trace-prop-table">
+            </mojo-property-table>
+            <testsummary-import-failure-trace id="id-ts-import-trace">
+            </testsummary-import-failure-trace>
+        </div>
+    `
+
+    sel_trace_prop_table = "#id-ts-trace-prop-table"
+    sel_trace = "#id-ts-import-trace"
+
+    constructor() {
+        super();
+
+        const shadowRoot = this.attachShadow({mode: 'open'})
+        shadowRoot.innerHTML = this.getTemplate();
+
+        addGlobalStylesToShadowRoot(shadowRoot);
+    }
+
+    getTemplate() {
+        return TestSummaryImportFailureItem.template;
+    }
+
+    syncData (importError) {
+
+        var traceProps = {
+            "Filename": importError.filename,
+            "Module": importError.module
+        };
+
+        var trace = importError.trace;
+
+        var propTableEl = this.shadowRoot.querySelector(this.sel_trace_prop_table);
+        propTableEl.syncData(traceProps);
+
+        var traceCollEl = this.shadowRoot.querySelector(this.sel_trace);
+        traceCollEl.syncData("Trace", trace);
+    }
+
+    createTraceContent(trace_lines) {
+        trace_lines = trace_lines.reverse();
+
+        var traceLinesEl = document.createElement("div");
+
+        for (var tindex in trace_lines) {
+            var titem = trace_lines[tindex];
+            var nxtLineEl = document.createElement("pre");
+            nxtLineEl.innerHTML = titem;
+
+            traceLinesEl.appendChild(nxtLineEl);
+        }
+
+        return traceLinesEl;
+    }
+}
+
 class TestSummaryArtifacts extends HTMLElement {
 
     static tagname = 'testsummary-artifacts'
 
-    template = `
+    static template = `
         <div class="ts-artifacts-card">
             <div class="ts-section-header">
                 <h2 class="zero-margins-and-padding">Artifacts</h2>
@@ -1149,9 +1321,13 @@ class TestSummaryArtifacts extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
+    }
+
+    getTemplate() {
+        return TestSummaryArtifacts.template;
     }
 
     syncData (artifacts_catalog, artifacts_folder_catalogs) {
@@ -1196,29 +1372,45 @@ class TestSummaryImportFailures extends HTMLElement {
 
     static tagname = 'testsummary-importfailures'
 
-    template = `
+    static template = `
         <div class="ts-importfailures-card">
             <div class="ts-section-header">
                 <h2 class="zero-margins-and-padding">Import Failures</h2>
             </div>
             <div class="ts-section-detail">
+                <div id="id-import-failures-list">
+
+                </div>
             </div>
         </div>
     `
+
+    sel_import_failures_list = "#id-import-failures-list"
 
     constructor() {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
     }
 
-    syncData (importErrors) {
-        for (var idx in g_import_errors) {
-            var imp_err_item = g_import_errors[idx];
-            render_import_error_item_content(ierrbody, imp_err_item);
+    getTemplate() {
+        return TestSummaryImportFailures.template;
+    }
+
+    syncData (importFailures) {
+        var failuresListEl = this.shadowRoot.querySelector(this.sel_import_failures_list);
+        failuresListEl.innerHTML = "";
+
+        for (var idx in importFailures) {
+            var failItem = importFailures[idx];
+            
+            var failItemEl = document.createElement(TestSummaryImportFailureItem.tagname);
+            failItemEl.syncData(failItem);
+            
+            failuresListEl.appendChild(failItemEl);
         }
     }
 }
@@ -1228,7 +1420,7 @@ class TestSummaryFilesAndFolders extends HTMLElement {
 
     static tagname = 'testsummary-filesandfolders'
 
-    template = `
+    static template = `
         <div class="ts-filesandfolders-card">
             <div class="ts-section-header">
                 <h2 class="zero-margins-and-padding">Files and Folders</h2>
@@ -1252,9 +1444,13 @@ class TestSummaryFilesAndFolders extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = this.template;
+        shadowRoot.innerHTML = this.getTemplate();
 
         addGlobalStylesToShadowRoot(shadowRoot);
+    }
+
+    getTemplate() {
+        return TestSummaryFilesAndFolders.template;
     }
 
     createFileElement(label, path) {
@@ -1317,5 +1513,7 @@ function register_testsummary_components() {
     customElements.define(TestSummaryExceptionTrace.tagname, TestSummaryExceptionTrace);
     customElements.define(TestSummaryArtifacts.tagname, TestSummaryArtifacts);
     customElements.define(TestSummaryImportFailures.tagname, TestSummaryImportFailures);
+    customElements.define(TestSummaryImportFailureItem.tagname, TestSummaryImportFailureItem);
+    customElements.define(TestSummaryImportFailureTrace.tagname, TestSummaryImportFailureTrace);
     customElements.define(TestSummaryFilesAndFolders.tagname, TestSummaryFilesAndFolders);
 }

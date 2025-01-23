@@ -355,7 +355,7 @@ function refresh_catalog() {
 }
 
 function refresh_import_errors() {
-    var impErrorEl = document.getElementById("import-errors-detail");
+    var impErrorEl = document.getElementById("testsummary-importfailures");
 
     impErrorEl.syncData(g_import_errors);
 }
@@ -441,7 +441,7 @@ async function refresh_page() {
     });
 
     load_import_errors().then(() => {
-        //refresh_import_errors();
+        refresh_import_errors();
     });
 
     load_catalog().then(() => {

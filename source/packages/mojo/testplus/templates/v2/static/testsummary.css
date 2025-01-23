@@ -331,6 +331,63 @@
     min-height: 100px;
 }
 
+.ts-importfailure-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+}
+
+.ts-importfailure-trace {
+    box-sizing: border-box;
+    width: inherit;
+    background-color: var(--color-fail); 
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    border: solid;
+    border-color: var(--color-fail);
+    border-width: 2px;
+    border-radius: 4px;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.ts-importfailure-trace-button {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: nowrap;
+    background-color: var(--color-fail);
+}
+
+.ts-importfailure-trace-header {
+    flex-grow: 1;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.ts-importfailure-trace-icon {
+    fill: white;
+    font-size: 20;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+}
+
+.ts-importfailure-trace-content {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    color: black;
+    text-align: left;
+}
+
 .ts-lscape-device-item {
     display: flex;
     flex-direction: row;
