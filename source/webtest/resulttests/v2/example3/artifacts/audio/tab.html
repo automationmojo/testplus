@@ -4,89 +4,77 @@
         __author__ = "Myron Walker"
         __copyright__ = "Copyright 2020, Myron W Walker"
         __credits__ = []
-        __version__ = "1.0.0"
+        __version__ = "2.0.0"
         __maintainer__ = "Myron Walker"
-        __email__ = "myron.walker@gmail.com"
-        __status__ = "Development" # Prototype, Development or Production
-        __license__ = "MIT"
     -->
     <head>
         <title>Sounds</title>
+
+        <script type="text/javascript" src="/static/v2/testsummary-helpers.js"></script>
+
         <style>
-            .items-container {
+            .flex-container {
                 display: flex;
                 width: auto;
                 height: auto;
             }
+            
+            .item-container {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .item-label {
+                width: 100%;
+                height: 30px;
+                justify-content: center;
+                font-weight: bold;
+            }
+
+            .item-content {
+                width: 100%;
+                height: auto;
+            }
         </style>
+
         <script type="text/javascript">
-            var g_items_ext_list = ["mp3"]
-            var g_catalog = null;
+
+            var g_items_ext_list = ["mp3", "wav"]
             var g_items = [];
 
-            async function load_json(url) {
-                var promise = new Promise((resolve, reject) => {
-                    var xmlhttp = new XMLHttpRequest();
-                    
-                    xmlhttp.onreadystatechange = function() {
-                        if (this.readyState == 4) {
-                            if (this.status == 200) {
-                                var robj = JSON.parse(this.responseText);
-                                resolve(robj);
-                            } else {
-                                reject(this.statusText);
-                            }
-                        }
-                    };
-
-                    xmlhttp.onerror = function (){
-                        reject(this.statusText);
-                    };
-
-                    xmlhttp.open("GET", url, true);
-                    xmlhttp.send();
-
-                });
-
-                return promise;
-            }
-
-            async function load_items() {
-                g_catalog = await load_json("catalog.json");
-
-                for (var findex in g_catalog.files) {
-                    var filename = g_catalog.files[findex];
-                    var fext = filename.split(".").pop();
-
-                    if (g_items_ext_list.indexOf(fext) > -1) {
-                        var sound_type = null;
-
-                        if (fext == "mp3") {
-                            sound_type = "audio/mpeg";
-                        }
-
-                        g_items.push([filename, sound_type]);
-                    }
-                }
-            }
-
             async function refresh_items() {
-                var itemsContainer = document.getElementById('container-items');
+                var itemsContainerEl = document.getElementById('flex-container');
 
                 for (var findex in g_items) {
-                    const [filename, sound_type] = g_items[findex];
+                    var filename = g_items[findex];
 
-                    var itemElement = document.createElement('audio');
-                    itemElement.setAttribute("controls", "true");
-                    itemElement.setAttribute("src", "./" + filename);
+                    g_items.push(filename);
 
-                    itemsContainer.appendChild(itemElement);
+                    var containerEl = document.createElement("div");
+                    containerEl.classList.add("item-container");
+
+                    var headerEl = document.createElement('span');
+                    headerEl.style.width = "100%";
+                    headerEl.innerHTML = filename;
+
+                    containerEl.appendChild(headerEl);
+
+                    var contentEl = document.createElement('audio');
+                    contentEl.setAttribute("controls", "true");
+                    contentEl.setAttribute("src", filename);
+
+                    containerEl.appendChild(contentEl);
+
+                    itemsContainerEl.appendChild(containerEl);
                 }
             }
 
             async function refresh_page() {
-                await load_items();
-                await refresh_items();
+                fetch_items(g_items_ext_list).then((items) => {
+                    g_items = items;
+                
+                    refresh_items();
+                });
             }
 
             refresh_page().then(function() {
@@ -98,10 +86,11 @@
 
         </script>
     </head>
+
     <body style="width: 100%;">
         <h3>Sounds</h3>
-        <div id='container-items' class='items-container'>
-
+        <div id='flex-container' class='flex-container'>
         </div>
     </body>
+
 </html>

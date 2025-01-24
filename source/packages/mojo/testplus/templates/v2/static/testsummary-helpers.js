@@ -36,6 +36,7 @@ const DATETIME_FORMAT = "yyyy-MM-ddTHH:mm:ss.ssssss"
 
 async function fetch_json(url) {
     var promise = new Promise((resolve, reject) => {
+
         var xmlhttp = new XMLHttpRequest();
 
         xmlhttp.onreadystatechange = function () {
@@ -59,6 +60,34 @@ async function fetch_json(url) {
     });
 
     return promise;
+}
+
+async function fetch_items(extensions) {
+
+    var promise = new Promise((resolve, reject) => {
+
+        fetch_json("catalog.json").then((catalog) => {
+
+            var itemsFound = [];
+
+            for (var findex in catalog.files) {
+                var filename = catalog.files[findex];
+                var fext = filename.split(".").pop();
+    
+                if (extensions.indexOf(fext) > -1) {
+                    itemsFound.push(filename);
+                }
+            }
+
+            resolve(itemsFound);
+
+        }, (err) => {
+            reject(err);
+        });
+    });
+
+    return promise;
+
 }
 
 async function fetch_json_stream(url) {
@@ -151,35 +180,6 @@ function get_time_difference(start, stop) {
     }
 
     return diff;
-}
-
-async function include_html_templates() {
-    var z, i, elmnt, file, xhttp;
-
-    /* Loop through a collection of all HTML elements: */
-    z = document.getElementsByTagName("*");
-    
-    for (i = 0; i < z.length; i++) {
-        elmnt = z[i];
-    
-        /*search for elements with a certain atrribute:*/
-        if (elmnt.hasAttribute("include-html-templates")) {
-            file = elmnt.getAttribute("include-html-templates");
-            if (file) {
-        
-                /* Make an HTTP request using the attribute value as the file name: */
-                response = await fetch_http(file);
-                elmnt.innerHTML = response;
-                
-            }
-
-            elmnt.removeAttribute("include-html-templates");
-        }
-        
-    }
-    
-    /* Exit the function: */
-    return;
 }
 
 function tab_get_content_directory() {
