@@ -47,6 +47,13 @@
     <head>
         <title>Time Series Chart</title>
         <style>
+            .page-style {
+                margin: 0px;
+                padding: 10px;
+                box-sizing: border-box;
+                width: 100%;
+            }
+
             .items-container {
                 display: flex;
                 width: auto;
@@ -337,7 +344,7 @@
 
         </script>
     </head>
-    <body style="width: 100%;" onload="render_dynamic_content()">
+    <body class="page-style" onload="render_dynamic_content()">
         <h3 id="title"></h3>
         <div id='chart'>
 
