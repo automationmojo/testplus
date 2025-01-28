@@ -703,8 +703,6 @@ class TestSummaryConfigurationLandscape extends MojoCollapsible {
                 // TODO: Add support for displaying infrastructure details
                 landscapeServiceEl.style.display = '';
 
-                var landscapeServicesContentEl = this.shadowRoot.querySelector("#id-ts-configuration-landscape-services-content");
-
                 var landscapeServicesListEl = document.createElement("div");
                 landscapeServicesListEl.classList.add("ts-lscape-services-list");
                 
