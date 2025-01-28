@@ -51,6 +51,21 @@ class IconCopy extends IconBase {
     }
 }
 
+class IconDeviceUnknown extends IconBase {
+
+    static tagname = 'icon-device-unknown'
+
+    template = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="icon-component-style">
+            <path d="M480-280q-17 0-29.5-12.5T438-322q0-17 12.5-29.5T480-364q17 0 29.5 12.5T522-322q0 17-12.5 29.5T480-280Zm-30-128q0-46 7.5-63t42.5-47q14-14 24-27.5t10-30.5q0-18-13.5-32T480-622q-27 0-41 15.5T420-574l-54-22q12-35 41-59.5t73-24.5q47 0 80.5 25.5T594-578q0 24-12 45t-30 39q-30 30-36 42t-6 44h-60ZM280-40q-33 0-56.5-23.5T200-120v-720q0-33 23.5-56.5T280-920h400q33 0 56.5 23.5T760-840v720q0 33-23.5 56.5T680-40H280Zm0-120v40h400v-40H280Zm0-80h400v-480H280v480Zm0-560h400v-40H280v40Zm0 0v-40 40Zm0 640v40-40Z"/>
+        </svg>
+    `
+    constructor() {
+        super();
+        this.initializeShadow(this.template);
+    }
+}
+
 class IconError extends IconBase {
 
     static tagname = 'icon-error'
@@ -261,6 +276,21 @@ class IconSettings extends IconBase {
     }
 }
 
+class IconTabletAndroid extends IconBase {
+
+    static tagname = 'icon-tablet-android'
+
+    template = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="icon-component-style">
+            <path d="M200-40q-33 0-56.5-23.5T120-120v-720q0-33 23.5-56.5T200-920h560q33 0 56.5 23.5T840-840v720q0 33-23.5 56.5T760-40H200Zm0-200v120h560v-120H200Zm200 80h160v-40H400v40ZM200-320h560v-400H200v400Zm0-480h560v-40H200v40Zm0 0v-40 40Zm0 560v120-120Z"/>
+        </svg>
+    `
+    constructor() {
+        super();
+        this.initializeShadow(this.template);
+    }
+}
+
 class IconQuestionMark extends IconBase {
 
     static tagname = 'icon-question-mark'
@@ -298,6 +328,7 @@ function register_icon_components() {
 
         customElements.define(IconBug.tagname, IconBug);
         customElements.define(IconCopy.tagname, IconCopy);
+        customElements.define(IconDeviceUnknown.tagname, IconDeviceUnknown);
         customElements.define(IconError.tagname, IconError);
         customElements.define(IconFile.tagname, IconFile);
         customElements.define(IconFilter.tagname, IconFilter);
@@ -312,6 +343,7 @@ function register_icon_components() {
         customElements.define(IconNoteStack.tagname, IconNoteStack);
         customElements.define(IconSearch.tagname, IconSearch);
         customElements.define(IconSettings.tagname, IconSettings);
+        customElements.define(IconTabletAndroid.tagname, IconTabletAndroid);
         customElements.define(IconQuestionMark.tagname, IconQuestionMark);
         customElements.define(IconWarning.tagname, IconWarning);
     }

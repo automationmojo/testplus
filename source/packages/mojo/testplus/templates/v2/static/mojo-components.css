@@ -47,6 +47,105 @@
     height: 24px;
 }
 
+
+.mojo-collapsible-lvl2 {
+    box-sizing: border-box;
+    width: inherit;
+    background-color: white; 
+    color: #444;
+    cursor: pointer;
+    width: 100%;
+    border: solid;
+    border-color: #beac85;
+    border-width: 2px;
+    border-radius: 4px;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+}
+
+.mojo-collapsible-lvl2-button {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: nowrap;
+    background-color: #beac85;
+}
+
+.mojo-collapsible-lvl2-button:hover {
+    background-color: #b1a07b;
+}
+
+.mojo-collapsible-lvl2-content {
+    padding: 4px 18px;
+    display: block;
+}
+
+.mojo-collapsible-lvl2-header {
+    flex-grow: 1;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.mojo-collapsible-lvl2-icon {
+    fill: black;
+    font-size: 20;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+}
+
+
+.mojo-collapsible-lvl3 {
+    box-sizing: border-box;
+    width: inherit;
+    background-color: white; 
+    color: #444;
+    cursor: pointer;
+    width: 100%;
+    border: solid;
+    border-color: #f8e2b3;
+    border-width: 2px;
+    border-radius: 4px;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+}
+
+.mojo-collapsible-lvl3-button {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: nowrap;
+    background-color: f8e2b3;
+}
+
+.mojo-collapsible-lvl3-button:hover {
+    background-color: #e0bd72;
+}
+
+.mojo-collapsible-lvl3-content {
+    padding: 4px 18px;
+    display: block;
+}
+
+.mojo-collapsible-lvl3-header {
+    flex-grow: 1;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.mojo-collapsible-lvl3-icon {
+    fill: black;
+    font-size: 20;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+}
+
+
 .mojo-icon-target {
     box-sizing: border-box;
     width: inherit;

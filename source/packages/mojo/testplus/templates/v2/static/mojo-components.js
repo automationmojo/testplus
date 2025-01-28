@@ -206,6 +206,56 @@ class MojoCollapsible extends HTMLElement {
 
 }
 
+class MojoCollapsibleLvl2 extends MojoCollapsible {
+
+    static tagname = 'mojo-collapsible-lvl2'
+
+    static template = `
+        <div id="id-collapsible-container" class="mojo-collapsible-lvl2" >
+            <div id="id-collapsible-button" class="mojo-collapsible-lvl2-button">
+                <div id="id-header-text" class="mojo-collapsible-lvl2-header"></div>
+                <div id="id-header-icon" class="mojo-collapsible-lvl2-icon">+</div>
+            </div>
+            <div id="id-collapsible-content" class="mojo-collapsible-lvl2-content">
+            </div>
+        </div>
+    `
+
+    constructor() {
+        super();
+    }
+
+    getTemplate() {
+        return MojoCollapsibleLvl2.template;
+    }
+
+}
+
+class MojoCollapsibleLvl3 extends MojoCollapsible {
+
+    static tagname = 'mojo-collapsible-lvl3'
+
+    static template = `
+        <div id="id-collapsible-container" class="mojo-collapsible-lvl3" >
+            <div id="id-collapsible-button" class="mojo-collapsible-lvl3-button">
+                <div id="id-header-text" class="mojo-collapsible-lvl3-header"></div>
+                <div id="id-header-icon" class="mojo-collapsible-lvl3-icon">+</div>
+            </div>
+            <div id="id-collapsible-content" class="mojo-collapsible-lvl3-content">
+            </div>
+        </div>
+    `
+
+    constructor() {
+        super();
+    }
+
+    getTemplate() {
+        return MojoCollapsibleLvl2.template;
+    }
+
+}
+
 
 class MojoProjectTimeline extends HTMLElement {
 
@@ -732,6 +782,8 @@ function register_mojo_components() {
         mojoComponentsRegistered = true;
 
         customElements.define(MojoCollapsible.tagname, MojoCollapsible);
+        customElements.define(MojoCollapsibleLvl2.tagname, MojoCollapsibleLvl2);
+        customElements.define(MojoCollapsibleLvl3.tagname, MojoCollapsibleLvl3);
         customElements.define(MojoIconTarget.tagname, MojoIconTarget);
         customElements.define(MojoProjectTimeline.tagname, MojoProjectTimeline);
         customElements.define(MojoPropertySingle.tagname, MojoPropertySingle);

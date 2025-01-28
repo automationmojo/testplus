@@ -191,42 +191,19 @@ class TestSummaryBanner extends HTMLElement {
 }
 
 
-class TestSummaryDeviceItem extends HTMLElement {
+class TestSummaryLandscapeObject extends HTMLElement {
 
-    static tagname = 'testsummary-deviceitem'
+    static tagname = 'testsummary-landscapeobject'
 
     static template = `
-        <div id="id-device-item-container" class="ts-lscape-device-item">
-            <div id="id-devitem-name">
-                <div id="id-devitem-name-label" class="ts-lscape-device-lbl">Name</div>
-                <div id="id-devitem-name-value" class="ts-lscape-device-val"></div>
-            </div>
-            <div id="id-devitem-role">
-                <div id="id-devitem-role-label" class="ts-lscape-device-lbl">Role</div>
-                <div id="id-devitem-role-value" class="ts-lscape-device-val"></div>
-            </div>
-            <div id="id-devitem-dtype">
-                <div id="id-devitem-dtype-label" class="ts-lscape-device-lbl">Type</div>
-                <div id="id-devitem-dtype-value" class="ts-lscape-device-val"></div>
-            </div>
-            <div id="id-devitem-host">
-                <div id="id-devitem-host-label" class="ts-lscape-device-lbl">Host</div>
-                <div id="id-devitem-host-value" class="ts-lscape-device-val"></div>
-            </div>
-            <div id="id-devitem-creds">
-                <div id="id-devitem-creds-label" class="ts-lscape-device-lbl">Credentails</div>
-                <div id="id-devitem-creds-value" class="ts-lscape-device-val"></div>
-            </div>
-            <div id="id-devitem-features">
-                <div id="id-devitem-features-label" class="ts-lscape-device-lbl">Features</div>
-                <div id="id-devitem-features-value" class="ts-lscape-device-val"></div>
-            </div>
-            <div id="id-devitem-skip">
-                <div id="id-devitem-skip-label" class="ts-lscape-device-lbl">Skip</div>
-                <div id="id-devitem-skip-value" class="ts-lscape-device-val"></div>
-            </div>
+        <div id='id-lscape-object-container' class='ts-lscape-object-item'>
         </div>
     `
+
+    sel_container = "#id-lscape-object-container"
+
+    property_order = ['name']
+    property_label_lookup = { 'name': 'Name'}
 
     constructor() {
         super();
@@ -236,82 +213,170 @@ class TestSummaryDeviceItem extends HTMLElement {
 
         addGlobalStylesToShadowRoot(shadowRoot);
 
-        this.name = undefined;
-        this.role = undefined;
-        this.device_type = undefined;
-        this.host = undefined;
-        this.credentials = undefined;
-        this.features = undefined;
-        this.skip = undefined;
+        this.lscapeItem = undefined;
+    }
+
+    createPropertyPairElement(label, value) {
+        var propLabel = this.getPropertyLabel(label);
+
+        var labelEl = document.createElement('div');
+        labelEl.innerHTML = propLabel + ":";
+        labelEl.classList.add("ts-lscape-item-prop-lbl");
+
+        var valueEl = document.createElement('div');
+        valueEl.classList.add("ts-lscape-item-prop-val");
+        valueEl.innerHTML = this.formatProperty(value);
+
+        return [labelEl, valueEl];
+    }
+
+    formatProperty(propVal) {
+        var formattedHtml = "";
+        
+        if (typeof propVal === 'string') {
+            formattedHtml = propVal;
+        } else if (Array.isArray(propVal)) {
+            formattedHtml = "<div class='ts-lscape-item-value-list'>";
+            for (var val of propVal) {
+                formattedHtml += "<span>" + val + "</span>"
+            }
+            formattedHtml += "</div>"
+        } else if (Object.keys(propVal).length > 0) {
+            formattedHtml = "<div class='ts-lscape-item-value-list'>";
+            for (var key of Object.keys(propVal)) {
+                var val = propVal[key];
+                formattedHtml += "<div class='ts-lscape-item-value-row-pair'><div class='ts-lscape-item-value-row-lbl'>" + key +
+                                 ":</div><div class='ts-lscape-item-value-row-val'>" + val + "</div></div>";
+            }
+            formattedHtml += "</div>";
+        } else {
+            formattedHtml = propVal;
+        }
+
+        return formattedHtml;
+    }
+
+    getPropertyLabel(propKey) {
+        var label = "";
+
+        var propLabelLookup = this.getPropertyLabelLookup();
+
+        if (propLabelLookup.hasOwnProperty(propKey)) {
+            label = propLabelLookup[propKey];
+        } else {
+            label = propKey.substring(0, 1).toUpperCase(); + propKey.substring(1);
+        }
+
+        return label;
+    }
+
+    getPropertyLabelLookup() {
+        return this.property_label_lookup
+    }
+
+    getPropertyOrder() {
+        return this.property_order;
     }
 
     getTemplate() {
-        return TestSummaryDeviceItem.template;
+        return TestSummaryLandscapeObject.template;
     }
 
-    syncData (device_info) {
-        var containerEl = this.shadowRoot.querySelector("#id-device-item-container");
+    syncData(lscapeItem) {
 
-        var nameEl = containerEl.querySelector("#id-devitem-name-value");
-        var roleEl = containerEl.querySelector("#id-devitem-role-value");
-        var dtypeEl = containerEl.querySelector("#id-devitem-dtype-value");
-        var hostEl = containerEl.querySelector("#id-devitem-host-value");
-        var credsEl = containerEl.querySelector("#id-devitem-creds-value");
-        var featuresEl = containerEl.querySelector("#id-devitem-features-value");
-        var skipEl = containerEl.querySelector("#id-devitem-skip-value");
+        this.lscapeItem = lscapeItem;
 
-        if ("name" in device_info) {
-            this.name = device_info["name"];
-            nameEl.innerHTML = this.name;
-        } else {
-            nameEl.style.display = 'none';
+        var containerEl = this.shadowRoot.querySelector(this.sel_container);
+
+        var propKeys = Object.keys(lscapeItem);
+        var prefPropOrder = this.getPropertyOrder();
+
+        for (const prefProp of prefPropOrder) {
+            if (lscapeItem.hasOwnProperty(prefProp)) {
+                propKeys = propKeys.filter( function(item) {
+                    var matches = item == prefProp;
+                    return matches;
+                });
+
+                const propVal = lscapeItem[prefProp];
+
+                const [labelEl, valueEl] = this.createPropertyPairElement(prefProp, propVal);
+                containerEl.appendChild(labelEl);
+                containerEl.appendChild(valueEl);
+            }
         }
 
-        if ("role" in device_info) {
-            this.role = device_info["role"];
-            roleEl.innerHTML = this.role;
-        } else {
-            roleEl.style.display = 'none';
-        }
+        for (const propName of propKeys) {
+            if (lscapeItem.hasOwnProperty(propName)) {
+                const propVal = lscapeItem[propName];
 
-        if ("dataType" in device_info) {
-            this.dtype = device_info["dataType"];
-            dtypeEl.innerHTML = this.dtype;
-        } else {
-            dtypeEl.style.display = 'none';
-        }
-
-        if ("host" in device_info) {
-            this.host = device_info["host"];
-            hostEl.innerHTML = this.host;
-        } else {
-            hostEl.style.display = 'none';
-        }
-
-        if ("credentials" in device_info) {
-            this.credentials = device_info["credentials"];
-            credsEl.innerHTML = this.credentials;
-        } else {
-            credsEl.style.display = 'none';
-        }
-
-        if ("features" in device_info) {
-            this.features = device_info["features"];
-            featuresEl.innerHTML = this.features;
-        } else {
-            featuresEl.style.display = 'none';
-        }
-
-        if ("skip" in device_info) {
-            this.skip = device_info["skip"];
-            skipEl.innerHTML = this.skip;
-        } else {
-            skipEl.style.display = 'none';
+                const [labelEl, valueEl] = this.createPropertyPairElement(propName, propVal);
+                containerEl.appendChild(labelEl);
+                containerEl.appendChild(valueEl);
+            }
         }
 
     }
+
 }
 
+
+class TestSummaryDataProfileObject extends HTMLElement {
+
+    static tagname = 'testsummary-dataprofileobject'
+
+    property_order = ['name', 'profileType', 'host', 'credentials']
+    
+    property_label_lookup = {
+        'name': 'Name',
+        'profileType': 'ProfileType',
+        'host': 'Host',
+        'credentials': 'Credentials'
+    }
+
+    constructor() {
+        super();
+    }
+
+    getPropertyLabelLookup() {
+        return this.property_label_lookup
+    }
+
+    getPropertyOrder() {
+        return this.property_order;
+    }
+
+}
+
+
+class TestSummaryDeviceObject extends TestSummaryLandscapeObject {
+
+    static tagname = 'testsummary-deviceobject'
+
+    property_order = ['name', 'deviceType', 'host', 'role', 'credentials', 'features', 'skip']
+    
+    property_label_lookup = {
+        'name': 'Name',
+        'deviceType': 'DeviceType',
+        'host': 'Host',
+        'role': 'Role',
+        'credentials': 'Credentials',
+        'features': 'Features',
+        'skip': 'Skip'
+    }
+
+    constructor() {
+        super();
+    }
+
+    getPropertyLabelLookup() {
+        return this.property_label_lookup
+    }
+
+    getPropertyOrder() {
+        return this.property_order;
+    }
+}
 
 
 class TestSummaryDeviceGroup extends HTMLElement {
@@ -320,8 +385,16 @@ class TestSummaryDeviceGroup extends HTMLElement {
 
     static template = `
         <div id="id-device-group-container" class="ts-lscape-device-group">
+            <div id="id-device-group-name" class="ts-lscape-device-group-name">
+            </div>
+            <div id="id-device-group-items" class="ts-lscape-device-group-items">
+            </div>
         </div>
     `
+
+    sel_container = "#id-device-group-container"
+    sel_group_name = "#id-device-group-name"
+    sel_group_items = "#id-device-group-items"
 
     constructor() {
         super();
@@ -341,13 +414,49 @@ class TestSummaryDeviceGroup extends HTMLElement {
 
     syncData(group_name, group_devices) {
 
-        var containerEl = this.shadowRoot.querySelector("#id-device-item-container");
+        var groupNameEl = this.shadowRoot.querySelector(this.sel_group_name);
+        var groupItemsEl = this.shadowRoot.querySelector(this.sel_group_items);
 
-        this.name = name;
-        this.devices = group_devices;
+        this.group_name = name;
+        this.group_devices = group_devices;
 
+        groupNameEl.innerHTML = group_name;
+
+        for (var device of group_devices) {
+            var deviceEl = document.createElement(TestSummaryDeviceObject.tagname);
+            deviceEl.syncData(device);
+
+            groupItemsEl.appendChild(deviceEl);
+        }
 
     }
+}
+
+class TestSummaryServiceObject extends TestSummaryLandscapeObject {
+
+    static tagname = 'testsummary-serviceobject'
+
+    property_order = ['name', 'serviceType', 'host', 'credentials']
+    
+    property_label_lookup = {
+        'name': 'Name',
+        'serviceType': 'ServiceType',
+        'host': 'Host',
+        'credentials': 'Credentials'
+    }
+
+    constructor() {
+        super();
+    }
+
+    getPropertyLabelLookup() {
+        return this.property_label_lookup
+    }
+
+    getPropertyOrder() {
+        return this.property_order;
+    }
+
 }
 
 
@@ -368,8 +477,8 @@ class TestSummaryConfiguration extends HTMLElement {
                     </mojo-collapsible>
                     <mojo-collapsible id="id-ts-configuration-packages">
                     </mojo-collapsible>
-                    <mojo-collapsible id="id-ts-configuration-landscape">
-                    </mojo-collapsible>
+                    <testsummary-config-landscape id="id-ts-configuration-landscape">
+                    </testsummary-config-landscape>
                 </div>
             </div>  
         </div>
@@ -421,33 +530,33 @@ class TestSummaryConfiguration extends HTMLElement {
 
         var environmentEl = this.shadowRoot.querySelector("#id-ts-configuration-environment");
         if (this.environment != undefined) {
-            environmentEl.innerHTML = "";
 
             var tableEl = document.createElement(MojoPropertyTable.tagname);
             tableEl.syncData(this.environment);
 
             environmentEl.syncData("Environment", tableEl);
+
         } else {
             environmentEl.style.display = "None";
         }
 
         var packagesEl = this.shadowRoot.querySelector("#id-ts-configuration-packages");
         if (this.packages != undefined) {
-            packagesEl.innerHTML = "";
 
             var tableEl = document.createElement(MojoPropertyTable.tagname);
             tableEl.syncData(this.packages);
 
             packagesEl.syncData("Packages", tableEl);
+            
         } else {
             packagesEl.style.display = "None";
         }
 
         var landscapeEl = this.shadowRoot.querySelector("#id-ts-configuration-landscape");
         if (this.landscape != undefined) {
-            landscapeEl.innerHTML = "";
             
-            landscapeEl.syncData("Landscape", "");
+            landscapeEl.syncData("Landscape", this.landscape);
+
         } else {
             landscapeEl.style.display = "None";
         }
@@ -461,26 +570,19 @@ class TestSummaryConfigurationEnvironment extends HTMLElement {
     static tagname = 'testsummary-config-environment'
 
     static template = `
-        <button id="id-ts-config-environment-button" type="button" class="ts-collapsible">Environment</button>
-        <div id="id-ts-config-environment-content" class="ts-collapsible-content" style="display:none;">
-            <property-table id="id-ts-configuration-environment"></property-table>
+        <div id="id-collapsible-container" class="mojo-collapsible" >
+            <div id="id-collapsible-button" class="mojo-collapsible-button">
+                <div id="id-header-text" class="mojo-collapsible-header"></div>
+                <div id="id-header-icon" class="mojo-collapsible-icon">+</div>
+            </div>
+            <div id="id-collapsible-content" class="ts-collapsible-content">
+                <property-table id="id-ts-configuration-environment"></property-table>
+            </div>
         </div>
     `
 
     constructor() {
         super();
-
-        const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = this.getTemplate();
-
-        addGlobalStylesToShadowRoot(shadowRoot);
-
-        this.environment = undefined;
-
-        var buttonEl =  this.shadowRoot.querySelector("#id-ts-config-environment-button")
-        
-        var thisComp = this;
-        buttonEl.addEventListener("click", (event) => { thisComp.toggle(event) });
     }
 
     getTemplate() {
@@ -494,101 +596,90 @@ class TestSummaryConfigurationEnvironment extends HTMLElement {
         tableEl.syncData(environment);
     }
 
-    toggle (event) {
-        var contentEl =  this.shadowRoot.querySelector("#id-ts-config-environment-content");
-
-        if (contentEl.style.display == "none") {
-            contentEl.style.display = "block";
-        } else {
-            contentEl.style.display = "none";
-        }
-    }
-
 }
 
 
-class TestSummaryConfigurationLandscape extends HTMLElement {
+class TestSummaryConfigurationLandscape extends MojoCollapsible {
 
     static tagname = 'testsummary-config-landscape'
 
     static template = `
-        <button id="id-ts-config-landscape-button" type="button" class="ts-collapsible">Landscape</button>
-        <div id="id-ts-config-landscape-content" class="ts-collapsible-content" style="display:none;">
-            <div style="margin-left: 20px;">
-                <div id="id-ts-configuration-landscape-label"></div>
-                <details id="id-ts-configuration-landscape-devices">
-                    <summary>Devices</summary>
-                    <div id="id-ts-configuration-landscape-device-groups" class="ts-lscape-device-groups-list">
-                    </div>
-                </details>
-                <details id="id-ts-configuration-landscape-services">
-                    <summary>Services</summary>
-                    <div id="id-ts-configuration-landscape-services-list" class="ts-lscape-services-list">
-
-                    </div>
-                </details>
+        <div id="id-collapsible-container" class="mojo-collapsible" >
+            <div id="id-collapsible-button" class="mojo-collapsible-button">
+                <div id="id-header-text" class="mojo-collapsible-header"></div>
+                <div id="id-header-icon" class="mojo-collapsible-icon">+</div>
+            </div>
+            <div id="id-collapsible-content" class="ts-lscape-collapsable-content">
+                <mojo-collapsible-lvl2 id="id-ts-configuration-landscape-dataprofiles">
+                </mojo-collapsible-lvl2>
+                <div style="height: 8px;"></div>
+                <mojo-collapsible-lvl2 id="id-ts-configuration-landscape-device-groups">
+                </mojo-collapsible-lvl2>
+                <div style="height: 8px;"></div>
+                <mojo-collapsible-lvl2 id="id-ts-configuration-landscape-services">
+                </mojo-collapsible-lvl2>
+                <div style="height: 4px;"></div>
             </div>
         </div>
     `
 
     constructor() {
         super();
-
-        const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = this.getTemplate();
-
-        addGlobalStylesToShadowRoot(shadowRoot);
-
-        this.landscape = undefined;
-
-        var buttonEl =  this.shadowRoot.querySelector("#id-ts-config-landscape-button")
-        
-        var thisComp = this;
-        buttonEl.addEventListener("click", (event) => { thisComp.toggle(event) });
     }
 
     getTemplate() {
         return TestSummaryConfigurationLandscape.template;
     }
 
-    syncData (landscape) {
+    syncData (header, landscape) {
 
         this.landscape = landscape;
 
-        if (landscape.apod != undefined) {
+        var deviceGroupsEl = this.shadowRoot.querySelector("#id-ts-configuration-landscape-device-groups");
+
+        if ((landscape.apod != undefined) && (Object.keys(landscape.apod).length > 0)) {
+
+            deviceGroupsEl.style.display = "";
+
+            var deviceGroupListEl = document.createElement("div");
+            deviceGroupListEl.classList.add("ts-lscape-device-groups-list");
+
             var apod = landscape.apod
 
-            var deviceGroupsEl = this.shadowRoot.querySelector("#id-ts-configuration-landscape-device-groups");
+            // If we have device groups in the automation pod, then 
 
-            if (apod.length > 0) {
-                // If we have device groups in the automation pod, then 
+            for (var device_group of Object.keys(apod)) {
 
-                for (var device_group of Object.keys(apod)) {
+                console.debug("Processing device group (" + device_group + ")");
 
-                    console.debug("Processing device group (" + device_group + ")");
+                var group_devices = apod[device_group];
+                
+                var nextDeviceGroupEl = document.createElement(TestSummaryDeviceGroup.tagname);
+                nextDeviceGroupEl.syncData(device_group, group_devices);
 
-                    var group_devices = apod[device_group];
-                    
-                    var nextDeviceGroupEl = document.createElement("testsummary-devicegroup");
-                    nextDeviceGroupEl.syncData(device_group, group_devices);
-
-                    deviceGroupsEl.appendChild(nextDeviceGroupEl)
-                }
-
-            } else {
-                landscapeDevicesEl.style.display = "none";
+                deviceGroupListEl.appendChild(nextDeviceGroupEl)
             }
 
+            deviceGroupsEl.syncData("Device Groups", deviceGroupListEl, true);
+
         } else {
-            landscapeDevicesEl.style.display = "none";
+            deviceGroupsEl.style.display = "none";
         }
 
-        if (landscape.dataprofiles != undefined) {
+        var landscapeDataProfilesEl = this.shadowRoot.querySelector("#id-ts-configuration-landscape-dataprofiles");
+        if ((landscape.dataprofiles != undefined) && (landscape.dataprofiles.length > 0)) {
+            landscapeDataProfilesEl.style.display = "";
+
+            var landscapeDataProfilesListEl = document.createElement("div");
+            landscapeDataProfilesListEl.classList.add("ts-lscape-dataprofiles-list");
+            
             // TODO: Add support for displaying data profiles
+
+            landscapeDataProfilesEl.syncData("Data Profiles", landscapeDataProfilesListEl, true);
         
         } else {
-            var landscapeDevicesEl = this.shadowRoot.querySelector("#id-ts-configuration-landscape-dataprofiles");
-            landscapeDevicesEl.style.display = "none";
+            
+            landscapeDataProfilesEl.style.display = "none";
         }
 
         if (landscape.environment != undefined) {
@@ -602,45 +693,57 @@ class TestSummaryConfigurationLandscape extends HTMLElement {
 
         }
 
+        var landscapeServiceEl = this.shadowRoot.querySelector("#id-ts-configuration-landscape-services");
+
         if (landscape.infrastructure != undefined) {
 
             var infrastructure = landscape.infrastructure;
-            var landscapeServiceEl = this.shadowRoot.querySelector("#id-ts-configuration-landscape-services");
 
-            if (infrastructure.services != undefined) {
+            if ((infrastructure.services != undefined) && (infrastructure.services.length > 0)) {
                 // TODO: Add support for displaying infrastructure details
-                landscapeServiceEl.style.display = 'block';
+                landscapeServiceEl.style.display = '';
+
+                var landscapeServicesContentEl = this.shadowRoot.querySelector("#id-ts-configuration-landscape-services-content");
+
+                var landscapeServicesListEl = document.createElement("div");
+                landscapeServicesListEl.classList.add("ts-lscape-services-list");
+                
+                for (const serviceInfo of infrastructure.services) {
+                    var serviceEl = document.createElement(TestSummaryServiceObject.tagname);
+                    serviceEl.syncData(serviceInfo)
+
+                    landscapeServicesListEl.appendChild(serviceEl);
+                }
+                
+                landscapeServiceEl.syncData("Services", landscapeServicesListEl, true);
+
             
             } else {
                 landscapeServiceEl.style.display = 'none';
             }
-        } 
-    }
-    
-    toggle (event) {
-        var contentEl =  this.shadowRoot.querySelector("#id-ts-config-landscape-content");
 
-        if (contentEl.style.display == "none") {
-            contentEl.style.display = "block";
         } else {
-            contentEl.style.display = "none";
+            landscapeServiceEl.style.display = 'none';
         }
+
+        super.syncData(header, undefined, false);
+
     }
 
 }
 
 
-class TestSummaryConfigurationPackages extends HTMLElement {
+class TestSummaryConfigurationPackages extends MojoCollapsible {
 
     static tagname = 'testsummary-config-packages'
 
     static template = `
-        <div id="id-container" class="mojo-collapsible" >
-            <div class="mojo-collapsible-button">
+        <div id="id-collapsible-container" class="mojo-collapsible" >
+            <div id="id-collapsible-button" class="mojo-collapsible-button">
                 <div id="id-header-text" class="mojo-collapsible-header"></div>
-                <div id="id-header-icon" class="mojo-collapsible-icon"></div>
+                <div id="id-header-icon" class="mojo-collapsible-icon">+</div>
             </div>
-            <div id="id-collapsible-content" class="mojo-collapsible-content">
+            <div id="id-collapsible-content" class="ts-collapsible-content">
                 <property-table id="id-ts-configuration-packages"></property-table>
             </div>
         </div>
@@ -648,19 +751,6 @@ class TestSummaryConfigurationPackages extends HTMLElement {
 
     constructor() {
         super();
-
-        const shadowRoot = this.attachShadow({mode: 'open'})
-        shadowRoot.innerHTML = this.getTemplate();
-
-        addGlobalStylesToShadowRoot(shadowRoot);
-
-        var buttonEl =  this.shadowRoot.querySelector("#id-ts-config-packages-button")
-        
-
-        var thisComp = this;
-        buttonEl.addEventListener("click", (event) => { thisComp.toggle(event) });
-
-
     }
 
     getTemplate() {
@@ -672,16 +762,8 @@ class TestSummaryConfigurationPackages extends HTMLElement {
     
         var tableEl = this.shadowRoot.querySelector("#id-ts-configuration-packages")
         tableEl.syncData(packages);
-    }
 
-    toggle (event) {
-        var contentEl =  this.shadowRoot.querySelector("#id-ts-config-packages-content");
-
-        if (contentEl.style.display == "none") {
-            contentEl.style.display = "block";
-        } else {
-            contentEl.style.display = "none";
-        }
+        super.syncData("Packages", undefined, false);
     }
 
 }
@@ -1498,22 +1580,24 @@ function register_testsummary_components() {
 
     register_mojo_components()
 
+    customElements.define(TestSummaryArtifacts.tagname, TestSummaryArtifacts);
     customElements.define(TestSummaryBanner.tagname, TestSummaryBanner);
     customElements.define(TestSummaryConfiguration.tagname, TestSummaryConfiguration);
     customElements.define(TestSummaryConfigurationEnvironment.tagname, TestSummaryConfigurationEnvironment);
     customElements.define(TestSummaryConfigurationLandscape.tagname, TestSummaryConfigurationLandscape);
     customElements.define(TestSummaryConfigurationPackages.tagname, TestSummaryConfigurationPackages);
+    customElements.define(TestSummaryDataProfileObject.tagname, TestSummaryDataProfileObject);
     customElements.define(TestSummaryDeviceGroup.tagname, TestSummaryDeviceGroup);
-    customElements.define(TestSummaryDeviceItem.tagname, TestSummaryDeviceItem);
-    customElements.define(TestSummaryResultGroup.tagname, TestSummaryResultGroup);
-    customElements.define(TestSummaryResultItem.tagname, TestSummaryResultItem);
-    customElements.define(TestSummaryResultDetail.tagname, TestSummaryResultDetail);
+    customElements.define(TestSummaryDeviceObject.tagname, TestSummaryDeviceObject);
     customElements.define(TestSummaryErrorsCollapsible.tagname, TestSummaryErrorsCollapsible);
-    customElements.define(TestSummaryFailuresCollapsible.tagname, TestSummaryFailuresCollapsible);
     customElements.define(TestSummaryExceptionTrace.tagname, TestSummaryExceptionTrace);
-    customElements.define(TestSummaryArtifacts.tagname, TestSummaryArtifacts);
+    customElements.define(TestSummaryFailuresCollapsible.tagname, TestSummaryFailuresCollapsible);
+    customElements.define(TestSummaryFilesAndFolders.tagname, TestSummaryFilesAndFolders);
     customElements.define(TestSummaryImportFailures.tagname, TestSummaryImportFailures);
     customElements.define(TestSummaryImportFailureItem.tagname, TestSummaryImportFailureItem);
     customElements.define(TestSummaryImportFailureTrace.tagname, TestSummaryImportFailureTrace);
-    customElements.define(TestSummaryFilesAndFolders.tagname, TestSummaryFilesAndFolders);
+    customElements.define(TestSummaryResultGroup.tagname, TestSummaryResultGroup);
+    customElements.define(TestSummaryResultItem.tagname, TestSummaryResultItem);
+    customElements.define(TestSummaryResultDetail.tagname, TestSummaryResultDetail);
+    customElements.define(TestSummaryServiceObject.tagname, TestSummaryServiceObject);
 }
